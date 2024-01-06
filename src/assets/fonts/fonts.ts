@@ -1,8 +1,8 @@
-// import { Montserrat } from "next/font/google";
+import { Manrope } from "next/font/google";
 
-// export const montserrat = Montserrat({
-//   variable: "--font-montserrat",
-//   subsets: ["latin"],
-//   display: "swap",
-//   preload: true,
-// });
+export const manrope = Manrope({
+  variable: "--font-manrope",
+  subsets: ["latin", "cyrillic"],
+  display: "swap",
+  preload: true,
+});

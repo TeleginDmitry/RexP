@@ -4,7 +4,7 @@ import type { AppContext, AppInitialProps, AppProps } from "next/app";
 import App from "next/app";
 import { useRouter } from "next/router";
 
-import PageLayout from "@/src/components/layouts/PageLayout";
+import PageLayout from "@/src/components/layout/PageLayout";
 import AppContextProvider from "@/src/context/AppContextProvider";
 import { wrapper } from "@/src/store/store";
 
