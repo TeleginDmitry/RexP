@@ -1,0 +1,9 @@
+@import "@/styles/_mixins/_adaptiv/_adaptiv.scss";
+
+.container {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  @include adaptiv-value("padding-left", 52, 20);
+  @include adaptiv-value("padding-right", 52, 20);
+}

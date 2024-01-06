@@ -1,0 +1,14 @@
+@import "@/styles/_mixins/_adaptiv/_adaptiv.scss";
+
+.button {
+  background: unset;
+  border: unset;
+  outline: unset;
+  padding: unset;
+  margin: unset;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}

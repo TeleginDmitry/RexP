@@ -1,0 +1,3 @@
+@function relative-size($size) {
+  @return calc($size * var(--index-relative-size));
+}

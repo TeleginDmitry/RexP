@@ -1,0 +1,9 @@
+.icon {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  &.rounded {
+    border-radius: 100%;
+  }
+}
