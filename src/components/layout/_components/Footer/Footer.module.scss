@@ -28,6 +28,12 @@
   }
 
   .item {
+    flex: 0 0 65px;
+
+    .text {
+      text-align: center;
+    }
+
     .text,
     svg path {
       transition: all 0.3s ease 0s;
