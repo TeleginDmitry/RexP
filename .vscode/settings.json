@@ -51,5 +51,7 @@
     "mantine",
     "svgr",
     "sonner",
+    "nextui",
+    "tailwindcss"
   ]
 }

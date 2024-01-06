@@ -1,5 +1,6 @@
 import type { PropsWithChildren } from "react";
 
+import { NextUIProvider } from "@nextui-org/react";
 import type { ToolkitStore } from "@reduxjs/toolkit/dist/configureStore";
 import { Provider } from "react-redux";
 
@@ -10,7 +11,9 @@ interface AppContextProviderProps extends PropsWithChildren {
 }
 
 const AppContextProvider: React.FC<AppContextProviderProps> = ({ children, store }) => (
-  <Provider store={store}>{children}</Provider>
+  <NextUIProvider>
+    <Provider store={store}>{children}</Provider>
+  </NextUIProvider>
 );
 
 export default AppContextProvider;
