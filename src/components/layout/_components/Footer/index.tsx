@@ -1,4 +1,4 @@
-import MainContainer from "../../ui/MainContainer";
+import MainContainer from "@/src/components/ui/MainContainer";
 
 import s from "./Footer.module.scss";
 

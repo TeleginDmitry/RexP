@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from "react";
 
-import Footer from "../Footer";
-import Header from "../Header";
+import Footer from "../_components/Footer";
+import Header from "../_components/Header";
 
 import s from "./PageLayout.module.scss";
 
