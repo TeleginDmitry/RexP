@@ -26,8 +26,7 @@
     "remark-html": "^15.0.1",
     "sass": "^1.59.3",
     "sharp": "^0.32.6",
-    "sonner": "^1.0.3",
-    "ua-parser-js": "^1.0.36"
+    "sonner": "^1.0.3"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.0.1",
