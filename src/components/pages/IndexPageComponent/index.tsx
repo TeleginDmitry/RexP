@@ -1,11 +1,12 @@
-import { Button } from "@nextui-org/react";
+import RexBlock from "./_components/RexBlock";
+
 import MainContainer from "../../ui/MainContainer";
 
 import s from "./IndexPageComponent.module.scss";
 
 const IndexPageComponent = () => (
   <MainContainer className={s.page}>
-    <Button>Press me</Button>
+    <RexBlock />
   </MainContainer>
 );
 
