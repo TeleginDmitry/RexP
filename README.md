@@ -6,6 +6,8 @@ First, install dependencies:
 yarn install
 ```
 
+Create file .env based on the example file .env.example
+
 Then run the development server:
 
 ```bash
