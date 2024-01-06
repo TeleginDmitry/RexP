@@ -1,12 +1,48 @@
 .footer {
+  height: 71px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  padding: 0px 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  width: 100%;
+  background: var(--main-color-white);
+
+  .menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 400px;
+    flex: 0 1 100%;
+    gap: 10px;
+  }
+
+  .link {
+    svg {
+      margin: 0 auto;
+    }
+  }
+
   .item {
-    transition: all 0.3s ease 0s;
+    .text,
+    svg path {
+      transition: all 0.3s ease 0s;
+    }
 
     &.active {
-      color: red;
-
       .text {
         color: var(--main-color-black);
+        font-weight: 600;
+      }
+
+      svg {
+        path {
+          stroke: var(--main-color-black);
+        }
       }
     }
   }

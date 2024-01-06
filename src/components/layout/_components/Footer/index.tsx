@@ -27,7 +27,6 @@ const Footer = () => {
 
   useEffect(() => {
     setPathname(router.asPath);
-    console.log(router.asPath);
   }, [router]);
 
   return (
