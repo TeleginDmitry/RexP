@@ -1,7 +1,23 @@
+.text-variant-1 {
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
 .text {
-  &.h1 {
+  &.white {
+    color: var(--main-color-white);
   }
 
-  &.h2 {
+  &.black {
+    color: var(--main-color-black);
+  }
+
+  &.grey {
+    color: var(--main-color-grey);
+  }
+
+  &.fs-11px {
+    @extend .text-variant-1;
   }
 }

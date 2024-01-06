@@ -9,8 +9,8 @@ const RootText: React.FC<RootTextProps> = ({
   as = "div",
   children,
   className,
-  variant = "14px",
-  color = "default",
+  variant = "11px",
+  color = "black",
   style,
   ...props
 }) => {

@@ -1,2 +1,13 @@
 .footer {
+  .item {
+    transition: all 0.3s ease 0s;
+
+    &.active {
+      color: red;
+
+      .text {
+        color: var(--main-color-black);
+      }
+    }
+  }
 }
