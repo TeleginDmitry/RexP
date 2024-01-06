@@ -1,0 +1,56 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+	margin-bottom: 12px;
+
+  .helper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .avatar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
+      height: 40px;
+      flex: 0 0 40px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      letter-spacing: -1px;
+      text-transform: uppercase;
+      border-radius: 100%;
+      font-family: var(--font-inter);
+      color: var(--main-color-white);
+      background: var(--main-color-black);
+    }
+
+    .text {
+      .text-top {
+        text-wrap: nowrap;
+      }
+    }
+  }
+
+  .telegram {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px 6px 8px;
+    border-radius: 20px;
+    background: var(--second-color-white);
+
+    .telegram-text {
+      .telegram-text-top {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        font-size: 14px;
+      }
+    }
+  }
+}

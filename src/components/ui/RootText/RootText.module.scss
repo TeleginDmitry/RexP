@@ -1,7 +1,20 @@
 .text-variant-1 {
-  font-style: normal;
   font-weight: 600;
+}
+
+.text-variant-2 {
+  font-weight: 400;
+}
+
+.text-variant-3 {
+  font-weight: 500;
+}
+
+.text-variant-1,
+.text-variant-2,
+.text-variant-3 {
   line-height: normal;
+  font-style: normal;
 }
 
 .text {
@@ -17,8 +30,22 @@
     color: var(--main-color-grey);
   }
 
+  &.secondGrey {
+    color: var(--second-color-grey);
+  }
+
   &.fs-11px {
     @extend .text-variant-1;
     font-size: 11px;
+  }
+
+  &.fs-10px {
+    @extend .text-variant-2;
+    font-size: 10px;
+  }
+
+  &.fs-16px {
+    @extend .text-variant-3;
+    font-size: 16px;
   }
 }
