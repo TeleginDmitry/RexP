@@ -1,4 +1,4 @@
-export type IconsVariants = "close";
+export type IconsVariants = "arrow";
 
 export interface RootIconProps {
   name: IconsVariants;

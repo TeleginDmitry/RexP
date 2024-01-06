@@ -1,0 +1,13 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+
+  .button {
+    display: flex;
+    flex: 0 0 63.67px;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 3px;
+    background: var(--main-color-white);
+  }
+}

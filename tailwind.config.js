@@ -1,4 +1,4 @@
-const {nextui} = require("@nextui-org/theme");
+const { nextui } = require("@nextui-org/theme");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -6,5 +6,21 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [nextui()],
+  plugins: [
+    nextui({
+      themes: {
+        light: {
+          colors: {
+            focus: "rgba(0, 0, 0, 0)",
+            default: "#292929",
+            content1: "#0a0a0a",
+            primary: {
+              DEFAULT: "#000",
+              foreground: "#ffffff",
+            },
+          },
+        },
+      },
+    }),
+  ],
 };

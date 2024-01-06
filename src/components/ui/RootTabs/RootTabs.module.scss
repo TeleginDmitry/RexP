@@ -1,0 +1,31 @@
+.base {
+  max-width: 393px;
+  flex: 0 1 393px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.tabList {
+  padding: 0px;
+  border-radius: 0px;
+}
+
+.cursor {
+  border-radius: 20px;
+}
+
+.tab {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: -0.4px;
+  position: relative;
+  font-family: var(--font-manrope);
+  background: #eee;
+  border-radius: 20px;
+
+  &[data-selected="true"] {
+    z-index: 999;
+  }
+}

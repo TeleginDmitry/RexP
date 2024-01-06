@@ -6,4 +6,11 @@
   &.rounded {
     border-radius: 100%;
   }
+
+  &.arrow {
+    width: 17px;
+    height: 12px;
+    flex: 0 0 17px;
+    background-image: url("~public/images/icons/arrow.svg");
+  }
 }
