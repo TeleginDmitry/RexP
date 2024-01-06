@@ -1,10 +1,10 @@
 import { HYDRATE } from "next-redux-wrapper";
 import { combineReducers } from "redux";
 
-import menu from "./slices/menu";
+import filters from "./slices/filters";
 
 const reducers = {
-  menu,
+  filters,
 };
 
 const combinedReducer = combineReducers({
