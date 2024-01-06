@@ -3122,6 +3122,11 @@
   resolved "https://registry.yarnpkg.com/@types/semver/-/semver-7.5.2.tgz#31f6eec1ed7ec23f4f05608d3a2d381df041f564"
   integrity sha512-7aqorHYgdNO4DM36stTiGO3DvKoex9TQRwsJU6vMaFGyqpBA1MNZkz+PG3gaNUPpTAOYhT1WR7M1JyA3fbS9Cw==
 
+"@types/telegram-web-app@^6.9.3":
+  version "6.9.3"
+  resolved "https://registry.yarnpkg.com/@types/telegram-web-app/-/telegram-web-app-6.9.3.tgz#33c577567fbd19d8ea828fb84a8b34446478f097"
+  integrity sha512-2ud9mtXCwqRIY/CHXCTv4wJ9+Uo7RwqrYVVKAPedMwuabWoINoGkH7i2cJQ6IECiod+EMpGtFkaJkpxaPMUSGw==
+
 "@types/unist@^2", "@types/unist@^2.0.0":
   version "2.0.8"
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.8.tgz#bb197b9639aa1a04cf464a617fe800cccd92ad5c"

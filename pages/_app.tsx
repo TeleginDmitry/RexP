@@ -1,5 +1,8 @@
+import { useEffect } from "react";
+
 import type { AppContext, AppInitialProps, AppProps } from "next/app";
 import App from "next/app";
+import { useRouter } from "next/router";
 
 import PageLayout from "@/src/components/layouts/PageLayout";
 import AppContextProvider from "@/src/context/AppContextProvider";
@@ -13,6 +16,22 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
   const { store, props } = wrapper.useWrappedStore(rest);
 
   const { pageProps } = props;
+
+  const router = useRouter();
+
+  useEffect(() => {
+    window.Telegram.WebApp.expand();
+    window.Telegram.WebApp.BackButton.isVisible = true;
+    window.Telegram.WebApp.BackButton.onClick(() => router.back());
+  }, [router]);
+
+  useEffect(() => {
+    if (router.route === "/") {
+      window.Telegram.WebApp.BackButton.hide();
+    } else {
+      window.Telegram.WebApp.BackButton.isVisible = true;
+    }
+  }, [router.route]);
 
   return (
     <AppContextProvider store={store}>
