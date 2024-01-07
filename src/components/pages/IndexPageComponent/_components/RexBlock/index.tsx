@@ -15,7 +15,7 @@ const RexBlock = () => (
         любой товар <br /> по ссылке из Poizon
       </div>
     </div>
-    <Image src={rex} alt="Rex найдёт" width={134} height={134} quality={100} className={s.image} />
+    <Image src={rex} alt="Rex найдёт" width={134} height={134} quality={100} className={s.image} priority />
   </div>
 );
 
