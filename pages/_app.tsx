@@ -62,7 +62,8 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
   return (
     <AppContextProvider store={store}>
       <PageLayout>
-        <div style={{ fontSize: "50px" }}>{typeof value.user?.username}</div>
+        <div style={{ fontSize: "50px" }}>{value.user?.username}</div>
+        <img loading="lazy" src={value.user?.photo_url} alt="" width={100} height={100} />
         <Component {...pageProps} />
       </PageLayout>
     </AppContextProvider>
