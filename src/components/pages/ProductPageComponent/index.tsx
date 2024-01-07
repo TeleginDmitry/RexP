@@ -32,7 +32,7 @@ const ProductPageComponent = () => {
         if (JSON.stringify(newProductsId) !== historyValue) {
           setHistoryValue(JSON.stringify(newProductsId));
         }
-      }, 1000);
+      }, 200);
     }
   }, [historyValue, isClient, router.query.id]);
 
