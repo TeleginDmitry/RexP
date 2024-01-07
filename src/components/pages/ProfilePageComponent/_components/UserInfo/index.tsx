@@ -47,7 +47,7 @@ const UserInfo = () => {
       {photo && (
         <Image loading="lazy" src={photo} alt="Фото пользователя" width={120} height={120} className={s.image} />
       )}
-      <div className={s.name}>{value.user?.username}Иван</div>
+      <div className={s.name}>{value.user?.first_name}</div>
     </>
   );
 };
