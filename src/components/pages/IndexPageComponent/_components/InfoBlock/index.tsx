@@ -11,10 +11,10 @@ const InfoBlock = () => (
       <div className={s.avatar}>Rex</div>
       <div className={s.text}>
         <RootText variant="16px" color="black" className={s["text-top"]}>
-          Мой помощник
+          Мой&nbsp;помощник
         </RootText>
         <RootText variant="10px" color="secondGrey">
-          всегда на связи
+          всегда&nbsp;на&nbsp;связи
         </RootText>
       </div>
     </DefaultLink>
@@ -23,7 +23,7 @@ const InfoBlock = () => (
       <div className={s["telegram-text"]}>
         <div className={s["telegram-text-top"]}>@poizonrex</div>
         <RootText variant="10px" color="secondGrey">
-          с тебя подписка
+          с&nbsp;тебя&nbsp;подписка
         </RootText>
       </div>
     </DefaultLink>
