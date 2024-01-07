@@ -1,0 +1,26 @@
+.wrapper {
+  width: 24px;
+  height: 23px;
+  position: relative;
+
+  svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  svg {
+    &:first-child {
+      opacity: 0;
+      transition: all 0.3s ease 0s;
+    }
+  }
+
+  &.liked {
+    svg {
+      &:first-child {
+        opacity: 1;
+      }
+    }
+  }
+}
