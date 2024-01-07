@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect } from "react";
 
 import type { AppContext, AppInitialProps, AppProps } from "next/app";
 import App from "next/app";
@@ -15,10 +15,6 @@ import "@/styles/nullable.css";
 
 const RexPApp = ({ Component, ...rest }: AppProps) => {
   const { store, props } = wrapper.useWrappedStore(rest);
-  const initData = useTelegramInitData();
-
-  const [asd, setAsd] = useState("");
-
   const { pageProps } = props;
 
   const router = useRouter();
@@ -29,8 +25,6 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
     window.Telegram.WebApp.BackButton.onClick(() => router.back());
   }, [router]);
 
-  useEffect(() => {}, [initData]);
-
   useEffect(() => {
     if (router.route === "/") {
       window.Telegram.WebApp.BackButton.hide();
@@ -38,34 +32,10 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
       window.Telegram.WebApp.BackButton.isVisible = true;
     }
   }, [router.route]);
-  const [webApp, setWebApp] = useState<any | null>(null);
 
-  useEffect(() => {
-    const app = (window as any).Telegram?.WebApp;
-    if (app) {
-      app.ready();
-      setWebApp(app);
-    }
-  }, []);
-
-  const value = useMemo(
-    () =>
-      webApp
-        ? {
-            webApp,
-            unsafeData: webApp.initDataUnsafe,
-            user: webApp.initDataUnsafe.user,
-          }
-        : {},
-    [webApp]
-  );
   return (
     <AppContextProvider store={store}>
       <PageLayout>
-        <div style={{ fontSize: "50px" }}>{value.user?.username}</div>
-        <div style={{ fontSize: "50px" }}>{typeof value.user?.photo_url}</div>
-        <div style={{ fontSize: "50px" }}>{value.user?.id}</div>
-        <img loading="lazy" src="photos/file_0.jpg" alt="" width={100} height={100} />
         <Component {...pageProps} />
       </PageLayout>
     </AppContextProvider>
