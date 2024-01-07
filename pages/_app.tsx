@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 
 import PageLayout from "@/src/components/layout/PageLayout";
 import AppContextProvider from "@/src/context/AppContextProvider";
-import useTelegramInitData from "@/src/hooks/telegram/useTelegramInitData";
 import { wrapper } from "@/src/store/store";
 
 import "@/styles/color/_color.scss";
