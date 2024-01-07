@@ -22,17 +22,19 @@ const ProfilePageComponent = () => {
     app.ready();
     setWebApp(app);
 
-    axios(getUserPhotos(value.user?.id))
-      .then(async (response) =>
-        axios(getUserPhotoPath(response.data?.result?.photos[0][0]?.file_id))
-          .then(async (res) => {
-            setPhoto(
-              `https://api.telegram.org/file/bot6563010085:AAGyH_HZD-zLcNugzfucST9AC63yFtPt6gA/${res.data?.result?.file_path}`
-            );
-          })
-          .catch(() => toast.error("Не удалось загрузить фото"))
-      )
-      .catch(() => toast.error("Не удалось загрузить фото"));
+    if (value.user?.id) {
+      axios(getUserPhotos(value.user?.id))
+        .then(async (response) =>
+          axios(getUserPhotoPath(response.data?.result?.photos[0][0]?.file_id))
+            .then(async (res) => {
+              setPhoto(
+                `https://api.telegram.org/file/bot6563010085:AAGyH_HZD-zLcNugzfucST9AC63yFtPt6gA/${res.data?.result?.file_path}`
+              );
+            })
+            .catch(() => toast.error("Не удалось загрузить фото"))
+        )
+        .catch(() => toast.error("Не удалось загрузить фото"));
+    }
   }, [value.user?.id]);
 
   return (
