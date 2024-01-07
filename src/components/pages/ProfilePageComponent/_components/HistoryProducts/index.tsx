@@ -17,18 +17,19 @@ const HistoryProducts = () => {
     <>
       <div className={s["history-text"]}>Вы смотрели</div>
       <ScrollContainer className={s.wrapper}>
-        {JSON.parse(historyValue!).map((id: string) => {
+        {JSON.parse(historyValue!).map((id: string, index) => {
           const product = PRODUCTS.find((productValue) => productValue.id === +id);
 
           return (
             product && (
               <ProductCard
-                key={product.id}
-                price={product.price}
-                name={product.name}
-                imgUrl={product.imgUrl}
-                imagePriority
                 id={product.id}
+                variant="small"
+                key={product.id}
+                name={product.name}
+                price={product.price}
+                imgUrl={product.imgUrl}
+                imagePriority={index < 3}
               />
             )
           );

@@ -9,8 +9,8 @@ import s from "./FavouritesPageComponent.module.scss";
 const FavouritesPageComponent = () => (
   <MainContainer className={s.page}>
     <CatalogSpacer>
-      {PRODUCTS.map(({ id, name, price, imgUrl }) => (
-        <ProductCard key={id} price={price} name={name} imgUrl={imgUrl} imagePriority id={id} />
+      {PRODUCTS.map(({ id, name, price, imgUrl }, index) => (
+        <ProductCard key={id} price={price} name={name} imgUrl={imgUrl} imagePriority={index < 6} id={id} />
       ))}
     </CatalogSpacer>
   </MainContainer>

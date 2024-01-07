@@ -5,5 +5,6 @@ export interface ProductCardProps {
   name: string;
   imgUrl: string;
   id: number | string;
-	imagePriority?: boolean;
+  imagePriority?: boolean;
+  variant?: "default" | "small";
 }

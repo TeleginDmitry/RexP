@@ -8,7 +8,15 @@ import DefaultLink from "../links/DefaultLink";
 
 import s from "./ProductCard.module.scss";
 
-const ProductCard: React.FC<ProductCardProps> = ({ className, name, id, imgUrl, imagePriority, price }) => (
+const ProductCard: React.FC<ProductCardProps> = ({
+  className,
+  name,
+  id,
+  imgUrl,
+  imagePriority,
+  price,
+  variant = "default",
+}) => (
   <div className={clsx(s.wrapper, className)}>
     <Image
       src={imgUrl}
