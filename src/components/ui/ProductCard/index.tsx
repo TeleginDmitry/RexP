@@ -4,7 +4,7 @@ import { Button } from "@nextui-org/react";
 import clsx from "clsx";
 import Image from "next/image";
 
-import HeartIcon from "./_components/HeartIcon";
+import HeartIcon from "../icons/HeartIcon";
 import type { ProductCardProps } from "./types";
 
 import DefaultLink from "../links/DefaultLink";

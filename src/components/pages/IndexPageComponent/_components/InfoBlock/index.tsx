@@ -1,9 +1,8 @@
+import RootIcon from "@/src/components/ui/icons/RootIcon";
 import DefaultLink from "@/src/components/ui/links/DefaultLink";
-import RootIcon from "@/src/components/ui/RootIcon";
 import RootText from "@/src/components/ui/RootText";
 
 import s from "./InfoBlock.module.scss";
-
 
 // TODO: add href to links
 const InfoBlock = () => (

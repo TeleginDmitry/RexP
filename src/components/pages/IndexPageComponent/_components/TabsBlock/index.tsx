@@ -1,5 +1,5 @@
+import RootIcon from "@/src/components/ui/icons/RootIcon";
 import RootButton from "@/src/components/ui/RootButton";
-import RootIcon from "@/src/components/ui/RootIcon";
 import RootTabs from "@/src/components/ui/RootTabs";
 import { useAppDispatch } from "@/src/hooks/redux-hooks/redux-hooks";
 import { setActiveFilter } from "@/src/store/slices/filters";
