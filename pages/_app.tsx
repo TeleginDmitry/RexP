@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 
 import PageLayout from "@/src/components/layout/PageLayout";
 import AppContextProvider from "@/src/context/AppContextProvider";
+import useTelegramInitData from "@/src/hooks/telegram/useTelegramInitData";
 import { wrapper } from "@/src/store/store";
 
 import "@/styles/color/_color.scss";
@@ -14,6 +15,7 @@ import "@/styles/nullable.css";
 
 const RexPApp = ({ Component, ...rest }: AppProps) => {
   const { store, props } = wrapper.useWrappedStore(rest);
+  const initData = useTelegramInitData();
 
   const [asd, setAsd] = useState("");
 
@@ -25,14 +27,11 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
     window.Telegram.WebApp.expand();
     window.Telegram.WebApp.BackButton.isVisible = true;
     window.Telegram.WebApp.BackButton.onClick(() => router.back());
-    const params = new URLSearchParams(window.Telegram.WebApp.initData);
-
-    const userData = Object.fromEntries(params);
-    if (userData.user) {
-      userData.user = JSON.parse(userData.user);
-      setAsd((userData.user as any).photo_url);
-    }
   }, [router]);
+
+  useEffect(() => {
+    
+  },[initData])
 
   useEffect(() => {
     if (router.route === "/") {
@@ -45,7 +44,7 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
   return (
     <AppContextProvider store={store}>
       <PageLayout>
-        <div style={{ fontSize: "50px" }}>{asd}123</div>
+        <div style={{ fontSize: "50px" }}>{typeof initData.photo_url}</div>
         <Component {...pageProps} />
       </PageLayout>
     </AppContextProvider>
