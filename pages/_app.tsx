@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import type { AppContext, AppInitialProps, AppProps } from "next/app";
 import App from "next/app";
@@ -29,9 +29,7 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
     window.Telegram.WebApp.BackButton.onClick(() => router.back());
   }, [router]);
 
-  useEffect(() => {
-    
-  },[initData])
+  useEffect(() => {}, [initData]);
 
   useEffect(() => {
     if (router.route === "/") {
@@ -40,11 +38,31 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
       window.Telegram.WebApp.BackButton.isVisible = true;
     }
   }, [router.route]);
+  const [webApp, setWebApp] = useState<any | null>(null);
 
+  useEffect(() => {
+    const app = (window as any).Telegram?.WebApp;
+    if (app) {
+      app.ready();
+      setWebApp(app);
+    }
+  }, []);
+
+  const value = useMemo(
+    () =>
+      webApp
+        ? {
+            webApp,
+            unsafeData: webApp.initDataUnsafe,
+            user: webApp.initDataUnsafe.user,
+          }
+        : {},
+    [webApp]
+  );
   return (
     <AppContextProvider store={store}>
       <PageLayout>
-        <div style={{ fontSize: "50px" }}>{typeof initData.photo_url}</div>
+        <div style={{ fontSize: "50px" }}>{typeof value.user?.username}</div>
         <Component {...pageProps} />
       </PageLayout>
     </AppContextProvider>
