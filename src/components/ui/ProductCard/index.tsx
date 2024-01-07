@@ -19,16 +19,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ className, name, id, imgUrl, 
         <div className={s.price}>{price} ₽</div>
         <div className={s.name}>{name} </div>
       </div>
-      <div className={s.like}>
-        <Button
-          isIconOnly
-          className="text-default-900/60 data-[hover]:bg-foreground/10 -translate-y-2 translate-x-2"
-          radius="full"
-          variant="light"
-        >
-          <HeartIcon liked={liked} />
-        </Button>
-      </div>
+      <Button
+        isIconOnly
+        className="text-default-900/60 data-[hover]:bg-foreground/10"
+        radius="full"
+        variant="light"
+        aria-label="Добавить в избранное"
+      >
+        <HeartIcon liked={liked} />
+      </Button>
     </div>
   </div>
 );
