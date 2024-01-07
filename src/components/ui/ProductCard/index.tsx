@@ -15,9 +15,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   imgUrl,
   imagePriority,
   price,
+  outOfStock,
   variant = "default",
 }) => (
-  <div className={clsx(s.wrapper, className, s[variant])}>
+  <div className={clsx(s.wrapper, className, s[variant], outOfStock && s.outOfStock)}>
     <Image
       src={imgUrl}
       alt={name}

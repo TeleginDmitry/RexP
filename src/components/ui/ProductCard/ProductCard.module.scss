@@ -8,6 +8,16 @@
   flex-direction: column;
   position: relative;
 
+  &.outOfStock {
+    .image {
+      opacity: 0.5;
+    }
+
+    .content {
+      opacity: 0.5;
+    }
+  }
+
   &.small {
     padding: 0px 7.1px 7.1px 7.1px;
 
