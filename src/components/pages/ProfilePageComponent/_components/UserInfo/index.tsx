@@ -23,8 +23,8 @@ const UserInfo = () => {
     app.ready();
     setWebApp(app);
 
-    if (!value.user?.id) {
-      axios(getUserPhotos("956860475"))
+    if (value.user?.id) {
+      axios(getUserPhotos(value.user?.id))
         .then(async (response) =>
           axios(getUserPhotoPath(response.data?.result?.photos[0][0]?.file_id))
             .then(async (res) => {
