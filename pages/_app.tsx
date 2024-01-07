@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import type { AppContext, AppInitialProps, AppProps } from "next/app";
 import App from "next/app";
@@ -15,6 +15,8 @@ import "@/styles/nullable.css";
 const RexPApp = ({ Component, ...rest }: AppProps) => {
   const { store, props } = wrapper.useWrappedStore(rest);
 
+  const [asd, setAsd] = useState("");
+
   const { pageProps } = props;
 
   const router = useRouter();
@@ -23,6 +25,13 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
     window.Telegram.WebApp.expand();
     window.Telegram.WebApp.BackButton.isVisible = true;
     window.Telegram.WebApp.BackButton.onClick(() => router.back());
+    const params = new URLSearchParams(window.Telegram.WebApp.initData);
+
+    const userData = Object.fromEntries(params);
+    if (userData.user) {
+      userData.user = JSON.parse(userData.user);
+      setAsd((userData.user as any).photo_url);
+    }
   }, [router]);
 
   useEffect(() => {
@@ -36,6 +45,7 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
   return (
     <AppContextProvider store={store}>
       <PageLayout>
+        <div style={{ fontSize: "50px" }}>{asd}123</div>
         <Component {...pageProps} />
       </PageLayout>
     </AppContextProvider>
