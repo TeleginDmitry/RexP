@@ -29,6 +29,7 @@
 
   .item {
     flex: 0 0 65px;
+    position: relative;
 
     .text {
       text-align: center;
@@ -50,6 +51,26 @@
           stroke: var(--main-color-black);
         }
       }
+    }
+
+    .count {
+      border-radius: 20px;
+      background: #000;
+      display: flex;
+      padding-bottom: 2px;
+      top: -6px;
+      left: 50%;
+      transform: translate(39%, 0);
+      justify-content: center;
+      align-items: center;
+      width: 16px;
+      position: absolute;
+      height: 16px;
+      font-size: 8px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      color: var(--main-color-white);
     }
   }
 }

@@ -10,6 +10,7 @@ import Home from "@/public/images/icons/home.svg";
 import Profile from "@/public/images/icons/profile.svg";
 import DefaultLink from "@/src/components/ui/links/DefaultLink";
 import RootText from "@/src/components/ui/RootText";
+import { MAX_FAVOURITES_LS_KEY } from "@/src/constants";
 
 import type { MenuItemType } from "./types";
 
@@ -24,7 +25,7 @@ const MENU_ITEMS: MenuItemType[] = [
 
 const Footer = () => {
   const router = useRouter();
-  const [favouritesValue] = useLocalStorage({ key: "favourites", defaultValue: "" });
+  const [favouritesValue] = useLocalStorage({ key: MAX_FAVOURITES_LS_KEY, defaultValue: "" });
   const [pathname, setPathname] = useState(router.asPath);
   const [favoritesCount, setFavoritesCount] = useState("");
 
@@ -33,9 +34,12 @@ const Footer = () => {
   }, [router]);
 
   useEffect(() => {
-    if (favouritesValue) {
-      setFavoritesCount(favouritesValue.split(".").length.toString());
+    if (!favouritesValue) {
+      setFavoritesCount("");
+      return;
     }
+
+    setFavoritesCount(favouritesValue.split(".").length.toString());
   }, [favouritesValue]);
 
   return (
@@ -44,6 +48,7 @@ const Footer = () => {
         {MENU_ITEMS.map(({ text, href, icon }) => (
           <li key={text} className={clsx(s.item, pathname === href && s.active)}>
             <DefaultLink href={href} className={s.link}>
+              {text === "Избранное" && favoritesCount && <span className={s.count}>{favoritesCount}</span>}
               {icon}
               <RootText variant="11px" color="grey" className={s.text}>
                 {text}

@@ -5,16 +5,16 @@ import { Button } from "@nextui-org/react";
 import clsx from "clsx";
 import { toast } from "sonner";
 
+import { MAX_FAVOURITES_LS_KEY, MAX_FAVOURITES_PRODUCTS } from "@/src/constants";
+
 import s from "./HeartIcon.module.scss";
 
 interface HeartIconProps {
   productId: number | string;
 }
 
-const MAX_FAVOURITES = 2;
-
 const HeartIcon: React.FC<HeartIconProps> = ({ productId }) => {
-  const [favouritesValue, setFavouritesValue] = useLocalStorage({ key: "favourites", defaultValue: "" });
+  const [favouritesValue, setFavouritesValue] = useLocalStorage({ key: MAX_FAVOURITES_LS_KEY, defaultValue: "" });
   const [isLiked, setIsLiked] = useState(false);
   const linearGradientId = useId();
 
@@ -38,11 +38,11 @@ const HeartIcon: React.FC<HeartIconProps> = ({ productId }) => {
 
     const count = favouritesValue ? favouritesValue.split(".").length : 0;
 
-    if (count < MAX_FAVOURITES) {
+    if (count < MAX_FAVOURITES_PRODUCTS) {
       setIsLiked(true);
       setFavouritesValue(`${favouritesValue || ""}${count !== 0 ? "." : ""}${productId}`);
     } else {
-      toast.error(`Максимальное количество избранных продуктов: ${MAX_FAVOURITES}`);
+      toast.error(`Максимальное количество избранных продуктов: ${MAX_FAVOURITES_PRODUCTS}`);
     }
   };
 
@@ -120,4 +120,5 @@ const HeartIcon: React.FC<HeartIconProps> = ({ productId }) => {
     </Button>
   );
 };
+
 export default HeartIcon;
