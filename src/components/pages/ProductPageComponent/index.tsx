@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useLocalStorage } from "@mantine/hooks";
 import { useRouter } from "next/router";
 
-import { MAX_PRODUCTS_IN_HISTORY_LS_KEY } from "@/src/constants";
+import { PRODUCTS_IN_HISTORY_LS_KEY } from "@/src/constants";
 import useClientSide from "@/src/hooks/useClientSide";
 
 import s from "./ProductPageComponent.module.scss";
@@ -12,7 +12,7 @@ const ProductPageComponent = () => {
   const router = useRouter();
   const isClient = useClientSide();
   const [historyValue, setHistoryValue] = useLocalStorage({
-    key: MAX_PRODUCTS_IN_HISTORY_LS_KEY,
+    key: PRODUCTS_IN_HISTORY_LS_KEY,
     defaultValue: "",
   });
 
@@ -36,7 +36,7 @@ const ProductPageComponent = () => {
     }
   }, [historyValue, isClient, router.query.id]);
 
-  return <div className={s[""]}>{router.query.id}</div>;
+  return <div className={s[""]}>id: {router.query.id}</div>;
 };
 
 export default ProductPageComponent;

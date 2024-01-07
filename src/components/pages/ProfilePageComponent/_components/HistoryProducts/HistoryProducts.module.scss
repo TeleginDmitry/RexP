@@ -1,0 +1,10 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px 20px 16px;
+  margin: 0 -16px;
+  & > div {
+    flex: 0 0 104px;
+  }
+}
