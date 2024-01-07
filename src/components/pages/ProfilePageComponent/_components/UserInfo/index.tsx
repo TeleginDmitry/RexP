@@ -44,8 +44,10 @@ const UserInfo = () => {
       <div style={{ fontSize: "50px" }}>{typeof value.user?.photo_url}2</div>
       <div style={{ fontSize: "50px" }}>{value.user?.id}3</div>
       <div style={{ fontSize: "50px" }}>{photo}4</div> */}
-      {photo && (
+      {photo ? (
         <Image loading="lazy" src={photo} alt="Фото пользователя" width={120} height={120} className={s.image} />
+      ) : (
+        <div className={s.image} />
       )}
       <div className={s.name}>{value.user?.first_name}</div>
     </>
