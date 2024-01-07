@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+import { useLocalStorage } from "@mantine/hooks";
 import clsx from "clsx";
 import { useRouter } from "next/router";
 
@@ -23,11 +24,19 @@ const MENU_ITEMS: MenuItemType[] = [
 
 const Footer = () => {
   const router = useRouter();
+  const [favouritesValue] = useLocalStorage({ key: "favourites", defaultValue: "" });
   const [pathname, setPathname] = useState(router.asPath);
+  const [favoritesCount, setFavoritesCount] = useState("");
 
   useEffect(() => {
     setPathname(router.asPath);
   }, [router]);
+
+  useEffect(() => {
+    if (favouritesValue) {
+      setFavoritesCount(favouritesValue.split(".").length.toString());
+    }
+  }, [favouritesValue]);
 
   return (
     <footer className={s.footer}>

@@ -1,22 +1,49 @@
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 
+import { useLocalStorage } from "@mantine/hooks";
 import { Button } from "@nextui-org/react";
 import clsx from "clsx";
+import { toast } from "sonner";
 
 import s from "./HeartIcon.module.scss";
 
 interface HeartIconProps {
-  liked?: boolean;
+  productId: number | string;
 }
 
-const HeartIcon: React.FC<HeartIconProps> = ({ liked = false }) => {
-  const [isLiked, setIsLiked] = useState(liked);
+const MAX_FAVOURITES = 2;
+
+const HeartIcon: React.FC<HeartIconProps> = ({ productId }) => {
+  const [favouritesValue, setFavouritesValue] = useLocalStorage({ key: "favourites", defaultValue: "" });
+  const [isLiked, setIsLiked] = useState(false);
   const linearGradientId = useId();
 
-  const onHandleClick = () => {
-    setIsLiked(!isLiked);
+  useEffect(() => {
+    if (favouritesValue) {
+      setIsLiked(favouritesValue.split(".").includes(productId.toString()));
+    }
+  }, [favouritesValue, productId]);
 
-    // TODO: Add to favourites or remove
+  const onHandleClick = () => {
+    if (isLiked && favouritesValue) {
+      setFavouritesValue(
+        favouritesValue
+          .split(".")
+          .filter((id) => id !== productId.toString())
+          .join(".")
+      );
+      setIsLiked(false);
+      return;
+    }
+
+    const count = favouritesValue ? favouritesValue.split(".").length : 0;
+
+    if (count < MAX_FAVOURITES) {
+      setIsLiked(true);
+      setFavouritesValue(`${favouritesValue || ""}${count !== 0 ? "." : ""}${productId}`);
+    } else {
+      toast.error(`Максимальное количество избранных продуктов: ${MAX_FAVOURITES}`);
+    }
   };
 
   return (

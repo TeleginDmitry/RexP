@@ -11,7 +11,7 @@ import DefaultLink from "../links/DefaultLink";
 
 import s from "./ProductCard.module.scss";
 
-const ProductCard: React.FC<ProductCardProps> = ({ className, name, id, imgUrl, imagePriority, price, liked }) => (
+const ProductCard: React.FC<ProductCardProps> = ({ className, name, id, imgUrl, imagePriority, price }) => (
   <div className={clsx(s.wrapper, className)}>
     <div className={s.image}>
       <Image src={imgUrl} alt={name} width={145} height={107} priority={imagePriority} />
@@ -21,7 +21,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ className, name, id, imgUrl, 
         <div className={s.price}>{price} ₽</div>
         <div className={s.name}>{name} </div>
       </div>
-      <HeartIcon liked={liked} />
+      <HeartIcon productId={id} />
     </div>
   </div>
 );

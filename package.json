@@ -8,7 +8,7 @@
     "format": "prettier --write ./"
   },
   "dependencies": {
-    "@mantine/hooks": "^7.1.2",
+    "@mantine/hooks": "^7.4.0",
     "@nextui-org/react": "^2.2.9",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/json-schema": "^7.0.12",

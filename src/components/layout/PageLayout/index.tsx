@@ -13,7 +13,7 @@ const PageLayout: React.FC<PropsWithChildren> = ({ children }) => (
   <div className={clsx(s["page-wrapper"], manrope.variable, inter.variable)}>
     <main className={s["page-layout"]}>{children}</main>
     <Footer />
-    <Toaster position="top-center" />
+    <Toaster position="top-center" richColors />
   </div>
 );
 
