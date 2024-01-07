@@ -13,15 +13,21 @@ import s from "./ProductCard.module.scss";
 
 const ProductCard: React.FC<ProductCardProps> = ({ className, name, id, imgUrl, imagePriority, price }) => (
   <div className={clsx(s.wrapper, className)}>
-    <div className={s.image}>
-      <Image src={imgUrl} alt={name} width={145} height={107} priority={imagePriority} />
-    </div>
+    <Image
+      src={imgUrl}
+      alt={name}
+      width={145}
+      height={107}
+      priority={imagePriority}
+      className={s.image}
+      quality={100}
+    />
     <div className={s.content}>
       <div className={s.info}>
         <div className={s.price}>{price} ₽</div>
         <div className={s.name}>{name} </div>
       </div>
-      <HeartIcon productId={id} />
+      <HeartIcon productId={id} className={s.heart} />
     </div>
   </div>
 );
