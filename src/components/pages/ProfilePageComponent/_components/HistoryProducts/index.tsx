@@ -6,9 +6,7 @@ import { PRODUCTS_IN_HISTORY_LS_KEY, PRODUCTS } from "@/src/constants";
 
 import s from "./HistoryProducts.module.scss";
 
-interface HistoryProductsProps {}
-
-const HistoryProducts: React.FC<HistoryProductsProps> = () => {
+const HistoryProducts = () => {
   const [historyValue] = useLocalStorage({ key: PRODUCTS_IN_HISTORY_LS_KEY, defaultValue: "" });
 
   if (!historyValue) {
@@ -16,24 +14,27 @@ const HistoryProducts: React.FC<HistoryProductsProps> = () => {
   }
 
   return (
-    <ScrollContainer className={s.wrapper}>
-      {JSON.parse(historyValue!).map((id: string) => {
-        const product = PRODUCTS.find((productValue) => productValue.id === +id);
+    <>
+      <div className={s["history-text"]}>Вы смотрели</div>
+      <ScrollContainer className={s.wrapper}>
+        {JSON.parse(historyValue!).map((id: string) => {
+          const product = PRODUCTS.find((productValue) => productValue.id === +id);
 
-        return (
-          product && (
-            <ProductCard
-              key={product.id}
-              price={product.price}
-              name={product.name}
-              imgUrl={product.imgUrl}
-              imagePriority
-              id={product.id}
-            />
-          )
-        );
-      })}
-    </ScrollContainer>
+          return (
+            product && (
+              <ProductCard
+                key={product.id}
+                price={product.price}
+                name={product.name}
+                imgUrl={product.imgUrl}
+                imagePriority
+                id={product.id}
+              />
+            )
+          );
+        })}
+      </ScrollContainer>
+    </>
   );
 };
 
