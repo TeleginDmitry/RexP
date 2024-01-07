@@ -12,9 +12,10 @@ import s from "./HeartIcon.module.scss";
 interface HeartIconProps {
   productId: number | string;
   className?: string;
+  variant?: "default" | "small";
 }
 
-const HeartIcon: React.FC<HeartIconProps> = ({ productId, className }) => {
+const HeartIcon: React.FC<HeartIconProps> = ({ productId, className, variant = "default" }) => {
   const [favouritesValue, setFavouritesValue] = useLocalStorage({ key: MAX_FAVOURITES_LS_KEY, defaultValue: "" });
   const [isLiked, setIsLiked] = useState(false);
   const linearGradientId = useId();
@@ -50,7 +51,7 @@ const HeartIcon: React.FC<HeartIconProps> = ({ productId, className }) => {
   return (
     <Button
       isIconOnly
-      className={clsx("text-default-900/60 data-[hover]:bg-foreground/10", className)}
+      className={clsx("text-default-900/60 data-[hover]:bg-foreground/10", className, s[variant])}
       radius="full"
       variant="light"
       aria-label="Добавить в избранное"

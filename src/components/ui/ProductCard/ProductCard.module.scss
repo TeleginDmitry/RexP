@@ -8,6 +8,21 @@
   flex-direction: column;
   position: relative;
 
+  &.small {
+    padding: 0px 7.1px 7.1px 7.1px;
+
+    .image {
+      margin: 0 auto 5px auto;
+    }
+
+    .heart {
+      transform: translate(4px, -1px) !important;
+      flex: 0 0 20px;
+      height: 20px;
+      min-width: 20px;
+    }
+  }
+
   .image {
     max-width: 300px;
     width: 100%;
@@ -21,6 +36,16 @@
     align-items: center;
 
     .info {
+      &.small {
+        .price {
+          font-size: 10.65px;
+        }
+
+        .name {
+          font-size: 8.283px;
+        }
+      }
+
       .price {
         font-size: 18px;
         font-style: normal;

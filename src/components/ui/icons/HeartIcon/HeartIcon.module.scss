@@ -25,3 +25,13 @@
     }
   }
 }
+
+.small {
+  & > div {
+    width: 14px;
+    flex: 0 0 14px;
+  }
+  svg {
+    width: 14px;
+  }
+}
