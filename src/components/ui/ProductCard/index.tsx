@@ -1,13 +1,9 @@
-import { useState } from "react";
-
-import { Button } from "@nextui-org/react";
 import clsx from "clsx";
 import Image from "next/image";
 
 import type { ProductCardProps } from "./types";
 
 import HeartIcon from "../icons/HeartIcon";
-import DefaultLink from "../links/DefaultLink";
 
 import s from "./ProductCard.module.scss";
 
@@ -24,7 +20,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ className, name, id, imgUrl, 
     />
     <div className={s.content}>
       <div className={s.info}>
-        <div className={s.price}>{price} ₽</div>
+        <div className={s.price}>{Number.isNaN(price) ? price : new Intl.NumberFormat("ru-RU").format(+price)} ₽</div>
         <div className={s.name}>{name} </div>
       </div>
       <HeartIcon productId={id} className={s.heart} />
