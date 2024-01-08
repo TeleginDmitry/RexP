@@ -38,7 +38,7 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
     <AppContextProvider store={store}>
       <PageLayout>
         <Component {...pageProps} />
-        <Analytics />
+        {process.env.NEXT_PUBLIC_BUILD_PROFILE !== "test" && <Analytics />}
       </PageLayout>
     </AppContextProvider>
   );
