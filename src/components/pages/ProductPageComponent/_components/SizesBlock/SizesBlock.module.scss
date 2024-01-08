@@ -1,6 +1,16 @@
 .wrapper {
   margin-bottom: 16px;
 
+  div[data-slot="base"] {
+    width: calc(100% + 32px);
+    margin-left: -16px;
+
+    & > div {
+      padding-right: 16px;
+      padding-left: 16px;
+    }
+  }
+
   .header {
     margin-bottom: 12px;
     display: flex;
