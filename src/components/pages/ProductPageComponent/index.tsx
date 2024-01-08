@@ -6,10 +6,11 @@ import { useRouter } from "next/router";
 import { PRODUCTS_IN_HISTORY_LS_KEY } from "@/src/constants";
 import useClientSide from "@/src/hooks/useClientSide";
 
+import AddButton from "./_components/AddButton";
+
 import MainContainer from "../../ui/MainContainer";
 
 import s from "./ProductPageComponent.module.scss";
-import AddButton from "./_components/AddButton";
 
 const ProductPageComponent = () => {
   const router = useRouter();
