@@ -2,7 +2,7 @@
   margin-top: 16px;
 
   .header {
-    padding-bottom: 16px;
+    padding-bottom: 9px;
     margin-bottom: 10px;
     border-bottom: 1px solid rgba(142, 142, 142, 0.4);
     display: flex;
@@ -41,15 +41,16 @@
       }
     }
   }
+
   .orderWrapper {
     margin-bottom: 16px;
   }
-	
+
   .order {
     position: relative;
     border-radius: 20px;
     background: #eee;
-    padding: 27px;
+    padding: 20px 27px 24px 27px;
 
     &:last-child {
       margin-bottom: 0;
@@ -93,6 +94,7 @@
     .trackNumber {
       display: flex;
       align-items: center;
+      margin-bottom: 11px;
 
       .snippet {
         padding: 0px;
@@ -126,6 +128,35 @@
           min-height: 25px;
           min-width: 25px;
           z-index: 3;
+        }
+      }
+    }
+
+    .photos {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .photo {
+        align-self: stretch;
+        height: 72px;
+        flex: 0 0 72px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 12px;
+        background: #fff;
+        padding: 8px 6px;
+        font-size: 28px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 22px;
+        letter-spacing: -0.4px;
+        color: var(--main-color-black);
+
+        img {
+          width: 100%;
+          height: auto;
         }
       }
     }
