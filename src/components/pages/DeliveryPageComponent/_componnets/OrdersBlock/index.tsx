@@ -136,7 +136,11 @@ const OrdersBlock = () => {
                       <Image src={photo} alt="фото" width={100} height={100} />
                     </div>
                   ))}
-                  {photos.length > 3 && <div className={clsx(s.more, s.photo)}>+{photos.length - 3}</div>}
+                  {photos.length > 3 && (
+                    <div className={clsx(s.more, s.photo)}>
+                      <span>+{photos.length - 3}</span>
+                    </div>
+                  )}
                 </div>
                 <DefaultLink href={`/profile/delivery/${id}`} className={s.link} aria-label="на страницу заказа" />
               </motion.div>
