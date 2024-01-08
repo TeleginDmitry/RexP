@@ -1,5 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { useEffect } from "react";
 
+import { Analytics } from "@vercel/analytics/react";
 import type { AppContext, AppInitialProps, AppProps } from "next/app";
 import App from "next/app";
 import { useRouter } from "next/router";
@@ -36,6 +38,7 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
     <AppContextProvider store={store}>
       <PageLayout>
         <Component {...pageProps} />
+        <Analytics />
       </PageLayout>
     </AppContextProvider>
   );
