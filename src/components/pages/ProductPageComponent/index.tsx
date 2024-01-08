@@ -6,7 +6,10 @@ import { useRouter } from "next/router";
 import { PRODUCTS_IN_HISTORY_LS_KEY } from "@/src/constants";
 import useClientSide from "@/src/hooks/useClientSide";
 
+import MainContainer from "../../ui/MainContainer";
+
 import s from "./ProductPageComponent.module.scss";
+import AddButton from "./_components/AddButton";
 
 const ProductPageComponent = () => {
   const router = useRouter();
@@ -36,7 +39,12 @@ const ProductPageComponent = () => {
     }
   }, [historyValue, isClient, router.query.id]);
 
-  return <div className={s[""]}>id: {router.query.id}</div>;
+  return (
+    <MainContainer className={s[""]}>
+      id: {router.query.id}
+      <AddButton />
+    </MainContainer>
+  );
 };
 
 export default ProductPageComponent;
