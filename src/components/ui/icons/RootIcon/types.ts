@@ -1,4 +1,4 @@
-export type IconsVariants = "arrow" | "arrowLeft" | "tg";
+export type IconsVariants = "arrow" | "arrowLeft" | "link" | "tg";
 
 export interface RootIconProps {
   name: IconsVariants;

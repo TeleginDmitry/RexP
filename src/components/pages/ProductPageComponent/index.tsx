@@ -13,6 +13,7 @@ import SizesBlock from "./_components/SizesBlock";
 import MainContainer from "../../ui/MainContainer";
 
 import s from "./ProductPageComponent.module.scss";
+import InfoBlock from "./_components/InfoBlock";
 
 const ProductPageComponent = () => {
   const router = useRouter();
@@ -45,6 +46,7 @@ const ProductPageComponent = () => {
   return (
     <MainContainer className={s.wrapper}>
       id: {router.query.id}
+      <InfoBlock />
       <SizesBlock />
       <AccordionBlock />
       <AddButton />
