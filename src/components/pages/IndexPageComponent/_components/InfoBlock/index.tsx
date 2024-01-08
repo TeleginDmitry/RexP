@@ -18,7 +18,7 @@ const InfoBlock = () => (
         </RootText>
       </div>
     </DefaultLink>
-    <DefaultLink className={s.telegram} href="/">
+    <DefaultLink className={s.telegram} href="https://t.me/poizonrex">
       <RootIcon name="tg" />
       <div className={s["telegram-text"]}>
         <div className={s["telegram-text-top"]}>@poizonrex</div>
