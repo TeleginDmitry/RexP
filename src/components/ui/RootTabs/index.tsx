@@ -6,15 +6,17 @@ import s from "./RootTabs.module.scss";
 
 interface RootTabsProps extends Omit<TabsProps, "variant"> {
   tabsList: string[];
+  disabledList?: string[];
   variant?: "bordered" | "default";
 }
 
-const RootTabs: React.FC<RootTabsProps> = ({ tabsList, classNames, variant = "default",  ...props }) => (
+const RootTabs: React.FC<RootTabsProps> = ({ tabsList, classNames, variant = "default", disabledList, ...props }) => (
   <Tabs
     onSelectionChange={(event) => console.log(event)}
     aria-label="Options"
     color="primary"
     variant="light"
+    disabledKeys={disabledList}
     classNames={{
       ...classNames,
       tabList: clsx(s.tabList, classNames?.tabList),
@@ -26,7 +28,7 @@ const RootTabs: React.FC<RootTabsProps> = ({ tabsList, classNames, variant = "de
     {...props}
   >
     {tabsList.map((text) => (
-      <Tab key={text} className={s.tab} title={<div>{text}</div>} />
+      <Tab key={text} className={clsx(s.tab, disabledList?.includes(text) && s.disabled)} title={<div>{text}</div>} />
     ))}
   </Tabs>
 );

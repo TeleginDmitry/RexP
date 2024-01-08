@@ -10,6 +10,7 @@ const SizesBlock = () => (
     </div>
     <RootTabs
       tabsList={["36", "36,5", "37", "37,5", "38", "38,5", "39", "39,5", "40", "41", "42"]}
+      disabledList={["37", "41", "42"]}
       variant="bordered"
     />
   </div>
