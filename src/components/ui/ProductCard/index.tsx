@@ -30,6 +30,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     />
     <DefaultLink href={`/catalog/${id}`} className={s.link} />
     <div className={s.content}>
+      {outOfStock && <div className={s.outOfStock}>Нет в наличии</div>}
       <div className={clsx(s.info, s[variant])}>
         <div className={s.price}>{Number.isNaN(price) ? price : new Intl.NumberFormat("ru-RU").format(+price)} ₽</div>
         <div className={s.name}>{name} </div>
