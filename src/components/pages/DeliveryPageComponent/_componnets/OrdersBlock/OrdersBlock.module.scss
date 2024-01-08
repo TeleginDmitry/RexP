@@ -41,10 +41,12 @@
       }
     }
   }
-
+  .orderWrapper {
+    margin-bottom: 16px;
+  }
+	
   .order {
     position: relative;
-    margin-bottom: 16px;
     border-radius: 20px;
     background: #eee;
     padding: 27px;

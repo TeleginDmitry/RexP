@@ -7,6 +7,9 @@ const initialState: FiltersState = {
   indexPage: {
     activeFilter: "",
   },
+  myOrdersPage: {
+    activeFilter: "",
+  },
 };
 
 const { actions, reducer } = createSlice({
