@@ -20,4 +20,11 @@
     flex: 0 0 26px;
     background-image: url("~public/images/icons/tg.svg");
   }
+  
+  &.arrowLeft {
+    width: 7px;
+    height: 11px;
+    flex: 0 0 7px;
+    background-image: url("~public/images/icons/arrowLeft.svg");
+  }
 }

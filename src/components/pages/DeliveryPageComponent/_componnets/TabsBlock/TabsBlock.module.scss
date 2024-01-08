@@ -1,0 +1,44 @@
+.header {
+  padding: 16px;
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+  height: 35px;
+  z-index: 999999;
+  background: var(--main-color-white);
+
+  .link {
+    flex: 0 1 30px;
+  }
+
+  .title {
+    text-align: center;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    flex: 1 1 auto;
+    padding-right: 19px;
+  }
+}
+
+.wrapper {
+  padding-top: 23px;
+  margin-top: 16px;
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    div[data-slot="base"] {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
