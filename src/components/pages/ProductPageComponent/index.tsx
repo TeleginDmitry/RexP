@@ -11,6 +11,7 @@ import AddButton from "./_components/AddButton";
 import MainContainer from "../../ui/MainContainer";
 
 import s from "./ProductPageComponent.module.scss";
+import AccordionBlock from "./_components/AccordionBlock";
 
 const ProductPageComponent = () => {
   const router = useRouter();
@@ -43,6 +44,7 @@ const ProductPageComponent = () => {
   return (
     <MainContainer className={s[""]}>
       id: {router.query.id}
+      <AccordionBlock />
       <AddButton />
     </MainContainer>
   );

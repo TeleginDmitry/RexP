@@ -1,0 +1,40 @@
+.wrapper {
+  margin: 0 -16px;
+
+  & > div {
+    padding: 0px !important;
+
+    & > div {
+      border-radius: 12px !important;
+      background: var(--main-color-white) !important;
+      box-shadow: 0px 5px 20px 0px rgba(24, 22, 31, 0.1) !important;
+      color: var(--main-color-grey);
+      text-overflow: ellipsis;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 106%;
+
+      section {
+        & > div {
+          padding-top: 0px !important;
+          padding-bottom: 16px !important;
+        }
+      }
+
+      button {
+        padding-top: 16px !important;
+        padding-bottom: 16px !important;
+
+        span {
+          text-overflow: ellipsis;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 106%;
+          color: #000;
+        }
+      }
+    }
+  }
+}
