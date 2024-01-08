@@ -94,7 +94,7 @@ const OrdersBlock = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.3, delay: index < 5 ? 0.1 * index : 0.2 }}
+                transition={{ duration: 0.3, delay: index < 4 ? 0.1 * index : 0.15 }}
               >
                 <div className={s.header}>
                   <div className={s.time}>
