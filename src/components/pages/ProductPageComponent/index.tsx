@@ -6,12 +6,13 @@ import { useRouter } from "next/router";
 import { PRODUCTS_IN_HISTORY_LS_KEY } from "@/src/constants";
 import useClientSide from "@/src/hooks/useClientSide";
 
+import AccordionBlock from "./_components/AccordionBlock";
 import AddButton from "./_components/AddButton";
+import SizesBlock from "./_components/SizesBlock";
 
 import MainContainer from "../../ui/MainContainer";
 
 import s from "./ProductPageComponent.module.scss";
-import AccordionBlock from "./_components/AccordionBlock";
 
 const ProductPageComponent = () => {
   const router = useRouter();
@@ -42,8 +43,9 @@ const ProductPageComponent = () => {
   }, [historyValue, isClient, router.query.id]);
 
   return (
-    <MainContainer className={s[""]}>
+    <MainContainer className={s.wrapper}>
       id: {router.query.id}
+      <SizesBlock />
       <AccordionBlock />
       <AddButton />
     </MainContainer>

@@ -4,11 +4,12 @@ import clsx from "clsx";
 
 import s from "./RootTabs.module.scss";
 
-interface RootTabsProps extends TabsProps {
+interface RootTabsProps extends Omit<TabsProps, "variant"> {
   tabsList: string[];
+  variant?: "bordered" | "default";
 }
 
-const RootTabs: React.FC<RootTabsProps> = ({ tabsList, classNames, ...props }) => (
+const RootTabs: React.FC<RootTabsProps> = ({ tabsList, classNames, variant = "default",  ...props }) => (
   <Tabs
     onSelectionChange={(event) => console.log(event)}
     aria-label="Options"
@@ -20,7 +21,7 @@ const RootTabs: React.FC<RootTabsProps> = ({ tabsList, classNames, ...props }) =
       cursor: clsx(s.cursor, classNames?.cursor),
       tab: clsx("max-w-fit px-[12px] h-[28px]", s.tab, classNames?.tab),
       tabContent: clsx(s.tabContent, classNames?.tabContent),
-      base: clsx(s.base, classNames?.base),
+      base: clsx(s.base, classNames?.base, s[variant]),
     }}
     {...props}
   >
