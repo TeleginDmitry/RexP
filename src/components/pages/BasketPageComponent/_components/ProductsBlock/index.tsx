@@ -8,10 +8,10 @@ import InViewWrapper from "@/src/components/ui/InViewWrapper";
 import { PRODUCTS, PRODUCTS_IN_BASKET_LS_KEY } from "@/src/constants";
 import useClientSide from "@/src/hooks/useClientSide";
 
+import CountButton from "../CountButton";
 import DeleteButton from "../DeleteButton";
 
 import s from "./ProductsBlock.module.scss";
-import CountButton from "../CountButton";
 
 const ProductsBlock = () => {
   const isClient = useClientSide();
@@ -68,7 +68,6 @@ const ProductsBlock = () => {
                     <HeartIcon productId={id} />
                     <DeleteButton id={id} size={size} />
                     <CountButton id={id} size={size} quantity={quantity} />
-                    {size}
                   </div>
                 </motion.div>
               )}

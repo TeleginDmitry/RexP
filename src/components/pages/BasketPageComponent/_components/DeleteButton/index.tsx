@@ -29,7 +29,7 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ size, id }) => {
   };
 
   return (
-    <RootButton onClick={onHandleClick}>
+    <RootButton onClick={onHandleClick} className={s.button}>
       <RootIcon name="delete" />
     </RootButton>
   );
