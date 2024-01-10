@@ -4,6 +4,7 @@ import { Button } from "@nextui-org/react";
 import { PRODUCTS_IN_BASKET_LS_KEY } from "@/src/constants";
 
 import s from "./CountButton.module.scss";
+import clsx from "clsx";
 
 interface CountButtonProps {
   size: string;
@@ -37,7 +38,7 @@ const CountButton: React.FC<CountButtonProps> = ({ size, id, quantity }) => {
 
   return (
     <div className={s.wrapper}>
-      <Button className={s.button} onClick={() => onHandleClick("decrement")}>
+      <Button disabled={+quantity === 1} className={clsx(s.button, +quantity === 1 && s.disabled)} onClick={() => onHandleClick("decrement")}>
         -
       </Button>
       <div className={s.count}>{quantity}</div>
