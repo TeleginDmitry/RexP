@@ -19,7 +19,9 @@ import s from "./ProductsBlock.module.scss";
 const ProductsBlock = () => {
   const isClient = useClientSide();
   const [basketValue, setBasketValue] = useLocalStorage({ key: PRODUCTS_IN_BASKET_LS_KEY, defaultValue: "" });
-  const [selected, setSelected] = useState<string[]>([]);
+  const [selected, setSelected] = useState<string[]>(
+    basketValue ? JSON.parse(basketValue).map(({ id, size }) => `${id}-${size}`) : []
+  );
 
   if (!isClient) {
     return null;
