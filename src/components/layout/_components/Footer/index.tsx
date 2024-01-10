@@ -41,7 +41,7 @@ const Footer = () => {
         {MENU_ITEMS.map(({ text, href, icon }) => (
           <li key={text} className={clsx(s.item, pathname === href && s.active)}>
             <DefaultLink href={href} className={s.link}>
-              {text === "Корзина" && basketValue && JSON.parse(basketValue) && (
+              {text === "Корзина" && basketValue && !!JSON.parse(basketValue).length && (
                 <span className={s.count}>{(JSON.parse(basketValue) as string[]).length.toString()}</span>
               )}
               {icon}

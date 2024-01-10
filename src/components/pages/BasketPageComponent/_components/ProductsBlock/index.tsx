@@ -8,6 +8,8 @@ import InViewWrapper from "@/src/components/ui/InViewWrapper";
 import { PRODUCTS, PRODUCTS_IN_BASKET_LS_KEY } from "@/src/constants";
 import useClientSide from "@/src/hooks/useClientSide";
 
+import DeleteButton from "../DeleteButton";
+
 import s from "./ProductsBlock.module.scss";
 
 const ProductsBlock = () => {
@@ -32,7 +34,7 @@ const ProductsBlock = () => {
           }
 
           return (
-            <InViewWrapper key={id}>
+            <InViewWrapper key={`${id}${size}`}>
               {({ isInView }) => (
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
@@ -63,6 +65,8 @@ const ProductsBlock = () => {
                   </Checkbox>
                   <div className={s.footer}>
                     <HeartIcon productId={id} />
+                    <DeleteButton  id={id} size={size} />
+                    {size}
                   </div>
                 </motion.div>
               )}
