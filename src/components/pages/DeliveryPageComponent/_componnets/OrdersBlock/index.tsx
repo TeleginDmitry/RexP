@@ -128,7 +128,9 @@ const OrdersBlock = () => {
                 </div>
                 <div className={s.trackNumber}>
                   <div className={s.name}>Трек номер</div>
-                  <Snippet className={s.snippet}>{trackNumber}</Snippet>
+                  <Snippet className={s.snippet} tooltipProps={{ className: s.tooltip }}>
+                    {trackNumber}
+                  </Snippet>
                 </div>
                 <div className={s.photos}>
                   {photos.slice(0, 3).map((photo) => (
