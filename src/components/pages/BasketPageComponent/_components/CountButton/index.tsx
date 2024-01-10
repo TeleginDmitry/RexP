@@ -1,7 +1,6 @@
 import { useLocalStorage } from "@mantine/hooks";
 import { Button } from "@nextui-org/react";
 
-import RootButton from "@/src/components/ui/RootButton";
 import { PRODUCTS_IN_BASKET_LS_KEY } from "@/src/constants";
 
 import s from "./CountButton.module.scss";

@@ -1,0 +1,30 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+
+  .checkbox {
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    width: fit-content;
+    background-color: var(--main-color-white) !important;
+  }
+
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 600;
+    height: 35px;
+    line-height: normal;
+    padding: 0px 10px;
+    color: var(--main-color-red);
+    background: var(--main-color-white);
+  }
+}
