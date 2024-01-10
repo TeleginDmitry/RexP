@@ -12,10 +12,7 @@ interface DeleteButtonProps {
 }
 
 const DeleteButton: React.FC<DeleteButtonProps> = ({ size, id }) => {
-  const [basketValue, setBasketValue] = useLocalStorage({
-    key: PRODUCTS_IN_BASKET_LS_KEY,
-    defaultValue: "",
-  });
+  const [basketValue, setBasketValue] = useLocalStorage({ key: PRODUCTS_IN_BASKET_LS_KEY, defaultValue: "" });
 
   const onHandleClick = () => {
     if (!basketValue) {

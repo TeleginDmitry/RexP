@@ -13,10 +13,7 @@ interface CountButtonProps {
 }
 
 const CountButton: React.FC<CountButtonProps> = ({ size, id, quantity }) => {
-  const [basketValue, setBasketValue] = useLocalStorage({
-    key: PRODUCTS_IN_BASKET_LS_KEY,
-    defaultValue: "",
-  });
+  const [basketValue, setBasketValue] = useLocalStorage({ key: PRODUCTS_IN_BASKET_LS_KEY, defaultValue: "" });
 
   const onHandleClick = (action: "decrement" | "increment") => {
     if (!basketValue) {

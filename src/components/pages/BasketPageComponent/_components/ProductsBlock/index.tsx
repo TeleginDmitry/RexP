@@ -15,10 +15,7 @@ import s from "./ProductsBlock.module.scss";
 
 const ProductsBlock = () => {
   const isClient = useClientSide();
-  const [basketValue] = useLocalStorage({
-    key: PRODUCTS_IN_BASKET_LS_KEY,
-    defaultValue: "",
-  });
+  const [basketValue] = useLocalStorage({ key: PRODUCTS_IN_BASKET_LS_KEY, defaultValue: "" });
 
   if (!isClient) {
     return null;
