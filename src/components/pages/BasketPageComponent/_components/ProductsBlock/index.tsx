@@ -20,13 +20,15 @@ const ProductsBlock = () => {
   const isClient = useClientSide();
   const [basketValue, setBasketValue] = useLocalStorage({ key: PRODUCTS_IN_BASKET_LS_KEY, defaultValue: "" });
   const [selected, setSelected] = useState<string[]>([]);
+  const [isFirstRender, setIsFirstRender] = useState(true);
 
   useEffect(() => {
-    if (basketValue) {
+    if (basketValue && isFirstRender) {
+      setIsFirstRender(false);
       setSelected(JSON.parse(basketValue).map(({ id, size }) => `${id}-${size}`));
     }
-  }, [basketValue]);
-  
+  }, [basketValue, isFirstRender]);
+
   if (!isClient) {
     return null;
   }

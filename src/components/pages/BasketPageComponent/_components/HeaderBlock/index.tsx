@@ -13,7 +13,7 @@ interface HeaderBlockProps {
 }
 
 const HeaderBlock: React.FC<HeaderBlockProps> = ({ setSelected, basketValue, setBasketValue, selected }) => {
-  const [isSelected, setIsSelected] = useState(true);
+  const [isSelected, setIsSelected] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const onHandleClick = () => {
@@ -25,7 +25,7 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ setSelected, basketValue, set
     const newProducts = products.filter((product) => !selected.includes(`${product.id}-${product.size}`));
 
     setBasketValue(JSON.stringify(newProducts));
-    setSelected(newProducts.map(({ id, size }) => `${id}-${size}`));
+    setSelected(selected.filter((item) => newProducts.find((product) => item === `${product.id}-${product.size}`)));
   };
 
   useEffect(() => {
@@ -33,6 +33,14 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ setSelected, basketValue, set
       setIsSelected(JSON.parse(basketValue).length === selected.length);
     }
   }, [selected, basketValue, isSelected]);
+
+  useEffect(() => {
+    if (basketValue) {
+      if (JSON.parse(basketValue).length === 0) {
+        setIsSelected(false);
+      }
+    }
+  }, [basketValue, isSelected]);
 
   const onHandleAllClick = () => {
     setIsSelected(!isSelected);
