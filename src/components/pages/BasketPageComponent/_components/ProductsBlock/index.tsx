@@ -82,7 +82,7 @@ const ProductsBlock = () => {
                     </Checkbox>
                     <div className={s.footer}>
                       <HeartIcon productId={id} />
-                      <DeleteButton id={id} size={size} />
+                      <DeleteButton id={id} size={size} selected={selected} setSelected={setSelected} />
                       <CountButton id={id} size={size} quantity={quantity} />
                     </div>
                   </motion.div>

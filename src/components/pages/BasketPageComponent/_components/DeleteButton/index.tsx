@@ -1,3 +1,5 @@
+import type { Dispatch, SetStateAction } from "react";
+
 import { useLocalStorage } from "@mantine/hooks";
 
 import RootIcon from "@/src/components/ui/icons/RootIcon";
@@ -9,9 +11,11 @@ import s from "./DeleteButton.module.scss";
 interface DeleteButtonProps {
   size: string;
   id: string;
+  setSelected: Dispatch<SetStateAction<string[]>>;
+  selected: string[];
 }
 
-const DeleteButton: React.FC<DeleteButtonProps> = ({ size, id }) => {
+const DeleteButton: React.FC<DeleteButtonProps> = ({ size, id, setSelected, selected }) => {
   const [basketValue, setBasketValue] = useLocalStorage({ key: PRODUCTS_IN_BASKET_LS_KEY, defaultValue: "" });
 
   const onHandleClick = () => {
@@ -23,6 +27,7 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ size, id }) => {
     const newProducts = products.filter((product) => product.id !== id || product.size !== size);
 
     setBasketValue(JSON.stringify(newProducts));
+    setSelected(selected.filter((item) => newProducts.find((product) => item === `${product.id}-${product.size}`)));
   };
 
   return (
