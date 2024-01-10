@@ -71,25 +71,31 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ setSelected, basketValue, set
       >
         <div className={s.header}>выбрать&nbsp;все</div>
       </Checkbox>
-      <Popover isOpen={isOpen} onOpenChange={(open) => setIsOpen(open)}>
+      <Popover isOpen={isOpen} onOpenChange={(open) => selected.length !== 0 && setIsOpen(open)}>
         <PopoverTrigger>
-          <Button className={s.button}>Удалить выбранные</Button>
+          <Button className={s.button} disabled={selected.length === 0}>
+            Удалить выбранные
+          </Button>
         </PopoverTrigger>
         <PopoverContent className={s.popover}>
           <div className={clsx("px-1 py-2", s.content)}>
             <div className="text-small font-bold">
-              Вы точно хотите удалить <br />
-              выбранные товары?
+              Вы точно хотите удалить <br /> выбранные товары?
             </div>
-            <Button
-              className={clsx("text-small font-bold", s.button)}
-              onClick={() => {
-                onHandleClick();
-                setIsOpen(false);
-              }}
-            >
-              Да
-            </Button>
+            <div className={s.buttons}>
+              <Button
+                className={clsx("text-small font-bold", s.button)}
+                onClick={() => {
+                  onHandleClick();
+                  setIsOpen(false);
+                }}
+              >
+                Да
+              </Button>
+              <Button className={clsx("text-small font-bold", s.button)} onClick={() => setIsOpen(false)}>
+                Нет
+              </Button>
+            </div>
           </div>
         </PopoverContent>
       </Popover>

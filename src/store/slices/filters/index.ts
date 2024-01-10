@@ -12,7 +12,10 @@ const initialState: FiltersState = {
   },
   sizes: {
     activeFilter: "",
-  }
+  },
+  productsInBasket: {
+    activeFilter: "",
+  },
 };
 
 const { actions, reducer } = createSlice({

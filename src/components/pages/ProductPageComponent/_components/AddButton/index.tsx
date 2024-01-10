@@ -1,9 +1,11 @@
 import { useLocalStorage } from "@mantine/hooks";
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/router";
+import { toast } from "sonner";
 
-import { PRODUCTS_IN_BASKET_LS_KEY } from "@/src/constants";
+import { MAX_PRODUCTS_IN_BASKET, PRODUCTS_IN_BASKET_LS_KEY } from "@/src/constants";
 import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
+import { getProductsValue } from "@/src/utils/getProductsValue";
 
 import s from "./AddButton.module.scss";
 
@@ -20,6 +22,12 @@ const AddButton = () => {
       setBasketValue(JSON.stringify([{ id: router.query.id, size, quantity: 1 }]));
       return;
     }
+
+    if (getProductsValue(basketValue) >= MAX_PRODUCTS_IN_BASKET) {
+      toast.error(`Максимальное количество позиций в корзине - ${MAX_PRODUCTS_IN_BASKET}`);
+      return;
+    }
+
     const products = JSON.parse(basketValue!) as Array<{ id: string; size: string; quantity: number }>;
 
     if (products.find((product) => product.id === router.query.id && product.size === size)) {

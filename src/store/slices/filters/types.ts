@@ -8,4 +8,7 @@ export type FiltersState = {
   sizes: {
     activeFilter: string;
   }
+  productsInBasket: {
+    activeFilter: string;
+  }
 };

@@ -1,8 +1,10 @@
 import { useLocalStorage } from "@mantine/hooks";
 import { Button } from "@nextui-org/react";
 import clsx from "clsx";
+import { toast } from "sonner";
 
-import { PRODUCTS_IN_BASKET_LS_KEY } from "@/src/constants";
+import { MAX_PRODUCTS_IN_BASKET, PRODUCTS_IN_BASKET_LS_KEY } from "@/src/constants";
+import { getProductsValue } from "@/src/utils/getProductsValue";
 
 import s from "./CountButton.module.scss";
 
@@ -21,12 +23,18 @@ const CountButton: React.FC<CountButtonProps> = ({ size, id, quantity }) => {
     }
 
     const products = JSON.parse(basketValue!) as Array<{ id: string; size: string; quantity: number }>;
+
     const newProducts = products.map((product) => {
       if (product.id === id && product.size === size) {
         if (action === "decrement" && product.quantity > 1) {
           return { ...product, quantity: product.quantity - 1 };
         }
         if (action === "increment") {
+          if (getProductsValue(basketValue) >= MAX_PRODUCTS_IN_BASKET) {
+            toast.error(`Максимальное количество позиций в корзине - ${MAX_PRODUCTS_IN_BASKET}`);
+            return product;
+          }
+
           return { ...product, quantity: product.quantity + 1 };
         }
       }

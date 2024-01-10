@@ -8,7 +8,7 @@ export const MAX_FAVOURITES_LS_KEY = "favourites";
 export const MAX_PRODUCTS_IN_HISTORY = 30;
 export const PRODUCTS_IN_HISTORY_LS_KEY = "history";
 
-export const MAX_PRODUCTS_IN_BASKET = 30;
+export const MAX_PRODUCTS_IN_BASKET = 100;
 export const PRODUCTS_IN_BASKET_LS_KEY = "basket";
 
 export const PRODUCTS = [

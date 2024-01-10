@@ -11,6 +11,7 @@ import Profile from "@/public/images/icons/profile.svg";
 import DefaultLink from "@/src/components/ui/links/DefaultLink";
 import RootText from "@/src/components/ui/RootText";
 import { PRODUCTS_IN_BASKET_LS_KEY } from "@/src/constants";
+import { getProductsValue } from "@/src/utils/getProductsValue";
 
 import type { MenuItemType } from "./types";
 
@@ -42,7 +43,7 @@ const Footer = () => {
           <li key={text} className={clsx(s.item, pathname === href && s.active)}>
             <DefaultLink href={href} className={s.link}>
               {text === "Корзина" && basketValue && !!JSON.parse(basketValue).length && (
-                <span className={s.count}>{(JSON.parse(basketValue) as string[]).length.toString()}</span>
+                <span className={s.count}>{getProductsValue(basketValue)}</span>
               )}
               {icon}
               <RootText variant="11px" color="grey" className={s.text}>
