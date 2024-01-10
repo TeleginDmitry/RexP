@@ -11,6 +11,7 @@ import useClientSide from "@/src/hooks/useClientSide";
 import DeleteButton from "../DeleteButton";
 
 import s from "./ProductsBlock.module.scss";
+import CountButton from "../CountButton";
 
 const ProductsBlock = () => {
   const isClient = useClientSide();
@@ -65,7 +66,8 @@ const ProductsBlock = () => {
                   </Checkbox>
                   <div className={s.footer}>
                     <HeartIcon productId={id} />
-                    <DeleteButton  id={id} size={size} />
+                    <DeleteButton id={id} size={size} />
+                    <CountButton id={id} size={size} quantity={quantity} />
                     {size}
                   </div>
                 </motion.div>
