@@ -10,6 +10,7 @@ import AccordionBlock from "./_components/AccordionBlock";
 import AddButton from "./_components/AddButton";
 import InfoBlock from "./_components/InfoBlock";
 import SizesBlock from "./_components/SizesBlock";
+import SliderBlock from "./_components/SliderBlock";
 
 import MainContainer from "../../ui/MainContainer";
 
@@ -45,7 +46,7 @@ const ProductPageComponent = () => {
 
   return (
     <MainContainer className={s.wrapper}>
-      id: {router.query.id}
+      <SliderBlock />
       <InfoBlock />
       <SizesBlock />
       <AccordionBlock />
