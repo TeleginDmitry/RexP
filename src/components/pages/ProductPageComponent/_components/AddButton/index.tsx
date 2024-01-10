@@ -3,11 +3,13 @@ import { Button } from "@nextui-org/react";
 import { useRouter } from "next/router";
 
 import { PRODUCTS_IN_BASKET_LS_KEY } from "@/src/constants";
+import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
 
 import s from "./AddButton.module.scss";
 
 const AddButton = () => {
   const router = useRouter();
+  const size = useAppSelector((state) => state.filters.sizes.activeFilter);
   const [basketValue, setBasketValue] = useLocalStorage({
     key: PRODUCTS_IN_BASKET_LS_KEY,
     defaultValue: "",
@@ -15,18 +17,29 @@ const AddButton = () => {
 
   const onHandleClick = () => {
     if (!basketValue) {
-      setBasketValue(JSON.stringify([router.query.id]));
+      setBasketValue(JSON.stringify([{ id: router.query.id, size, quantity: 1 }]));
       return;
     }
-    const productsId = JSON.parse(basketValue!) as string[];
+    const products = JSON.parse(basketValue!) as Array<{ id: string; size: string; quantity: number }>;
 
-    if (productsId.filter((id) => id !== router.query.id).length === 6) {
-      productsId.pop();
+    if (products.find((product) => product.id === router.query.id && product.size === size)) {
+      const newProducts = products.map((product) => {
+        if (product.id === router.query.id && product.size === size) {
+          return {
+            ...product,
+            quantity: product.quantity + 1,
+          };
+        }
+
+        return product;
+      });
+
+      setBasketValue(JSON.stringify(newProducts));
+
+      return;
     }
-    const newProductsId = [router.query.id, ...productsId.filter((id) => id !== router.query.id)];
-    if (JSON.stringify(newProductsId) !== basketValue) {
-      setBasketValue(JSON.stringify(newProductsId));
-    }
+
+    setBasketValue(JSON.stringify([...products, { id: router.query.id, size, quantity: 1 }]));
   };
 
   return (
