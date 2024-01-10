@@ -10,6 +10,9 @@ const initialState: FiltersState = {
   myOrdersPage: {
     activeFilter: "",
   },
+  sizes: {
+    activeFilter: "",
+  }
 };
 
 const { actions, reducer } = createSlice({

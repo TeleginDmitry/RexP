@@ -4,5 +4,8 @@ export type FiltersState = {
   };
   myOrdersPage: {
     activeFilter: string;
+  },
+  sizes: {
+    activeFilter: string;
   }
 };
