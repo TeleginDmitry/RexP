@@ -16,12 +16,6 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ setSelected, basketValue, set
   const [isSelected, setIsSelected] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    if (basketValue) {
-      setSelected(isSelected ? JSON.parse(basketValue).map(({ id, size }) => `${id}-${size}`) : []);
-    }
-  }, [basketValue, isSelected]);
-
   const onHandleClick = () => {
     if (!basketValue) {
       return;
@@ -31,6 +25,18 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ setSelected, basketValue, set
     const newProducts = products.filter((product) => !selected.includes(`${product.id}-${product.size}`));
 
     setBasketValue(JSON.stringify(newProducts));
+    setSelected(newProducts.map(({ id, size }) => `${id}-${size}`));
+  };
+
+  useEffect(() => {
+    if (basketValue) {
+      setIsSelected(JSON.parse(basketValue).length === selected.length);
+    }
+  }, [selected, basketValue, isSelected]);
+
+  const onHandleAllClick = () => {
+    setIsSelected(!isSelected);
+    setSelected(isSelected ? [] : JSON.parse(basketValue).map(({ id, size }) => `${id}-${size}`));
   };
 
   return (
@@ -53,7 +59,7 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ setSelected, basketValue, set
         }}
         value="выбрать все"
         isSelected={isSelected}
-        onValueChange={setIsSelected}
+        onValueChange={onHandleAllClick}
       >
         <div className={s.header}>выбрать&nbsp;все</div>
       </Checkbox>
