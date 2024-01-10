@@ -128,7 +128,7 @@ const OrdersBlock = () => {
                 </div>
                 <div className={s.trackNumber}>
                   <div className={s.name}>Трек номер</div>
-                  <Snippet className={s.snippet} tooltipProps={{ className: s.tooltip }}>
+                  <Snippet className={s.snippet} tooltipProps={{ className: s.tooltip, content: "Скопировать номер" }}>
                     {trackNumber}
                   </Snippet>
                 </div>
