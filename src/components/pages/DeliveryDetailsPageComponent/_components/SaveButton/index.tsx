@@ -2,7 +2,7 @@ import { useLocalStorage } from "@mantine/hooks";
 import { Button } from "@nextui-org/react";
 import { toast } from "sonner";
 
-import { ADDRESSES_LS_KEY, MAX_ADDRESSES } from "@/src/constants";
+import { ACTIVE_ADDRESSES_LS_KEY, ADDRESSES_LS_KEY, MAX_ADDRESSES } from "@/src/constants";
 import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
 import { generateId } from "@/src/utils/generateId";
 
@@ -11,6 +11,7 @@ import s from "./SaveButton.module.scss";
 const SaveButton = () => {
   const activeFilter = useAppSelector((state) => state.filters.deliveryDetailsPage.activeFilter);
   const [addressesValue, setAddresses] = useLocalStorage({ key: ADDRESSES_LS_KEY, defaultValue: "" });
+  const [addresActiveValue, setAddressesActive] = useLocalStorage({ key: ACTIVE_ADDRESSES_LS_KEY, defaultValue: "" });
   const delivery = useAppSelector((state) => state.delivery);
   const id = generateId();
 
@@ -23,10 +24,12 @@ const SaveButton = () => {
         .some((value) => !delivery[value])
     ) {
       toast.error("Заполните все поля");
+      return;
     }
 
     if (!addressesValue) {
       setAddresses(JSON.stringify([{ ...delivery, id, deliveryType: activeFilter }]));
+      setAddressesActive(id);
       return;
     }
 
@@ -39,6 +42,8 @@ const SaveButton = () => {
 
     if (length >= MAX_ADDRESSES) {
       toast.error(`Максимальное количество адресов: ${MAX_ADDRESSES}`);
+    }else{
+      setAddresses(JSON.stringify([...addresses, { ...delivery, id, deliveryType: activeFilter }]));
     }
   };
 
