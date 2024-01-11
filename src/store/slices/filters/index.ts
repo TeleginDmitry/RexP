@@ -17,8 +17,8 @@ const initialState: FiltersState = {
     activeFilter: "",
   },
   deliveryDetailsPage: {
-    activeFilter: "",
-  }
+    activeFilter: "Пункт выдачи заказа",
+  },
 };
 
 const { actions, reducer } = createSlice({

@@ -4,27 +4,26 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { DeliveryState } from "./types";
 
 const initialState: DeliveryState = {
-  address: {
-    city: "",
-    street: "",
-    house: "",
-    flat: "",
-  },
-  recipient: {
-    surname: "",
-    name: "",
-    patronymic: "",
-    phone: "",
-  },
+  city: "",
+  street: "",
+  house: "",
+  flat: "",
+  surname: "",
+  name: "",
+  patronymic: "",
+  phone: "",
 };
 
 const { actions, reducer } = createSlice({
   name: "delivery",
   initialState,
   reducers: {
-    setDeliveryData: (state, { payload }: PayloadAction<DeliveryState>) => ({
+    setDeliveryData: (
+      state,
+      { payload: { value, name } }: PayloadAction<{ value: string; name: keyof DeliveryState }>
+    ) => ({
       ...state,
-      ...payload,
+      ...{ [name]: value },
     }),
   },
 });

@@ -14,6 +14,13 @@ export const PRODUCTS_IN_BASKET_LS_KEY = "basket";
 export const MAX_ADDRESSES = 5;
 export const ADDRESSES_LS_KEY = "addresses";
 
+export const DELIVERY_TYPES = {
+  PICK: "Пункт выдачи заказа",
+  COURIER: "Курьером",
+} as const;
+
+export type DeliveryType = (typeof DELIVERY_TYPES)[keyof typeof DELIVERY_TYPES];
+
 export const PRODUCTS = [
   {
     price: 7525,

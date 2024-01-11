@@ -1,4 +1,5 @@
 import RootTabs from "@/src/components/ui/RootTabs";
+import { DELIVERY_TYPES } from "@/src/constants";
 import { useAppDispatch } from "@/src/hooks/redux-hooks/redux-hooks";
 import { setActiveFilter } from "@/src/store/slices/filters";
 
@@ -12,7 +13,11 @@ const TabsBlock = () => {
   return (
     <div className={s.wrapper}>
       <div className={s.title}>Способ получения</div>
-      <RootTabs className={s.tabs} tabsList={["Пункт выдачи заказа", "Курьером"]} onSelectionChange={onHandleChange} />
+      <RootTabs
+        className={s.tabs}
+        tabsList={[DELIVERY_TYPES.PICK, DELIVERY_TYPES.COURIER]}
+        onSelectionChange={onHandleChange}
+      />
     </div>
   );
 };

@@ -1,0 +1,95 @@
+.inputs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+
+  & > * {
+    width: 100%;
+    max-width: unset !important;
+  }
+
+  .base {
+    height: 46px !important;
+
+    div[data-slot="input-wrapper"] {
+      border-radius: 16px;
+      background: #eee;
+    }
+  }
+}
+
+.title {
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--main-color-black);
+}
+
+.popoverContent {
+  background: #eee !important;
+}
+
+.item {
+  &[data-hover="true"] {
+    background: rgb(200, 200, 200) !important;
+  }
+}
+
+.phoneInput__input {
+  padding: 12px 15px !important;
+  border: unset !important;
+  background: #eee !important;
+  width: 100% !important;
+  max-width: unset;
+  border-radius: 16px !important;
+  font-size: 16px !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  line-height: normal !important;
+  color: var(--Main-Grey, #8e8e8e);
+  box-shadow: unset !important;
+  height: 46px;
+}
+
+.phoneInput__container {
+  div[class="special-label"] {
+    display: none;
+  }
+  div[class*="flag-dropdown "] {
+    display: none;
+  }
+}
+
+.inputUi {
+  border-radius: 16px !important;
+  background: #eee !important;
+  height: 46px;
+
+  label[data-slot="label"] {
+    font-size: 16px !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: normal !important;
+    color: #8e8e8e !important;
+  }
+
+  input {
+    font-size: 16px !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: normal !important;
+    color: #8e8e8e !important;
+  }
+}
+
+.inputs_row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
