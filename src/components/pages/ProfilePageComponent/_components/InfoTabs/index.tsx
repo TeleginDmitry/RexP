@@ -8,7 +8,7 @@ const InfoTabs = () => {
 
   return (
     <div className={s.wrapper}>
-      <RootLink className={s.link} href="/profile/deliveryDetails">
+      <RootLink className={s.link} href="/profile/deliveryData">
         <span className={s.text}>
           Данные
           <br />
