@@ -25,10 +25,6 @@ const AddButton = () => {
   }, [addressesValue]);
 
   const onHandleClick = () => {
-    if (!length) {
-      return;
-    }
-
     if (length >= MAX_ADDRESSES) {
       toast.error(`Максимальное количество адресов: ${MAX_ADDRESSES}`);
     } else {
@@ -38,7 +34,7 @@ const AddButton = () => {
 
   return (
     <Button
-      className={clsx(s.button, length >= MAX_ADDRESSES && s.disabled)}
+      className={clsx(s.button, length >= MAX_ADDRESSES && s.disabled, length === 0 && s.initial)}
       onClick={onHandleClick}
       disabled={length >= MAX_ADDRESSES}
     >

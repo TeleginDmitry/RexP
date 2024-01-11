@@ -1,5 +1,7 @@
 .wrapper {
   padding-top: 23px;
+  display: flex;
+  flex-direction: column;
 
   .header {
     padding: 16px;

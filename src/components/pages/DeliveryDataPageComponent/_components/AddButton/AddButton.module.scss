@@ -13,6 +13,10 @@
   color: var(--main-color-white);
   background: var(--main-color-black);
 
+  &.initial {
+    margin-top: auto;
+  }
+
   &.disabled {
     background: var(--Main-Grey, #8e8e8e);
   }
