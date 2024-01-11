@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "@/src/hooks/redux-hooks/redux-ho
 import { setDeliveryData } from "@/src/store/slices/delivery";
 import type { DeliveryState } from "@/src/store/slices/delivery/types";
 
+import { PVZ_ADDRESS } from "../../pvz-address";
 import { RUSSIAN_CITIES } from "../../russian-cities";
 
 import s from "./InputsBlock.module.scss";
@@ -17,6 +18,7 @@ const InputsBlock = () => {
   const activeFilter = useAppSelector((state) => state.filters.deliveryDetailsPage.activeFilter);
   const dispatch = useAppDispatch();
   const [selectValue, setSelectValue] = useState("");
+  const [selectPVZValue, setSelectPVZValue] = useState("");
 
   const onHandleChange = (value: string, name: keyof DeliveryState) => dispatch(setDeliveryData({ value, name }));
 
@@ -46,6 +48,30 @@ const InputsBlock = () => {
             </AutocompleteItem>
           )}
         </Autocomplete>
+        {activeFilter === "Пункт выдачи заказа" && (
+          <Autocomplete
+            allowsCustomValue
+            label="Адрес ПВЗ СДЕК"
+            variant="bordered"
+            classNames={{ base: s.base, popoverContent: s.popoverContent, listbox: s.listbox }}
+            onValueChange={setSelectPVZValue}
+            onSelectionChange={(value) => {
+              onHandleChange(value ? (value as string).split("_")[0] : "", "pvzAddress");
+              if (!value) {
+                setSelectPVZValue("");
+              }
+            }}
+            defaultItems={PVZ_ADDRESS.filter((city) =>
+              city.name.toLowerCase().includes(selectPVZValue.toLowerCase())
+            ).slice(0, 20)}
+          >
+            {(item) => (
+              <AutocompleteItem key={`${item.name}`} className={s.item}>
+                {item.name}
+              </AutocompleteItem>
+            )}
+          </Autocomplete>
+        )}
         {activeFilter === "Курьером" && (
           <>
             <Input
