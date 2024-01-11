@@ -40,7 +40,10 @@ const Footer = () => {
     <footer className={s.footer}>
       <ul className={s.menu}>
         {MENU_ITEMS.map(({ text, href, icon }) => (
-          <li key={text} className={clsx(s.item, pathname === href && s.active)}>
+          <li
+            key={text}
+            className={clsx(s.item, (href === "/" ? pathname === href : pathname.includes(href)) && s.active)}
+          >
             <DefaultLink href={href} className={s.link}>
               {text === "Корзина" && basketValue && !!JSON.parse(basketValue).length && (
                 <span className={s.count}>{getProductsValue(basketValue)}</span>
