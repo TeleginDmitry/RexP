@@ -16,6 +16,9 @@ const initialState: FiltersState = {
   productsInBasket: {
     activeFilter: "",
   },
+  deliveryDetailsPage: {
+    activeFilter: "Пункт выдачи заказа",
+  },
 };
 
 const { actions, reducer } = createSlice({
