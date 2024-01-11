@@ -15,6 +15,16 @@ const SaveButton = () => {
   const id = generateId();
 
   const onHandleClick = () => {
+    if (
+      Object.keys(delivery)
+        .filter((key) =>
+          activeFilter === "Пункт выдачи заказа" ? !["street", "house", "flat"].includes(key) : key !== "pvzAddress"
+        )
+        .some((value) => !delivery[value])
+    ) {
+      toast.error("Заполните все поля");
+    }
+
     if (!addressesValue) {
       setAddresses(JSON.stringify([{ ...delivery, id, deliveryType: activeFilter }]));
       return;
