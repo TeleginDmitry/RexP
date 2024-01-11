@@ -11,4 +11,7 @@ export type FiltersState = {
   productsInBasket: {
     activeFilter: string;
   }
+  deliveryDetailsPage: {
+    activeFilter: string;
+  }
 };

@@ -1,0 +1,15 @@
+.button {
+	border-radius: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 600;
+	height: 44px;
+	width: 100%;
+	line-height: 22px;
+	letter-spacing: -0.4px;
+	color: var(--main-color-white);
+	background: var(--main-color-black);
+}
