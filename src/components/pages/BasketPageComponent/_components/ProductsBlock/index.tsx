@@ -16,16 +16,11 @@ import s from "./ProductsBlock.module.scss";
 
 const ProductsBlock = () => {
   const [selected, setSelected] = useState<string[]>([]);
-
   const carts = useAppSelector((state) => state.carts.data);
-
-  useEffect(() => {
-    console.log(carts)
-  },[carts])
 
   return (
     <>
-      <HeaderBlock selected={selected} />
+      <HeaderBlock selected={selected} setSelected={setSelected} />
       <CheckboxGroup className={s.wrapper} onValueChange={setSelected} value={selected}>
         {carts.map(({ id, size, count, product }, index) => (
           <InViewWrapper key={`${id}${size}`}>

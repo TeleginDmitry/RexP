@@ -17,6 +17,10 @@ const { reducer, actions } = createSlice({
       ...state,
       data: state.data.filter((item) => item.id !== id),
     }),
+    increaseCarts: (state) => ({
+      ...state,
+      data: [...state.data, state.data[0]],
+    }),
   },
   extraReducers: (builder) => {
     builder.addCase(getCartsThunk.fulfilled, (store, { payload }) => ({
@@ -31,6 +35,6 @@ const { reducer, actions } = createSlice({
   },
 });
 
-export const { deleteCartFromStore } = actions;
+export const { deleteCartFromStore, increaseCarts } = actions;
 
 export default reducer;

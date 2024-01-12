@@ -1,48 +1,46 @@
-import { useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
+import { useEffect, useState } from "react";
 
 import { Button, Checkbox, Popover, PopoverContent, PopoverTrigger, cn } from "@nextui-org/react";
 import clsx from "clsx";
 
+import { useAppDispatch, useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
+import { deleteCartFromStore } from "@/src/store/slices/getCarts";
+import { deleteCart } from "@/src/utils/api/deleteCart";
+
 import s from "./HeaderBlock.module.scss";
 
 interface HeaderBlockProps {
+  setSelected: Dispatch<SetStateAction<string[]>>;
   selected: string[];
 }
 
-const HeaderBlock: React.FC<HeaderBlockProps> = ({  selected }) => {
+const HeaderBlock: React.FC<HeaderBlockProps> = ({ selected, setSelected }) => {
   const [isSelected, setIsSelected] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const carts = useAppSelector((state) => state.carts.data);
+  const dispatch = useAppDispatch();
 
-  // const onHandleClick = () => {
-  //   if (!basketValue) {
-  //     return;
-  //   }
+  const onHandleClick = () => {
+    selected.forEach((id) => {
+      deleteCart(id).then(() => {
+        dispatch(deleteCartFromStore({ id: +id }));
+      });
+    });
+  };
 
-  //   const products = JSON.parse(basketValue) as Array<{ id: string; size: string; quantity: number }>;
-  //   const newProducts = products.filter((product) => !selected.includes(`${product.id}-${product.size}`));
+  useEffect(() => {
+    if (carts.length === 0) {
+      setIsSelected(false);
+      return;
+    }
+    setIsSelected(carts.length === selected.length);
+  }, [carts.length, selected.length]);
 
-  //   setBasketValue(JSON.stringify(newProducts));
-  //   setSelected(selected.filter((item) => newProducts.find((product) => item === `${product.id}-${product.size}`)));
-  // };
-
-  // useEffect(() => {
-  //   if (basketValue) {
-  //     setIsSelected(JSON.parse(basketValue).length === selected.length);
-  //   }
-  // }, [selected, basketValue, isSelected]);
-
-  // useEffect(() => {
-  //   if (basketValue) {
-  //     if (JSON.parse(basketValue).length === 0) {
-  //       setIsSelected(false);
-  //     }
-  //   }
-  // }, [basketValue, isSelected]);
-
-  // const onHandleAllClick = () => {
-  //   setIsSelected(!isSelected);
-  //   setSelected(isSelected ? [] : JSON.parse(basketValue).map(({ id, size }) => `${id}-${size}`));
-  // };
+  const onHandleAllClick = () => {
+    setIsSelected(!isSelected);
+    setSelected(isSelected ? [] : carts.map(({ id }) => `${id}`));
+  };
 
   return (
     <div className={s.wrapper}>
@@ -64,7 +62,7 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({  selected }) => {
         }}
         value="выбрать все"
         isSelected={isSelected}
-        // onValueChange={onHandleAllClick}
+        onValueChange={onHandleAllClick}
       >
         <div className={s.header}>выбрать&nbsp;все</div>
       </Checkbox>
@@ -83,7 +81,7 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({  selected }) => {
               <Button
                 className={clsx("text-small font-bold", s.button)}
                 onClick={() => {
-                  // onHandleClick();
+                  onHandleClick();
                   setIsOpen(false);
                 }}
               >
