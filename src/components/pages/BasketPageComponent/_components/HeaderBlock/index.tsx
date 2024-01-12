@@ -43,8 +43,6 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ selected, setSelected }) => {
     setSelected(isSelected ? [] : carts.map(({ id }) => `${id}`));
   };
 
-  console.log(selected);
-
   return (
     <div className={s.wrapper}>
       <Checkbox

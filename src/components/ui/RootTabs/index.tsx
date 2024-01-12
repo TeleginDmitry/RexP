@@ -12,7 +12,6 @@ interface RootTabsProps extends Omit<TabsProps, "variant"> {
 
 const RootTabs: React.FC<RootTabsProps> = ({ tabsList, classNames, variant = "default", disabledList, ...props }) => (
   <Tabs
-    onSelectionChange={(event) => console.log(event)}
     aria-label="Options"
     color="primary"
     variant="light"
