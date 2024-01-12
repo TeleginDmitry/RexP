@@ -1,11 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-import { useEffect } from "react";
-
-import { useLocalStorage } from "@mantine/hooks";
-
-import { MAX_FAVOURITES_LS_KEY, PRODUCTS } from "@/src/constants";
 import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
-import { createFavorite } from "@/src/utils/api/createFavorite";
 
 import CatalogSpacer from "../../ui/CatalogSpacer";
 import MainContainer from "../../ui/MainContainer";
