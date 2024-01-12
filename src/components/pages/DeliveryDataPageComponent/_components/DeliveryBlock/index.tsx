@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { useLocalStorage } from "@mantine/hooks";
 import { Button } from "@nextui-org/react";
 import clsx from "clsx";
@@ -5,10 +7,33 @@ import { useRouter } from "next/router";
 
 import RootButton from "@/src/components/ui/RootButton";
 import { ACTIVE_ADDRESSES_LS_KEY, ADDRESSES_LS_KEY } from "@/src/constants";
+import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
 
 import s from "./DeliveryBlock.module.scss";
+import { createDeliveryCart } from "@/src/utils/api/DeliveryCartMethods";
 
 const DeliveryBlock = () => {
+  const deliveryCarts = useAppSelector((state) => state.deliveryCarts.data);
+
+  console.log(deliveryCarts);
+
+  useEffect(() => {
+    const asd = false;
+    if (asd) {
+      createDeliveryCart({
+        firstName: "Даниил",
+        lastName: "Данилов",
+        patronymic: "Данилович",
+        number: "79111112222",
+        city: "Москва",
+        address: "пр. Победы, 10",
+        isMain: true,
+        deliveryTypeId: 1,
+        userId: 1,
+      });
+    }
+  }, []);
+
   const [addressesValue] = useLocalStorage({ key: ADDRESSES_LS_KEY, defaultValue: "" });
   const [addressActiveValue, setAddressesActive] = useLocalStorage({ key: ACTIVE_ADDRESSES_LS_KEY, defaultValue: "" });
   const router = useRouter();

@@ -7,6 +7,7 @@ import brands from "./slices/getBrands";
 import carts from "./slices/getCarts";
 import category from "./slices/getCategory";
 import colors from "./slices/getColors";
+import deliveryCarts from "./slices/getDelivery";
 import favorites from "./slices/getFavorite";
 import product from "./slices/getOneProduct";
 import products from "./slices/getProducts";
@@ -25,6 +26,7 @@ const reducers = {
   product,
   carts,
   viewed,
+  deliveryCarts,
 };
 
 const combinedReducer = combineReducers({
