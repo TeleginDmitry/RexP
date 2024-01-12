@@ -4,6 +4,8 @@ import { Button } from "@nextui-org/react";
 import clsx from "clsx";
 import { toast } from "sonner";
 
+import { useAppDispatch } from "@/src/hooks/redux-hooks/redux-hooks";
+import { getCartsThunk } from "@/src/store/slices/getCarts/getCarts/getCarts";
 import { decreaseCart } from "@/src/utils/api/decreaseCart";
 import { increaseCart } from "@/src/utils/api/increaseCart";
 
@@ -16,12 +18,14 @@ interface CountButtonProps {
 
 const CountButton: React.FC<CountButtonProps> = ({ id, quantity }) => {
   const [quantityValue, setQuantityValue] = useState(quantity);
+  const dispatch = useAppDispatch();
 
   const onHandleClick = (action: "decrement" | "increment") => {
     if (action === "increment") {
       increaseCart(id)
         .then(() => {
           setQuantityValue(quantityValue + 1);
+          dispatch(getCartsThunk());
         })
         .catch(({ response: { data } }) => {
           toast.error(data.message);
@@ -31,6 +35,7 @@ const CountButton: React.FC<CountButtonProps> = ({ id, quantity }) => {
     if (action === "decrement" && quantityValue > 1) {
       decreaseCart(id).then(() => {
         setQuantityValue(quantityValue - 1);
+        dispatch(getCartsThunk());
       });
     }
   };

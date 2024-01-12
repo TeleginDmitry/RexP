@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-import { Checkbox, CheckboxGroup, cn } from "@nextui-org/react";
+import { Button, Checkbox, CheckboxGroup, cn } from "@nextui-org/react";
 import clsx from "clsx";
 import { motion } from "framer-motion";
 
@@ -17,6 +17,15 @@ import s from "./ProductsBlock.module.scss";
 const ProductsBlock = () => {
   const [selected, setSelected] = useState<string[]>([]);
   const carts = useAppSelector((state) => state.carts.data);
+
+  console.log(carts)
+
+  const totalPrice = carts
+    .filter((cart) => selected.includes(cart.id.toString()))
+    .reduce((acc, cart) => acc + cart.product.price * cart.count, 0).toFixed(0);
+  const totalPriceWithDiscount = carts
+    .filter((cart) => selected.includes(cart.id.toString()))
+    .reduce((acc, cart) => acc + cart.product.price * cart.count * ((100 - cart.product.discount) / 100), 0).toFixed(0);
 
   return (
     <>
@@ -54,7 +63,7 @@ const ProductsBlock = () => {
                 </Checkbox>
                 <div className={s.footer}>
                   <HeartIcon productId={product.id} />
-                  <DeleteButton id={id}  selected={selected} setSelected={setSelected} />
+                  <DeleteButton id={id} selected={selected} setSelected={setSelected} />
                   <CountButton id={id} quantity={count} />
                 </div>
               </motion.div>
@@ -62,6 +71,15 @@ const ProductsBlock = () => {
           </InViewWrapper>
         ))}
       </CheckboxGroup>
+      <div className={clsx(s.totalFooter, !!selected.length && s.visible)}>
+        <div className={s.info}>
+          <div className={s.title}>{new Intl.NumberFormat("ru-RU").format(+totalPriceWithDiscount)} ₽ со скидками</div>
+          <div className={s.description}>{new Intl.NumberFormat("ru-RU").format(+totalPrice)} ₽</div>
+        </div>
+        <div className={s.buttonWrapper}>
+          <Button className={s.button}>Оформить заказ</Button>
+        </div>
+      </div>
     </>
   );
 };
