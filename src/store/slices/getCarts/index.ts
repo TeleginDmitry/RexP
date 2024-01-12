@@ -21,6 +21,14 @@ const { reducer, actions } = createSlice({
       ...state,
       data: [...state.data, state.data[0]],
     }),
+    increaseCartProductCount: (state, { payload: { id } }: PayloadAction<{ id: number }>) => ({
+      ...state,
+      data: state.data.map((item) => (item.id === id ? { ...item, count: item.count + 1 } : item)),
+    }),
+    decreaseCartProductCount: (state, { payload: { id } }: PayloadAction<{ id: number }>) => ({
+      ...state,
+      data: state.data.map((item) => (item.id === id ? { ...item, count: item.count - 1 } : item)),
+    })
   },
   extraReducers: (builder) => {
     builder.addCase(getCartsThunk.fulfilled, (store, { payload }) => ({
@@ -35,6 +43,6 @@ const { reducer, actions } = createSlice({
   },
 });
 
-export const { deleteCartFromStore, increaseCarts } = actions;
+export const { deleteCartFromStore, increaseCarts, increaseCartProductCount, decreaseCartProductCount } = actions;
 
 export default reducer;
