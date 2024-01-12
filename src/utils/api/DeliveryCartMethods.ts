@@ -9,7 +9,6 @@ export type DeliveryCartType = {
   address: string;
   isMain: boolean;
   deliveryTypeId: number;
-  userId: number;
 };
 
 export const createDeliveryCart = async (payload: DeliveryCartType) => $api.post("/user/delivery/create", payload);
