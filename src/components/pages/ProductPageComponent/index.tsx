@@ -19,6 +19,7 @@ const ProductPageComponent = () => {
   const product = useAppSelector((state) => state.product);
   const carts = useAppSelector((state) => state.carts.data);
 
+  console.log(product);
   // const router = useRouter();
   // const isClient = useClientSide();
   // const [historyValue, setHistoryValue] = useLocalStorage({
