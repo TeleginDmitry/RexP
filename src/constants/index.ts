@@ -14,6 +14,8 @@ export const PRODUCTS_IN_BASKET_LS_KEY = "basket";
 export const MAX_ADDRESSES = 5;
 export const ADDRESSES_LS_KEY = "addresses";
 
+export const ACTIVE_ADDRESSES_LS_KEY = "active-address";
+
 export const DELIVERY_TYPES = {
   PICK: "Пункт выдачи заказа",
   COURIER: "Курьером",

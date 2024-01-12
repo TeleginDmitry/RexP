@@ -52,6 +52,9 @@
     "svgr",
     "sonner",
     "nextui",
-    "tailwindcss"
+    "tailwindcss",
+    "splitted",
+    "Swiper",
+    "componnets"
   ]
 }

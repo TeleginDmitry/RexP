@@ -1,16 +1,16 @@
 import CatalogSpacer from "@/src/components/ui/CatalogSpacer";
 import ProductCard from "@/src/components/ui/ProductCard";
-import { PRODUCTS } from "@/src/constants";
+import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
 
 import s from "./ProductsBlock.module.scss";
 
 const ProductsBlock = () => {
-  const asd = 123;
-
+  const products = useAppSelector((state) => state.products.data);
+console.log(products)
   return (
     <CatalogSpacer>
-      {PRODUCTS.map(({ id, name, price, imgUrl }, index) => (
-        <ProductCard key={id} price={price} name={name} imgUrl={imgUrl} imagePriority={index < 4} id={id} />
+      {products.map(({ id, name, price, images }, index) => (
+        <ProductCard key={id} price={price} name={name} imgUrl={images[0].name} imagePriority={index < 4} id={id} />
       ))}
     </CatalogSpacer>
   );

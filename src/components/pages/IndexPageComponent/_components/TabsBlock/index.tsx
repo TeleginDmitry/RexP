@@ -1,19 +1,20 @@
 import RootIcon from "@/src/components/ui/icons/RootIcon";
 import RootButton from "@/src/components/ui/RootButton";
 import RootTabs from "@/src/components/ui/RootTabs";
-import { useAppDispatch } from "@/src/hooks/redux-hooks/redux-hooks";
+import { useAppDispatch, useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
 import { setActiveFilter } from "@/src/store/slices/filters";
 
 import s from "./TabsBlock.module.scss";
 
 const TabsBlock = () => {
   const dispatch = useAppDispatch();
+  const categories = useAppSelector((state) => state.category.data);
   const onHandleChange = (value: string) => dispatch(setActiveFilter({ value, filterName: "indexPage" }));
 
   return (
     <div className={s.wrapper}>
       <RootTabs
-        tabsList={["Все товары", "Кроссовки", "Верхняя одежда"]}
+        tabsList={categories.map(({ name }) => name)}
         defaultSelectedKey="Все товары"
         onSelectionChange={onHandleChange}
       />

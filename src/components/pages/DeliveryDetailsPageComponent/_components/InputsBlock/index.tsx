@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import { useLocalStorage } from "@mantine/hooks";
 import { Autocomplete, AutocompleteItem, Input } from "@nextui-org/react";
+import { useRouter } from "next/router";
 import PhoneInput from "react-phone-input-2";
 
+import { ADDRESSES_LS_KEY } from "@/src/constants";
 import { useAppDispatch, useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
 import { setDeliveryData } from "@/src/store/slices/delivery";
 import type { DeliveryState } from "@/src/store/slices/delivery/types";
@@ -16,9 +19,31 @@ import "react-phone-input-2/lib/material.css";
 
 const InputsBlock = () => {
   const activeFilter = useAppSelector((state) => state.filters.deliveryDetailsPage.activeFilter);
+  const [addressesValue] = useLocalStorage({ key: ADDRESSES_LS_KEY, defaultValue: "" });
   const dispatch = useAppDispatch();
   const [selectValue, setSelectValue] = useState("");
   const [selectPVZValue, setSelectPVZValue] = useState("");
+  const delivery = useAppSelector((state) => state.delivery);
+  const router = useRouter();
+  const [currentAddress, setCurrentAddress] = useState<DeliveryState | null>(null);
+
+  useEffect(() => {
+    if (router.query.id && addressesValue) {
+      const addresses = JSON.parse(addressesValue);
+      const currentAddressValue = addresses.find((address) => address.id === router.query.id);
+      setCurrentAddress(currentAddressValue as DeliveryState);
+    }
+  }, [router.query, addressesValue]);
+
+  useEffect(() => {
+    if (currentAddress) {
+      Object.keys(currentAddress).forEach((key) => {
+        dispatch(
+          setDeliveryData({ value: currentAddress[key as keyof DeliveryState]!, name: key as keyof DeliveryState })
+        );
+      });
+    }
+  }, [currentAddress, dispatch]);
 
   const onHandleChange = (value: string, name: keyof DeliveryState) => dispatch(setDeliveryData({ value, name }));
 
@@ -77,6 +102,7 @@ const InputsBlock = () => {
             <Input
               type="text"
               label="Улица"
+              value={delivery.street}
               className={s.inputUi}
               onChange={(e) => onHandleChange(e.target.value, "street")}
             />
@@ -90,6 +116,7 @@ const InputsBlock = () => {
               <Input
                 type="text"
                 label="Квартира"
+                value={delivery.flat}
                 className={s.inputUi}
                 onChange={(e) => onHandleChange(e.target.value, "flat")}
               />
@@ -102,13 +129,21 @@ const InputsBlock = () => {
         <Input
           type="text"
           label="Фамилия"
+          value={delivery.surname}
           className={s.inputUi}
           onChange={(e) => onHandleChange(e.target.value, "surname")}
         />
-        <Input type="text" label="Имя" className={s.inputUi} onChange={(e) => onHandleChange(e.target.value, "name")} />
+        <Input
+          type="text"
+          label="Имя"
+          value={delivery.name}
+          className={s.inputUi}
+          onChange={(e) => onHandleChange(e.target.value, "name")}
+        />
         <Input
           type="text"
           label="Отчество"
+          value={delivery.patronymic}
           className={s.inputUi}
           onChange={(e) => onHandleChange(e.target.value, "patronymic")}
         />
@@ -116,6 +151,7 @@ const InputsBlock = () => {
           country="ru"
           placeholder="+7 (999) 999-99-99"
           disableCountryGuess
+          value={delivery.phone}
           onChange={(e) => onHandleChange(e, "phone")}
           inputClass={s.phoneInput__input}
           containerClass={s.phoneInput__container}

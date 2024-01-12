@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 
 import PageLayout from "@/src/components/layout/PageLayout";
 import AppContextProvider from "@/src/context/AppContextProvider";
+import { getCartsThunk } from "@/src/store/slices/getCarts/getCarts/getCarts";
 import { wrapper } from "@/src/store/store";
 
 import "@/styles/color/_color.scss";
@@ -44,10 +45,17 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
   );
 };
 
-RexPApp.getInitialProps = wrapper.getInitialAppProps(() => async (context: AppContext): Promise<AppInitialProps> => {
-  const ctx = await App.getInitialProps(context);
+RexPApp.getInitialProps = wrapper.getInitialAppProps(
+  ({ dispatch }) =>
+    async (context: AppContext): Promise<AppInitialProps> => {
+      const ctx = await App.getInitialProps(context);
 
-  return { ...ctx };
-});
+      if (typeof window === "undefined") {
+        await Promise.all([dispatch(getCartsThunk())]);
+      }
+
+      return { ...ctx };
+    }
+);
 
 export default RexPApp;

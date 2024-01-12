@@ -36,7 +36,6 @@ const AddButton = () => {
     <Button
       className={clsx(s.button, length >= MAX_ADDRESSES && s.disabled, length === 0 && s.initial)}
       onClick={onHandleClick}
-      disabled={length >= MAX_ADDRESSES}
     >
       Добавить данные доставки
     </Button>

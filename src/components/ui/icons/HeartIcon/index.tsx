@@ -1,11 +1,14 @@
-import { useEffect, useId, useState } from "react";
+import { useId, useState } from "react";
 
-import { useLocalStorage } from "@mantine/hooks";
 import { Button } from "@nextui-org/react";
 import clsx from "clsx";
 import { toast } from "sonner";
 
-import { MAX_FAVOURITES_LS_KEY, MAX_FAVOURITES_PRODUCTS } from "@/src/constants";
+import { MAX_FAVOURITES_PRODUCTS } from "@/src/constants";
+import { useAppDispatch, useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
+import { getFavoritesThunk } from "@/src/store/slices/getFavorite/getFavorite/getFavorite";
+import { createFavorite } from "@/src/utils/api/createFavorite";
+import { deleteFavorite } from "@/src/utils/api/deleteFavorite";
 
 import s from "./HeartIcon.module.scss";
 
@@ -16,33 +19,25 @@ interface HeartIconProps {
 }
 
 const HeartIcon: React.FC<HeartIconProps> = ({ productId, className, variant = "default" }) => {
-  const [favouritesValue, setFavouritesValue] = useLocalStorage({ key: MAX_FAVOURITES_LS_KEY, defaultValue: "" });
-  const [isLiked, setIsLiked] = useState(false);
+  const favorites = useAppSelector((state) => state.favorites.data);
+  const [isLiked, setIsLiked] = useState(!!favorites.find((item) => item.productId === +productId));
   const linearGradientId = useId();
-
-  useEffect(() => {
-    if (favouritesValue) {
-      setIsLiked(favouritesValue.split(".").includes(productId.toString()));
-    }
-  }, [favouritesValue, productId]);
+  const dispatch = useAppDispatch();
 
   const onHandleClick = () => {
-    if (isLiked && favouritesValue) {
-      setFavouritesValue(
-        favouritesValue
-          .split(".")
-          .filter((id) => id !== productId.toString())
-          .join(".")
-      );
+    if (isLiked) {
       setIsLiked(false);
+      deleteFavorite(+productId).then(() => {
+        dispatch(getFavoritesThunk());
+      });
       return;
     }
 
-    const count = favouritesValue ? favouritesValue.split(".").length : 0;
+    const count = favorites.length;
 
     if (count < MAX_FAVOURITES_PRODUCTS) {
       setIsLiked(true);
-      setFavouritesValue(`${favouritesValue || ""}${count !== 0 ? "." : ""}${productId}`);
+      createFavorite({ productId: +productId });
     } else {
       toast.error(`Максимальное количество избранных продуктов: ${MAX_FAVOURITES_PRODUCTS}`);
     }

@@ -1,33 +1,27 @@
 import type { Dispatch, SetStateAction } from "react";
 
-import { useLocalStorage } from "@mantine/hooks";
-
 import RootIcon from "@/src/components/ui/icons/RootIcon";
 import RootButton from "@/src/components/ui/RootButton";
-import { PRODUCTS_IN_BASKET_LS_KEY } from "@/src/constants";
+import { useAppDispatch } from "@/src/hooks/redux-hooks/redux-hooks";
+import { deleteCartFromStore } from "@/src/store/slices/getCarts";
+import { deleteCart } from "@/src/utils/api/deleteCart";
 
 import s from "./DeleteButton.module.scss";
 
 interface DeleteButtonProps {
-  size: string;
-  id: string;
   setSelected: Dispatch<SetStateAction<string[]>>;
   selected: string[];
+  id: number;
 }
 
-const DeleteButton: React.FC<DeleteButtonProps> = ({ size, id, setSelected, selected }) => {
-  const [basketValue, setBasketValue] = useLocalStorage({ key: PRODUCTS_IN_BASKET_LS_KEY, defaultValue: "" });
+const DeleteButton: React.FC<DeleteButtonProps> = ({ id, setSelected, selected }) => {
+  const dispatch = useAppDispatch();
 
   const onHandleClick = () => {
-    if (!basketValue) {
-      return;
-    }
-
-    const products = JSON.parse(basketValue!) as Array<{ id: string; size: string; quantity: number }>;
-    const newProducts = products.filter((product) => product.id !== id || product.size !== size);
-
-    setBasketValue(JSON.stringify(newProducts));
-    setSelected(selected.filter((item) => newProducts.find((product) => item === `${product.id}-${product.size}`)));
+    deleteCart(id.toString()).then(() => {
+      setSelected(selected.filter((item) => item !== `${id}`));
+      dispatch(deleteCartFromStore({ id }));
+    });
   };
 
   return (

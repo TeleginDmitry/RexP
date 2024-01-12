@@ -18,6 +18,11 @@ const UserInfo = () => {
     [webApp]
   );
 
+
+  useEffect(() => {
+    console.log(value)
+  },[value])
+
   useEffect(() => {
     const app = window.Telegram.WebApp;
     app.ready();

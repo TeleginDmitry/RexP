@@ -20,7 +20,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => (
   <div className={clsx(s.wrapper, className, s[variant], outOfStock && s.outOfStock)}>
     <Image
-      src={imgUrl}
+      src={`${process.env.NEXT_PUBLIC_IMAGES_URL}${imgUrl}`}
       alt={name}
       width={variant === "default" ? 145 : 101}
       height={variant === "default" ? 107 : 59}

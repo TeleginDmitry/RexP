@@ -2,6 +2,7 @@
   margin: 0 -16px;
   position: relative;
 }
+
 .pagination-container {
   position: absolute;
   z-index: 12;
@@ -10,7 +11,9 @@
   align-items: center;
   bottom: 0px !important;
   gap: 4px;
+  transform: translate(0, -8px);
 }
+
 .slider-bullet {
   width: 8px;
   height: 8px;
@@ -52,5 +55,5 @@
   margin: 0 auto;
   width: 95%;
   position: relative;
-  padding-top: 55%;
+  padding-top: 75%;
 }
