@@ -25,9 +25,9 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ selected, setSelected }) => {
     selected.forEach((id) => {
       deleteCart(id).then(() => {
         dispatch(deleteCartFromStore({ id: +id }));
-        setSelected(selected.filter((item) => item !== id));
       });
     });
+    setSelected([]);
   };
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ selected, setSelected }) => {
     setSelected(isSelected ? [] : carts.map(({ id }) => `${id}`));
   };
 
-  console.log(selected)
+  console.log(selected);
 
   return (
     <div className={s.wrapper}>
