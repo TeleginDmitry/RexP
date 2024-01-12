@@ -8,7 +8,11 @@ export type Product = {
     id: number;
     name: string;
   }>;
-  subcategory: {
+  subCategory: {
+    category: {
+      id: number;
+      name: string;
+    };
     id: number;
     name: string;
   };

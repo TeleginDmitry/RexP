@@ -7,8 +7,9 @@ import { setActiveFilter } from "@/src/store/slices/filters";
 import s from "./TabsBlock.module.scss";
 
 const TabsBlock = () => {
-  const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.category.data);
+  const dispatch = useAppDispatch();
+
   const onHandleChange = (value: string) => dispatch(setActiveFilter({ value, filterName: "indexPage" }));
 
   return (

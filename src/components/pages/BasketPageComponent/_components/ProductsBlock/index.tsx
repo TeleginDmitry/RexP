@@ -18,8 +18,6 @@ const ProductsBlock = () => {
   const [selected, setSelected] = useState<string[]>([]);
   const carts = useAppSelector((state) => state.carts.data);
 
-  console.log(carts)
-
   const totalPrice = carts
     .filter((cart) => selected.includes(cart.id.toString()))
     .reduce((acc, cart) => acc + cart.product.price * cart.count, 0).toFixed(0);

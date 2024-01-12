@@ -14,6 +14,6 @@ export type DeliveryCartType = {
 
 export const createDeliveryCart = async (payload: DeliveryCartType) => $api.post("/user/delivery/create", payload);
 
-export const editDeliveryCart = async (payload: DeliveryCartType) => $api.patch("/user/delivery/create", payload);
+export const editDeliveryCart = async (payload: DeliveryCartType) => $api.patch("/user/delivery/edit", payload);
 
 export const deleteDeliveryCart = async (id: number | string) => $api.delete(`/user/delivery/${id}`);
