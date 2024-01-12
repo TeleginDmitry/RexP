@@ -3,10 +3,12 @@ import { combineReducers } from "redux";
 
 import delivery from "./slices/delivery";
 import filters from "./slices/filters";
+import products from "./slices/getProducts";
 
 const reducers = {
   filters,
   delivery,
+  products,
 };
 
 const combinedReducer = combineReducers({
