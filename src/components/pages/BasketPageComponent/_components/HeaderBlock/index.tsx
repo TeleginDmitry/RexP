@@ -25,6 +25,7 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ selected, setSelected }) => {
     selected.forEach((id) => {
       deleteCart(id).then(() => {
         dispatch(deleteCartFromStore({ id: +id }));
+        setSelected(selected.filter((item) => item !== id));
       });
     });
   };
@@ -41,6 +42,8 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ selected, setSelected }) => {
     setIsSelected(!isSelected);
     setSelected(isSelected ? [] : carts.map(({ id }) => `${id}`));
   };
+
+  console.log(selected)
 
   return (
     <div className={s.wrapper}>
