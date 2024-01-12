@@ -1,5 +1,6 @@
 import { useLocalStorage } from "@mantine/hooks";
 import { Button } from "@nextui-org/react";
+import { useRouter } from "next/router";
 import { toast } from "sonner";
 
 import { ACTIVE_ADDRESSES_LS_KEY, ADDRESSES_LS_KEY, MAX_ADDRESSES } from "@/src/constants";
@@ -11,9 +12,10 @@ import s from "./SaveButton.module.scss";
 const SaveButton = () => {
   const activeFilter = useAppSelector((state) => state.filters.deliveryDetailsPage.activeFilter);
   const [addressesValue, setAddresses] = useLocalStorage({ key: ADDRESSES_LS_KEY, defaultValue: "" });
-  const [addresActiveValue, setAddressesActive] = useLocalStorage({ key: ACTIVE_ADDRESSES_LS_KEY, defaultValue: "" });
+  const [addressActiveValue, setAddressesActive] = useLocalStorage({ key: ACTIVE_ADDRESSES_LS_KEY, defaultValue: "" });
   const delivery = useAppSelector((state) => state.delivery);
   const id = generateId();
+  const router = useRouter();
 
   const onHandleClick = () => {
     if (
@@ -42,8 +44,13 @@ const SaveButton = () => {
 
     if (length >= MAX_ADDRESSES) {
       toast.error(`Максимальное количество адресов: ${MAX_ADDRESSES}`);
-    }else{
-      setAddresses(JSON.stringify([...addresses, { ...delivery, id, deliveryType: activeFilter }]));
+    } else {
+      let newAddresses = addresses;
+      if (router.query.id) {
+        newAddresses = addresses.filter((address) => address.id !== router.query.id);
+      }
+      
+      setAddresses(JSON.stringify([...newAddresses, { ...delivery, id, deliveryType: activeFilter }]));
     }
   };
 

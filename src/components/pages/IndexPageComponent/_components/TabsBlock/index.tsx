@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+
+import $api from "@/src/api/api";
 import RootIcon from "@/src/components/ui/icons/RootIcon";
 import RootButton from "@/src/components/ui/RootButton";
 import RootTabs from "@/src/components/ui/RootTabs";
@@ -10,6 +13,11 @@ const TabsBlock = () => {
   const dispatch = useAppDispatch();
   const onHandleChange = (value: string) => dispatch(setActiveFilter({ value, filterName: "indexPage" }));
 
+  useEffect(() => {
+    $api.get("/user/cart").then((res) => {
+      console.log(res.data);
+    });
+  }, []);
   return (
     <div className={s.wrapper}>
       <RootTabs
