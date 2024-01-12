@@ -1,6 +1,8 @@
 import Head from "next/head";
 
 import ProductPageComponent from "@/src/components/pages/ProductPageComponent";
+import { getFavoritesThunk } from "@/src/store/slices/getFavorite/getFavorite/getFavorite";
+import { getOneProductThunk } from "@/src/store/slices/getOneProduct/getOneProduct/getOneProduct";
 import { wrapper } from "@/src/store/store";
 
 const ProductPage = () => (
@@ -14,17 +16,11 @@ const ProductPage = () => (
 );
 
 export const getServerSideProps = wrapper.getServerSideProps(({ dispatch, getState }) => async ({ params }) => {
-  // await dispatch(getProductThunk({ productSlug: params?.id as string }))
+  await Promise.all([dispatch(getOneProductThunk(params?.id as string)), dispatch(getFavoritesThunk())]);
 
-  // const isSuccess = getState().product.success && getState().products.success;
+  const isSuccess = getState().product.success && getState().favorites.success;
 
-  // if (!isSuccess) {
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
-
-  if (false) {
+  if (!isSuccess) {
     return {
       notFound: true,
     };

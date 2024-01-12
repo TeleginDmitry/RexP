@@ -1,24 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { getProductsThunk } from "./getProducts/getProducts";
-import type { ProductsState } from "./types";
+import { getFavoritesThunk } from "./getFavorite/getFavorite";
+import type { FavoritesState } from "./types";
 
-const initialState: ProductsState = {
+const initialState: FavoritesState = {
   success: false,
   data: [],
 };
 
 const { reducer } = createSlice({
-  name: "products",
+  name: "favorites",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getProductsThunk.fulfilled, (store, { payload }) => ({
+    builder.addCase(getFavoritesThunk.fulfilled, (store, { payload }) => ({
       ...store,
       data: payload,
       success: true,
     }));
-    builder.addCase(getProductsThunk.rejected, (store) => ({
+    builder.addCase(getFavoritesThunk.rejected, (store) => ({
       ...store,
       success: false,
     }));

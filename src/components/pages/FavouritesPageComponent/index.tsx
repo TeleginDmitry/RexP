@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
+import { useEffect } from "react";
+
 import { useLocalStorage } from "@mantine/hooks";
 
 import { MAX_FAVOURITES_LS_KEY, PRODUCTS } from "@/src/constants";
+import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
+import { createFavorite } from "@/src/utils/api/createFavorite";
 
 import CatalogSpacer from "../../ui/CatalogSpacer";
 import MainContainer from "../../ui/MainContainer";
@@ -10,13 +14,18 @@ import ProductCard from "../../ui/ProductCard";
 import s from "./FavouritesPageComponent.module.scss";
 
 const FavouritesPageComponent = () => {
-  const [favouritesValue] = useLocalStorage({ key: MAX_FAVOURITES_LS_KEY, defaultValue: "" });
+  const favorites = useAppSelector((state) => state.favorites.data);
+  const products = useAppSelector((state) => state.products.data);
+
+  console.log(favorites);
+  console.log(products);
+
 
   return (
     <MainContainer className={s.page}>
       <CatalogSpacer>
-        {favouritesValue?.split(".").map((id: string, index) => {
-          const product = PRODUCTS.find((productValue) => productValue.id === +id);
+        {favorites.map(({ productId }, index) => {
+          const product = products.find((productValue) => productValue.id === +productId);
 
           return (
             product && (
@@ -25,9 +34,9 @@ const FavouritesPageComponent = () => {
                 key={product.id}
                 name={product.name}
                 price={product.price}
-                imgUrl={product.imgUrl}
+                imgUrl={product.images[0].name}
                 imagePriority={index < 3}
-                outOfStock={product.outOfStock}
+                outOfStock={false}
               />
             )
           );

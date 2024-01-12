@@ -31,7 +31,7 @@ export type Product = {
 
 export type ProductsState = Readonly<{
   success: boolean;
-  page: Product[];
+  data: Product[];
 }>;
 
 export type Filters = {
@@ -47,4 +47,8 @@ export type Filters = {
   sortBy: string;
   limit: number;
   page: number;
+};
+
+export type PayloadFilter = {
+  filters?: Filters;
 };

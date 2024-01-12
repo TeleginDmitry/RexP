@@ -1,24 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { getProductsThunk } from "./getProducts/getProducts";
-import type { ProductsState } from "./types";
+import { getCategoriesThunk } from "./getCategory/getCategory";
+import type { CategoryState } from "./types";
 
-const initialState: ProductsState = {
+const initialState: CategoryState = {
   success: false,
   data: [],
 };
 
 const { reducer } = createSlice({
-  name: "products",
+  name: "category",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getProductsThunk.fulfilled, (store, { payload }) => ({
+    builder.addCase(getCategoriesThunk.fulfilled, (store, { payload }) => ({
       ...store,
       data: payload,
       success: true,
     }));
-    builder.addCase(getProductsThunk.rejected, (store) => ({
+    builder.addCase(getCategoriesThunk.rejected, (store) => ({
       ...store,
       success: false,
     }));

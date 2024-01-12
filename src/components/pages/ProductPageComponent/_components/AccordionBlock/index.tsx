@@ -4,7 +4,7 @@ import s from "./AccordionBlock.module.scss";
 
 const AccordionBlock = () => (
   <div className={s.wrapper}>
-    <Accordion variant="splitted" defaultExpandedKeys={["1"]}>
+    <Accordion variant="splitted" defaultExpandedKeys={["1"]} selectionMode="multiple">
       <AccordionItem key="1" aria-label="Доставка" title="Доставка">
         Среднее время доставки 21 день. После оплаты вы сможете отслеживать статус доставки в профиле
       </AccordionItem>
