@@ -12,7 +12,11 @@ const initialState: OneProductsState = {
     discount: 0,
     gender: "",
     sizes: [],
-    subcategory: {
+    subCategory: {
+      category: {
+        id: 0,
+        name: "",
+      },
       id: 0,
       name: "",
     },
