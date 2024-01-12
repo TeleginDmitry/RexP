@@ -17,6 +17,7 @@ import s from "./ProductPageComponent.module.scss";
 
 const ProductPageComponent = () => {
   const product = useAppSelector((state) => state.product);
+  const carts = useAppSelector((state) => state.carts.data);
 
   // const router = useRouter();
   // const isClient = useClientSide();

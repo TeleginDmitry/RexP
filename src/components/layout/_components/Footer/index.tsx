@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 
-import { useLocalStorage } from "@mantine/hooks";
 import clsx from "clsx";
 import { useRouter } from "next/router";
 
@@ -10,8 +9,7 @@ import Home from "@/public/images/icons/home.svg";
 import Profile from "@/public/images/icons/profile.svg";
 import DefaultLink from "@/src/components/ui/links/DefaultLink";
 import RootText from "@/src/components/ui/RootText";
-import { PRODUCTS_IN_BASKET_LS_KEY } from "@/src/constants";
-import { getProductsValue } from "@/src/utils/getProductsValue";
+import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
 
 import type { MenuItemType } from "./types";
 
@@ -25,12 +23,9 @@ const MENU_ITEMS: MenuItemType[] = [
 ];
 
 const Footer = () => {
+  const carts = useAppSelector((state) => state.carts.data);
   const router = useRouter();
   const [pathname, setPathname] = useState(router.asPath);
-  const [basketValue] = useLocalStorage({
-    key: PRODUCTS_IN_BASKET_LS_KEY,
-    defaultValue: "",
-  });
 
   useEffect(() => {
     setPathname(router.asPath);
@@ -45,9 +40,7 @@ const Footer = () => {
             className={clsx(s.item, (href === "/" ? pathname === href : pathname.includes(href)) && s.active)}
           >
             <DefaultLink href={href} className={s.link}>
-              {text === "Корзина" && basketValue && !!JSON.parse(basketValue).length && (
-                <span className={s.count}>{getProductsValue(basketValue)}</span>
-              )}
+              {text === "Корзина" && !!carts.length && <span className={s.count}>{carts.length}</span>}
               {icon}
               <RootText variant="11px" color="grey" className={s.text}>
                 {text}

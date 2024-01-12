@@ -54,6 +54,7 @@
     "nextui",
     "tailwindcss",
     "splitted",
-    "Swiper"
+    "Swiper",
+    "componnets"
   ]
 }

@@ -1,4 +1,4 @@
-import { useState, type Dispatch, type SetStateAction, useEffect } from "react";
+import { useState } from "react";
 
 import { Button, Checkbox, Popover, PopoverContent, PopoverTrigger, cn } from "@nextui-org/react";
 import clsx from "clsx";
@@ -6,46 +6,43 @@ import clsx from "clsx";
 import s from "./HeaderBlock.module.scss";
 
 interface HeaderBlockProps {
-  setBasketValue: (val: string | ((prevState: string) => string)) => void;
-  setSelected: Dispatch<SetStateAction<string[]>>;
-  basketValue: string;
   selected: string[];
 }
 
-const HeaderBlock: React.FC<HeaderBlockProps> = ({ setSelected, basketValue, setBasketValue, selected }) => {
+const HeaderBlock: React.FC<HeaderBlockProps> = ({  selected }) => {
   const [isSelected, setIsSelected] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const onHandleClick = () => {
-    if (!basketValue) {
-      return;
-    }
+  // const onHandleClick = () => {
+  //   if (!basketValue) {
+  //     return;
+  //   }
 
-    const products = JSON.parse(basketValue) as Array<{ id: string; size: string; quantity: number }>;
-    const newProducts = products.filter((product) => !selected.includes(`${product.id}-${product.size}`));
+  //   const products = JSON.parse(basketValue) as Array<{ id: string; size: string; quantity: number }>;
+  //   const newProducts = products.filter((product) => !selected.includes(`${product.id}-${product.size}`));
 
-    setBasketValue(JSON.stringify(newProducts));
-    setSelected(selected.filter((item) => newProducts.find((product) => item === `${product.id}-${product.size}`)));
-  };
+  //   setBasketValue(JSON.stringify(newProducts));
+  //   setSelected(selected.filter((item) => newProducts.find((product) => item === `${product.id}-${product.size}`)));
+  // };
 
-  useEffect(() => {
-    if (basketValue) {
-      setIsSelected(JSON.parse(basketValue).length === selected.length);
-    }
-  }, [selected, basketValue, isSelected]);
+  // useEffect(() => {
+  //   if (basketValue) {
+  //     setIsSelected(JSON.parse(basketValue).length === selected.length);
+  //   }
+  // }, [selected, basketValue, isSelected]);
 
-  useEffect(() => {
-    if (basketValue) {
-      if (JSON.parse(basketValue).length === 0) {
-        setIsSelected(false);
-      }
-    }
-  }, [basketValue, isSelected]);
+  // useEffect(() => {
+  //   if (basketValue) {
+  //     if (JSON.parse(basketValue).length === 0) {
+  //       setIsSelected(false);
+  //     }
+  //   }
+  // }, [basketValue, isSelected]);
 
-  const onHandleAllClick = () => {
-    setIsSelected(!isSelected);
-    setSelected(isSelected ? [] : JSON.parse(basketValue).map(({ id, size }) => `${id}-${size}`));
-  };
+  // const onHandleAllClick = () => {
+  //   setIsSelected(!isSelected);
+  //   setSelected(isSelected ? [] : JSON.parse(basketValue).map(({ id, size }) => `${id}-${size}`));
+  // };
 
   return (
     <div className={s.wrapper}>
@@ -67,7 +64,7 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ setSelected, basketValue, set
         }}
         value="выбрать все"
         isSelected={isSelected}
-        onValueChange={onHandleAllClick}
+        // onValueChange={onHandleAllClick}
       >
         <div className={s.header}>выбрать&nbsp;все</div>
       </Checkbox>
@@ -86,7 +83,7 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ setSelected, basketValue, set
               <Button
                 className={clsx("text-small font-bold", s.button)}
                 onClick={() => {
-                  onHandleClick();
+                  // onHandleClick();
                   setIsOpen(false);
                 }}
               >
