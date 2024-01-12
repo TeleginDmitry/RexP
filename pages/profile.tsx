@@ -1,6 +1,10 @@
 import Head from "next/head";
 
 import ProfilePageComponent from "@/src/components/pages/ProfilePageComponent";
+import { getFavoritesThunk } from "@/src/store/slices/getFavorite/getFavorite/getFavorite";
+import { getProductsThunk } from "@/src/store/slices/getProducts/getProducts/getProducts";
+import { getViewedThunk } from "@/src/store/slices/getViewed/getViewed/getViewed";
+import { wrapper } from "@/src/store/store";
 
 const ProfilePage = () => (
   <>
@@ -11,5 +15,21 @@ const ProfilePage = () => (
     <ProfilePageComponent />
   </>
 );
+
+export const getServerSideProps = wrapper.getServerSideProps(({ dispatch, getState }) => async () => {
+  await Promise.all([dispatch(getProductsThunk({})), dispatch(getViewedThunk()), dispatch(getFavoritesThunk())]);
+
+  const isSuccess = getState().products.success && getState().viewed.success && getState().favorites.success;
+
+  if (!isSuccess) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {},
+  };
+});
 
 export default ProfilePage;

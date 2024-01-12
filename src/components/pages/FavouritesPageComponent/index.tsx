@@ -17,10 +17,6 @@ const FavouritesPageComponent = () => {
   const favorites = useAppSelector((state) => state.favorites.data);
   const products = useAppSelector((state) => state.products.data);
 
-  console.log(favorites);
-  console.log(products);
-
-
   return (
     <MainContainer className={s.page}>
       <CatalogSpacer>

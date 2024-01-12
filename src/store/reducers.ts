@@ -11,6 +11,7 @@ import favorites from "./slices/getFavorite";
 import product from "./slices/getOneProduct";
 import products from "./slices/getProducts";
 import sizes from "./slices/getSizes";
+import viewed from "./slices/getViewed";
 
 const reducers = {
   filters,
@@ -23,6 +24,7 @@ const reducers = {
   category,
   product,
   carts,
+  viewed,
 };
 
 const combinedReducer = combineReducers({

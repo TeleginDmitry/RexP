@@ -1,24 +1,20 @@
-import { useLocalStorage } from "@mantine/hooks";
 import ScrollContainer from "react-indiana-drag-scroll";
 
 import ProductCard from "@/src/components/ui/ProductCard";
-import { PRODUCTS_IN_HISTORY_LS_KEY, PRODUCTS } from "@/src/constants";
+import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
 
 import s from "./HistoryProducts.module.scss";
 
 const HistoryProducts = () => {
-  const [historyValue] = useLocalStorage({ key: PRODUCTS_IN_HISTORY_LS_KEY, defaultValue: "" });
-
-  if (!historyValue) {
-    return null;
-  }
+  const viewed = useAppSelector((state) => state.viewed.data);
+  const products = useAppSelector((state) => state.products.data);
 
   return (
     <>
       <div className={s["history-text"]}>Вы смотрели</div>
       <ScrollContainer className={s.wrapper}>
-        {JSON.parse(historyValue!).map((id: string, index) => {
-          const product = PRODUCTS.find((productValue) => productValue.id === +id);
+        {viewed.map(({ productId }, index) => {
+          const product = products.find((productValue) => productValue.id === +productId);
 
           return (
             product && (
@@ -28,8 +24,9 @@ const HistoryProducts = () => {
                 key={product.id}
                 name={product.name}
                 price={product.price}
-                imgUrl={product.imgUrl}
+                imgUrl={product.images[0].name}
                 imagePriority={index < 3}
+                outOfStock={false}
               />
             )
           );
