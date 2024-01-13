@@ -32,8 +32,8 @@ const ProductsBlock = () => {
     <>
       <HeaderBlock selected={selected} setSelected={setSelected} />
       <CheckboxGroup className={s.wrapper} onValueChange={setSelected} value={selected}>
-        {carts.map(({ id, size, count, product }, index) => (
-          <InViewWrapper key={`${id}${size}`} className={s.product}>
+        {carts.map(({ id, productSize, count, product }, index) => (
+          <InViewWrapper key={`${id}${productSize.size.name}`} className={s.product}>
             {({ isInView }) => (
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -69,10 +69,10 @@ const ProductsBlock = () => {
                         height={100}
                       />
                     </div>
-                    <div className={s.info} >
+                    <div className={s.info}>
                       <div className={s.info__price}>{new Intl.NumberFormat("ru-RU").format(product.price)} ₽</div>
                       <div className={s.info__name}>{product.name}</div>
-                      <div className={s.info__size}>размер: {size.name}</div>
+                      <div className={s.info__size}>размер: {productSize.size.name}</div>
                     </div>
                   </div>
                 </Checkbox>

@@ -15,9 +15,13 @@ export type CartType = {
     }>;
     subCategoryId: number;
   };
-  size: {
+  productSize: {
     id: number;
-    name: string;
+    amount: number;
+    size: {
+      id: number;
+      name: string;
+    };
   };
 };
 
