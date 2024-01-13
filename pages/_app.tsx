@@ -5,7 +5,9 @@ import { Analytics } from "@vercel/analytics/react";
 import type { AppContext, AppInitialProps, AppProps } from "next/app";
 import App from "next/app";
 import { useRouter } from "next/router";
+import { useCookies } from "react-cookie";
 
+import $api from "@/src/api/api";
 import PageLayout from "@/src/components/layout/PageLayout";
 import AppContextProvider from "@/src/context/AppContextProvider";
 import { getBrandsThunk } from "@/src/store/slices/getBrands/getBrands/getBrands";
@@ -18,10 +20,25 @@ import "@/styles/color/_color.scss";
 import "@/styles/index.scss";
 import "@/styles/nullable.css";
 
+const userInfo = {
+  query_id: "",
+  user: "",
+  first_name: "",
+  last_name: "",
+  username: "",
+  language_code: "",
+  examplename: "",
+  is_premium: false,
+  allows_write_to_pm: false,
+  auth_date: "",
+  hash: "",
+};
+
 const RexPApp = ({ Component, ...rest }: AppProps) => {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { pageProps } = props;
   const [webApp, setWebApp] = useState<any | null>(null);
+  const [cookies, setCookie] = useCookies(["USER_TOKEN"]);
 
   const router = useRouter();
 
@@ -49,6 +66,43 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
     app.ready();
     setWebApp(app);
   }, [value.user?.id]);
+
+  useEffect(() => {
+    if (value.user && value.unsafeData) {
+      userInfo.query_id = value.unsafeData.query_id;
+      userInfo.user = value.unsafeData.user;
+      userInfo.first_name = value.user.first_name;
+      userInfo.last_name = value.user.last_name;
+      userInfo.username = value.user.username;
+      userInfo.examplename = "examplename";
+      userInfo.language_code = value.user.language_code;
+      userInfo.is_premium = false;
+      userInfo.allows_write_to_pm = value.user.allows_write_to_pm;
+      userInfo.auth_date = value.unsafeData.auth_date;
+      userInfo.hash = value.unsafeData.hash;
+    }
+
+    if (cookies.USER_TOKEN) {
+      $api.defaults.headers.Authorization = `Bearer ${cookies.USER_TOKEN}`;
+    } else {
+      $api
+        .post("/user/login", { initData: JSON.stringify(userInfo) })
+        .then((res) => {
+          if (res.data.token) {
+            setCookie("USER_TOKEN", res.data.token, { maxAge: 86400 });
+            $api.defaults.headers.Authorization = `Bearer ${res.data.token}`;
+          }
+        })
+        .catch((err) => {
+          $api.post("/user/registration", { initData: JSON.stringify(userInfo) }).then((res) => {
+            if (res.data.token) {
+              setCookie("USER_TOKEN", res.data.token, { maxAge: 86400 });
+              $api.defaults.headers.Authorization = `Bearer ${res.data.token}`;
+            }
+          });
+        });
+    }
+  }, [cookies.USER_TOKEN, setCookie, value]);
 
   return (
     <AppContextProvider store={store}>
