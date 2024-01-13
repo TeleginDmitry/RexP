@@ -1,7 +1,6 @@
 import Head from "next/head";
 
 import BasketPageComponent from "@/src/components/pages/BasketPageComponent";
-import { getCartsThunk } from "@/src/store/slices/getCarts/getCarts/getCarts";
 import { getFavoritesThunk } from "@/src/store/slices/getFavorite/getFavorite/getFavorite";
 import { wrapper } from "@/src/store/store";
 
@@ -16,7 +15,7 @@ const BasketPage = () => (
 );
 
 export const getServerSideProps = wrapper.getServerSideProps(({ dispatch, getState }) => async () => {
-  await Promise.all([dispatch(getFavoritesThunk()), dispatch(getCartsThunk())]);
+  await Promise.all([dispatch(getFavoritesThunk())]);
 
   const isSuccess = getState().carts.success;
 

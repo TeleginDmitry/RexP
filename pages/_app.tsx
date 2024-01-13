@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { Analytics } from "@vercel/analytics/react";
 import type { AppContext, AppInitialProps, AppProps } from "next/app";
@@ -8,7 +8,10 @@ import { useRouter } from "next/router";
 
 import PageLayout from "@/src/components/layout/PageLayout";
 import AppContextProvider from "@/src/context/AppContextProvider";
+import { getBrandsThunk } from "@/src/store/slices/getBrands/getBrands/getBrands";
 import { getCartsThunk } from "@/src/store/slices/getCarts/getCarts/getCarts";
+import { getColorsThunk } from "@/src/store/slices/getColors/getColors/getColors";
+import { getSizesThunk } from "@/src/store/slices/getSizes/getSizes/getSizes";
 import { wrapper } from "@/src/store/store";
 
 import "@/styles/color/_color.scss";
@@ -18,6 +21,7 @@ import "@/styles/nullable.css";
 const RexPApp = ({ Component, ...rest }: AppProps) => {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { pageProps } = props;
+  const [webApp, setWebApp] = useState<any | null>(null);
 
   const router = useRouter();
 
@@ -35,9 +39,21 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
     }
   }, [router.route]);
 
+  const value = useMemo(
+    () => (webApp ? { webApp, unsafeData: webApp.initDataUnsafe, user: webApp.initDataUnsafe.user } : {}),
+    [webApp]
+  );
+
+  useEffect(() => {
+    const app = window.Telegram.WebApp;
+    app.ready();
+    setWebApp(app);
+  }, [value.user?.id]);
+
   return (
     <AppContextProvider store={store}>
       <PageLayout>
+        <div>{webApp && Object.keys(webApp).map((key) => <div key={key}>{key}</div>)}</div>
         <Component {...pageProps} />
         {process.env.NEXT_PUBLIC_BUILD_PROFILE !== "test" && <Analytics />}
       </PageLayout>
@@ -51,7 +67,12 @@ RexPApp.getInitialProps = wrapper.getInitialAppProps(
       const ctx = await App.getInitialProps(context);
 
       if (typeof window === "undefined") {
-        await Promise.all([dispatch(getCartsThunk())]);
+        await Promise.all([
+          dispatch(getCartsThunk()),
+          dispatch(getColorsThunk()),
+          dispatch(getSizesThunk()),
+          dispatch(getBrandsThunk()),
+        ]);
       }
 
       return { ...ctx };

@@ -1,3 +1,3 @@
 import type { BrandType } from "../types";
 
-export type GetBrandsResponseType = { data: BrandType[] };
+export type GetBrandsResponseType = BrandType[];

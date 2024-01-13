@@ -15,7 +15,7 @@ const { reducer } = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getSizesThunk.fulfilled, (store, { payload }) => ({
       ...store,
-      data: payload.data,
+      data: payload,
       success: true,
     }));
     builder.addCase(getSizesThunk.rejected, (store) => ({
