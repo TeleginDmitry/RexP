@@ -104,7 +104,7 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
           });
         });
     }
-  }, [cookies.USER_TOKEN, setCookie, value]);
+  }, [cookies.USER_TOKEN, setCookie, value.user, value.unsafeData]);
 
   return (
     <AppContextProvider store={store}>
