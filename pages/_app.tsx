@@ -6,6 +6,7 @@ import type { AppContext, AppInitialProps, AppProps } from "next/app";
 import App from "next/app";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
+import { toast } from "sonner";
 
 import $api from "@/src/api/api";
 import PageLayout from "@/src/components/layout/PageLayout";
@@ -19,7 +20,6 @@ import { wrapper } from "@/src/store/store";
 import "@/styles/color/_color.scss";
 import "@/styles/index.scss";
 import "@/styles/nullable.css";
-import { toast } from "sonner";
 
 const userInfo = {
   query_id: "",
@@ -109,6 +109,7 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
   return (
     <AppContextProvider store={store}>
       <PageLayout>
+        <div>{JSON.stringify(userInfo)}</div>
         {/* <div>{value.unsafeData && Object.keys(value.unsafeData).map((key) => <div key={key}>{key}</div>)}</div> */}
         {/* <div>{value.user && Object.keys(value.user).map((key) => <div key={key}>{key}</div>)}</div> */}
         <Component {...pageProps} />
