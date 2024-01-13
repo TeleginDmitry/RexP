@@ -54,6 +54,7 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
     <AppContextProvider store={store}>
       <PageLayout>
         <div>{value.unsafeData && Object.keys(value.unsafeData).map((key) => <div key={key}>{key}</div>)}</div>
+        <div>{value.user && Object.keys(value.user).map((key) => <div key={key}>{key}</div>)}</div>
         <Component {...pageProps} />
         {process.env.NEXT_PUBLIC_BUILD_PROFILE !== "test" && <Analytics />}
       </PageLayout>
