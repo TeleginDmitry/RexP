@@ -21,13 +21,11 @@ const AddButton = () => {
     }
 
     const sizeId = product.sizes.find((item) => item.name === activeFilter)?.id;
-
+    console.log({ productId: product.id, sizeId });
     if (sizeId) {
       createCart({ productId: product.id, sizeId })
         .then(() => dispatch(increaseCarts()))
-        .catch(({ response: { data } }) => {
-          toast.error(data.message);
-        });
+        .catch(({ response: { data } }) => {});
     }
   };
 

@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import { Button } from "@nextui-org/react";
 import clsx from "clsx";
-import { useRouter } from "next/router";
 
 import RootIcon from "@/src/components/ui/icons/RootIcon";
 import MainContainer from "@/src/components/ui/MainContainer";
@@ -10,20 +9,20 @@ import RootButton from "@/src/components/ui/RootButton";
 import { useAppDispatch, useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
 import { switchMainFilterOpenState } from "@/src/store/slices/mainFilter";
 
+import BrandField from "./_components/BrandField";
 import ColorField from "./_components/ColorField";
 import SizeField from "./_components/SizeField";
 import SliderField from "./_components/SliderField";
 
 import s from "./MainFilter.module.scss";
-import BrandField from "./_components/BrandField";
 
 const MainFilter = () => {
   const [selectedFilter, setSelectedFilter] = useState("");
   const isOpen = useAppSelector((state) => state.mainFilter.isOpen);
   const dispatch = useAppDispatch();
 
-  if(!isOpen){
-  	return null
+  if (!isOpen) {
+    return null;
   }
 
   const onHandleClick = () => {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { useRouter } from "next/router";
 
@@ -10,22 +10,22 @@ import { setActiveFilter } from "@/src/store/slices/filters";
 import s from "./TabsBlock.module.scss";
 
 const TabsBlock = () => {
-  const dispatch = useAppDispatch();
   const activeFilter = useAppSelector((state) => state.filters.deliveryDetailsPage.activeFilter);
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
   const onHandleChange = (value: string) => dispatch(setActiveFilter({ value, filterName: "deliveryDetailsPage" }));
 
   useEffect(() => {
-    if (router.query.type) {
-      console.log(router.query.type);
-      dispatch(setActiveFilter({ value: router.query.type as string, filterName: "deliveryDetailsPage" }));
+    if (router.query.typeId) {
+      dispatch(
+        setActiveFilter({
+          value: +router.query.typeId === 0 ? DELIVERY_TYPES.COURIER : DELIVERY_TYPES.PICK,
+          filterName: "deliveryDetailsPage",
+        })
+      );
     }
-  }, [dispatch, router.query]);
-
-  useEffect(() => {
-    console.log(activeFilter)
-  }, [activeFilter])
+  }, [activeFilter, dispatch, router.query]);
 
   return (
     <div className={s.wrapper}>
