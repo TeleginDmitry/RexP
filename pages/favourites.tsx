@@ -20,11 +20,11 @@ export const getServerSideProps = wrapper.getServerSideProps(({ dispatch, getSta
 
   const isSuccess = getState().favorites.success && getState().products.success;
 
-  if (!isSuccess) {
-    return {
-      notFound: true,
-    };
-  }
+  // if (!isSuccess) {
+  //   return {
+  //     notFound: true,
+  //   };
+  // }
 
   return {
     props: {},

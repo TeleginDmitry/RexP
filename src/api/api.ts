@@ -5,8 +5,9 @@ const $api = axios.create({
   headers: {
     Accept: "application/json",
     "X-Requested-With": "XMLHttpRequest",
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZUlkIjoyLCJpYXQiOjE3MDUxMjMwNTIsImV4cCI6MTcwNTIwOTQ1Mn0.awkObKADQUe6U_m6-Cvzk5ZD4jAKOxCjCCEf-RIKIgs`,
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZUlkIjoyLCJpYXQiOjE3MDU3MzYwOTgsImV4cCI6MTcwNTgyMjQ5OH0.dtNynPBA4PpxtcQFMeaEIUhCIDLW4nHFj9Asg8H00XY`,
   },
 });
 
 export default $api;
+console.log(process.env.NEXT_PUBLIC_API_URL);
