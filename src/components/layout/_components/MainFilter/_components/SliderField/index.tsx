@@ -1,21 +1,32 @@
-import { useEffect, useState } from "react";
+/* eslint-disable react/jsx-no-bind */
+import { useRef, useState } from "react";
 
 import { Slider } from "@nextui-org/react";
 
-import { useAppDispatch } from "@/src/hooks/redux-hooks/redux-hooks";
-import { setMaxPrice, setMinPrice } from "@/src/store/slices/mainFilter";
+import { useAppDispatch, useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
+import { addFilters } from "@/src/store/slices/getProducts";
 
 import s from "../../MainFilter.module.scss";
 
 const SliderField = () => {
-  const [value, setValue] = useState([99, 3599999]);
+  const timer = useRef<NodeJS.Timeout | null>(null);
 
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(setMinPrice({ minPrice: value[0] }));
-    dispatch(setMaxPrice({ maxPrice: value[1] }));
-  }, [dispatch, value]);
+  const { minPrice, maxPrice } = useAppSelector((state) => state.products.filters);
+
+  const [value, setValue] = useState([minPrice, maxPrice]);
+
+  function onChange(sliderValue: number[]) {
+    setValue(sliderValue);
+
+    if (timer.current) {
+      clearTimeout(timer.current);
+    }
+    timer.current = setTimeout(() => {
+      dispatch(addFilters({ minPrice: value[0], maxPrice: value[1] }));
+    }, 250);
+  }
 
   return (
     <div className="flex flex-col gap-[16px] w-full mt-[16px]  items-start justify-center">
@@ -35,7 +46,7 @@ const SliderField = () => {
         maxValue={3599999}
         minValue={99}
         value={value}
-        onChange={(sliderValue) => setValue(sliderValue as number[])}
+        onChange={onChange}
         className={s.mainSlider}
       />
     </div>

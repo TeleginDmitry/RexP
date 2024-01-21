@@ -2,7 +2,9 @@ export type MainFiltersState = {
   filters: {
     maxPrice: number;
     minPrice: number;
-    colors: number[];
+    colors: string[];
+    sizes: string[];
+    brands: string[];
   };
   isOpen: boolean;
 };

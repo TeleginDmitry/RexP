@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { Button } from "@nextui-org/react";
 import clsx from "clsx";
 
 import RootIcon from "@/src/components/ui/icons/RootIcon";
@@ -9,6 +8,7 @@ import RootButton from "@/src/components/ui/RootButton";
 import { useAppDispatch, useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
 import { switchMainFilterOpenState } from "@/src/store/slices/mainFilter";
 
+import { ApplyButton } from "./_components/ApplyButton";
 import BrandField from "./_components/BrandField";
 import ColorField from "./_components/ColorField";
 import SizeField from "./_components/SizeField";
@@ -21,9 +21,15 @@ const MainFilter = () => {
   const isOpen = useAppSelector((state) => state.mainFilter.isOpen);
   const dispatch = useAppDispatch();
 
-  if (!isOpen) {
-    return null;
-  }
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
 
   const onHandleClick = () => {
     if (selectedFilter) {
@@ -33,6 +39,10 @@ const MainFilter = () => {
 
     dispatch(switchMainFilterOpenState());
   };
+
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <MainContainer className={s.wrapper}>
@@ -62,7 +72,7 @@ const MainFilter = () => {
         </div>
         <SliderField />
       </div>
-      <Button className={s.button}>Применить</Button>
+      <ApplyButton />
     </MainContainer>
   );
 };

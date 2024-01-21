@@ -1,31 +1,43 @@
-import { useState, useEffect } from "react";
+/* eslint-disable react/jsx-no-bind */
+import { useState } from "react";
 
 import { useDebouncedValue } from "@mantine/hooks";
 import { CheckboxGroup } from "@nextui-org/react";
 
 import RootCheckbox from "@/src/components/ui/RootCheckbox";
-import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
+import { useAppDispatch, useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
+import { addFilters } from "@/src/store/slices/getProducts";
 
 import s from "./BrandField.module.scss";
 
 const BrandField = () => {
-  const [mainChecked, setMainChecked] = useState(false);
-  const [selected, setSelected] = useState<string[]>([""]);
+  const dispatch = useAppDispatch();
+  const selectedBrands = useAppSelector((state) => state.products.filters.brands);
   const brands = useAppSelector((state) => state.brands.data);
+
+  const [mainChecked, setMainChecked] = useState(selectedBrands.length === 0);
+  const [selected, setSelected] = useState<string[]>(selectedBrands);
   const [searchValue, setSearchValue] = useState("");
   const [debouncedSearchValue] = useDebouncedValue(searchValue, 240);
 
-  useEffect(() => {
-    if (mainChecked) {
-      setSelected([""]);
-    }
-  }, [mainChecked]);
+  function onValueChangeGroup(values: string[]) {
+    setSelected(values);
+    dispatch(addFilters({ brands: values }));
 
-  useEffect(() => {
-    if (selected.length > 1) {
+    if (values.length === 0) {
+      setMainChecked(true);
+    } else {
       setMainChecked(false);
     }
-  }, [selected]);
+  }
+
+  function onValueChangeMain(isSelected: boolean) {
+    if (isSelected) {
+      setMainChecked(true);
+    }
+    setSelected([]);
+    dispatch(addFilters({ brands: [] }));
+  }
 
   return (
     <div className={s.wrapper}>
@@ -39,12 +51,19 @@ const BrandField = () => {
             />
           </svg>
         </div>
-        <input type="text" className={s.input} value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+        <input
+          placeholder="Какой бренд ищем?"
+          type="text"
+          className={s.input}
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+        />
       </div>
-      <RootCheckbox onValueChange={setMainChecked} isSelected={mainChecked}>
+
+      <RootCheckbox onValueChange={onValueChangeMain} isSelected={mainChecked}>
         <div className={s.name}>Все бренды</div>
       </RootCheckbox>
-      <CheckboxGroup value={selected} onValueChange={setSelected} className={s.checkboxGroup}>
+      <CheckboxGroup value={selected} onValueChange={onValueChangeGroup} className={s.checkboxGroup}>
         {brands
           .filter((brand) => brand.name.toLowerCase().includes(debouncedSearchValue.toLowerCase()))
           .map((brand) => (

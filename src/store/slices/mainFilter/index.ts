@@ -6,9 +6,11 @@ import type { MainFiltersState } from "./types";
 const initialState: MainFiltersState = {
   isOpen: false,
   filters: {
-    maxPrice: 99,
-    minPrice: 359999,
+    maxPrice: 359999,
+    minPrice: 99,
     colors: [],
+    brands: [],
+    sizes: [],
   },
 };
 
@@ -36,11 +38,40 @@ const { actions, reducer } = createSlice({
       filters: {
         ...state.filters,
         minPrice,
-      }
-    })
+      },
+    }),
+    setColors: (state, { payload: { colors } }: PayloadAction<{ colors: string[] }>) => ({
+      ...state,
+      filters: {
+        ...state.filters,
+        colors,
+      },
+    }),
+    setBrands: (state, { payload: { brands } }: PayloadAction<{ brands: string[] }>) => ({
+      ...state,
+      filters: {
+        ...state.filters,
+        brands,
+      },
+    }),
+    setSizes: (state, { payload: { sizes } }: PayloadAction<{ sizes: string[] }>) => ({
+      ...state,
+      filters: {
+        ...state.filters,
+        sizes,
+      },
+    }),
   },
 });
 
-export const { setMainFilterOpenState, switchMainFilterOpenState, setMaxPrice, setMinPrice } = actions;
+export const {
+  setMainFilterOpenState,
+  switchMainFilterOpenState,
+  setMaxPrice,
+  setMinPrice,
+  setBrands,
+  setColors,
+  setSizes,
+} = actions;
 
 export default reducer;

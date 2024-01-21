@@ -14,16 +14,16 @@ const AddButton = () => {
   const carts = useAppSelector((state) => state.carts.data);
   const activeFilter = useAppSelector((state) => state.filters.sizes.activeFilter);
 
-  const onHandleClick = () => {
+  const onHandleClick = async () => {
     if (carts.length >= MAX_PRODUCTS_IN_BASKET) {
       toast.error(`Максимальное количество позиций в корзине - ${MAX_PRODUCTS_IN_BASKET}`);
       return;
     }
 
-    const sizeId = product.sizes.find((item) => item.name === activeFilter)?.id;
-    console.log({ productId: product.id, sizeId });
-    if (sizeId) {
-      createCart({ productId: product.id, sizeId })
+    const productSizeId = product.sizes.find((item) => item.name === activeFilter)?.id;
+
+    if (productSizeId) {
+      await createCart({ productId: product.id, productSizeId })
         .then(() => dispatch(increaseCarts()))
         .catch(({ response: { data } }) => {});
     }

@@ -16,15 +16,15 @@ const FavouritesPage = () => (
 );
 
 export const getServerSideProps = wrapper.getServerSideProps(({ dispatch, getState }) => async () => {
-  await Promise.all([dispatch(getProductsThunk({})), dispatch(getFavoritesThunk())]);
+  await Promise.all([dispatch(getFavoritesThunk())]);
 
-  const isSuccess = getState().favorites.success && getState().products.success;
+  const isSuccess = getState().favorites.success;
 
-  // if (!isSuccess) {
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
+  if (!isSuccess) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {},

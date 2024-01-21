@@ -1,35 +1,47 @@
-import { useState, useEffect } from "react";
+/* eslint-disable react/jsx-no-bind */
+import { useState } from "react";
 
 import { CheckboxGroup } from "@nextui-org/react";
 
 import RootCheckbox from "@/src/components/ui/RootCheckbox";
-import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
+import { useAppDispatch, useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
+import { addFilters } from "@/src/store/slices/getProducts";
 
 import s from "./ColorField.module.scss";
 
 const SizeField = () => {
-  const [mainChecked, setMainChecked] = useState(false);
-  const [selected, setSelected] = useState<string[]>([""]);
+  const dispatch = useAppDispatch();
+  const selectedSizes = useAppSelector((state) => state.products.filters.sizes);
   const sizes = useAppSelector((state) => state.sizes.data);
 
-  useEffect(() => {
-    if (mainChecked) {
-      setSelected([""]);
-    }
-  }, [mainChecked]);
+  const [mainChecked, setMainChecked] = useState(selectedSizes.length === 0);
+  const [selected, setSelected] = useState<string[]>(selectedSizes);
 
-  useEffect(() => {
-    if (selected.length > 1) {
+  function onValueChangeGroup(values: string[]) {
+    setSelected(values);
+    dispatch(addFilters({ sizes: values }));
+
+    if (values.length === 0) {
+      setMainChecked(true);
+    } else {
       setMainChecked(false);
     }
-  }, [selected]);
+  }
+
+  function onValueChangeMain(isSelected: boolean) {
+    if (isSelected) {
+      setMainChecked(true);
+    }
+    setSelected([]);
+    dispatch(addFilters({ sizes: [] }));
+  }
 
   return (
     <div className={s.wrapper}>
-      <RootCheckbox onValueChange={setMainChecked} isSelected={mainChecked}>
+      <RootCheckbox onValueChange={onValueChangeMain} isSelected={mainChecked}>
         <div className={s.name}>Все размеры</div>
       </RootCheckbox>
-      <CheckboxGroup value={selected} onValueChange={setSelected}>
+      <CheckboxGroup value={selected} onValueChange={onValueChangeGroup}>
         {sizes.map((size) => (
           <RootCheckbox key={size.id} value={`${size.id}`}>
             <div className={s.name}>{size.name}</div>

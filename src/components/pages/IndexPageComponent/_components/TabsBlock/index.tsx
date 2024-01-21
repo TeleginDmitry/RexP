@@ -1,17 +1,26 @@
+import { Tab } from "@nextui-org/react";
+
 import RootIcon from "@/src/components/ui/icons/RootIcon";
 import RootButton from "@/src/components/ui/RootButton";
 import RootTabs from "@/src/components/ui/RootTabs";
 import { useAppDispatch, useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
-import { setActiveFilter } from "@/src/store/slices/filters";
+import { addFilters } from "@/src/store/slices/getProducts";
+import { getProductsThunk } from "@/src/store/slices/getProducts/getProducts/getProducts";
 
 import s from "./TabsBlock.module.scss";
 
 const TabsBlock = () => {
-  const categories = useAppSelector((state) => state.category.data);
   const dispatch = useAppDispatch();
 
-  const onHandleChange = (value: string) => dispatch(setActiveFilter({ value, filterName: "indexPage" }));
+  const categories = useAppSelector((state) => state.category.data);
 
+  const onHandleChange = (value: string) => {
+    console.log(value);
+    const categoryId = categories.find(({ name }) => name === value)?.id;
+    dispatch(addFilters({ categoryId }));
+
+    dispatch(getProductsThunk({ filters: { categoryId } }));
+  };
   return (
     <div className={s.wrapper}>
       <RootTabs

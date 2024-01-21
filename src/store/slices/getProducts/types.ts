@@ -36,23 +36,25 @@ export type Product = {
 export type ProductsState = Readonly<{
   success: boolean;
   data: Product[];
+  filters: Filters;
 }>;
 
 export type Filters = {
-  name: string;
-  gender: string;
+  name?: string;
+  gender?: string;
   maxPrice: number;
   minPrice: number;
-  sizes: number[];
-  subcategories: number[];
-  brands: number[];
-  colors: number[];
-  orderBy: string;
-  sortBy: string;
-  limit: number;
-  page: number;
+  sizes: string[];
+  subcategories?: number[];
+  brands: string[];
+  colors: string[];
+  orderBy?: string;
+  sortBy?: string;
+  limit?: number;
+  page?: number;
+  categoryId?: number;
 };
 
 export type PayloadFilter = {
-  filters?: Filters;
+  filters?: Partial<Filters>;
 };

@@ -41,6 +41,9 @@ button,
 textarea {
   font-family: inherit;
   font-size: inherit;
+  background-color: transparent;
+  border: none;
+  outline: none;
 }
 
 input::-ms-clear {

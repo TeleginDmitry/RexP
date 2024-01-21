@@ -32,11 +32,11 @@
 
 .wrapper {
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .checkboxGroup {
   height: 100%;
-  overflow-y: scroll;
-	overflow-x: hidden;
-	padding-bottom: 131px;
 }
