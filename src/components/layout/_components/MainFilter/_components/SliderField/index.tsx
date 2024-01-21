@@ -3,17 +3,18 @@ import { useRef, useState } from "react";
 
 import { Slider } from "@nextui-org/react";
 
-import { useAppDispatch, useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
-import { addFilters } from "@/src/store/slices/getProducts";
+import type { FilterType } from "@/src/types/Filter/filter.types";
 
 import s from "../../MainFilter.module.scss";
 
-const SliderField = () => {
+interface Props {
+  filters: FilterType;
+  changeFilters: (values: Partial<FilterType>) => void;
+}
+const SliderField = ({ changeFilters, filters }: Props) => {
   const timer = useRef<NodeJS.Timeout | null>(null);
 
-  const dispatch = useAppDispatch();
-
-  const { minPrice, maxPrice } = useAppSelector((state) => state.products.filters);
+  const { minPrice, maxPrice } = filters;
 
   const [value, setValue] = useState([minPrice, maxPrice]);
 
@@ -24,7 +25,7 @@ const SliderField = () => {
       clearTimeout(timer.current);
     }
     timer.current = setTimeout(() => {
-      dispatch(addFilters({ minPrice: value[0], maxPrice: value[1] }));
+      changeFilters({ minPrice: value[0], maxPrice: value[1] });
     }, 250);
   }
 

@@ -61,7 +61,7 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ selected, setSelected }) => {
           ),
           label: "w-[calc(100%_-_74px)]",
         }}
-        value="выбрать все"
+        value="Выбрать все"
         isSelected={isSelected}
         onValueChange={onHandleAllClick}
       >

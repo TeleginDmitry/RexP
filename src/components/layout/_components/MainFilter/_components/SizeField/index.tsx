@@ -4,22 +4,25 @@ import { useState } from "react";
 import { CheckboxGroup } from "@nextui-org/react";
 
 import RootCheckbox from "@/src/components/ui/RootCheckbox";
-import { useAppDispatch, useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
-import { addFilters } from "@/src/store/slices/getProducts";
+import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
+import type { FilterType } from "@/src/types/Filter/filter.types";
 
 import s from "./ColorField.module.scss";
 
-const SizeField = () => {
-  const dispatch = useAppDispatch();
-  const selectedSizes = useAppSelector((state) => state.products.filters.sizes);
+interface Props {
+  filters: FilterType;
+  changeFilters: (values: Partial<FilterType>) => void;
+}
+
+const SizeField = ({ changeFilters, filters }: Props) => {
   const sizes = useAppSelector((state) => state.sizes.data);
 
-  const [mainChecked, setMainChecked] = useState(selectedSizes.length === 0);
-  const [selected, setSelected] = useState<string[]>(selectedSizes);
+  const [mainChecked, setMainChecked] = useState(filters.sizes.length === 0);
+  const [selected, setSelected] = useState<string[]>(filters.sizes);
 
   function onValueChangeGroup(values: string[]) {
     setSelected(values);
-    dispatch(addFilters({ sizes: values }));
+    changeFilters({ sizes: values });
 
     if (values.length === 0) {
       setMainChecked(true);
@@ -33,7 +36,7 @@ const SizeField = () => {
       setMainChecked(true);
     }
     setSelected([]);
-    dispatch(addFilters({ sizes: [] }));
+    changeFilters({ sizes: [] });
   }
 
   return (

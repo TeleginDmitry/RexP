@@ -15,7 +15,6 @@ const TabsBlock = () => {
   const categories = useAppSelector((state) => state.category.data);
 
   const onHandleChange = (value: string) => {
-    console.log(value);
     const categoryId = categories.find(({ name }) => name === value)?.id;
     dispatch(addFilters({ categoryId }));
 

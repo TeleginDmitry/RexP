@@ -5,24 +5,27 @@ import { useDebouncedValue } from "@mantine/hooks";
 import { CheckboxGroup } from "@nextui-org/react";
 
 import RootCheckbox from "@/src/components/ui/RootCheckbox";
-import { useAppDispatch, useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
-import { addFilters } from "@/src/store/slices/getProducts";
+import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
+import type { FilterType } from "@/src/types/Filter/filter.types";
 
 import s from "./BrandField.module.scss";
 
-const BrandField = () => {
-  const dispatch = useAppDispatch();
-  const selectedBrands = useAppSelector((state) => state.products.filters.brands);
+interface Props {
+  filters: FilterType;
+  changeFilters: (values: Partial<FilterType>) => void;
+}
+
+const BrandField = ({ changeFilters, filters }: Props) => {
   const brands = useAppSelector((state) => state.brands.data);
 
-  const [mainChecked, setMainChecked] = useState(selectedBrands.length === 0);
-  const [selected, setSelected] = useState<string[]>(selectedBrands);
+  const [mainChecked, setMainChecked] = useState(filters.brands.length === 0);
+  const [selected, setSelected] = useState<string[]>(filters.brands);
   const [searchValue, setSearchValue] = useState("");
   const [debouncedSearchValue] = useDebouncedValue(searchValue, 240);
 
   function onValueChangeGroup(values: string[]) {
     setSelected(values);
-    dispatch(addFilters({ brands: values }));
+    changeFilters({ brands: values });
 
     if (values.length === 0) {
       setMainChecked(true);
@@ -36,7 +39,7 @@ const BrandField = () => {
       setMainChecked(true);
     }
     setSelected([]);
-    dispatch(addFilters({ brands: [] }));
+    changeFilters({ brands: [] });
   }
 
   return (

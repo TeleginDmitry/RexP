@@ -6,22 +6,25 @@ import clsx from "clsx";
 
 import all from "@/public/images/colors/all.png";
 import RootCheckbox from "@/src/components/ui/RootCheckbox";
-import { useAppDispatch, useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
-import { addFilters } from "@/src/store/slices/getProducts";
+import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
+import type { FilterType } from "@/src/types/Filter/filter.types";
 
 import s from "./ColorField.module.scss";
 
-const ColorField = () => {
-  const dispatch = useAppDispatch();
-  const selectedColors = useAppSelector((state) => state.products.filters.colors);
+interface Props {
+  filters: FilterType;
+  changeFilters: (values: Partial<FilterType>) => void;
+}
+
+const ColorField = ({ changeFilters, filters }: Props) => {
   const colors = useAppSelector((state) => state.colors.data);
 
-  const [mainChecked, setMainChecked] = useState(selectedColors.length === 0);
-  const [selected, setSelected] = useState<string[]>(selectedColors);
+  const [mainChecked, setMainChecked] = useState(filters.colors.length === 0);
+  const [selected, setSelected] = useState<string[]>(filters.colors);
 
   function onValueChangeGroup(values: string[]) {
     setSelected(values);
-    dispatch(addFilters({ colors: values }));
+    changeFilters({ colors: values });
 
     if (values.length === 0) {
       setMainChecked(true);
@@ -36,7 +39,7 @@ const ColorField = () => {
     }
 
     setSelected([]);
-    dispatch(addFilters({ colors: [] }));
+    changeFilters({ colors: [] });
   }
 
   return (
