@@ -9,10 +9,11 @@ export function useFilter() {
     sizes: [],
     maxPrice: 3599999,
     minPrice: 99,
+    name: "",
   });
   const [isOpen, setIsOpen] = useState(false);
 
-  function changeFilters(values: FilterType) {
+  function changeFilters(values: Partial<FilterType>) {
     setFilters((state) => ({ ...state, ...values }));
   }
 

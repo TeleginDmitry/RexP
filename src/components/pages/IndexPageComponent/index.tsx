@@ -1,3 +1,5 @@
+import { useFilter } from "@/src/hooks/useFilter";
+
 import InfoBlock from "./_components/InfoBlock";
 import ProductsBlock from "./_components/ProductsBlock";
 import RexBlock from "./_components/RexBlock";
@@ -8,13 +10,17 @@ import MainContainer from "../../ui/MainContainer";
 
 import s from "./IndexPageComponent.module.scss";
 
-const IndexPageComponent = () => (
-  <MainContainer className={s.page}>
-    <InfoBlock />
-    <SearhBlock />
-    <RexBlock />
-    <TabsBlock />
-    <ProductsBlock />
-  </MainContainer>
-);
+const IndexPageComponent = () => {
+  const { changeFilters, filters, isOpen, toggleOpen } = useFilter();
+
+  return (
+    <MainContainer className={s.page}>
+      <InfoBlock />
+      <SearhBlock changeFilters={changeFilters} filters={filters} isOpen={isOpen} toggleOpen={toggleOpen} />
+      <RexBlock />
+      <TabsBlock changeFilters={changeFilters} filters={filters} />
+      <ProductsBlock />
+    </MainContainer>
+  );
+};
 export default IndexPageComponent;

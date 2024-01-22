@@ -23,7 +23,7 @@
     font-weight: 600;
     height: 35px;
     line-height: normal;
-    padding: 0px 10px;
+    padding: 0px;
     color: var(--main-color-red);
     background: var(--main-color-white);
   }
@@ -44,8 +44,8 @@
     box-shadow: 0px 5px 20px 0px rgba(24, 22, 31, 0.1);
     background: var(--main-color-white);
 
-		&:first-child {
-			margin-right: 10px;
-		}
+    &:first-child {
+      margin-right: 10px;
+    }
   }
 }

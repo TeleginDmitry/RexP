@@ -5,16 +5,20 @@ import Image from "next/image";
 
 import MainFilter from "@/src/components/layout/_components/MainFilter";
 import { useAppDispatch } from "@/src/hooks/redux-hooks/redux-hooks";
-import { useFilter } from "@/src/hooks/useFilter";
-import { addFilters } from "@/src/store/slices/getProducts";
 import { getProductsThunk } from "@/src/store/slices/getProducts/getProducts/getProducts";
+import type { FilterType } from "@/src/types/Filter/filter.types";
 
 import styles from "./styles.module.scss";
 
-export const SearhBlock = () => {
-  const dispatch = useAppDispatch();
+interface Props {
+  toggleOpen: () => void;
+  filters: FilterType;
+  changeFilters: (values: Partial<FilterType>) => void;
+  isOpen: boolean;
+}
 
-  const { changeFilters, filters, isOpen, toggleOpen } = useFilter();
+export const SearhBlock = ({ changeFilters, filters, toggleOpen, isOpen }: Props) => {
+  const dispatch = useAppDispatch();
 
   const timeout = useRef<NodeJS.Timeout | null>(null);
 
@@ -26,9 +30,9 @@ export const SearhBlock = () => {
     timeout.current = setTimeout(() => {
       const { value } = event.target as HTMLInputElement;
 
-      dispatch(addFilters({ name: value }));
-      dispatch(getProductsThunk({ filters: { name: value } }));
-    }, 500);
+      changeFilters({ name: value });
+      dispatch(getProductsThunk({ filters: { ...filters, name: value } }));
+    }, 300);
   }
 
   function applyFilters() {

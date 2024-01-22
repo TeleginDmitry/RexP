@@ -1,24 +1,28 @@
-import { Tab } from "@nextui-org/react";
-
 import RootIcon from "@/src/components/ui/icons/RootIcon";
 import RootButton from "@/src/components/ui/RootButton";
 import RootTabs from "@/src/components/ui/RootTabs";
 import { useAppDispatch, useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
-import { addFilters } from "@/src/store/slices/getProducts";
 import { getProductsThunk } from "@/src/store/slices/getProducts/getProducts/getProducts";
+import type { FilterType } from "@/src/types/Filter/filter.types";
 
 import s from "./TabsBlock.module.scss";
 
-const TabsBlock = () => {
+interface Props {
+  filters: FilterType;
+  changeFilters: (values: Partial<FilterType>) => void;
+}
+
+const TabsBlock = ({ changeFilters, filters }: Props) => {
   const dispatch = useAppDispatch();
 
   const categories = useAppSelector((state) => state.category.data);
 
   const onHandleChange = (value: string) => {
     const categoryId = categories.find(({ name }) => name === value)?.id;
-    dispatch(addFilters({ categoryId }));
 
-    dispatch(getProductsThunk({ filters: { categoryId } }));
+    changeFilters({ categoryId });
+
+    dispatch(getProductsThunk({ filters: { ...filters, categoryId } }));
   };
   return (
     <div className={s.wrapper}>

@@ -36,7 +36,6 @@ export type Product = {
 export type ProductsState = Readonly<{
   success: boolean;
   data: Product[];
-  filters: Filters;
 }>;
 
 export type Filters = {
