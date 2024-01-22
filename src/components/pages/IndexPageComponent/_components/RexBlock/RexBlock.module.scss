@@ -5,7 +5,8 @@
   border-radius: 20px;
   background: linear-gradient(37deg, #0083cc -2.65%, #1dd5d3 111.65%);
   padding-left: 14px;
-	margin-bottom: 16px;
+  margin-bottom: 16px;
+  position: relative;
 
   .text {
     .text-top,
@@ -32,6 +33,6 @@
   .image {
     flex: 0 0 134px;
     border-radius: 20px;
-		background: linear-gradient(180deg, #7ADFEB 0%, #C3FDFF 0.01%, #F1FFFD 100%);
+    background: linear-gradient(180deg, #7adfeb 0%, #c3fdff 0.01%, #f1fffd 100%);
   }
 }

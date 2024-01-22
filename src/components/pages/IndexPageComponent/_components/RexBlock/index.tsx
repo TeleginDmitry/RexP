@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import rex from "@/public/images/indexPage/rex.webp";
 
@@ -16,6 +17,8 @@ const RexBlock = () => (
       </div>
     </div>
     <Image src={rex} alt="Rex найдёт" width={134} height={134} quality={100} className={s.image} priority />
+
+    <Link href="/search" className="absolute top-0 left-0 w-full h-full z-10" />
   </div>
 );
 
