@@ -28,7 +28,7 @@ const HeartIcon: React.FC<HeartIconProps> = ({ productId, className, variant = "
     if (isLiked) {
       setIsLiked(false);
       deleteFavorite(+productId).then(() => {
-        dispatch(getFavoritesThunk());
+        dispatch(getFavoritesThunk({}));
       });
       return;
     }
