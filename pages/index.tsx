@@ -17,15 +17,7 @@ const IndexPage = () => (
 );
 
 export const getServerSideProps = wrapper.getServerSideProps(({ dispatch, getState }) => async () => {
-  await Promise.all([dispatch(getProductsThunk({})), dispatch(getCategoriesThunk()), dispatch(getFavoritesThunk())]);
-
-  const isSuccess = getState().products.success && getState().category.success && getState().favorites.success;
-
-  if (!isSuccess) {
-    return {
-      notFound: true,
-    };
-  }
+  await Promise.all([dispatch(getProductsThunk({})), dispatch(getCategoriesThunk()), dispatch(getFavoritesThunk({}))]);
 
   return {
     props: {},

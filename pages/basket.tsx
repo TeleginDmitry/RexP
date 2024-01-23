@@ -17,14 +17,6 @@ const BasketPage = () => (
 export const getServerSideProps = wrapper.getServerSideProps(({ dispatch, getState }) => async () => {
   await Promise.all([dispatch(getCartsThunk())]);
 
-  const isSuccess = getState().carts.success;
-
-  if (!isSuccess) {
-    return {
-      notFound: true,
-    };
-  }
-
   return {
     props: {},
   };

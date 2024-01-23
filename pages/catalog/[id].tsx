@@ -16,7 +16,7 @@ const ProductPage = () => (
 );
 
 export const getServerSideProps = wrapper.getServerSideProps(({ dispatch, getState }) => async ({ params }) => {
-  await Promise.all([dispatch(getOneProductThunk(params?.id as string)), dispatch(getFavoritesThunk())]);
+  await Promise.all([dispatch(getOneProductThunk(params?.id as string)), dispatch(getFavoritesThunk({}))]);
 
   const isSuccess = getState().product.success && getState().favorites.success;
 

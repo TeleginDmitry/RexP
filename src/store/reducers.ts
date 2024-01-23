@@ -2,6 +2,7 @@ import { HYDRATE } from "next-redux-wrapper";
 import { combineReducers } from "redux";
 
 import delivery from "./slices/delivery";
+import filter from "./slices/filter";
 import filters from "./slices/filters";
 import brands from "./slices/getBrands";
 import carts from "./slices/getCarts";
@@ -13,7 +14,6 @@ import product from "./slices/getOneProduct";
 import products from "./slices/getProducts";
 import sizes from "./slices/getSizes";
 import viewed from "./slices/getViewed";
-import mainFilter from "./slices/mainFilter";
 
 const reducers = {
   filters,
@@ -28,7 +28,7 @@ const reducers = {
   carts,
   viewed,
   deliveryCarts,
-  mainFilter,
+  filter,
 };
 
 const combinedReducer = combineReducers({

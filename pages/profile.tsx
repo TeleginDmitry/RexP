@@ -19,14 +19,6 @@ const ProfilePage = () => (
 export const getServerSideProps = wrapper.getServerSideProps(({ dispatch, getState }) => async () => {
   await Promise.all([dispatch(getProductsThunk({})), dispatch(getViewedThunk()), dispatch(getFavoritesThunk())]);
 
-  const isSuccess = getState().products.success && getState().viewed.success && getState().favorites.success;
-
-  if (!isSuccess) {
-    return {
-      notFound: true,
-    };
-  }
-
   return {
     props: {},
   };

@@ -1,39 +1,81 @@
+/* eslint-disable react/jsx-no-bind */
+import { Tab, Tabs } from "@nextui-org/react";
+import clsx from "clsx";
+
+import MainFilter from "@/src/components/layout/_components/MainFilter";
 import RootIcon from "@/src/components/ui/icons/RootIcon";
 import RootButton from "@/src/components/ui/RootButton";
-import RootTabs from "@/src/components/ui/RootTabs";
 import { useAppDispatch, useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
+import { useFilter } from "@/src/hooks/useFilter";
+import { addFiltersToIndexPage } from "@/src/store/slices/filter";
 import { getProductsThunk } from "@/src/store/slices/getProducts/getProducts/getProducts";
 import type { FilterType } from "@/src/types/Filter/filter.types";
 
 import s from "./TabsBlock.module.scss";
 
-interface Props {
-  filters: FilterType;
-  changeFilters: (values: Partial<FilterType>) => void;
-}
-
-const TabsBlock = ({ changeFilters, filters }: Props) => {
+const TabsBlock = () => {
   const dispatch = useAppDispatch();
+
+  const { isOpen, toggleOpen } = useFilter();
 
   const categories = useAppSelector((state) => state.category.data);
 
-  const onHandleChange = (value: string) => {
-    const categoryId = categories.find(({ name }) => name === value)?.id;
+  const filters = useAppSelector((state) => state.filter.indexPage);
 
-    changeFilters({ categoryId });
+  function changeFilters(newFilters: Partial<FilterType>) {
+    dispatch(addFiltersToIndexPage(newFilters));
+  }
 
-    dispatch(getProductsThunk({ filters: { ...filters, categoryId } }));
+  const onHandleChange = (categoryId: string) => {
+    const categoryIdNum = +categoryId;
+
+    if (+categoryIdNum === filters.categoryId) {
+      return;
+    }
+
+    changeFilters({ categoryId: categoryIdNum });
+
+    dispatch(getProductsThunk({ filters: { ...filters, categoryId: categoryIdNum } }));
   };
+
+  function applyFilters() {
+    dispatch(getProductsThunk({ filters }));
+    toggleOpen();
+  }
   return (
     <div className={s.wrapper}>
-      <RootTabs
-        tabsList={categories.map(({ name }) => name)}
-        defaultSelectedKey="Все товары"
+      <Tabs
+        aria-label="Options"
+        color="primary"
+        variant="light"
+        selectedKey={filters.categoryId?.toString() ?? "0"}
         onSelectionChange={onHandleChange}
-      />
-      <RootButton className={s.button}>
+        classNames={{
+          tabList: clsx(s.tabList),
+          cursor: clsx(s.cursor),
+          tab: clsx("max-w-fit px-[12px] h-[28px]", s.tab),
+          tabContent: clsx(s.tabContent),
+          base: clsx(s.base, s.default),
+        }}
+      >
+        <Tab key={0} className={clsx(s.tab)} title={<div>Все товары</div>} />
+        {categories.map(({ id, name }) => (
+          <Tab key={id} className={clsx(s.tab)} title={<div>{name}</div>} />
+        ))}
+      </Tabs>
+      <RootButton onClick={toggleOpen} className={s.button}>
         Все <RootIcon name="arrow" />
       </RootButton>
+
+      {isOpen && (
+        <MainFilter
+          changeFilters={changeFilters}
+          applyFilters={applyFilters}
+          toggleOpen={toggleOpen}
+          isOnlyCategories
+          filters={filters}
+        />
+      )}
     </div>
   );
 };

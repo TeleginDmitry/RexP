@@ -12,6 +12,7 @@ import type { FilterType } from "@/src/types/Filter/filter.types";
 
 import { ApplyButton } from "./_components/ApplyButton";
 import BrandField from "./_components/BrandField";
+import CategoriesField from "./_components/CategoriesField/CategoriesField";
 import ColorField from "./_components/ColorField";
 import SizeField from "./_components/SizeField";
 import SliderField from "./_components/SliderField";
@@ -23,12 +24,26 @@ interface Props {
   changeFilters: (values: FilterType) => void;
   applyFilters: () => void;
   toggleOpen: () => void;
+  isVisibleCategories?: boolean;
+  isOnlyCategories?: boolean;
 }
 
-const MainFilter = ({ changeFilters, filters, applyFilters, toggleOpen }: Props) => {
-  const [selectedFilter, setSelectedFilter] = useState("");
+const MainFilter = ({
+  changeFilters,
+  filters,
+  applyFilters,
+  toggleOpen,
+  isVisibleCategories = false,
+  isOnlyCategories = false,
+}: Props) => {
+  const [selectedFilter, setSelectedFilter] = useState(isOnlyCategories ? "categories" : "");
 
   const onHandleClick = () => {
+    if (isOnlyCategories) {
+      toggleOpen();
+      return;
+    }
+
     if (selectedFilter) {
       setSelectedFilter("");
       return;
@@ -54,6 +69,12 @@ const MainFilter = ({ changeFilters, filters, applyFilters, toggleOpen }: Props)
           <h1 className={s.title}>Фильтры</h1>
         </div>
         <div className={s.filters}>
+          {isVisibleCategories && (
+            <RootButton className={s.item} onClick={() => setSelectedFilter("categories")}>
+              <div className={s.name}>Категории</div>
+              <div className={s.sort}>Все {">"}</div>
+            </RootButton>
+          )}
           <RootButton className={s.item} onClick={() => setSelectedFilter("color")}>
             <div className={s.name}>Цвет</div>
             <div className={s.sort}>Все {">"}</div>
@@ -70,6 +91,7 @@ const MainFilter = ({ changeFilters, filters, applyFilters, toggleOpen }: Props)
             {selectedFilter === "color" && <ColorField filters={filters} changeFilters={changeFilters} />}
             {selectedFilter === "size" && <SizeField filters={filters} changeFilters={changeFilters} />}
             {selectedFilter === "brand" && <BrandField filters={filters} changeFilters={changeFilters} />}
+            {selectedFilter === "categories" && <CategoriesField changeFilters={changeFilters} filters={filters} />}
           </div>
           <SliderField changeFilters={changeFilters} filters={filters} />
         </div>

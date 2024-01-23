@@ -4,23 +4,26 @@ import { useRef } from "react";
 import Image from "next/image";
 
 import MainFilter from "@/src/components/layout/_components/MainFilter";
-import { useAppDispatch } from "@/src/hooks/redux-hooks/redux-hooks";
+import { useAppDispatch, useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
+import { useFilter } from "@/src/hooks/useFilter";
+import { addFiltersToIndexPage } from "@/src/store/slices/filter";
 import { getProductsThunk } from "@/src/store/slices/getProducts/getProducts/getProducts";
 import type { FilterType } from "@/src/types/Filter/filter.types";
 
 import styles from "./styles.module.scss";
 
-interface Props {
-  toggleOpen: () => void;
-  filters: FilterType;
-  changeFilters: (values: Partial<FilterType>) => void;
-  isOpen: boolean;
-}
-
-export const SearhBlock = ({ changeFilters, filters, toggleOpen, isOpen }: Props) => {
+export const SearhBlock = () => {
   const dispatch = useAppDispatch();
 
+  const { isOpen, toggleOpen } = useFilter();
+
+  const filters = useAppSelector((state) => state.filter.indexPage);
+
   const timeout = useRef<NodeJS.Timeout | null>(null);
+
+  function changeFilters(newFilters: Partial<FilterType>) {
+    dispatch(addFiltersToIndexPage(newFilters));
+  }
 
   function handleInput(event: React.ChangeEvent) {
     if (timeout.current) {
