@@ -55,7 +55,7 @@ RexPApp.getInitialProps = wrapper.getInitialAppProps(
 
       if (typeof window === "undefined") {
         await Promise.all([
-          dispatch(getCartsThunk()),
+          dispatch(getCartsThunk({})),
           dispatch(getColorsThunk()),
           dispatch(getSizesThunk()),
           dispatch(getBrandsThunk()),
