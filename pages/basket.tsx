@@ -15,7 +15,7 @@ const BasketPage = () => (
 );
 
 export const getServerSideProps = wrapper.getServerSideProps(({ dispatch, getState }) => async () => {
-  await Promise.all([dispatch(getCartsThunk())]);
+  await Promise.all([dispatch(getCartsThunk({}))]);
 
   return {
     props: {},

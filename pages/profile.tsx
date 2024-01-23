@@ -17,7 +17,7 @@ const ProfilePage = () => (
 );
 
 export const getServerSideProps = wrapper.getServerSideProps(({ dispatch, getState }) => async () => {
-  await Promise.all([dispatch(getProductsThunk({})), dispatch(getViewedThunk()), dispatch(getFavoritesThunk())]);
+  await Promise.all([dispatch(getProductsThunk({})), dispatch(getViewedThunk()), dispatch(getFavoritesThunk({}))]);
 
   return {
     props: {},
