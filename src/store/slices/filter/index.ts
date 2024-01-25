@@ -5,7 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { FilterState } from "./types";
 
 const initialState: FilterState = {
-  indexPage: { brands: [], colors: [], sizes: [], maxPrice: 3599999, minPrice: 99 },
+  indexPage: { brands: [], colors: [], sizes: [], maxPrice: 3599999, minPrice: 99, orderBy: "id", sortBy: "DESC" },
   basketPage: { brands: [], maxPrice: 3599999, minPrice: 99 },
   favoritesPage: { brands: [], maxPrice: 3599999, minPrice: 99 },
 };
@@ -20,6 +20,18 @@ const { reducer, actions } = createSlice({
         ...payload,
       };
     },
+    addFiltersToBasketPage(state, { payload }: PayloadAction<Partial<FilterState["basketPage"]>>) {
+      state.basketPage = {
+        ...state.basketPage,
+        ...payload,
+      };
+    },
+    addFiltersToFavoritesPage(state, { payload }: PayloadAction<Partial<FilterState["favoritesPage"]>>) {
+      state.favoritesPage = {
+        ...state.favoritesPage,
+        ...payload,
+      };
+    },
     deleteCategoryIdFromIndexPage(state) {
       const { categoryId, ...data } = state.indexPage;
 
@@ -30,4 +42,9 @@ const { reducer, actions } = createSlice({
 
 export default reducer;
 
-export const { addFiltersToIndexPage, deleteCategoryIdFromIndexPage } = actions;
+export const {
+  addFiltersToIndexPage,
+  deleteCategoryIdFromIndexPage,
+  addFiltersToBasketPage,
+  addFiltersToFavoritesPage,
+} = actions;

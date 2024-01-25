@@ -1,9 +1,11 @@
+/* eslint-disable react/jsx-no-bind */
 import { useState } from "react";
 
 import { Button, Checkbox, CheckboxGroup, cn } from "@nextui-org/react";
 import clsx from "clsx";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import HeartIcon from "@/src/components/ui/icons/HeartIcon";
 import InViewWrapper from "@/src/components/ui/InViewWrapper";
@@ -16,6 +18,8 @@ import HeaderBlock from "../HeaderBlock";
 import s from "./ProductsBlock.module.scss";
 
 const ProductsBlock = () => {
+  const router = useRouter();
+
   const [selected, setSelected] = useState<string[]>([]);
   const carts = useAppSelector((state) => state.carts.data);
 
@@ -28,10 +32,27 @@ const ProductsBlock = () => {
     .reduce((acc, cart) => acc + cart.product.price * cart.count * ((100 - cart.product.discount) / 100), 0)
     .toFixed(0);
 
+  function addSelections(values: string[]) {
+    setSelected(values);
+  }
+
+  async function handleClickButton() {
+    localStorage.setItem(
+      "selectedCartsInfo",
+      JSON.stringify({
+        selectedCarts: selected,
+        totalPrice,
+        totalPriceWithDiscount,
+      })
+    );
+
+    router.push("/gocheckout");
+  }
+
   return (
     <>
       <HeaderBlock selected={selected} setSelected={setSelected} />
-      <CheckboxGroup className={s.wrapper} onValueChange={setSelected} value={selected}>
+      <CheckboxGroup className={s.wrapper} onValueChange={addSelections} value={selected}>
         {carts.map(({ id, productSize, count, product }, index) => (
           <InViewWrapper key={`${id}${productSize.size.name}`} className={s.product}>
             {({ isInView }) => (
@@ -92,7 +113,9 @@ const ProductsBlock = () => {
           <div className={s.description}>{new Intl.NumberFormat("ru-RU").format(+totalPrice)} ₽</div>
         </div>
         <div className={s.buttonWrapper}>
-          <Button className={s.button}>Оформить заказ</Button>
+          <Button onClick={handleClickButton} className={s.button}>
+            Оформить заказ
+          </Button>
         </div>
       </div>
     </>

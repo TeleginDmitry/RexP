@@ -4,8 +4,8 @@ import Image from "next/image";
 import BasketAndFavoriteFilter from "@/src/components/layout/_components/BasketAndFavoriteFilter";
 import { useAppDispatch, useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
 import { useFilter } from "@/src/hooks/useFilter";
-import { addFiltersToBasketPage } from "@/src/store/slices/filter";
-import { getCartsThunk } from "@/src/store/slices/getCarts/getCarts/getCarts";
+import { addFiltersToFavoritesPage } from "@/src/store/slices/filter";
+import { getFavoritesThunk } from "@/src/store/slices/getFavorite/getFavorite/getFavorite";
 import type { FilterCartsType } from "@/src/types/Filter/filter.types";
 
 export const FilterBlock = () => {
@@ -13,14 +13,14 @@ export const FilterBlock = () => {
 
   const { isOpen, toggleOpen } = useFilter();
 
-  const filters = useAppSelector((state) => state.filter.basketPage);
+  const filters = useAppSelector((state) => state.filter.favoritesPage);
 
   function changeFilters(newFilters: Partial<FilterCartsType>) {
-    dispatch(addFiltersToBasketPage(newFilters));
+    dispatch(addFiltersToFavoritesPage(newFilters));
   }
 
   function applyFilters() {
-    dispatch(getCartsThunk(filters));
+    dispatch(getFavoritesThunk(filters));
     toggleOpen();
   }
 

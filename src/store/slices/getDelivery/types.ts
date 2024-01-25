@@ -1,5 +1,4 @@
-export type DeliveryType = {
-  id: number;
+export interface Delivery {
   firstName: string;
   lastName: string;
   patronymic: string;
@@ -7,13 +6,17 @@ export type DeliveryType = {
   city: string;
   address: string;
   isMain: boolean;
-  deliveryType: { id: number; name: string };
+  deliveryType: DeliveryType;
+  userId: number;
   createdAt: string;
   updatedAt: string;
-  userId: number;
-};
+}
+export interface DeliveryType {
+  id: number;
+  name: string;
+}
 
 export type DeliveryState = Readonly<{
   success: boolean;
-  data: DeliveryType[];
+  data: Delivery[];
 }>;

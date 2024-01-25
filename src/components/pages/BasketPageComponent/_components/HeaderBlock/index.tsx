@@ -38,7 +38,7 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ selected, setSelected }) => {
     setIsSelected(carts.length === selected.length);
   }, [carts.length, selected.length]);
 
-  const onHandleAllClick = () => {
+  const onHandleAllClick = async () => {
     setIsSelected(!isSelected);
     setSelected(isSelected ? [] : carts.map(({ id }) => `${id}`));
   };

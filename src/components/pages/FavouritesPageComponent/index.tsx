@@ -1,5 +1,7 @@
 import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
 
+import { FilterBlock } from "./_components/FilterBlock/FilterBlock";
+
 import CatalogSpacer from "../../ui/CatalogSpacer";
 import MainContainer from "../../ui/MainContainer";
 import ProductCard from "../../ui/ProductCard";
@@ -12,6 +14,7 @@ const FavouritesPageComponent = () => {
 
   return (
     <MainContainer className={s.page}>
+      <FilterBlock />
       <CatalogSpacer>
         {favorites.map(({ productId }, index) => {
           const product = products.find((productValue) => productValue.id === +productId);

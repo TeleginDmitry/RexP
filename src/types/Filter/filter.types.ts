@@ -6,6 +6,8 @@ export interface FilterType {
   sizes: string[];
   brands: string[];
   categoryId?: number;
+  orderBy?: "id" | "price";
+  sortBy?: "ASC" | "DESC";
 }
 
 export interface FilterCartsType {
@@ -13,7 +15,7 @@ export interface FilterCartsType {
   subcategories?: number[];
   maxPrice: number;
   minPrice: number;
-  brands: number[];
+  brands: string[];
 }
 
 export interface FilterFavoritesType {
@@ -21,5 +23,5 @@ export interface FilterFavoritesType {
   subcategories?: number[];
   maxPrice: number;
   minPrice: number;
-  brands: number[];
+  brands: string[];
 }
