@@ -1,3 +1,4 @@
+/* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable react/jsx-no-bind */
 import { useState } from "react";
 
@@ -20,16 +21,24 @@ import s from "./ProductsBlock.module.scss";
 const ProductsBlock = () => {
   const router = useRouter();
 
-  const [selected, setSelected] = useState<string[]>([]);
   const carts = useAppSelector((state) => state.carts.data);
+
+  const [selected, setSelected] = useState<string[]>([]);
 
   const totalPrice = carts
     .filter((cart) => selected.includes(cart.id.toString()))
-    .reduce((acc, cart) => acc + cart.product.price * cart.count, 0)
+    .reduce((acc, { productSize, count }) => {
+      const result = acc + productSize.price * count;
+
+      return result;
+    }, 0)
     .toFixed(0);
   const totalPriceWithDiscount = carts
     .filter((cart) => selected.includes(cart.id.toString()))
-    .reduce((acc, cart) => acc + cart.product.price * cart.count * ((100 - cart.product.discount) / 100), 0)
+    .reduce(
+      (acc, { productSize, product, count }) => acc + productSize.price * count * ((100 - product.discount) / 100),
+      0
+    )
     .toFixed(0);
 
   function addSelections(values: string[]) {
@@ -53,7 +62,7 @@ const ProductsBlock = () => {
     <>
       <HeaderBlock selected={selected} setSelected={setSelected} />
       <CheckboxGroup className={s.wrapper} onValueChange={addSelections} value={selected}>
-        {carts.map(({ id, productSize, count, product }, index) => (
+        {carts.map(({ id, count, productSize, product }, index) => (
           <InViewWrapper key={`${id}${productSize.size.name}`} className={s.product}>
             {({ isInView }) => (
               <motion.div
@@ -83,15 +92,17 @@ const ProductsBlock = () => {
                 >
                   <div className={s.header}>
                     <div className={s.image}>
-                      <Image
-                        src={`${process.env.NEXT_PUBLIC_IMAGES_URL}${product.images[0].name}`}
-                        alt={product.name}
-                        width={100}
-                        height={100}
-                      />
+                      {product.images && product.images[0] && (
+                        <Image
+                          width={100}
+                          height={70}
+                          src={`${process.env.NEXT_PUBLIC_IMAGES_URL}${product.images[0].name}`}
+                          alt={product.name}
+                        />
+                      )}
                     </div>
                     <div className={s.info}>
-                      <div className={s.info__price}>{new Intl.NumberFormat("ru-RU").format(product.price)} ₽</div>
+                      <div className={s.info__price}>{new Intl.NumberFormat("ru-RU").format(productSize.price)} ₽</div>
                       <div className={s.info__name}>{product.name}</div>
                       <div className={s.info__size}>размер: {productSize.size.name}</div>
                     </div>

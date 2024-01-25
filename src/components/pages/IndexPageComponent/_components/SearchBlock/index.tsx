@@ -38,8 +38,12 @@ export const SearhBlock = () => {
     }, 300);
   }
 
-  function applyFilters() {
-    dispatch(getProductsThunk({ filters }));
+  function applyFilters(filtersData: Partial<FilterType> | undefined) {
+    if (filtersData) {
+      dispatch(getProductsThunk({ filters: { ...filters, ...filtersData } }));
+    } else {
+      dispatch(getProductsThunk({ filters }));
+    }
   }
 
   return (

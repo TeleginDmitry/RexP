@@ -121,19 +121,21 @@ const GocheckoutPage = () => {
             <div className="flex flex-col gap-2">
               {neededCarts.map(({ id, product, productSize }) => (
                 <div className="flex gap-4 bg-white p-3 rounded-xl" key={id}>
-                  <Image
-                    width={100}
-                    height={70}
-                    src={`${process.env.NEXT_PUBLIC_IMAGES_URL}${product.images[0].name}`}
-                    alt={product.name}
-                  />
+                  {product.images && product.images[0] && (
+                    <Image
+                      width={100}
+                      height={70}
+                      src={`${process.env.NEXT_PUBLIC_IMAGES_URL}${product.images[0].name}`}
+                      alt={product.name}
+                    />
+                  )}
                   <div className="flex flex-col justify-between">
                     <div className="flex flex-col gap-1">
                       <span className="text-xs">{product.name}</span>
                       <span className="text-[#8E8E8E] text-xs">размер: {productSize.size.name}</span>
                     </div>
                     <span className="text-sm font-semibold">
-                      {new Intl.NumberFormat("ru-RU").format(product.price)} ₽
+                      {new Intl.NumberFormat("ru-RU").format(productSize.price)} ₽
                     </span>
                   </div>
                 </div>
@@ -176,7 +178,7 @@ const GocheckoutPage = () => {
             </div>
             <Button className="w-full p-4 bg-black rounded-xl text-white text-base">Оплатить онлайн</Button>
             <p className="text-xs text-[rgba(83, 83, 83, 0.60)]">
-              Нажимая на кнопку, вы соглашаетесь с Условиями обработки персональных данных , а также с Условиями продажи
+              Нажимая на кнопку, вы соглашаетесь с Условиями обработки персональных данных, а также с Условиями продажи
             </p>
           </div>
         </div>

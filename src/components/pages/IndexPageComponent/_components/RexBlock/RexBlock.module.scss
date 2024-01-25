@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 20px;
-  background: linear-gradient(37deg, #0083cc -2.65%, #1dd5d3 111.65%);
+  background: black;
   padding-left: 14px;
   margin-bottom: 16px;
   position: relative;
@@ -31,8 +31,6 @@
   }
 
   .image {
-    flex: 0 0 134px;
-    border-radius: 20px;
-    background: linear-gradient(180deg, #7adfeb 0%, #c3fdff 0.01%, #f1fffd 100%);
+    padding: 14px 0px;
   }
 }

@@ -1,12 +1,15 @@
 export type Product = {
   id: number;
   name: string;
-  price: number;
   discount: number;
   gender: string;
-  sizes: Array<{
+  productSizes: Array<{
     id: number;
-    name: string;
+    price: number;
+    size: {
+      id: number;
+      name: string;
+    };
   }>;
   subCategory: {
     category: {

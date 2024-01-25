@@ -1,3 +1,4 @@
+/* eslint-disable import/no-duplicates */
 import { HYDRATE } from "next-redux-wrapper";
 import { combineReducers } from "redux";
 
@@ -15,8 +16,10 @@ import products from "./slices/getProducts";
 import sizes from "./slices/getSizes";
 import viewed from "./slices/getViewed";
 import orders from "./slices/orders";
+import status from "./slices/status";
 
 const reducers = {
+  status,
   filters,
   delivery,
   products,

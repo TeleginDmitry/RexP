@@ -25,7 +25,7 @@ const FavouritesPageComponent = () => {
                 id={product.id}
                 key={product.id}
                 name={product.name}
-                price={product.price}
+                price={product.productSizes[0].price}
                 imgUrl={product.images[0].name}
                 imagePriority={index < 3}
                 outOfStock={false}

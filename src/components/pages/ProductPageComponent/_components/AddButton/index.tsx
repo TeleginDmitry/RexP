@@ -20,7 +20,7 @@ const AddButton = () => {
       return;
     }
 
-    const productSizeId = product.sizes.find((item) => item.name === activeFilter)?.id;
+    const productSizeId = product.productSizes.find(({ size }) => size.name === activeFilter)?.id;
 
     if (productSizeId) {
       await createCart({ productId: product.id, productSizeId })

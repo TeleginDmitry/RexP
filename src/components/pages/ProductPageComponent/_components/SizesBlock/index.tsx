@@ -5,7 +5,7 @@ import { setActiveFilter } from "@/src/store/slices/filters";
 import s from "./SizesBlock.module.scss";
 
 const SizesBlock = () => {
-  const sizes = useAppSelector((state) => state.product.data.sizes);
+  const sizes = useAppSelector((state) => state.product.data.productSizes);
   const dispatch = useAppDispatch();
 
   const handleTabChange = (value: string) => dispatch(setActiveFilter({ value, filterName: "sizes" }));
@@ -18,7 +18,7 @@ const SizesBlock = () => {
       </div>
       <RootTabs
         onSelectionChange={handleTabChange}
-        tabsList={sizes.map((item) => item.name)}
+        tabsList={sizes.map(({ size }) => size.name)}
         disabledList={[]}
         variant="bordered"
       />

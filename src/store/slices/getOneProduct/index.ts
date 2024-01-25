@@ -8,10 +8,9 @@ const initialState: OneProductsState = {
   data: {
     id: 0,
     name: "",
-    price: 0,
     discount: 0,
     gender: "",
-    sizes: [],
+    productSizes: [],
     subCategory: {
       category: {
         id: 0,

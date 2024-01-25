@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 
 import RootIcon from "@/src/components/ui/icons/RootIcon";
 import RootButton from "@/src/components/ui/RootButton";
+import { getProductName } from "@/src/utils/api/getProductName";
 
 const SearchPage = () => {
   const router = useRouter();
@@ -21,6 +22,20 @@ const SearchPage = () => {
     setIsError(false);
   };
 
+  async function onSubmit() {
+    if (value.length === 0) {
+      return;
+    }
+
+    const product = await getProductName({ url: value });
+
+    const { data } = product;
+
+    if (data) {
+      router.push(`/catalog/${data.id}`);
+    }
+  }
+
   const handleClick = () => {
     if (value.length === 0) {
       setIsError(true);
@@ -28,6 +43,12 @@ const SearchPage = () => {
     }
 
     setIsError(false);
+
+    try {
+      onSubmit();
+    } catch (error) {
+      /* empty */
+    }
   };
 
   return (
@@ -62,24 +83,12 @@ const SearchPage = () => {
                 <span className="flex items-center justify-center bg-black text-white py-2 px-3 rounded-full">1</span>
                 <p className="text-base text-black">Скачайте приложение Poizon и зарегистрируйтесь</p>
               </div>
-              <div className="flex flex-wrap items-center gap-3 justify-center">
-                <a href="#" className="border border-solid border-black rounded-lg">
-                  <Image
-                    className="max-w-none"
-                    src="/images/searchPage/store.png"
-                    alt="store link"
-                    width={175}
-                    height={55}
-                  />
+              <div className="flex items-center gap-3 justify-center">
+                <a href="#" className="border border-solid border-black rounded-lg w-full">
+                  <img className="max-w-full" src="/images/searchPage/store.png" alt="store link" />
                 </a>
-                <a href="#" className="border border-solid border-black rounded-lg">
-                  <Image
-                    className="max-w-none"
-                    src="/images/searchPage/market.png"
-                    alt="market link"
-                    width={175}
-                    height={55}
-                  />
+                <a href="#" className="border border-solid border-black rounded-lg w-full">
+                  <img className="max-w-full" src="/images/searchPage/market.png" alt="market link" />
                 </a>
               </div>
             </div>

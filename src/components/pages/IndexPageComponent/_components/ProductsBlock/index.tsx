@@ -7,8 +7,15 @@ const ProductsBlock = () => {
 
   return (
     <CatalogSpacer>
-      {products.map(({ id, name, price, images }, index) => (
-        <ProductCard key={id} price={price} name={name} imgUrl={images[0].name} imagePriority={index < 4} id={id} />
+      {products.map(({ id, name, productSizes, images }, index) => (
+        <ProductCard
+          key={id}
+          price={productSizes[0].price}
+          name={name}
+          imgUrl={images[0].name}
+          imagePriority={index < 4}
+          id={id}
+        />
       ))}
     </CatalogSpacer>
   );

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import RootIcon from "@/src/components/ui/icons/RootIcon";
 import DefaultLink from "@/src/components/ui/links/DefaultLink";
 import RootText from "@/src/components/ui/RootText";
@@ -8,7 +10,7 @@ import s from "./InfoBlock.module.scss";
 const InfoBlock = () => (
   <div className={s.wrapper}>
     <DefaultLink className={s.helper} href="/">
-      <div className={s.avatar}>Rex</div>
+      <Image src="/images/indexPage/rexIcon.png" alt="rexIcon" width={40} height={40} />
       <div className={s.text}>
         <RootText variant="16px" color="black" className={s["text-top"]}>
           Мой&nbsp;помощник

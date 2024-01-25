@@ -2,21 +2,22 @@
 import { useState } from "react";
 
 import { Slider } from "@nextui-org/react";
+import clsx from "clsx";
 
 import type { FilterType } from "@/src/types/Filter/filter.types";
 
 import s from "../../MainFilter.module.scss";
-import clsx from "clsx";
 
 interface Props {
   filters: FilterType;
   changeFilters: (values: Partial<FilterType>) => void;
+  applyFilters: (filtersData: Partial<FilterType> | undefined) => void;
 }
-const SliderField = ({ changeFilters, filters }: Props) => {
+const SliderField = ({ changeFilters, filters, applyFilters }: Props) => {
   const { minPrice, maxPrice } = filters;
 
   const [value, setValue] = useState([minPrice, maxPrice]);
-  const [activeSlider, setActiveSlider] = useState<undefined | "left" | "right">(undefined);
+  const [activeSlider, setActiveSlider] = useState<"left" | "right" | undefined>(undefined);
 
   function onChange(sliderValue: number[]) {
     setValue(sliderValue);
@@ -32,6 +33,8 @@ const SliderField = ({ changeFilters, filters }: Props) => {
     setActiveSlider(undefined);
 
     changeFilters({ minPrice: sliderValue[0], maxPrice: sliderValue[1] });
+
+    applyFilters({ minPrice: sliderValue[0], maxPrice: sliderValue[1] });
   }
 
   function resetFIlters() {
@@ -43,7 +46,7 @@ const SliderField = ({ changeFilters, filters }: Props) => {
     });
   }
 
-  const isVisibleReset = value[0] != 99 || value[1] != 3599999;
+  const isVisibleReset = value[0] !== 99 || value[1] !== 3599999;
 
   return (
     <div className="flex flex-col gap-[16px] w-full mt-[16px]  items-start justify-center">

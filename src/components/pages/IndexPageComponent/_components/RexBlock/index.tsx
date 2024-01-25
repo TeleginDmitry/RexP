@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import rex from "@/public/images/indexPage/rex.webp";
-
 import s from "./RexBlock.module.scss";
 
 const RexBlock = () => (
@@ -16,7 +14,15 @@ const RexBlock = () => (
         любой товар <br /> по ссылке из Poizon
       </div>
     </div>
-    <Image src={rex} alt="Rex найдёт" width={134} height={134} quality={100} className={s.image} priority />
+    <Image
+      src="images/indexPage/rexFind.png"
+      alt="Rex найдёт"
+      width={254}
+      height={164}
+      quality={100}
+      className={s.image}
+      priority
+    />
 
     <Link href="/search" className="absolute top-0 left-0 w-full h-full z-10" />
   </div>

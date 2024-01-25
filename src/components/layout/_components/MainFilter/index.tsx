@@ -22,7 +22,7 @@ import s from "./MainFilter.module.scss";
 interface Props {
   filters: FilterType;
   changeFilters: (values: FilterType) => void;
-  applyFilters: () => void;
+  applyFilters: (filtersData: Partial<FilterType> | undefined) => void;
   toggleOpen: () => void;
   isVisibleCategories?: boolean;
   isOnlyCategories?: boolean;
@@ -55,7 +55,19 @@ const MainFilter = ({
     toggleOpen();
   };
 
+  function changeSelectedFilter(filter: string) {
+    setSelectedFilter(filter);
+  }
+
   function resetFIlters() {
+    applyFilters({
+      brands: [],
+      sizes: [],
+      categoryId: 0,
+      orderBy: "id",
+      sortBy: "DESC",
+      colors: [],
+    });
     changeFilters({
       ...filters,
       brands: [],
@@ -91,19 +103,19 @@ const MainFilter = ({
           <RootButton className={s.link} aria-label="Назад" onClick={onHandleClick}>
             <RootIcon name="arrowLeft" />
           </RootButton>
-          <h1 className={s.title}>Фильтры</h1>
-          {isVisibleReset && (
-            <p onClick={resetFIlters} className="text-red-600 flex gap-2 items-center text-sm">
+          <h1 className={s.title}>{isOnlyCategories ? "Категории" : "Фильтры"}</h1>
+          {isVisibleReset && !isOnlyCategories && (
+            <button onClick={resetFIlters} className="text-red-600 flex gap-2 items-center text-sm">
               Сбросить
               <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11" fill="none">
                 <path d="M10 1L5.5 5.5L10 10" stroke="#D50000" stroke-linecap="round" stroke-linejoin="round" />
                 <path d="M1 1L5.5 5.5L1 10" stroke="#D50000" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
-            </p>
+            </button>
           )}
         </div>
         <div className={s.filters}>
-          <RootButton className={s.item} onClick={() => setSelectedFilter("sort")}>
+          <RootButton className={s.item} onClick={() => changeSelectedFilter("sort")}>
             <div className={s.name}>Сортировка</div>
             <div className={s.sort}>
               {filters.orderBy === "id" && filters.sortBy === "DESC"
@@ -117,7 +129,7 @@ const MainFilter = ({
             </div>
           </RootButton>
           {isVisibleCategories && (
-            <RootButton className={s.item} onClick={() => setSelectedFilter("categories")}>
+            <RootButton className={s.item} onClick={() => changeSelectedFilter("categories")}>
               <div className={s.name}>Категории</div>
               <div className={s.sort}>
                 {neededCategories.join(", ") || "Все"} {">"}
@@ -125,13 +137,13 @@ const MainFilter = ({
             </RootButton>
           )}
 
-          <RootButton className={s.item} onClick={() => setSelectedFilter("size")}>
+          <RootButton className={s.item} onClick={() => changeSelectedFilter("size")}>
             <div className={s.name}>Размер</div>
             <div className={s.sort}>
               {neededSizes.join(", ") || "Все"} {">"}
             </div>
           </RootButton>
-          <RootButton className={s.item} onClick={() => setSelectedFilter("brand")}>
+          <RootButton className={s.item} onClick={() => changeSelectedFilter("brand")}>
             <div className={s.name}>Бренд</div>
             <div className={s.sort}>
               {neededBrands.join(", ") || "Все"} {">"}
@@ -143,9 +155,15 @@ const MainFilter = ({
             {selectedFilter === "categories" && <CategoriesField changeFilters={changeFilters} filters={filters} />}
             {selectedFilter === "sort" && <SortField changeFilters={changeFilters} filters={filters} />}
           </div>
-          <SliderField changeFilters={changeFilters} filters={filters} />
+          <SliderField applyFilters={applyFilters} changeFilters={changeFilters} filters={filters} />
         </div>
-        <ApplyButton toggleOpen={toggleOpen} filters={filters} applyFilters={applyFilters} />
+        <ApplyButton
+          changeSelectedFilter={changeSelectedFilter}
+          selectedFilter={selectedFilter}
+          toggleOpen={toggleOpen}
+          filters={filters}
+          applyFilters={applyFilters}
+        />
       </MainContainer>
     </Portal>
   );

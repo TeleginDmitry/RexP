@@ -6,7 +6,14 @@ import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
 import s from "./InfoBlock.module.scss";
 
 const InfoBlock = () => {
-  const { id, price, discount, name } = useAppSelector((state) => state.product.data);
+  const { id, productSizes, discount, name } = useAppSelector((state) => state.product.data);
+  const activeSize = useAppSelector((state) => state.filters.sizes.activeFilter);
+
+  if (!activeSize) {
+    return null;
+  }
+
+  const { price } = productSizes.find(({ size }) => size.name === activeSize)!;
   const newPrice = +(price - (price * discount) / 100).toFixed(0);
 
   return (

@@ -38,10 +38,14 @@ const TabsBlock = () => {
     dispatch(getProductsThunk({ filters: { ...filters, categoryId: categoryIdNum } }));
   };
 
-  function applyFilters() {
-    dispatch(getProductsThunk({ filters }));
-    toggleOpen();
+  function applyFilters(filtersData: Partial<FilterType> | undefined) {
+    if (filtersData) {
+      dispatch(getProductsThunk({ filters: { ...filters, ...filtersData } }));
+    } else {
+      dispatch(getProductsThunk({ filters }));
+    }
   }
+
   return (
     <div className={s.wrapper}>
       <Tabs

@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "@/src/hooks/redux-hooks/redux-ho
 import { useFilter } from "@/src/hooks/useFilter";
 import { addFiltersToBasketPage } from "@/src/store/slices/filter";
 import { getCartsThunk } from "@/src/store/slices/getCarts/getCarts/getCarts";
-import type { FilterCartsType } from "@/src/types/Filter/filter.types";
+import type { FilterCartsType, FilterFavoritesType } from "@/src/types/Filter/filter.types";
 
 export const FilterBlock = () => {
   const dispatch = useAppDispatch();
@@ -15,12 +15,16 @@ export const FilterBlock = () => {
 
   const filters = useAppSelector((state) => state.filter.basketPage);
 
-  function changeFilters(newFilters: Partial<FilterCartsType>) {
+  function changeFilters(newFilters: Partial<FilterCartsType | FilterFavoritesType>) {
     dispatch(addFiltersToBasketPage(newFilters));
   }
 
-  function applyFilters() {
-    dispatch(getCartsThunk(filters));
+  function applyFilters(filtersData: Partial<FilterCartsType | FilterFavoritesType> | undefined) {
+    if (filtersData) {
+      dispatch(getCartsThunk({ ...filters, ...filtersData }));
+    } else {
+      dispatch(getCartsThunk(filters));
+    }
   }
 
   return (
