@@ -21,7 +21,6 @@ export const FilterBlock = () => {
 
   function applyFilters() {
     dispatch(getFavoritesThunk(filters));
-    toggleOpen();
   }
 
   return (

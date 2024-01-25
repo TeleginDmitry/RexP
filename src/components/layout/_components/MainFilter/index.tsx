@@ -55,6 +55,18 @@ const MainFilter = ({
     toggleOpen();
   };
 
+  function resetFIlters() {
+    changeFilters({
+      ...filters,
+      brands: [],
+      sizes: [],
+      categoryId: 0,
+      orderBy: "id",
+      sortBy: "DESC",
+      colors: [],
+    });
+  }
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
 
@@ -69,6 +81,9 @@ const MainFilter = ({
     .filter((category) => filters.categoryId === category.id)
     .map((category) => category.name);
 
+  const isVisibleReset =
+    filters.brands.length !== 0 || filters.sizes.length !== 0 || filters.orderBy !== "id" || filters.sortBy !== "DESC";
+
   return (
     <Portal>
       <MainContainer className={s.wrapper}>
@@ -77,6 +92,15 @@ const MainFilter = ({
             <RootIcon name="arrowLeft" />
           </RootButton>
           <h1 className={s.title}>Фильтры</h1>
+          {isVisibleReset && (
+            <p onClick={resetFIlters} className="text-red-600 flex gap-2 items-center text-sm">
+              Сбросить
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11" fill="none">
+                <path d="M10 1L5.5 5.5L10 10" stroke="#D50000" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M1 1L5.5 5.5L1 10" stroke="#D50000" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </p>
+          )}
         </div>
         <div className={s.filters}>
           <RootButton className={s.item} onClick={() => setSelectedFilter("sort")}>
@@ -121,7 +145,7 @@ const MainFilter = ({
           </div>
           <SliderField changeFilters={changeFilters} filters={filters} />
         </div>
-        <ApplyButton filters={filters} applyFilters={applyFilters} />
+        <ApplyButton toggleOpen={toggleOpen} filters={filters} applyFilters={applyFilters} />
       </MainContainer>
     </Portal>
   );

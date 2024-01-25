@@ -40,7 +40,6 @@ export const SearhBlock = () => {
 
   function applyFilters() {
     dispatch(getProductsThunk({ filters }));
-    toggleOpen();
   }
 
   return (

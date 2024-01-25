@@ -19,8 +19,6 @@ export const ApplyButton = ({ applyFilters, filters }: Props) => {
     filters.orderBy === "id" &&
     filters.sortBy === "DESC";
 
-  console.log(filters);
-
   return (
     <Button onClick={applyFilters} className={s.button} disabled={isDisables}>
       Применить
