@@ -4,9 +4,14 @@
   align-items: center;
   border-radius: 20px;
   background: black;
-  padding-left: 14px;
   margin-bottom: 16px;
   position: relative;
+  background-image: url("/images/indexPage/rexFind.png"), url("/images/indexPage/elips.png"),
+    url("/images/indexPage/box1.png"), url("/images/indexPage/box2.png");
+  background-repeat: no-repeat;
+  background-position: right, right, center, right;
+  background-size: contain, contain, auto, auto;
+  padding: 18px 0px 18px 18px;
 
   .text {
     .text-top,
@@ -28,9 +33,5 @@
       font-weight: 300;
       line-height: 16px;
     }
-  }
-
-  .image {
-    padding: 14px 0px;
   }
 }

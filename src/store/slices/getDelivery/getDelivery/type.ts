@@ -1,3 +1,3 @@
-import type { Delivery } from "../types";
+import type { Delivery } from "@/src/types/delivery.types";
 
 export type GetDeliveryResponseType = Delivery[];

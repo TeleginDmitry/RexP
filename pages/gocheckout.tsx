@@ -16,7 +16,7 @@ import { wrapper } from "@/src/store/store";
 const GocheckoutPage = () => {
   const carts = useAppSelector((state) => state.carts.data);
 
-  const deliveryCarts = useAppSelector((state) => state.deliveryCarts.data);
+  const deliveryCarts = useAppSelector((state) => state.delivery.data);
 
   const router = useRouter();
 
@@ -102,7 +102,7 @@ const GocheckoutPage = () => {
                     {findMainDelivery.firstName} {findMainDelivery.lastName} {findMainDelivery.patronymic}
                   </span>
                   <span className="text-[#535353]">
-                    {findMainDelivery.number.replace(/(\d)(\d{3})(\d{3})(\d{2})(\d{2})/, "+$1 $2 $3 $4 $5")}
+                    {findMainDelivery.number?.replace(/(\d)(\d{3})(\d{3})(\d{2})(\d{2})/, "+$1 $2 $3 $4 $5")}
                   </span>
                 </div>
               </div>
@@ -142,8 +142,17 @@ const GocheckoutPage = () => {
               ))}
             </div>
           </div>
-          <div className="p-4 rounded-2xl bg-[#EEE]">
+          <div className="p-4 rounded-2xl bg-[#EEE] flex justify-between items-center cursor-pointer">
             <p>Промокод</p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12" fill="none">
+              <path
+                d="M1.5 1.5L6 6L1.5 10.5"
+                stroke="#8E8E8E"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
           </div>
           <div className="p-6 rounded-2xl bg-[#EEE] flex-col gap-3 flex">
             <div className="border-b border-solid border-[rgba(142, 142, 142, 0.40)] pb-3 flex justify-between items-center">

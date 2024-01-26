@@ -1,12 +1,3 @@
-export type DeliveryState = {
-  city: string;
-  pvzAddress?: string;
-  street: string;
-  house?: string;
-  flat?: string;
+import type { Delivery } from "@/src/types/delivery.types";
 
-  surname: string;
-  name: string;
-  patronymic: string;
-  phone: string;
-};
+export type DeliveryState = Delivery;

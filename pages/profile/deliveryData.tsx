@@ -17,14 +17,6 @@ const DeliveryDataPage = () => (
 export const getServerSideProps = wrapper.getServerSideProps(({ dispatch, getState }) => async () => {
   await Promise.all([dispatch(getDeliveryThunk())]);
 
-  const isSuccess = getState().deliveryCarts.success;
-
-  if (!isSuccess) {
-    return {
-      notFound: true,
-    };
-  }
-
   return {
     props: {},
   };

@@ -1,17 +1,30 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
+import { getDeliveryThunk } from "./thunks/getDelivery";
 import type { DeliveryState } from "./types";
 
 const initialState: DeliveryState = {
   city: "",
-  street: "",
   house: "",
   flat: "",
-  surname: "",
-  name: "",
   patronymic: "",
-  phone: "",
+  id: 0,
+  firstName: "",
+  lastName: "",
+  number: "",
+  address: "",
+  isMain: false,
+  deliveryType: {
+    id: 0,
+    name: "",
+  },
+  userId: 0,
+  createdAt: "",
+  updatedAt: "",
+  street: null,
+  pvzAddress: null,
+  deliveryPointAddress: null,
 };
 
 const { actions, reducer } = createSlice({
@@ -25,6 +38,9 @@ const { actions, reducer } = createSlice({
       ...state,
       ...{ [name]: value },
     }),
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getDeliveryThunk.fulfilled, (store, { payload }) => payload);
   },
 });
 

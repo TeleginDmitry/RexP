@@ -1,20 +1,4 @@
-export interface Delivery {
-  firstName: string;
-  lastName: string;
-  patronymic: string;
-  number: string;
-  city: string;
-  address: string;
-  isMain: boolean;
-  deliveryType: DeliveryType;
-  userId: number;
-  createdAt: string;
-  updatedAt: string;
-}
-export interface DeliveryType {
-  id: number;
-  name: string;
-}
+import type { Delivery } from "@/src/types/delivery.types";
 
 export type DeliveryState = Readonly<{
   success: boolean;

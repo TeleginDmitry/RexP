@@ -27,12 +27,16 @@ const SearchPage = () => {
       return;
     }
 
-    const product = await getProductName({ url: value });
+    try {
+      const product = await getProductName({ url: value });
 
-    const { data } = product;
+      const { data } = product;
 
-    if (data) {
-      router.push(`/catalog/${data.id}`);
+      if (data) {
+        router.push(`/catalog/${data.id}`);
+      }
+    } catch (error) {
+      setIsError(true);
     }
   }
 
@@ -44,11 +48,7 @@ const SearchPage = () => {
 
     setIsError(false);
 
-    try {
-      onSubmit();
-    } catch (error) {
-      /* empty */
-    }
+    onSubmit();
   };
 
   return (
@@ -84,10 +84,16 @@ const SearchPage = () => {
                 <p className="text-base text-black">Скачайте приложение Poizon и зарегистрируйтесь</p>
               </div>
               <div className="flex items-center gap-3 justify-center">
-                <a href="#" className="border border-solid border-black rounded-lg w-full">
+                <a
+                  href="https://apps.apple.com/ru/app/得物-得到运动x潮流x好物/id1012871328"
+                  className="border border-solid border-black rounded-lg w-full"
+                >
                   <img className="max-w-full" src="/images/searchPage/store.png" alt="store link" />
                 </a>
-                <a href="#" className="border border-solid border-black rounded-lg w-full">
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.shizhuang.poizon.hk"
+                  className="border border-solid border-black rounded-lg w-full"
+                >
                   <img className="max-w-full" src="/images/searchPage/market.png" alt="market link" />
                 </a>
               </div>

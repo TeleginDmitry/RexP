@@ -73,13 +73,16 @@ const BasketAndFavoriteFilter = ({ changeFilters, filters, applyFilters, toggleO
   return (
     <Portal>
       <MainContainer className={s.wrapper}>
-        <div className={s.header}>
+        <div className={`${s.header} relative`}>
           <RootButton className={s.link} aria-label="Назад" onClick={onHandleClick}>
             <RootIcon name="arrowLeft" />
           </RootButton>
           <h1 className={s.title}>Фильтры</h1>
           {isVisibleReset && (
-            <button onClick={resetFIlters} className="text-red-600 flex gap-2 items-center text-sm">
+            <button
+              onClick={resetFIlters}
+              className="absolute right-0 top-3 text-red-600 flex gap-2 items-center text-sm"
+            >
               Сбросить
               <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11" fill="none">
                 <path d="M10 1L5.5 5.5L10 10" stroke="#D50000" stroke-linecap="round" stroke-linejoin="round" />
@@ -87,6 +90,7 @@ const BasketAndFavoriteFilter = ({ changeFilters, filters, applyFilters, toggleO
               </svg>
             </button>
           )}
+          <div />
         </div>
         <div className={s.filters}>
           <RootButton className={s.item} onClick={() => setSelectedFilter("categories")}>
