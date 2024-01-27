@@ -18,7 +18,7 @@ export const ApplyButton = ({ applyFilters, filters, toggleOpen, changeSelectedF
     filters.brands.length === 0 && filters.minPrice === 99 && filters.maxPrice === 3599999 && filters.categoryId === 0;
 
   function onClick() {
-    if (selectedFilter === "" || selectedFilter === "categories") {
+    if (selectedFilter === "") {
       applyFilters(undefined);
       toggleOpen();
     } else {

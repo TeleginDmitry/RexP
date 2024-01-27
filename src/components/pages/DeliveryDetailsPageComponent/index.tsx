@@ -9,6 +9,7 @@ import InputsBlock from "./_components/InputsBlock";
 import SaveButton from "./_components/SaveButton";
 import TabsBlock from "./_components/TabsBlock";
 
+import { HeaderTitle } from "../../ui/HeaderTitle/HeaderTitle";
 import MainContainer from "../../ui/MainContainer";
 
 import s from "./DeliveryDetailsPageComponent.module.scss";
@@ -32,6 +33,7 @@ const DeliveryDetailsPageComponent = () => {
 
   return (
     <MainContainer className={s.wrapper}>
+      <HeaderTitle title="Данные доставки" />
       <TabsBlock changeActiveTab={changeActiveTab} activeTab={activeTab} />
       <InputsBlock activeTab={activeTab} currentAddress={currentAddress} onHandleChange={onHandleChange} />
       <SaveButton currentAddress={currentAddress} />

@@ -1,3 +1,5 @@
+import type { Delivery } from "./delivery.types";
+
 export interface Order {
   id: number;
   totalPrice: number;
@@ -14,16 +16,7 @@ export interface DeliveryTypeOrImagesEntityOrBrandOrOrderStatus {
   id: number;
   name: string;
 }
-export interface Delivery {
-  firstName: string;
-  lastName: string;
-  patronymic: string;
-  number: string;
-  city: string;
-  address: string;
-  isMain: boolean;
-  deliveryType: DeliveryTypeOrImagesEntityOrBrandOrOrderStatus;
-}
+
 export interface OrderContentsEntity {
   id: number;
   count: number;

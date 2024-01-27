@@ -17,15 +17,11 @@ const DeliveryDetailsPage = () => (
 export const getServerSideProps = wrapper.getServerSideProps(({ dispatch, getState }) => async (context) => {
   const { query } = context;
 
-  const { id, isAdd } = query as unknown as { id: string; isAdd: boolean };
+  const { id } = query as unknown as { id: string | undefined };
 
-  if (!id && !isAdd) {
-    return {
-      notFound: true,
-    };
+  if (id) {
+    await Promise.all([dispatch(getDeliveryThunk(+id))]);
   }
-
-  await Promise.all([dispatch(getDeliveryThunk(+id))]);
 
   return {
     props: {},

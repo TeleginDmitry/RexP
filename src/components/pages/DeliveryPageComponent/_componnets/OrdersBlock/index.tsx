@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
+import { ImagesBlock } from "@/src/components/ui/ImagesBlock/ImagesBlock";
 import InViewWrapper from "@/src/components/ui/InViewWrapper";
 import DefaultLink from "@/src/components/ui/links/DefaultLink";
 import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
@@ -58,23 +59,7 @@ const OrdersBlock = () => {
                     {trackNumber}
                   </Snippet>
                 </div>
-                <div className={s.photos}>
-                  {imagesFull?.slice(0, 3).map((image) => (
-                    <div className={s.photo} key={image?.id}>
-                      <Image
-                        src={`${process.env.NEXT_PUBLIC_IMAGES_URL}${image?.name}`}
-                        alt="фото"
-                        width={100}
-                        height={100}
-                      />
-                    </div>
-                  ))}
-                  {imagesFull && imagesFull.length > 3 && (
-                    <div className={clsx(s.more, s.photo)}>
-                      <span>+{imagesFull.length - 3}</span>
-                    </div>
-                  )}
-                </div>
+                <ImagesBlock images={imagesFull} />
                 <DefaultLink href={`/profile/delivery/${id}`} className={s.link} aria-label="на страницу заказа" />
               </motion.div>
             )}

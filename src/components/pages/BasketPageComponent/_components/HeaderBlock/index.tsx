@@ -46,7 +46,7 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ selected, setSelected }) => {
   return (
     <div className={s.wrapper}>
       <Checkbox
-        aria-label="выбрать все"
+        aria-label="Выбрать все"
         radius="full"
         size="lg"
         classNames={{
@@ -65,7 +65,7 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ selected, setSelected }) => {
         isSelected={isSelected}
         onValueChange={onHandleAllClick}
       >
-        <div className={s.header}>выбрать&nbsp;все</div>
+        <div className={s.header}>Выбрать&nbsp;все</div>
       </Checkbox>
       <Popover isOpen={isOpen} onOpenChange={(open) => selected.length !== 0 && setIsOpen(open)}>
         <PopoverTrigger>

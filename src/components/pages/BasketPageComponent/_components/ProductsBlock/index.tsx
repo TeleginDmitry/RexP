@@ -86,7 +86,7 @@ const ProductsBlock = () => {
                       ),
                       s.checkbox
                     ),
-                    label: "w-[calc(100%_-_74px)]",
+                    label: "w-[calc(100%_-_50px)]",
                   }}
                   value={`${id}`}
                 >
@@ -105,6 +105,9 @@ const ProductsBlock = () => {
                       <div className={s.info__price}>{new Intl.NumberFormat("ru-RU").format(productSize.price)} ₽</div>
                       <div className={s.info__name}>{product.name}</div>
                       <div className={s.info__size}>размер: {productSize.size.name}</div>
+                      {productSize.amount < 5 && (
+                        <div className="text-[#D50000] text-xs mt-1">Осталось менее 5 пар</div>
+                      )}
                     </div>
                   </div>
                 </Checkbox>

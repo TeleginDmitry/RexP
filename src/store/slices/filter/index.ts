@@ -7,7 +7,7 @@ import type { FilterState } from "./types";
 const initialState: FilterState = {
   indexPage: { brands: [], colors: [], sizes: [], maxPrice: 3599999, minPrice: 99, orderBy: "id", sortBy: "DESC" },
   basketPage: { brands: [], maxPrice: 3599999, minPrice: 99, categoryId: 0 },
-  favoritesPage: { brands: [], maxPrice: 3599999, minPrice: 99, categoryId: 0 },
+  favoritesPage: { brands: [], maxPrice: 3599999, minPrice: 99, categoryId: 0, orderBy: "id", sortBy: "DESC" },
 };
 
 const { reducer, actions } = createSlice({

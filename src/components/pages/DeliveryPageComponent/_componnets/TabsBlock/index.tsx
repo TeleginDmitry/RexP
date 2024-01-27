@@ -1,3 +1,4 @@
+/* eslint-disable no-bitwise */
 import RootIcon from "@/src/components/ui/icons/RootIcon";
 import DefaultLink from "@/src/components/ui/links/DefaultLink";
 import RootTabs from "@/src/components/ui/RootTabs";
@@ -13,6 +14,8 @@ const TabsBlock = () => {
 
   const onHandleChange = (value: string) => dispatch(setActiveFilter({ value, filterName: "myOrdersPage" }));
 
+  const filteredStatus = status.filter(({ id }) => id === 1 || id === 6 || id === 8);
+
   return (
     <>
       <div className={s.header}>
@@ -23,7 +26,7 @@ const TabsBlock = () => {
       </div>
       <div className={s.wrapper}>
         <div className={s.tabs}>
-          <RootTabs tabsList={status.map(({ name }) => name)} onSelectionChange={onHandleChange} />
+          <RootTabs tabsList={filteredStatus.map(({ name }) => name)} onSelectionChange={onHandleChange} />
         </div>
       </div>
     </>

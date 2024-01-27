@@ -135,7 +135,17 @@
         flex: 1;
 
         &.active {
-          color: black;
+          span {
+            color: black;
+          }
+
+          input {
+            color: black;
+
+            &::placeholder {
+              color: black;
+            }
+          }
         }
       }
     }

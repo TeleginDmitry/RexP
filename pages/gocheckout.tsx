@@ -7,7 +7,9 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 import RootIcon from "@/src/components/ui/icons/RootIcon";
+import MainContainer from "@/src/components/ui/MainContainer";
 import RootButton from "@/src/components/ui/RootButton";
+import RootTabs from "@/src/components/ui/RootTabs";
 import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
 import { getCartsThunk } from "@/src/store/slices/getCarts/getCarts/getCarts";
 import { getDeliveryThunk } from "@/src/store/slices/getDelivery/getDelivery/getDelivery";
@@ -57,29 +59,26 @@ const GocheckoutPage = () => {
         <meta name="description" content="description" />
         <style />
       </Head>
-      <div className="relative">
-        <div className="fixed top-0 left-0 w-full z-10 flex justify-between items-center p-4 bg-white">
+      <MainContainer className="relative">
+        <div className="fixed  top-0 left-0 w-full z-50 flex justify-between items-center p-4 bg-white">
           <RootButton onClick={() => router.back()} aria-label="Назад">
             <RootIcon name="arrowLeft" />
           </RootButton>
           <p className="text-lg font-bold">Оформление заказа</p>
           <div />
         </div>
-        <div className="px-4 pt-12 flex flex-col gap-4">
+        <div className="pt-12 flex flex-col gap-4">
           <div>
             <h2 className="text-base font-semibold mb-2">Способ получения</h2>
-            <Tabs
-              fullWidth
+
+            <RootTabs
+              className="w-full"
               classNames={{
-                tabList: "w-full relative flex justify-between px-0",
-                tab: "rounded-2xl px-0",
-                tabContent: "group-data-[selected=true]:text-white",
+                tabList: "w-full ",
+                tab: "max-w-full !z-10",
               }}
-              aria-label="Options"
-            >
-              <Tab className="text-base" key="punkt" title={<div>Пункт выдачи заказа</div>} />
-              <Tab className="text-base" key="kuryer" title={<div>Курьером</div>} />
-            </Tabs>
+              tabsList={["Пункт выдачи заказа", "Курьером"]}
+            />
           </div>
           <div className="p-6 rounded-2xl bg-[#EEE] flex flex-col gap-4">
             <div className="border-b border-solid border-[rgba(142, 142, 142, 0.40)] pb-3 flex items-center justify-between">
@@ -92,7 +91,7 @@ const GocheckoutPage = () => {
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-2">
                   <p className="text-sm font-semibold">Адрес доставки</p>
-                  <span className="text-[#535353]">{findMainDelivery.address}</span>
+                  <span className="text-[#535353]">{findMainDelivery.deliveryPointAddress}</span>
                   <span className="text-sm text-[#535353]">Срок хранения товара - 7 дней</span>
                   <span className="text-sm text-[#535353]">Вы можете продлить хранение ещё на 3 дня</span>
                 </div>
@@ -191,7 +190,7 @@ const GocheckoutPage = () => {
             </p>
           </div>
         </div>
-      </div>
+      </MainContainer>
     </>
   );
 };

@@ -24,4 +24,6 @@ export interface FilterFavoritesType {
   maxPrice: number;
   minPrice: number;
   brands: string[];
+  orderBy?: "id" | "price";
+  sortBy?: "ASC" | "DESC";
 }

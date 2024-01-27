@@ -136,44 +136,5 @@
         }
       }
     }
-
-    .photos {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-
-      .photo {
-        flex: 0 1 72px;
-        border-radius: 12px;
-        background: #fff;
-        padding: 8px 6px;
-        font-size: 28px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 22px;
-        letter-spacing: -0.4px;
-        color: var(--main-color-black);
-        align-self: stretch;
-        display: block;
-        padding-bottom: 20.4%;
-        position: relative;
-
-        @media (min-width: 393px) {
-          padding-bottom: 72px !important;
-        }
-
-        * {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-        }
-
-        img {
-          width: calc(100% - 12px);
-          height: auto;
-        }
-      }
-    }
   }
 }

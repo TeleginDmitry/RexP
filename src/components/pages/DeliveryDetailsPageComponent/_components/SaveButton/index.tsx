@@ -19,10 +19,10 @@ const SaveButton = ({ currentAddress }: Props) => {
     if (!id) {
       return;
     }
-    const isAdd = router.pathname.includes("isAdd");
+    const idParam = router.pathname.includes("id");
 
     try {
-      if (isAdd) {
+      if (idParam) {
         const result = await createDeliveryCart(currentAddress);
 
         if (result.data) {

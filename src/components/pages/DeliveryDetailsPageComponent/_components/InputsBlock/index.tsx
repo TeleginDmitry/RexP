@@ -3,7 +3,6 @@
 import { Autocomplete, AutocompleteItem, Input } from "@nextui-org/react";
 import PhoneInput from "react-phone-input-2";
 
-import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
 import type { DeliveryState } from "@/src/store/slices/delivery/types";
 
 import { PVZ_ADDRESS } from "../../pvz-address";
@@ -25,13 +24,13 @@ interface Props {
 const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
   const router = useRouter();
 
-  const isAdd = router.pathname.includes("isAdd");
+  const idParam = router.pathname.includes("id");
 
-  const defaultCity = isAdd
+  const defaultCity = idParam
     ? RUSSIAN_CITIES.find((city) => city.name.toLowerCase().includes(currentAddress.city?.toLowerCase() ?? ""))
     : undefined;
 
-  const defaultPvzAdress = isAdd
+  const defaultPvzAdress = idParam
     ? PVZ_ADDRESS.find((address) => address.name.toLowerCase().includes(currentAddress.pvzAddress?.toLowerCase() ?? ""))
     : undefined;
 

@@ -1,10 +1,12 @@
 import RootLink from "@/src/components/ui/links/RootLink";
+import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
 
 import s from "./InfoTabs.module.scss";
 
 const InfoTabs = () => {
-  const count = 1;
-  const deliveryCount = 3;
+  const orders = useAppSelector((state) => state.orders.data);
+
+  const deliveryCount = orders.filter(({ isReviwed }) => !isReviwed);
 
   return (
     <div className={s.wrapper}>
@@ -16,12 +18,12 @@ const InfoTabs = () => {
         </span>
       </RootLink>
       <RootLink className={s.link} href="/profile/delivery">
-        <span className={s.count}>{count}</span>
+        <span className={s.count}>{orders.length}</span>
         <span className={s.text}>Мои заказы</span>
       </RootLink>
       <RootLink className={s.link} href="/profile/review">
         <span className={s.text}>Ждут отзыва</span>
-        <span className={s["delivery-count"]}>{deliveryCount} заказа</span>
+        <span className={s["delivery-count"]}>{deliveryCount.length} заказа</span>
         <span className={s["review-text"]}>
           Напиши отзыв
           <br />и получи промокод

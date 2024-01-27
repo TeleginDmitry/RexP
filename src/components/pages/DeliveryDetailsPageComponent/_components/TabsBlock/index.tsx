@@ -12,7 +12,7 @@ const TabsBlock = ({ changeActiveTab, activeTab }: Props) => {
   const onHandleChange = (value: string) => changeActiveTab(value as "Курьером" | "Пункт выдачи заказа");
 
   return (
-    <div className={s.wrapper}>
+    <div className={`${s.wrapper} mt-10`}>
       <div className={s.title}>Способ получения</div>
       <RootTabs
         className={s.tabs}

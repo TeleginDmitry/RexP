@@ -28,7 +28,7 @@ const AddButton = () => {
     if (length >= MAX_ADDRESSES) {
       toast.error(`Максимальное количество адресов: ${MAX_ADDRESSES}`);
     } else {
-      router.push({ pathname: "/profile/deliveryDetails", query: { isAdd: true } }, undefined, { shallow: true });
+      router.push({ pathname: "/profile/deliveryDetails" });
     }
   };
 
