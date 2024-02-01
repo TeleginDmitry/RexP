@@ -7,9 +7,7 @@ const $api = axios.create({
     headers: {
         Accept: 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
-        Authorization: `Bearer ${
-            Cookies.get('token') || process.env.NEXT_PUBLIC_API_TOKEN
-        }`
+        Authorization: `Bearer ${Cookies.get('token')}`
     }
 })
 

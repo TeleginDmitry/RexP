@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import clsx from 'clsx'
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -13,6 +13,8 @@ import Footer from '../_components/Footer'
 import s from './PageLayout.module.scss'
 
 const PageLayout = ({ children }) => {
+    const [test, setTest] = useState('')
+
     useEffect(() => {
         async function saveToken() {
             try {
@@ -30,6 +32,7 @@ const PageLayout = ({ children }) => {
                         Cookies.set('token', resultLogin.data.token, {
                             expires: 7
                         })
+                        setTest(resultLogin.data.token)
                     } else {
                         const resultRegister = await register({ initData })
 
@@ -37,6 +40,8 @@ const PageLayout = ({ children }) => {
                             Cookies.set('token', resultRegister.data.token, {
                                 expires: 7
                             })
+
+                            setTest(resultRegister.data.token)
                         }
                     }
                 }
@@ -56,6 +61,7 @@ const PageLayout = ({ children }) => {
                 inter.variable
             )}
         >
+            <h1 className='z-[10000]'>{test}</h1>
             <main className={s['page-layout']}>{children}</main>
             <Footer />
             <Toaster position='top-center' richColors />
