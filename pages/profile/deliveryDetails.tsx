@@ -1,31 +1,37 @@
-import Head from "next/head";
+import Head from 'next/head'
 
-import DeliveryDetailsPageComponent from "@/src/components/pages/DeliveryDetailsPageComponent";
-import { getDeliveryThunk } from "@/src/store/slices/delivery/thunks/getDelivery";
-import { wrapper } from "@/src/store/store";
+import DeliveryDetailsPageComponent from '@/src/components/pages/DeliveryDetailsPageComponent'
+import { getCityThunk } from '@/src/store/slices/city/thunks/getDelivery'
+import { getDeliveryThunk } from '@/src/store/slices/delivery/thunks/getDelivery'
+import { wrapper } from '@/src/store/store'
 
 const DeliveryDetailsPage = () => (
-  <>
-    <Head>
-      <title>title</title>
-      <meta name="description" content="description" />
-    </Head>
-    <DeliveryDetailsPageComponent />
-  </>
-);
+    <>
+        <Head>
+            <title>title</title>
+            <meta name='description' content='description' />
+        </Head>
+        <DeliveryDetailsPageComponent />
+    </>
+)
 
-export const getServerSideProps = wrapper.getServerSideProps(({ dispatch, getState }) => async (context) => {
-  const { query } = context;
+export const getServerSideProps = wrapper.getServerSideProps(
+    ({ dispatch, getState }) =>
+        async (context) => {
+            await Promise.all([dispatch(getCityThunk(''))])
 
-  const { id } = query as unknown as { id: string | undefined };
+            const { query } = context
 
-  if (id) {
-    await Promise.all([dispatch(getDeliveryThunk(+id))]);
-  }
+            const { id } = query as unknown as { id: string | undefined }
 
-  return {
-    props: {},
-  };
-});
+            if (id) {
+                await dispatch(getDeliveryThunk(+id))
+            }
 
-export default DeliveryDetailsPage;
+            return {
+                props: {}
+            }
+        }
+)
+
+export default DeliveryDetailsPage

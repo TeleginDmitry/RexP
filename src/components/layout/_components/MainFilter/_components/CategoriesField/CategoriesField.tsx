@@ -1,57 +1,83 @@
 /* eslint-disable react/jsx-no-bind */
-import React, { useState } from "react";
+import React from 'react'
 
-import clsx from "clsx";
+import { CheckboxGroup } from '@nextui-org/react'
 
-import RootCheckbox from "@/src/components/ui/RootCheckbox";
-import { useAppSelector } from "@/src/hooks/redux-hooks/redux-hooks";
-import type { FilterType } from "@/src/types/Filter/filter.types";
+import RootCheckbox from '@/src/components/ui/RootCheckbox'
+import { useAppSelector } from '@/src/hooks/redux-hooks/redux-hooks'
+import type { FilterType } from '@/src/types/Filter/filter.types'
 
-import s from "./CategoriesField.module.scss";
+import s from './CategoriesField.module.scss'
 
 interface Props {
-  filters: FilterType;
-  changeFilters: (values: Partial<FilterType>) => void;
+    filters: FilterType
+    changeFilters: (values: Partial<FilterType>) => void
 }
 
 const CategoriesField = ({ changeFilters, filters }: Props) => {
-  const categories = useAppSelector((state) => state.category.data);
+    const categories = useAppSelector((state) => state.category.data)
 
-  const [selectedCheckbox, setSelectedCheckbox] = useState<number>(filters.categoryId ?? 0);
+    const handleCheckboxChange = (category: number) => {
+        if (category === 0) {
+            changeFilters({ categoryId: undefined })
+        }
 
-  const handleCheckboxChange = (category: number) => {
-    if (category === 0) {
-      changeFilters({ categoryId: undefined });
+        changeFilters({ categoryId: category })
     }
 
-    setSelectedCheckbox(category);
+    function onValueChangeGroup(values: string[]) {
+        changeFilters({ subCategories: values })
+    }
 
-    changeFilters({ categoryId: category });
-  };
-
-  return (
-    <div className={s.wrapper}>
-      <RootCheckbox value="0" isSelected={selectedCheckbox === 0} onChange={() => handleCheckboxChange(0)}>
-        <div className={s.categoryWrapper}>
-          <div className={s.categoryAll} />
-          <div className={s.name}>Все категории</div>
+    return (
+        <div className={s.wrapper}>
+            <RootCheckbox
+                value='0'
+                isSelected={filters.categoryId === 0}
+                onChange={() => handleCheckboxChange(0)}
+            >
+                <div className={s.categoryWrapper}>
+                    <div className={s.name}>Все категории</div>
+                </div>
+            </RootCheckbox>
+            {categories.map(({ id, name, subCategories }) => (
+                <>
+                    <RootCheckbox
+                        key={id}
+                        isSelected={filters.categoryId === id}
+                        onChange={() => handleCheckboxChange(id)}
+                        value={`${id}`}
+                    >
+                        <div className={s.categoryWrapper}>
+                            <div className={s.name}>{name}</div>
+                        </div>
+                    </RootCheckbox>
+                    {!!subCategories.length && (
+                        <CheckboxGroup
+                            value={filters.subCategories}
+                            onValueChange={onValueChangeGroup}
+                        >
+                            {subCategories.map(
+                                ({ id: subId, name: subName }) => (
+                                    <RootCheckbox
+                                        key={subId}
+                                        value={`${subId}`}
+                                        className='pl-4'
+                                    >
+                                        <div className={s.categoryWrapper}>
+                                            <div className={s.name}>
+                                                {subName}
+                                            </div>
+                                        </div>
+                                    </RootCheckbox>
+                                )
+                            )}
+                        </CheckboxGroup>
+                    )}
+                </>
+            ))}
         </div>
-      </RootCheckbox>
-      {categories.map((category) => (
-        <RootCheckbox
-          key={category.id}
-          isSelected={selectedCheckbox === category.id}
-          onChange={() => handleCheckboxChange(category.id)}
-          value={`${category.id}`}
-        >
-          <div className={s.categoryWrapper}>
-            <div className={clsx(s.category)} />
-            <div className={s.name}>{category.name}</div>
-          </div>
-        </RootCheckbox>
-      ))}
-    </div>
-  );
-};
+    )
+}
 
-export default CategoriesField;
+export default CategoriesField

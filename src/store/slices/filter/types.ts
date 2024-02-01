@@ -1,7 +1,3 @@
-import type { FilterCartsType, FilterFavoritesType, FilterType } from "@/src/types/Filter/filter.types";
+import type { FilterType } from "@/src/types/Filter/filter.types";
 
-export type FilterState = {
-  indexPage: FilterType;
-  basketPage: FilterCartsType;
-  favoritesPage: FilterFavoritesType;
-};
+export type FilterState = FilterType;

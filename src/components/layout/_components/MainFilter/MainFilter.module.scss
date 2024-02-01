@@ -1,153 +1,159 @@
 .wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: calc(100% - 72px);
-  background-color: rgb(255, 255, 255);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-
-  .header {
-    margin-bottom: 16px;
-    padding: 10px 0px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    left: 0;
+    position: fixed;
     top: 0;
-    z-index: 999999;
-    background: var(--main-color-white);
+    left: 0;
+    width: 100%;
+    height: calc(100% - 72px);
+    background-color: rgb(255, 255, 255);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
 
-    .link {
-      flex: 0 1 30px;
-    }
-
-    .title {
-      text-align: center;
-      font-size: 17px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-      flex: 1 1 auto;
-    }
-  }
-
-  .filters {
-    margin-bottom: 16px;
-    flex: 1 1 auto;
-    position: relative;
-
-    .subFilter {
-      padding: 0px 16px;
-      position: absolute;
-      left: 50%;
-      transform: translate(-50%, 0);
-      top: 0;
-      width: calc(100% + 32px);
-      height: 100%;
-      z-index: 10;
-      background: white;
-      display: none;
-      overflow-y: auto;
-      overflow-x: hidden;
-
-      &.active {
-        display: block;
-      }
-    }
-
-    .item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      height: 56px;
-      border-bottom: 1px solid var(--Main-Light-grey, #eee);
-
-      .sort {
-        color: #8e8e8e;
-        font-size: 15px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 160px;
-      }
-    }
-
-    .mainSlider {
-      padding: 0px 12px;
-
-      .price-title {
-        color: var(--Main-Black, #000);
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 22px;
-        letter-spacing: -0.4px;
-      }
-
-      div[data-slot="track"] {
-        background: #8e8e8e;
-        height: 1px;
-      }
-
-      div[data-slot="filler"] {
-        background: #000;
-      }
-
-      div[data-slot="thumb"] {
-        width: 24px;
-        height: 24px;
-        background: white;
-        filter: drop-shadow(0px 5px 8px rgba(24, 22, 31, 0.2));
-
-        &::after {
-          content: "";
-          display: none;
-        }
-      }
-    }
-
-    .range {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      align-items: center;
-      width: 100%;
-
-      .from,
-      .to {
-        height: 36px;
-        border-radius: 8px;
-        padding: 0px 16px;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 22px;
-        letter-spacing: -0.4px;
-        color: var(--Main-Grey, #8e8e8e);
-        background: var(--Main-Light-grey, #eee);
+    .header {
+        margin-bottom: 16px;
+        padding: 10px 0px;
+        width: 100%;
         display: flex;
+        justify-content: center;
         align-items: center;
-        flex: 1;
+        left: 0;
+        top: 0;
+        z-index: 999999;
+        background: var(--main-color-white);
 
-        &.active {
-          span {
-            color: black;
-          }
-
-          input {
-            color: black;
-
-            &::placeholder {
-              color: black;
-            }
-          }
+        .link {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
         }
-      }
+
+        .title {
+            text-align: center;
+            font-size: 17px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            flex: 1 1 auto;
+        }
     }
-  }
+
+    .filters {
+        margin-bottom: 16px;
+        flex: 1 1 auto;
+        position: relative;
+
+        .subFilter {
+            padding: 0px 16px;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 0);
+            top: 0;
+            width: calc(100% + 32px);
+            height: 100%;
+            z-index: 10;
+            background: white;
+            display: none;
+            overflow-y: auto;
+            overflow-x: hidden;
+
+            &.active {
+                display: block;
+            }
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 56px;
+            border-bottom: 1px solid var(--Main-Light-grey, #eee);
+
+            .sort {
+                color: #8e8e8e;
+                font-size: 15px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 160px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+        }
+
+        .mainSlider {
+            padding: 0px 12px;
+
+            .price-title {
+                color: var(--Main-Black, #000);
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 22px;
+                letter-spacing: -0.4px;
+            }
+
+            div[data-slot='track'] {
+                background: #8e8e8e;
+                height: 1px;
+            }
+
+            div[data-slot='filler'] {
+                background: #000;
+            }
+
+            div[data-slot='thumb'] {
+                width: 24px;
+                height: 24px;
+                background: white;
+                filter: drop-shadow(0px 5px 8px rgba(24, 22, 31, 0.2));
+
+                &::after {
+                    content: '';
+                    display: none;
+                }
+            }
+        }
+
+        .range {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: center;
+            width: 100%;
+
+            .from,
+            .to {
+                height: 36px;
+                border-radius: 8px;
+                padding: 0px 16px;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 22px;
+                letter-spacing: -0.4px;
+                color: var(--Main-Grey, #8e8e8e);
+                background: var(--Main-Light-grey, #eee);
+                display: flex;
+                align-items: center;
+                flex: 1;
+
+                &.active {
+                    span {
+                        color: black;
+                    }
+
+                    input {
+                        color: black;
+
+                        &::placeholder {
+                            color: black;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

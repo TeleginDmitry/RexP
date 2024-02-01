@@ -11,11 +11,7 @@ export type Product = {
       name: string;
     };
   }>;
-  subCategory: {
-    category: {
-      id: number;
-      name: string;
-    };
+  subcategories: {
     id: number;
     name: string;
   };

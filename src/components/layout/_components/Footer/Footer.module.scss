@@ -1,75 +1,75 @@
 .footer {
-  height: 71px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  bottom: 0;
-  padding: 0px 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 30;
-  width: 100%;
-  background: var(--main-color-white);
-
-  .menu {
+    height: 71px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    max-width: 400px;
-    flex: 0 1 100%;
-    gap: 10px;
-  }
+    position: fixed;
+    bottom: 0;
+    padding: 0px 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    width: 100%;
+    background: var(--main-color-white);
 
-  .link {
-    svg {
-      margin: 0 auto;
-    }
-  }
-
-  .item {
-    flex: 0 0 65px;
-    position: relative;
-
-    .text {
-      text-align: center;
-    }
-
-    .text,
-    svg path {
-      transition: all 0.3s ease 0s;
+    .menu {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 400px;
+        flex: 0 1 100%;
+        gap: 10px;
     }
 
-    &.active {
-      .text {
-        color: var(--main-color-black);
-        font-weight: 600;
-      }
-
-      svg {
-        path {
-          stroke: var(--main-color-black);
+    .link {
+        svg {
+            margin: 0 auto;
         }
-      }
     }
 
-    .count {
-      border-radius: 20px;
-      background: #000;
-      display: flex;
-      top: -6px;
-      left: 50%;
-      transform: translate(39%, 0);
-      justify-content: center;
-      align-items: center;
-      width: 16px;
-      position: absolute;
-      height: 16px;
-      font-size: 8px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-      color: var(--main-color-white);
+    .item {
+        flex: 0 0 65px;
+        position: relative;
+
+        .text {
+            text-align: center;
+        }
+
+        .text,
+        svg path {
+            transition: all 0.3s ease 0s;
+        }
+
+        &.active {
+            .text {
+                color: var(--main-color-black);
+                font-weight: 600;
+            }
+
+            svg {
+                path {
+                    stroke: var(--main-color-black);
+                }
+            }
+        }
+
+        .count {
+            border-radius: 20px;
+            background: #000;
+            display: flex;
+            top: -6px;
+            left: 50%;
+            transform: translate(39%, 0);
+            justify-content: center;
+            align-items: center;
+            width: 16px;
+            position: absolute;
+            height: 16px;
+            font-size: 8px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            color: var(--main-color-white);
+        }
     }
-  }
 }

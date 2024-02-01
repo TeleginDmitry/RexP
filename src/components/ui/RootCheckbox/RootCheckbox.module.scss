@@ -1,14 +1,14 @@
 .checkbox {
-  background: var(--main-color-white) !important;
-  flex-wrap: wrap;
-  flex-direction: row-reverse;
-  flex-wrap: nowrap;
-  height: 56px;
-  border-bottom: 1px solid var(--Main-Light-grey, #eee) !important;
-	max-width: unset !important;
+    background: var(--main-color-white) !important;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    flex-wrap: nowrap;
+    height: 56px;
+    border-bottom: 1px solid var(--Main-Light-grey, #eee) !important;
+    max-width: unset !important;
 
-  svg {
-    will-change: transform;
-    transform: scale(0.8);
-  }
+    svg {
+        will-change: transform;
+        transform: scale(0.8);
+    }
 }

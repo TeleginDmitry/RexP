@@ -1,16 +1,16 @@
 .page-wrapper {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-  font-family: var(--font-manrope);
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    font-family: var(--font-manrope);
 }
 
 .page-layout {
-  flex: 1 1 auto;
-  position: relative;
-  overflow: hidden;
-  min-height: 300px;
-  padding-bottom: 86px;
-  padding-top: 12px;
-  display: flex;
+    flex: 1 1 auto;
+    position: relative;
+    overflow: hidden;
+    min-height: 300px;
+    padding-bottom: 86px;
+    padding-top: 12px;
+    display: flex;
 }

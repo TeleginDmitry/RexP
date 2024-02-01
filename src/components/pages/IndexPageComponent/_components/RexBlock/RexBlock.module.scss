@@ -1,37 +1,38 @@
 .wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 20px;
-  background: black;
-  margin-bottom: 16px;
-  position: relative;
-  background-image: url("/images/indexPage/rexFind.png"), url("/images/indexPage/elips.png"),
-    url("/images/indexPage/box1.png"), url("/images/indexPage/box2.png");
-  background-repeat: no-repeat;
-  background-position: right, right, center, right;
-  background-size: contain, contain, auto, auto;
-  padding: 18px 0px 18px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 20px;
+    background: black;
+    margin-bottom: 16px;
+    position: relative;
+    background-image: url('/images/indexPage/box2.png'),
+        url('/images/indexPage/rexFind.png'), url('/images/indexPage/box1.png'),
+        url('/images/indexPage/elips.png');
+    background-repeat: no-repeat;
+    background-position: right, right, center 80%, right;
+    background-size: auto, contain, auto, contain;
+    padding: 18px 0px 18px 18px;
 
-  .text {
-    .text-top,
-    .text-bottom {
-      font-style: normal;
-      letter-spacing: -0.4px;
-      color: var(--main-color-white);
-    }
+    .text {
+        .text-top,
+        .text-bottom {
+            font-style: normal;
+            letter-spacing: -0.4px;
+            color: var(--main-color-white);
+        }
 
-    .text-top {
-      font-size: 40px;
-      font-weight: 400;
-      line-height: 84%;
-      margin-bottom: 8px;
-    }
+        .text-top {
+            font-size: 40px;
+            font-weight: 400;
+            line-height: 84%;
+            margin-bottom: 8px;
+        }
 
-    .text-bottom {
-      font-size: 14px;
-      font-weight: 300;
-      line-height: 16px;
+        .text-bottom {
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 16px;
+        }
     }
-  }
 }

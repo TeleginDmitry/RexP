@@ -1,50 +1,38 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-restricted-syntax */
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
-import type { FilterState } from "./types";
+import { LIMIT, MAX_PRICE, MIN_PRICE, PAGE } from '@/src/constants'
+
+import type { FilterState } from './types'
 
 const initialState: FilterState = {
-  indexPage: { brands: [], colors: [], sizes: [], maxPrice: 3599999, minPrice: 99, orderBy: "id", sortBy: "DESC" },
-  basketPage: { brands: [], maxPrice: 3599999, minPrice: 99, categoryId: 0 },
-  favoritesPage: { brands: [], maxPrice: 3599999, minPrice: 99, categoryId: 0, orderBy: "id", sortBy: "DESC" },
-};
+    brands: [],
+    colors: [],
+    sizes: [],
+    maxPrice: MAX_PRICE,
+    minPrice: MIN_PRICE,
+    orderBy: 'id',
+    sortBy: 'DESC',
+    subCategories: []
+}
 
 const { reducer, actions } = createSlice({
-  name: "mainFilter",
-  initialState,
-  reducers: {
-    addFiltersToIndexPage(state, { payload }: PayloadAction<Partial<FilterState["indexPage"]>>) {
-      state.indexPage = {
-        ...state.indexPage,
-        ...payload,
-      };
-    },
-    addFiltersToBasketPage(state, { payload }: PayloadAction<Partial<FilterState["basketPage"]>>) {
-      state.basketPage = {
-        ...state.basketPage,
-        ...payload,
-      };
-    },
-    addFiltersToFavoritesPage(state, { payload }: PayloadAction<Partial<FilterState["favoritesPage"]>>) {
-      state.favoritesPage = {
-        ...state.favoritesPage,
-        ...payload,
-      };
-    },
-    deleteCategoryIdFromIndexPage(state) {
-      const { categoryId, ...data } = state.indexPage;
+    name: 'mainFilter',
+    initialState,
+    reducers: {
+        addFilters(state, { payload }: PayloadAction<Partial<FilterState>>) {
+            return {
+                ...state,
+                ...payload,
+                limit: LIMIT,
+                page: PAGE
+            }
+        }
+    }
+})
 
-      state.indexPage = data;
-    },
-  },
-});
+export default reducer
 
-export default reducer;
-
-export const {
-  addFiltersToIndexPage,
-  deleteCategoryIdFromIndexPage,
-  addFiltersToBasketPage,
-  addFiltersToFavoritesPage,
-} = actions;
+export const { addFilters } = actions

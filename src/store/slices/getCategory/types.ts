@@ -1,7 +1,7 @@
 export type CategoryType = {
   id: number;
   name: string;
-  subCategory: Array<{
+  subCategories: Array<{
     id: number;
     name: string;
   }>;
