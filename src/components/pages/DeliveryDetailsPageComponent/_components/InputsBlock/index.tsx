@@ -3,12 +3,7 @@
 import { Autocomplete, AutocompleteItem, Input } from '@nextui-org/react'
 import PhoneInput from 'react-phone-input-2'
 
-import type { DeliveryState } from '@/src/store/slices/delivery/types'
-
-import s from './InputsBlock.module.scss'
-
 import 'react-phone-input-2/lib/material.css'
-import type { Delivery } from '@/src/types/delivery.types'
 
 import { useRouter } from 'next/router'
 
@@ -16,12 +11,15 @@ import {
     useAppDispatch,
     useAppSelector
 } from '@/src/hooks/redux-hooks/redux-hooks'
-import { getDeliveryPointsThunk } from '@/src/store/slices/deliveryPoints/thunks/getDelivery'
 import { getCityThunk } from '@/src/store/slices/city/thunks/getDelivery'
+import { getDeliveryPointsThunk } from '@/src/store/slices/deliveryPoints/thunks/getDelivery'
+import type { DeliveryCreate } from '@/src/utils/api/DeliveryCartMethods'
+
+import s from './InputsBlock.module.scss'
 
 interface Props {
-    currentAddress: Delivery
-    onHandleChange: (value: string, name: keyof DeliveryState) => void
+    currentAddress: DeliveryCreate
+    onHandleChange: (value: string, name: keyof DeliveryCreate) => void
     activeTab: 'Курьером' | 'Пункт выдачи заказа'
 }
 
@@ -36,12 +34,10 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
     const idParam = router.pathname.includes('id')
 
     const defaultPvzAdress = idParam
-        ? deliveryPoints.find(({ address }) =>
-              address
+        ? deliveryPoints.find(({ city }) =>
+              city
                   .toLowerCase()
-                  .includes(
-                      currentAddress.deliveryPointAddress?.toLowerCase() ?? ''
-                  )
+                  .includes(currentAddress.city.toLowerCase() ?? '')
           )
         : undefined
 
@@ -60,7 +56,6 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
                     }}
                     onValueChange={(value) => {
                         dispatch(getCityThunk(value))
-                        onHandleChange(value, 'city')
                     }}
                     defaultItems={cities}
                     defaultSelectedKey={currentAddress.city || undefined}
@@ -68,6 +63,7 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
                     {({ city, code }) => (
                         <AutocompleteItem
                             onClick={() => {
+                                onHandleChange(city, 'city')
                                 dispatch(getDeliveryPointsThunk(code))
                             }}
                             key={code}
@@ -87,14 +83,20 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
                             popoverContent: s.popoverContent,
                             listbox: s.listbox
                         }}
-                        onValueChange={(value) => {
-                            onHandleChange(value, 'pvzAddress')
-                        }}
                         defaultItems={deliveryPoints}
                         defaultSelectedKey={defaultPvzAdress?.address}
                     >
-                        {({ address }) => (
-                            <AutocompleteItem key={address} className={s.item}>
+                        {({ address, address_full }) => (
+                            <AutocompleteItem
+                                onClick={() => {
+                                    onHandleChange(
+                                        address_full,
+                                        'deliveryPointAddress'
+                                    )
+                                }}
+                                key={address}
+                                className={s.item}
+                            >
                                 {address}
                             </AutocompleteItem>
                         )}

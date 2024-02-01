@@ -1,21 +1,21 @@
 export interface Delivery {
-    street: string | null
-    id: number | null
-    firstName: string | null
-    lastName: string | null
-    patronymic: string | null
-    number: string | null
-    city: string | null
-    address: string | null
-    isMain: boolean | null
-    deliveryType: DeliveryType | null
-    userId: number | null
-    createdAt: string | null
-    updatedAt: string | null
+    street: string
+    id: number
+    firstName: string
+    lastName: string
+    patronymic: string
+    number: string
+    city: string
+    address: string
+    isMain: boolean
+    deliveryType: DeliveryType
+    userId: number
+    createdAt: string
+    updatedAt: string
     house: string | null
     flat: string | null
-    pvzAddress: string | null
-    deliveryPointAddress: string | null
+    pvzAddress: string
+    deliveryPointAddress: string
 }
 export interface DeliveryType {
     id: number

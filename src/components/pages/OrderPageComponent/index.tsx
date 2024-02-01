@@ -78,7 +78,7 @@ const OrderPageComponent = () => {
                     <div className='flex flex-col gap-2'>
                         <p className='font-semibold'>Доставка в пункт выдачи</p>
                         <span className='font-normal'>
-                            {delivery.deliveryPointAddress}
+                            {delivery.city}, {delivery.street}, {delivery.house}
                         </span>
                     </div>
                     <p>

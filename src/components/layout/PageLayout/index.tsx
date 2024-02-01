@@ -1,6 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { useEffect } from 'react'
 
 import clsx from 'clsx'
+import Cookies from 'js-cookie'
 import { Toaster } from 'sonner'
 
 import { inter, manrope } from '@/src/assets/fonts/fonts'
@@ -21,7 +23,7 @@ const PageLayout = ({ children }) => {
 
                 const result = await getToken({ initData })
 
-                localStorage.setItem('token', result.data.token)
+                Cookies.set('token', result.data.token, { expires: 7 })
             } catch (error) {
                 /* empty */
             }

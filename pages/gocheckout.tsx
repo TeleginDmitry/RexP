@@ -123,9 +123,9 @@ const GocheckoutPage = () => {
                                                 Адрес доставки
                                             </p>
                                             <span className='text-[#535353]'>
-                                                {
-                                                    findMainDelivery.deliveryPointAddress
-                                                }
+                                                {findMainDelivery.city},{' '}
+                                                {findMainDelivery.street},{' '}
+                                                {findMainDelivery.house}
                                             </span>
                                             <span className='text-sm text-[#535353]'>
                                                 Срок хранения товара - 7 дней
@@ -145,7 +145,7 @@ const GocheckoutPage = () => {
                                                 {findMainDelivery.patronymic}
                                             </span>
                                             <span className='text-[#535353]'>
-                                                {findMainDelivery.number?.replace(
+                                                {findMainDelivery.number.replace(
                                                     /(\d)(\d{3})(\d{3})(\d{2})(\d{2})/,
                                                     '+$1 $2 $3 $4 $5'
                                                 )}

@@ -11,10 +11,8 @@ const initialState: OneProductsState = {
         discount: 0,
         gender: '',
         productSizes: [],
-        subcategories: {
-            id: 0,
-            name: ''
-        },
+        price: 0,
+        subcategories: { id: 0, name: '' },
         brand: {
             id: 0,
             name: ''

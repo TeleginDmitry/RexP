@@ -72,13 +72,17 @@ export const FilterBlock = () => {
             {mainDelivery || delivery.length ? (
                 <Selector
                     values={valuesWithoutSelected.map(
-                        ({ deliveryPointAddress, id }) => ({
+                        ({ id, city, street, house }) => ({
                             id: id!,
-                            value: deliveryPointAddress!
+                            value: `${city}, ${street}, ${house}`
                         })
                     )}
                     onChange={changeMainDelivery}
-                    defaultValue={mainDelivery?.deliveryPointAddress}
+                    defaultValue={
+                        mainDelivery
+                            ? `${mainDelivery.city}, ${mainDelivery.street}, ${mainDelivery.house}`
+                            : ''
+                    }
                 />
             ) : (
                 <div />

@@ -22,9 +22,9 @@ const initialState: DeliveryState = {
     userId: 0,
     createdAt: '',
     updatedAt: '',
-    street: null,
-    pvzAddress: null,
-    deliveryPointAddress: null
+    street: '',
+    pvzAddress: '',
+    deliveryPointAddress: ''
 }
 
 const { actions, reducer } = createSlice({

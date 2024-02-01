@@ -100,7 +100,7 @@ const ReviewPage = () => {
                                                     {delivery.patronymic}
                                                 </span>
                                                 <span>
-                                                    {delivery.number?.replace(
+                                                    {delivery.number.replace(
                                                         /(\d)(\d{3})(\d{3})(\d{2})(\d{2})/,
                                                         '+$1 $2 $3 $4 $5'
                                                     )}
@@ -112,7 +112,9 @@ const ReviewPage = () => {
                                                 Адрес доставки
                                             </p>
                                             <span className='font-normal'>
-                                                {delivery.deliveryPointAddress}
+                                                {delivery.city},{' '}
+                                                {delivery.street},{' '}
+                                                {delivery.house}
                                             </span>
                                         </div>
 
