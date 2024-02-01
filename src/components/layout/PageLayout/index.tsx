@@ -1,12 +1,12 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { useEffect } from 'react'
 
 import clsx from 'clsx'
+// eslint-disable-next-line import/no-extraneous-dependencies
 import Cookies from 'js-cookie'
 import { Toaster } from 'sonner'
 
 import { inter, manrope } from '@/src/assets/fonts/fonts'
-import { getToken } from '@/src/utils/api/getToken'
+import { login, register } from '@/src/utils/api/getToken'
 
 import Footer from '../_components/Footer'
 
@@ -14,22 +14,38 @@ import s from './PageLayout.module.scss'
 
 const PageLayout = ({ children }) => {
     useEffect(() => {
-        async function token() {
+        async function saveToken() {
             try {
                 const app = window.Telegram.WebApp
                 app.ready()
 
                 const { initData } = app
 
-                const result = await getToken({ initData })
+                const token = Cookies.get('token')
 
-                Cookies.set('token', result.data.token, { expires: 7 })
+                if (!token) {
+                    const resultLogin = await login({ initData })
+
+                    if (resultLogin.data.token) {
+                        Cookies.set('token', resultLogin.data.token, {
+                            expires: 7
+                        })
+                    } else {
+                        const resultRegister = await register({ initData })
+
+                        if (resultRegister.data.token) {
+                            Cookies.set('token', resultRegister.data.token, {
+                                expires: 7
+                            })
+                        }
+                    }
+                }
             } catch (error) {
                 /* empty */
             }
         }
 
-        token()
+        saveToken()
     }, [])
 
     return (

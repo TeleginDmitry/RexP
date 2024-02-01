@@ -10,5 +10,9 @@ interface Props {
     initData: string
 }
 
-export const getToken = async (data: Props): Promise<AxiosResponse<Token>> =>
-    $api.post('/user/login', data)
+export const login = async (valuesData: Props): Promise<AxiosResponse<Token>> =>
+    $api.post('/user/login', valuesData)
+
+export const register = async (
+    valuesData: Props
+): Promise<AxiosResponse<Token>> => $api.post('/user/registration', valuesData)
