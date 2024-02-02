@@ -1,43 +1,55 @@
-import clsx from "clsx";
-import Image from "next/image";
+import clsx from 'clsx'
+import Image from 'next/image'
 
-import type { ProductCardProps } from "./types";
+import type { ProductCardProps } from './types'
 
-import HeartIcon from "../icons/HeartIcon";
-import DefaultLink from "../links/DefaultLink";
+import HeartIcon from '../icons/HeartIcon'
+import DefaultLink from '../links/DefaultLink'
 
-import s from "./ProductCard.module.scss";
+import s from './ProductCard.module.scss'
 
 const ProductCard: React.FC<ProductCardProps> = ({
-  className,
-  name,
-  id,
-  imgUrl,
-  imagePriority,
-  price,
-  outOfStock,
-  variant = "default",
+    className,
+    name,
+    id,
+    imgUrl,
+    imagePriority,
+    price,
+    outOfStock,
+    variant = 'default'
 }) => (
-  <div className={clsx(s.wrapper, className, s[variant], outOfStock && s.outOfStock)}>
-    <Image
-      src={`${process.env.NEXT_PUBLIC_IMAGES_URL}${imgUrl}`}
-      alt={name}
-      width={variant === "default" ? 145 : 101}
-      height={variant === "default" ? 107 : 59}
-      priority={imagePriority}
-      className={s.image}
-      quality={100}
-    />
-    <DefaultLink href={`/catalog/${id}`} className={s.link} />
-    <div className={s.content}>
-      {outOfStock && <div className={s.outOfStock}>Нет в наличии</div>}
-      <div className={clsx(s.info, s[variant])}>
-        <div className={s.price}>{Number.isNaN(price) ? price : new Intl.NumberFormat("ru-RU").format(+price)} ₽</div>
-        <div className={s.name}>{name} </div>
-      </div>
-      <HeartIcon productId={id} className={s.heart} variant={variant} />
+    <div
+        className={clsx(
+            s.wrapper,
+            className,
+            s[variant],
+            outOfStock && s.outOfStock
+        )}
+    >
+        <Image
+            src={`${process.env.NEXT_PUBLIC_IMAGES_URL}${imgUrl}`}
+            alt={name}
+            width={variant === 'default' ? 145 : 101}
+            height={variant === 'default' ? 107 : 59}
+            priority={imagePriority}
+            className={s.image}
+            quality={100}
+        />
+        <DefaultLink href={`/catalog/${id}`} className={s.link} />
+        <div className={s.content}>
+            {outOfStock && <div className={s.outOfStock}>Нет в наличии</div>}
+            <div className={clsx(s.info, s[variant])}>
+                <span className={s.price}>
+                    {Number.isNaN(price)
+                        ? price
+                        : new Intl.NumberFormat('ru-RU').format(+price)}{' '}
+                    ₽
+                </span>
+                <p className={s.name}>{name} </p>
+            </div>
+            <HeartIcon productId={id} className={s.heart} variant={variant} />
+        </div>
     </div>
-  </div>
-);
+)
 
-export default ProductCard;
+export default ProductCard
