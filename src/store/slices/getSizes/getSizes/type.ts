@@ -1,3 +1,3 @@
-import type { SizeType } from "../types";
+import type { SizeType } from '../types'
 
-export type GetSizesResponseType = SizeType[];
+export type GetSizesResponseType = SizeType[]

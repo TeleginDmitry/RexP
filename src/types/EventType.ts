@@ -11,12 +11,12 @@
  *
  */
 export type EventType =
-  | "backButtonClicked"
-  | "clipboardTextReceived"
-  | "invoiceClosed"
-  | "mainButtonClicked"
-  | "popupClosed"
-  | "qrTextReceived"
-  | "settingsButtonClicked"
-  | "themeChanged"
-  | "viewportChanged";
+    | 'backButtonClicked'
+    | 'clipboardTextReceived'
+    | 'invoiceClosed'
+    | 'mainButtonClicked'
+    | 'popupClosed'
+    | 'qrTextReceived'
+    | 'settingsButtonClicked'
+    | 'themeChanged'
+    | 'viewportChanged'

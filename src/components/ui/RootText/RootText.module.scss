@@ -1,51 +1,51 @@
 .text-variant-1 {
-  font-weight: 600;
+    font-weight: 600;
 }
 
 .text-variant-2 {
-  font-weight: 400;
+    font-weight: 400;
 }
 
 .text-variant-3 {
-  font-weight: 500;
+    font-weight: 500;
 }
 
 .text-variant-1,
 .text-variant-2,
 .text-variant-3 {
-  line-height: normal;
-  font-style: normal;
+    line-height: normal;
+    font-style: normal;
 }
 
 .text {
-  &.white {
-    color: var(--main-color-white);
-  }
+    &.white {
+        color: var(--main-color-white);
+    }
 
-  &.black {
-    color: var(--main-color-black);
-  }
+    &.black {
+        color: var(--main-color-black);
+    }
 
-  &.grey {
-    color: var(--main-color-grey);
-  }
+    &.grey {
+        color: var(--main-color-grey);
+    }
 
-  &.secondGrey {
-    color: var(--second-color-grey);
-  }
+    &.secondGrey {
+        color: var(--second-color-grey);
+    }
 
-  &.fs-11px {
-    @extend .text-variant-1;
-    font-size: 11px;
-  }
+    &.fs-11px {
+        @extend .text-variant-1;
+        font-size: 11px;
+    }
 
-  &.fs-10px {
-    @extend .text-variant-2;
-    font-size: 10px;
-  }
+    &.fs-10px {
+        @extend .text-variant-2;
+        font-size: 10px;
+    }
 
-  &.fs-16px {
-    @extend .text-variant-3;
-    font-size: 16px;
-  }
+    &.fs-16px {
+        @extend .text-variant-3;
+        font-size: 16px;
+    }
 }

@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import { Snippet } from '@nextui-org/react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { useAppSelector } from '@/src/hooks/redux-hooks/redux-hooks'
 
@@ -99,9 +100,13 @@ const OrderPageComponent = () => {
                             {orderContents?.map(
                                 ({ product, id, productSize }) => (
                                     <div
-                                        className='flex gap-4 bg-white p-3 rounded-xl'
+                                        className='flex gap-4 bg-white p-3 rounded-xl relative'
                                         key={id}
                                     >
+                                        <Link
+                                            href={`catalog/${product.id}`}
+                                            className='absolute top-0 left-0 w-full h-full z-10'
+                                        />
                                         {product.images &&
                                             product.images[0] && (
                                                 <Image
@@ -113,7 +118,7 @@ const OrderPageComponent = () => {
                                             )}
                                         <div className='flex flex-col justify-between'>
                                             <div className='flex flex-col gap-1'>
-                                                <span className='text-xs'>
+                                                <span className='text-xs text-black overflow-hidden line-clamp-2'>
                                                     {product.name}
                                                 </span>
                                                 <span className='text-[#8E8E8E] text-xs'>

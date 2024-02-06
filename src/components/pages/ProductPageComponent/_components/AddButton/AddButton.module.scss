@@ -1,29 +1,29 @@
 .wrapper {
-  position: fixed;
-  z-index: 9999;
-  height: 68px;
-  background: var(--main-color-white);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  bottom: 70px;
-  width: 100%;
-  left: 0;
-  padding: 0 16px;
-
-  .button {
-    border-radius: 10px;
+    position: fixed;
+    z-index: 9999;
+    height: 68px;
+    background: var(--main-color-white);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    height: 44px;
+    bottom: 70px;
     width: 100%;
-    line-height: 22px;
-    letter-spacing: -0.4px;
-    color: var(--main-color-white);
-    background: var(--main-color-black);
-  }
+    left: 0;
+    padding: 0 16px;
+
+    .button {
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        height: 44px;
+        width: 100%;
+        line-height: 22px;
+        letter-spacing: -0.4px;
+        color: var(--main-color-white);
+        background: var(--main-color-black);
+    }
 }

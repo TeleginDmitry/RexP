@@ -64,7 +64,7 @@ const CategoriesField = ({ changeFilters, filters }: Props) => {
                                         value={`${subId}`}
                                         className='pl-4'
                                     >
-                                        <div className={s.categoryWrapper}>
+                                        <div className={s.subCategory}>
                                             <div className={s.name}>
                                                 {subName}
                                             </div>

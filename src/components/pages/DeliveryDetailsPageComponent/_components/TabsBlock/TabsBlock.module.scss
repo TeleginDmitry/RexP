@@ -1,23 +1,23 @@
 .wrapper {
-  .title {
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    color: var(--main-color-black);
-    margin-bottom: 8px;
-  }
-
-  .tabs {
-    margin-bottom: 16px;
-
-    & > div {
-      width: 100%;
-
-      & > button {
-        flex: 1 1 auto;
-        max-width: unset !important;
-      }
+    .title {
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        color: var(--main-color-black);
+        margin-bottom: 8px;
     }
-  }
+
+    .tabs {
+        margin-bottom: 16px;
+
+        & > div {
+            width: 100%;
+
+            & > button {
+                flex: 1 1 auto;
+                max-width: unset !important;
+            }
+        }
+    }
 }

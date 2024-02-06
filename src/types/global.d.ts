@@ -1,10 +1,10 @@
-import type { Telegram } from "./Telegram";
+import type { Telegram } from './Telegram'
 
 declare global {
-  interface Window {
-    /**
-     * Telegram Object
-     */
-    Telegram: Telegram;
-  }
+    interface Window {
+        /**
+         * Telegram Object
+         */
+        Telegram: Telegram
+    }
 }

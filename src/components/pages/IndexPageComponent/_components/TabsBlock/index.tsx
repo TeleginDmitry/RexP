@@ -70,7 +70,7 @@ const TabsBlock = () => {
                     tabList: clsx(s.tabList),
                     cursor: clsx(s.cursor),
                     tab: clsx('max-w-fit px-[12px] h-[28px]', s.tab),
-                    tabContent: clsx(s.tabContent),
+                    tabContent: clsx(s.tabContent, 'text-[#8e8e8e]'),
                     base: clsx(s.base, s.default)
                 }}
             >

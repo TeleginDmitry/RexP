@@ -1,41 +1,41 @@
 .input-wrapper {
-  position: relative;
-  .icon {
-    position: absolute;
-    left: 8px;
-    top: 50%;
-    transform: translate(0, -50%);
-  }
-  .input {
-    border-radius: 10px;
-    background: #efeef4;
-    width: 100%;
-    color: black;
-    font-size: 17px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 22px;
-    letter-spacing: -0.4px;
-    padding: 6px 8px 6px 33px;
-    height: 36px;
-    outline: none;
-  }
+    position: relative;
+    .icon {
+        position: absolute;
+        left: 8px;
+        top: 50%;
+        transform: translate(0, -50%);
+    }
+    .input {
+        border-radius: 10px;
+        background: #efeef4;
+        width: 100%;
+        color: black;
+        font-size: 17px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 22px;
+        letter-spacing: -0.4px;
+        padding: 6px 8px 6px 33px;
+        height: 36px;
+        outline: none;
+    }
 }
 
 .name {
-  color: var(--Main-Black, #000);
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+    color: var(--Main-Black, #000);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .checkboxGroup {
-  height: 100%;
+    height: 100%;
 }

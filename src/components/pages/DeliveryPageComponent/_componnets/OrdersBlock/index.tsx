@@ -1,7 +1,5 @@
 import { Snippet } from '@nextui-org/react'
-import clsx from 'clsx'
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 
 import { ImagesBlock } from '@/src/components/ui/ImagesBlock/ImagesBlock'
 import InViewWrapper from '@/src/components/ui/InViewWrapper'
@@ -19,9 +17,9 @@ const OrdersBlock = () => {
 
     const neededOrders = orders.filter(
         ({ orderStatus }) =>
-            (activeFilter === 'Ожидает оплаты' && orderStatus.id === 1) ||
-            (activeFilter === 'Завершенный' && orderStatus.id === 8) ||
-            (activeFilter === 'Доставка в ПВЗ' &&
+            (activeFilter === 'Ждут оплаты' && orderStatus.id === 1) ||
+            (activeFilter === 'Завершенные' && orderStatus.id === 8) ||
+            (activeFilter === 'В доставке' &&
                 orderStatus.id >= 2 &&
                 orderStatus.id <= 7)
     )

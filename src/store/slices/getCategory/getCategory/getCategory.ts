@@ -1,9 +1,9 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import $api from "@/src/api/api";
+import $api from '@/src/api/api'
 
-import type { GetCategoriesResponseType } from "./type";
+import type { GetCategoriesResponseType } from './type'
 
-export const getCategoriesThunk = createAsyncThunk("get-categories", () =>
-  $api.get<GetCategoriesResponseType>(`/category`).then(({ data }) => data)
-);
+export const getCategoriesThunk = createAsyncThunk('get-categories', () =>
+    $api.get<GetCategoriesResponseType>(`/category`).then(({ data }) => data)
+)

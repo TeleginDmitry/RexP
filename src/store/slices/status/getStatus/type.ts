@@ -1,3 +1,3 @@
-import type { Status } from "../types";
+import type { Status } from '../types'
 
-export type GetStatusResponseType = Status[];
+export type GetStatusResponseType = Status[]

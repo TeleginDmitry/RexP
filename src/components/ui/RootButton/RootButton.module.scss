@@ -1,12 +1,12 @@
 .button {
-  background: unset;
-  border: unset;
-  outline: unset;
-  padding: unset;
-  margin: unset;
-  cursor: pointer;
+    background: unset;
+    border: unset;
+    outline: unset;
+    padding: unset;
+    margin: unset;
+    cursor: pointer;
 
-  &:disabled {
-    cursor: not-allowed;
-  }
+    &:disabled {
+        cursor: not-allowed;
+    }
 }

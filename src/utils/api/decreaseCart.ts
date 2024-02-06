@@ -1,3 +1,4 @@
-import $api from "@/src/api/api";
+import $api from '@/src/api/api'
 
-export const decreaseCart = async (id: number) => $api.patch(`/user/cart/decrease`, { id });
+export const decreaseCart = async (id: number) =>
+    $api.patch(`/user/cart/decrease`, { id })

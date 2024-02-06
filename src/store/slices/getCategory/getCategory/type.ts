@@ -1,3 +1,3 @@
-import type { CategoryType } from "../types";
+import type { CategoryType } from '../types'
 
-export type GetCategoriesResponseType = CategoryType[];
+export type GetCategoriesResponseType = CategoryType[]

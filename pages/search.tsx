@@ -20,6 +20,7 @@ const SearchPage = () => {
 
     const [isError, setIsError] = useState(false)
     const [value, setValue] = useState('')
+    const [isActive, setIsActive] = useState(false)
 
     function extractUrl(inputString: string) {
         const urlRegex = /(https?:\/\/[^\s]+)/g
@@ -83,7 +84,7 @@ const SearchPage = () => {
             </Head>
 
             <MainContainer>
-                <div className='relative'>
+                <div className='relative pb-[52px]'>
                     <div className='flex flex-col gap-4 overflow-y-auto grow'>
                         <div className='flex justify-between items-center gap-2'>
                             <RootButton onClick={() => router.back()}>
@@ -104,10 +105,14 @@ const SearchPage = () => {
                             )}`}
                             type='text'
                             placeholder={
-                                isError
+                                isActive
+                                    ? ''
+                                    : isError
                                     ? 'Вставьте ссылку на товар из Poizon*'
                                     : 'Ссылка товара из Poizon'
                             }
+                            onFocus={() => setIsActive(true)}
+                            onBlur={() => setIsActive(false)}
                             value={value}
                         />
                         <div className='flex flex-col gap-3'>
@@ -117,7 +122,7 @@ const SearchPage = () => {
 
                             <div className='flex flex-col gap-3 pb-4 border-b border-solid border-[#EEEEEE]'>
                                 <div className='flex gap-3 items-center'>
-                                    <span className='flex items-center justify-center bg-black text-white py-2 px-3 rounded-full'>
+                                    <span className='flex items-center justify-center bg-black text-white min-w-8 h-8 rounded-full'>
                                         1
                                     </span>
                                     <p className='text-base text-black cursor-pointer'>
@@ -196,7 +201,7 @@ const SearchPage = () => {
                             </div>
                             <div className='flex flex-col border-b border-solid border-[#EEEEEE]'>
                                 <div className='flex gap-3 items-center'>
-                                    <span className='flex items-center justify-center bg-black text-white py-2 px-3 rounded-full'>
+                                    <span className='flex items-center justify-center bg-black text-white min-w-8 h-8 rounded-full'>
                                         2
                                     </span>
                                     <p className='text-base text-black'>
@@ -223,7 +228,7 @@ const SearchPage = () => {
                             </div>
                             <div className='flex flex-col gap-3'>
                                 <div className='flex gap-3 items-center'>
-                                    <span className='flex items-center justify-center bg-black text-white py-2 px-3 rounded-full'>
+                                    <span className='flex items-center justify-center bg-black text-white min-w-8 h-8 rounded-full'>
                                         3
                                     </span>
                                     <p className='text-base text-black'>
@@ -233,7 +238,7 @@ const SearchPage = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='w-full pt-3 bg-white'>
+                    <div className='w-full px-3 pt-3 bg-white fixed bottom-[73px] left-0 right-0'>
                         <Button
                             onClick={handleClick}
                             className='w-full py-3 bg-black rounded-xl text-white text-base'

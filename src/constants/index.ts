@@ -22,5 +22,5 @@ export type DeliveryType = (typeof DELIVERY_TYPES)[keyof typeof DELIVERY_TYPES]
 export const MAX_PRICE = 3599999
 export const MIN_PRICE = 99
 
-export const LIMIT = 10
+export const LIMIT = 20
 export const PAGE = 1

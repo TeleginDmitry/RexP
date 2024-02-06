@@ -1,13 +1,13 @@
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from 'react'
 
 const useClientSide = () => {
-  const [isClientSide, setIsClientSide] = useState(false);
+    const [isClientSide, setIsClientSide] = useState(false)
 
-  useLayoutEffect(() => {
-    setIsClientSide(true);
-  }, []);
+    useLayoutEffect(() => {
+        setIsClientSide(true)
+    }, [])
 
-  return isClientSide;
-};
+    return isClientSide
+}
 
-export default useClientSide;
+export default useClientSide

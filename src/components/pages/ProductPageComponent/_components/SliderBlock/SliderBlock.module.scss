@@ -1,59 +1,59 @@
 .slider {
-  margin: 0 -16px;
-  position: relative;
+    margin: 0 -16px;
+    position: relative;
 }
 
 .pagination-container {
-  position: absolute;
-  z-index: 12;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  bottom: 0px !important;
-  gap: 4px;
-  transform: translate(0, -8px);
+    position: absolute;
+    z-index: 12;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 0px !important;
+    gap: 4px;
+    transform: translate(0, -8px);
 }
 
 .slider-bullet {
-  width: 8px;
-  height: 8px;
-  display: block;
-  border-radius: 50%;
-  position: relative;
-  box-sizing: border-box;
+    width: 8px;
+    height: 8px;
+    display: block;
+    border-radius: 50%;
+    position: relative;
+    box-sizing: border-box;
 
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    border-radius: 50%;
-    height: 100%;
-    transition: all 0.3s ease 0s;
-    border: 1px solid #8e8e8e;
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    border-radius: 50%;
-    height: 100%;
-    background: #000;
-    opacity: 0;
-    transition: all 0.3s ease 0s;
-  }
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        border-radius: 50%;
+        height: 100%;
+        transition: all 0.3s ease 0s;
+        border: 1px solid #8e8e8e;
+    }
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        border-radius: 50%;
+        height: 100%;
+        background: #000;
+        opacity: 0;
+        transition: all 0.3s ease 0s;
+    }
 }
 .slider-bullet-active {
-  &::after {
-    opacity: 1;
-  }
+    &::after {
+        opacity: 1;
+    }
 }
 .wrapper {
-  margin: 0 auto;
-  width: 95%;
-  position: relative;
-  padding-top: 75%;
+    margin: 0 auto;
+    width: 95%;
+    position: relative;
+    padding-top: 75%;
 }

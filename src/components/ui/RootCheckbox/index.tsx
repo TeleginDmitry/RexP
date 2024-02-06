@@ -10,6 +10,7 @@ const RootCheckbox: React.FC<RootCheckboxProps> = ({ ...props }) => (
     <Checkbox
         radius='full'
         size='lg'
+        className={s.checkbox}
         classNames={{
             base: clsx(
                 cn(
@@ -17,8 +18,7 @@ const RootCheckbox: React.FC<RootCheckboxProps> = ({ ...props }) => (
                     'hover:bg-content2 items-center justify-start',
                     'cursor-pointer rounded-[0px] gap-2 p-[0px] border-transparent',
                     'data-[selected=true]:border-primary'
-                ),
-                s.checkbox
+                )
             ),
             label: 'w-full'
         }}

@@ -1,4 +1,4 @@
 export interface GetOrdersThunk {
-  orderStatusId: number;
-  isReviwed: boolean;
+    orderStatusId: number
+    isReviwed: boolean
 }

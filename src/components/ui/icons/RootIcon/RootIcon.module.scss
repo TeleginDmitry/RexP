@@ -1,44 +1,44 @@
 .icon {
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 
-  &.rounded {
-    border-radius: 100%;
-  }
+    &.rounded {
+        border-radius: 100%;
+    }
 
-  &.arrow {
-    width: 17px;
-    height: 12px;
-    flex: 0 0 17px;
-    background-image: url("~public/images/icons/arrow.svg");
-  }
+    &.arrow {
+        width: 17px;
+        height: 12px;
+        flex: 0 0 17px;
+        background-image: url('~public/images/icons/arrow.svg');
+    }
 
-  &.tg {
-    width: 26px;
-    height: 27px;
-    flex: 0 0 26px;
-    background-image: url("~public/images/icons/tg.svg");
-  }
+    &.tg {
+        width: 26px;
+        height: 27px;
+        flex: 0 0 26px;
+        background-image: url('~public/images/icons/tg.svg');
+    }
 
-  &.arrowLeft {
-    width: 7px;
-    height: 11px;
-    flex: 0 0 7px;
-    background-image: url("~public/images/icons/arrowLeft.svg");
-  }
+    &.arrowLeft {
+        width: 7px;
+        height: 11px;
+        flex: 0 0 7px;
+        background-image: url('~public/images/icons/arrowLeft.svg');
+    }
 
-  &.link {
-    width: 21px;
-    height: 21px;
-    flex: 0 0 21px;
-    background-image: url("~public/images/icons/link.svg");
-  }
+    &.link {
+        width: 21px;
+        height: 21px;
+        flex: 0 0 21px;
+        background-image: url('~public/images/icons/link.svg');
+    }
 
-  &.delete{
-    width: 17px;
-    height: 22px;
-    flex: 0 0 17px;
-    background-image: url("~public/images/icons/delete.svg");
-  }
+    &.delete {
+        width: 17px;
+        height: 22px;
+        flex: 0 0 17px;
+        background-image: url('~public/images/icons/delete.svg');
+    }
 }

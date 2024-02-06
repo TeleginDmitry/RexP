@@ -1,3 +1,3 @@
-import type { ColorType } from "../types";
+import type { ColorType } from '../types'
 
-export type GetColorsResponseType = ColorType[];
+export type GetColorsResponseType = ColorType[]

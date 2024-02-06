@@ -7,6 +7,10 @@
     border-bottom: 1px solid var(--Main-Light-grey, #eee) !important;
     max-width: unset !important;
 
+    span::before {
+        border: none !important;
+    }
+
     svg {
         will-change: transform;
         transform: scale(0.8);

@@ -1,3 +1,3 @@
-import type { Cart } from "../types";
+import type { Cart } from '../types'
 
-export type GetCartsResponseType = Cart[];
+export type GetCartsResponseType = Cart[]

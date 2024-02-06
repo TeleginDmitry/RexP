@@ -68,8 +68,12 @@ const ReviewPage = () => {
                             return (
                                 <div
                                     key={id}
-                                    className='w-full p-6 rounded-3xl bg-[#EEE] flex flex-col gap-5 mt-4'
+                                    className='w-full p-6 rounded-3xl bg-[#EEE] flex flex-col gap-5 mt-4 relative'
                                 >
+                                    <Link
+                                        href={`/profile/delivery/${id}`}
+                                        className='absolute top-0 right-0 w-full h-full z-10'
+                                    />
                                     <div className='flex items-center justify-between pb-3 border-b border-[rgba(142,142,142,0.40)] border-solid w-full'>
                                         <p className='text-base'>
                                             Заказ от{' '}
@@ -131,7 +135,7 @@ const ReviewPage = () => {
                                     <ImagesBlock images={imagesFull} />
                                     <button
                                         onClick={() => handleOpenModal(id)}
-                                        className='p-4 bg-black rounded-xl text-white font-bold text-base'
+                                        className='p-3 bg-black rounded-xl text-white font-bold text-base relative z-20'
                                     >
                                         Оставить отзыв
                                     </button>

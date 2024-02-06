@@ -1,3 +1,5 @@
+import clsx from 'clsx'
+
 import HeartIcon from '@/src/components/ui/icons/HeartIcon'
 import RootIcon from '@/src/components/ui/icons/RootIcon'
 import DefaultLink from '@/src/components/ui/links/DefaultLink'
@@ -23,7 +25,12 @@ const InfoBlock = () => {
     return (
         <div className={s.wrapper}>
             <div className={s.header}>
-                <div className={s['price-block']}>
+                <div
+                    className={clsx(
+                        s['price-block'],
+                        newPrice.toString().length > 5 && 'flex-col'
+                    )}
+                >
                     <div className={s.price}>
                         {' '}
                         {Number.isNaN(newPrice)

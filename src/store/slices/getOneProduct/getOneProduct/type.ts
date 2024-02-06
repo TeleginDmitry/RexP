@@ -1,3 +1,3 @@
-import type { Product } from "../../getProducts/types";
+import type { Product } from '../../getProducts/types'
 
-export type GetOneProductsResponseType = Product;
+export type GetOneProductsResponseType = Product

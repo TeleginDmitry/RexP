@@ -1,43 +1,45 @@
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
-import type { FiltersState } from "./types";
+import type { FiltersState } from './types'
 
 const initialState: FiltersState = {
-  indexPage: {
-    activeFilter: "",
-  },
-  myOrdersPage: {
-    activeFilter: "",
-  },
-  sizes: {
-    activeFilter: "",
-  },
-  productsInBasket: {
-    activeFilter: "",
-  },
-  deliveryDetailsPage: {
-    activeFilter: "Пункт выдачи заказа",
-  },
-};
+    indexPage: {
+        activeFilter: ''
+    },
+    myOrdersPage: {
+        activeFilter: ''
+    },
+    sizes: {
+        activeFilter: ''
+    },
+    productsInBasket: {
+        activeFilter: ''
+    },
+    deliveryDetailsPage: {
+        activeFilter: 'Пункт выдачи заказа'
+    }
+}
 
 const { actions, reducer } = createSlice({
-  name: "filters",
-  initialState,
-  reducers: {
-    setActiveFilter: (
-      state,
-      { payload: { value, filterName } }: PayloadAction<{ value: string; filterName: keyof FiltersState }>
-    ): FiltersState => ({
-      ...state,
-      [filterName]: {
-        ...state[filterName],
-        activeFilter: value,
-      },
-    }),
-  },
-});
+    name: 'filters',
+    initialState,
+    reducers: {
+        setActiveFilter: (
+            state,
+            {
+                payload: { value, filterName }
+            }: PayloadAction<{ value: string; filterName: keyof FiltersState }>
+        ): FiltersState => ({
+            ...state,
+            [filterName]: {
+                ...state[filterName],
+                activeFilter: value
+            }
+        })
+    }
+})
 
-export const { setActiveFilter } = actions;
+export const { setActiveFilter } = actions
 
-export default reducer;
+export default reducer

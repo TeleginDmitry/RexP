@@ -1,8 +1,9 @@
-import $api from "@/src/api/api";
+import $api from '@/src/api/api'
 
 export type CreateOrderType = {
-  deliveryId: number;
-  products: string[];
-};
+    deliveryId: number
+    products: string[]
+}
 
-export const createOrder = async (payload: CreateOrderType) => $api.post("/user/order/create", payload);
+export const createOrder = async (payload: CreateOrderType) =>
+    $api.post('/user/order/create', payload)

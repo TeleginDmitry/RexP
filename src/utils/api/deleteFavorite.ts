@@ -1,5 +1,4 @@
-import $api from "@/src/api/api";
+import $api from '@/src/api/api'
 
 export const deleteFavorite = async (productId: number) =>
-  $api
-    .delete(`/favorite/${productId}`)
+    $api.delete(`/favorite/${productId}`)

@@ -1,3 +1,3 @@
-import type { ViewedType } from "../types";
+import type { ViewedType } from '../types'
 
-export type GetViewedResponseType = ViewedType[];
+export type GetViewedResponseType = ViewedType[]

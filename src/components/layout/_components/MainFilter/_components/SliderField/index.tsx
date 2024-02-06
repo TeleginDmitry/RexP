@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-no-bind */
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { Slider } from '@nextui-org/react'
 import clsx from 'clsx'
@@ -17,16 +17,24 @@ interface Props {
     applyFilters: (filtersData: Partial<FilterType> | undefined) => void
 }
 const SliderField = ({ changeFilters, filters, applyFilters }: Props) => {
+    const timeout = useRef<NodeJS.Timeout | null>(null)
+
     const { minPrice, maxPrice } = filters
 
     const [value, setValue] = useState([minPrice, maxPrice])
 
     function onChange(sliderValue: number[]) {
         setValue(sliderValue)
-    }
 
-    function onChangeEnd(sliderValue: number[]) {
-        changeFilters({ minPrice: sliderValue[0], maxPrice: sliderValue[1] })
+        if (timeout.current) {
+            clearTimeout(timeout.current)
+        }
+        timeout.current = setTimeout(() => {
+            changeFilters({
+                minPrice: sliderValue[0],
+                maxPrice: sliderValue[1]
+            })
+        }, 300)
     }
 
     function resetFIlters() {
@@ -110,9 +118,8 @@ const SliderField = ({ changeFilters, filters, applyFilters }: Props) => {
                             <span>От</span>
                             <input
                                 onChange={onChangeInputValueLeft}
-                                defaultValue={value[0]}
                                 className='w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
-                                value={value[0] === 0 ? '' : value[0]}
+                                value={value[0] === MIN_PRICE ? '' : value[0]}
                                 max={MAX_PRICE}
                                 min={MIN_PRICE}
                                 inputMode='numeric'
@@ -136,13 +143,12 @@ const SliderField = ({ changeFilters, filters, applyFilters }: Props) => {
                             <span>До</span>
                             <input
                                 onChange={onChangeInputValueRight}
-                                defaultValue={value[1]}
                                 className='w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
                                 type='number'
                                 max={MAX_PRICE}
                                 min={MIN_PRICE}
                                 inputMode='numeric'
-                                value={value[1] === 0 ? '' : value[1]}
+                                value={value[1] === MAX_PRICE ? '' : value[1]}
                                 placeholder={
                                     value[1] === 0
                                         ? ''
@@ -163,7 +169,6 @@ const SliderField = ({ changeFilters, filters, applyFilters }: Props) => {
                 minValue={MIN_PRICE}
                 value={value}
                 onChange={onChange}
-                onChangeEnd={onChangeEnd}
                 className={s.mainSlider}
             />
         </div>

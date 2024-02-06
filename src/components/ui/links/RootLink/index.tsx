@@ -1,13 +1,13 @@
-import clsx from "clsx";
+import clsx from 'clsx'
 
-import type { RootLinkProps } from "./types";
+import type { RootLinkProps } from './types'
 
-import DefaultLink from "../DefaultLink";
+import DefaultLink from '../DefaultLink'
 
-import s from "./RootLink.module.scss";
+import s from './RootLink.module.scss'
 
 const RootLink: React.FC<RootLinkProps> = ({ className, ...props }) => (
-  <DefaultLink className={clsx(s.link, className)} {...props} />
-);
+    <DefaultLink className={clsx(s.link, className)} {...props} />
+)
 
-export default RootLink;
+export default RootLink

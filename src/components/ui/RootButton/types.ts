@@ -1,5 +1,5 @@
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef } from 'react'
 
-export interface RootButtonProps extends ComponentPropsWithoutRef<"button"> {
-  variants?: "default" | "solid";
+export interface RootButtonProps extends ComponentPropsWithoutRef<'button'> {
+    variants?: 'default' | 'solid'
 }

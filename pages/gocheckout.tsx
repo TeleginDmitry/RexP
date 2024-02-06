@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/jsx-no-undef */
 import { useEffect, useState } from 'react'
 
-import { Button, Tabs, Tab } from '@nextui-org/react'
+import { Button } from '@nextui-org/react'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -26,6 +27,11 @@ const GocheckoutPage = () => {
     const [selectedCartsInfo, setSelectedCartsInfo] = useState<
         string | undefined
     >(undefined)
+    const [isActivePromo, setIsActivePromo] = useState<boolean>(false)
+
+    function changeIsActivePromo() {
+        setIsActivePromo(true)
+    }
 
     useEffect(() => {
         const data = localStorage.getItem('selectedCartsInfo')
@@ -98,10 +104,15 @@ const GocheckoutPage = () => {
                                         'Пункт выдачи заказа',
                                         'Курьером'
                                     ]}
+                                    selectedKey={
+                                        findMainDelivery.deliveryType.id === 1
+                                            ? 'Пункт выдачи заказа'
+                                            : 'Курьером'
+                                    }
                                 />
                             </div>
                             <div className='p-6 rounded-2xl bg-[#EEE] flex flex-col gap-4'>
-                                <div className='border-b border-solid border-[rgba(142, 142, 142, 0.40)] pb-3 flex items-center justify-between'>
+                                <div className='border-b border-solid border-[rgba(142,142,142,0.4)] pb-3 flex items-center justify-between'>
                                     <h2 className='text-base font-medium'>
                                         Данные доставки
                                     </h2>
@@ -157,7 +168,7 @@ const GocheckoutPage = () => {
                         </>
                     )}
                     <div className='p-6 rounded-2xl bg-[#EEE] flex flex-col gap-4'>
-                        <h2 className='border-b border-solid border-[rgba(142, 142, 142, 0.40)] pb-3 font-medium'>
+                        <h2 className='border-b border-solid border-[rgba(142,142,142,0.40)] pb-3 font-medium'>
                             Информация о заказе
                         </h2>
                         <p className='text-sm'>
@@ -174,9 +185,13 @@ const GocheckoutPage = () => {
                         <div className='flex flex-col gap-2'>
                             {neededCarts.map(({ id, product, productSize }) => (
                                 <div
-                                    className='flex gap-4 bg-white p-3 rounded-xl'
+                                    className='relative flex gap-4 bg-white p-3 rounded-xl'
                                     key={id}
                                 >
+                                    <Link
+                                        href={`catalog/${product.id}`}
+                                        className='absolute top-0 left-0 w-full h-full z-10'
+                                    />
                                     {product.images && product.images[0] && (
                                         <Image
                                             width={100}
@@ -185,28 +200,36 @@ const GocheckoutPage = () => {
                                             alt={product.name}
                                         />
                                     )}
-                                    <div className='flex flex-col justify-between'>
+                                    <div className='flex flex-col'>
+                                        <span className='text-sm font-bold'>
+                                            {new Intl.NumberFormat(
+                                                'ru-RU'
+                                            ).format(productSize.price)}{' '}
+                                            ₽
+                                        </span>
                                         <div className='flex flex-col gap-1'>
-                                            <span className='text-xs'>
+                                            <span className='text-xs overflow-hidden line-clamp-3 text-black'>
                                                 {product.name}
                                             </span>
                                             <span className='text-[#8E8E8E] text-xs'>
                                                 размер: {productSize.size.name}
                                             </span>
                                         </div>
-                                        <span className='text-sm font-semibold'>
-                                            {new Intl.NumberFormat(
-                                                'ru-RU'
-                                            ).format(productSize.price)}{' '}
-                                            ₽
-                                        </span>
                                     </div>
                                 </div>
                             ))}
                         </div>
                     </div>
-                    <div className='p-4 rounded-2xl bg-[#EEE] flex justify-between items-center cursor-pointer'>
-                        <p>Промокод</p>
+                    <div
+                        onClick={changeIsActivePromo}
+                        className='p-4 rounded-2xl bg-[#EEE] flex justify-between items-center cursor-pointer'
+                    >
+                        {isActivePromo ? (
+                            <input className='w-full' placeholder='Промокод' />
+                        ) : (
+                            <p>Промокод</p>
+                        )}
+
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
                             width='7'
@@ -224,7 +247,7 @@ const GocheckoutPage = () => {
                         </svg>
                     </div>
                     <div className='p-6 rounded-2xl bg-[#EEE] flex-col gap-3 flex'>
-                        <div className='border-b border-solid border-[rgba(142, 142, 142, 0.40)] pb-3 flex justify-between items-center'>
+                        <div className='border-b border-solid border-[rgba(142,142,142,0.40)] pb-3 flex justify-between items-center'>
                             <span className='font-semibold'>Ваш заказ</span>
                             <span className='text-[#535353]'>
                                 {selectedCarts.length}{' '}
@@ -255,7 +278,7 @@ const GocheckoutPage = () => {
                                 ₽
                             </span>
                         </div>
-                        <div className='flex justify-between items-center pb-3 border-b border-solid border-[rgba(142, 142, 142, 0.40)]'>
+                        <div className='flex justify-between items-center pb-3 border-b border-solid border-[rgba(142,142,142,0.40)]'>
                             <span className='font-semibold'>
                                 Стоимость доставки
                             </span>
@@ -271,7 +294,7 @@ const GocheckoutPage = () => {
                                 ₽
                             </span>
                         </div>
-                        <Button className='w-full p-4 bg-black rounded-xl text-white text-base'>
+                        <Button className='w-full p-4 bg-black rounded-xl text-white text-base font-bold'>
                             Оплатить онлайн
                         </Button>
                         <p className='text-xs text-[rgba(83, 83, 83, 0.60)]'>

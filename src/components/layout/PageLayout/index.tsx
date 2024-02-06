@@ -16,31 +16,29 @@ const PageLayout = ({ children }) => {
     useEffect(() => {
         async function saveToken() {
             try {
-                const app = window.Telegram.WebApp
-                app.ready()
+                const { initData, ready, expand } = window.Telegram.WebApp
+                ready()
+                expand()
 
-                const { initData } = app
                 const token = Cookies.get('token')
 
-                if (!token) {
-                    const resultLogin = await login({
+                if (token) {
+                    return
+                }
+
+                const resultLogin = await login({
+                    initData
+                })
+
+                if (resultLogin.data.token) {
+                    Cookies.set('token', resultLogin.data.token)
+                } else {
+                    const resultRegister = await register({
                         initData
                     })
 
-                    if (resultLogin.data.token) {
-                        Cookies.set('token', resultLogin.data.token, {
-                            expires: 7
-                        })
-                    } else {
-                        const resultRegister = await register({
-                            initData
-                        })
-
-                        if (resultRegister.data.token) {
-                            Cookies.set('token', resultRegister.data.token, {
-                                expires: 7
-                            })
-                        }
+                    if (resultRegister.data.token) {
+                        Cookies.set('token', resultRegister.data.token)
                     }
                 }
             } catch (error) {

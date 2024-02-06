@@ -1,3 +1,3 @@
-import type { Product } from "../types";
+import type { Product } from '../types'
 
-export type GetProductsResponseType = Product[];
+export type GetProductsResponseType = Product[]

@@ -1,7 +1,8 @@
-import $api from "@/src/api/api";
+import $api from '@/src/api/api'
 
 export type CreateFavoriteType = {
-  productId: number;
-};
+    productId: number
+}
 
-export const createFavorite = async (payload: CreateFavoriteType) => $api.post("/favorite/create", payload);
+export const createFavorite = async (payload: CreateFavoriteType) =>
+    $api.post('/favorite/create', payload)

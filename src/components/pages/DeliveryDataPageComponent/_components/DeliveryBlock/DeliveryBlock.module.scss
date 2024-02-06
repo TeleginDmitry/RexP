@@ -1,76 +1,76 @@
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
 
-  .address {
-    border-radius: 20px;
-    padding: 24px;
-    transition: background 0.3s ease 0s;
-    background: var(--Main-Light-grey, #eee);
-    --color: #000;
-    --color-second: #535353;
+    .address {
+        border-radius: 20px;
+        padding: 24px;
+        transition: background 0.3s ease 0s;
+        background: var(--Main-Light-grey, #eee);
+        --color: #000;
+        --color-second: #535353;
 
-    &.active {
-      background: var(--Main-Black, #000);
-      --color: white !important;
-      --color-second: #8e8e8e !important;
+        &.active {
+            background: var(--Main-Black, #000);
+            --color: white !important;
+            --color-second: #8e8e8e !important;
+        }
+
+        .title {
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 22px;
+            letter-spacing: -0.4px;
+            transition: color 0.3s ease 0s;
+            color: var(--color);
+        }
+
+        .name,
+        .phone,
+        .addressValue {
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 22px;
+            letter-spacing: -0.4px;
+            transition: color 0.3s ease 0s;
+            color: var(--color-second);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(142, 142, 142, 0.4);
+            margin-bottom: 12px;
+
+            button {
+                width: 24px;
+                height: 24 px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
     }
-
-    .title {
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: 22px;
-      letter-spacing: -0.4px;
-      transition: color 0.3s ease 0s;
-      color: var(--color);
-    }
-
-    .name,
-    .phone,
-    .addressValue {
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 22px;
-      letter-spacing: -0.4px;
-      transition: color 0.3s ease 0s;
-      color: var(--color-second);
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 12px;
-      border-bottom: 1px solid rgba(142, 142, 142, 0.4);
-      margin-bottom: 12px;
-
-      button {
-        width: 24px;
-        height: 24 px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-    }
-  }
 }
 .button {
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  height: 44px;
-  width: 100%;
-  line-height: 22px;
-  margin-top: 16px;
-  letter-spacing: -0.4px;
-  color: var(--main-color-white);
-  background: var(--main-color-black);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    height: 44px;
+    width: 100%;
+    line-height: 22px;
+    margin-top: 16px;
+    letter-spacing: -0.4px;
+    color: var(--main-color-white);
+    background: var(--main-color-black);
 }

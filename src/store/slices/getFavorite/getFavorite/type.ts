@@ -1,3 +1,3 @@
-import type { Favorite } from "../types";
+import type { Favorite } from '../types'
 
-export type GetFavoritesResponseType = Favorite[];
+export type GetFavoritesResponseType = Favorite[]
