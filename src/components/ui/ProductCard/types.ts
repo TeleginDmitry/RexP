@@ -3,6 +3,7 @@ export interface ProductCardProps {
     outOfStock?: boolean
     price: number | string
     name: string
+    isOuter: boolean
     imgUrl: string
     id: number | string
     imagePriority?: boolean

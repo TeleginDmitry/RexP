@@ -114,7 +114,13 @@ const ProductsBlock = () => {
                                                         <Image
                                                             width={170}
                                                             height={100}
-                                                            src={`${process.env.NEXT_PUBLIC_IMAGES_URL}${product.images[0].name}`}
+                                                            src={
+                                                                product.isOuter
+                                                                    ? product
+                                                                          .images[0]
+                                                                          .name
+                                                                    : `${process.env.NEXT_PUBLIC_IMAGES_URL}${product.images[0].name}`
+                                                            }
                                                             alt={product.name}
                                                         />
                                                     )}

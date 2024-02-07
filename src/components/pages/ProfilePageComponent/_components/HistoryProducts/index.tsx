@@ -29,6 +29,7 @@ const HistoryProducts = () => {
                                 imgUrl={product.images[0].name}
                                 imagePriority={index < 3}
                                 outOfStock={false}
+                                isOuter={product.isOuter}
                             />
                         )
                     )

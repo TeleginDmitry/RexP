@@ -12,6 +12,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     className,
     name,
     id,
+    isOuter,
     imgUrl,
     imagePriority,
     price,
@@ -27,7 +28,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
         )}
     >
         <Image
-            src={`${process.env.NEXT_PUBLIC_IMAGES_URL}${imgUrl}`}
+            src={
+                isOuter
+                    ? imgUrl
+                    : `${process.env.NEXT_PUBLIC_IMAGES_URL}${imgUrl}`
+            }
             alt={name}
             width={variant === 'default' ? 145 : 101}
             height={variant === 'default' ? 107 : 59}

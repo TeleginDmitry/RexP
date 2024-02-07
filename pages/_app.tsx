@@ -2,6 +2,7 @@
 import { useEffect } from 'react'
 
 import { Analytics } from '@vercel/analytics/react'
+import Cookies from 'js-cookie'
 import type { AppContext, AppInitialProps, AppProps } from 'next/app'
 import App from 'next/app'
 import { useRouter } from 'next/router'
@@ -12,18 +13,52 @@ import { getBrandsThunk } from '@/src/store/slices/getBrands/getBrands/getBrands
 import { getCartsThunk } from '@/src/store/slices/getCarts/getCarts/getCarts'
 import { getColorsThunk } from '@/src/store/slices/getColors/getColors/getColors'
 import { getSizesThunk } from '@/src/store/slices/getSizes/getSizes/getSizes'
+import { getOrdersThunk } from '@/src/store/slices/orders/thunks'
 import { wrapper } from '@/src/store/store'
 
 import '@/styles/color/_color.scss'
 import '@/styles/index.scss'
 import '@/styles/nullable.css'
-import { getOrdersThunk } from '@/src/store/slices/orders/thunks'
+import { login, register } from '@/src/utils/api/getToken'
 
 const RexPApp = ({ Component, ...rest }: AppProps) => {
     const { store, props } = wrapper.useWrappedStore(rest)
     const { pageProps } = props
-
     const router = useRouter()
+
+    useEffect(() => {
+        async function saveToken() {
+            try {
+                const { initData } = window.Telegram.WebApp
+
+                const token = Cookies.get('token')
+
+                if (token) {
+                    return
+                }
+
+                const resultLogin = await login({
+                    initData
+                })
+
+                if (resultLogin.data.token) {
+                    Cookies.set('token', resultLogin.data.token)
+                } else {
+                    const resultRegister = await register({
+                        initData
+                    })
+
+                    if (resultRegister.data.token) {
+                        Cookies.set('token', resultRegister.data.token)
+                    }
+                }
+            } catch (error) {
+                /* empty */
+            }
+        }
+
+        saveToken()
+    }, [])
 
     useEffect(() => {
         window.Telegram.WebApp.expand()

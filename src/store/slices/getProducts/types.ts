@@ -2,6 +2,7 @@ export type Product = {
     id: number
     name: string
     discount: number
+    isOuter: boolean
     gender: string
     price: number
     productSizes: Array<{

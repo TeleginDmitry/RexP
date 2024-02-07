@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react/jsx-no-bind */
-import React from 'react'
+import React, { useState } from 'react'
 
 import { CheckboxGroup } from '@nextui-org/react'
 
@@ -17,10 +18,16 @@ interface Props {
 const CategoriesField = ({ changeFilters, filters }: Props) => {
     const categories = useAppSelector((state) => state.category.data)
 
+    const [isActiveCategory, setIsActiveCategory] = useState<number | null>(
+        null
+    )
+
     const handleCheckboxChange = (category: number) => {
         if (category === 0) {
             changeFilters({ categoryId: undefined })
         }
+
+        setIsActiveCategory(category)
 
         changeFilters({ categoryId: category })
     }
@@ -32,7 +39,6 @@ const CategoriesField = ({ changeFilters, filters }: Props) => {
     return (
         <div className={s.wrapper}>
             <RootCheckbox
-                value='0'
                 isSelected={filters.categoryId === 0}
                 onChange={() => handleCheckboxChange(0)}
             >
@@ -44,15 +50,25 @@ const CategoriesField = ({ changeFilters, filters }: Props) => {
                 <>
                     <RootCheckbox
                         key={id}
-                        isSelected={filters.categoryId === id}
-                        onChange={() => handleCheckboxChange(id)}
-                        value={`${id}`}
+                        isSelected={
+                            filters.categoryId === id &&
+                            filters.subCategories.length ===
+                                subCategories.length
+                        }
+                        onChange={() => {
+                            changeFilters({
+                                subCategories: subCategories.map(({ id }) =>
+                                    id.toString()
+                                )
+                            })
+                            handleCheckboxChange(id)
+                        }}
                     >
                         <div className={s.categoryWrapper}>
                             <div className={s.name}>{name}</div>
                         </div>
                     </RootCheckbox>
-                    {!!subCategories.length && (
+                    {isActiveCategory === id && !!subCategories.length && (
                         <CheckboxGroup
                             value={filters.subCategories}
                             onValueChange={onValueChangeGroup}

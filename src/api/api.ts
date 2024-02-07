@@ -8,11 +8,11 @@ const $api = axios.create({
 })
 
 $api.interceptors.request.use((config) => {
-    const accessToken = Cookies.get('token')
+    const token = Cookies.get('token')
 
     if (config && config.headers) {
         config.headers.Authorization = `Bearer ${
-            accessToken || process.env.NEXT_PUBLIC_API_TOKEN
+            token || process.env.NEXT_PUBLIC_API_TOKEN
         }`
     }
 

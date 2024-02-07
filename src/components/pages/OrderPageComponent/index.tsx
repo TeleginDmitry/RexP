@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* eslint-disable @typescript-eslint/no-shadow */
-import { Snippet } from '@nextui-org/react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -9,6 +8,7 @@ import { useAppSelector } from '@/src/hooks/redux-hooks/redux-hooks'
 import RootIcon from '../../ui/icons/RootIcon'
 import DefaultLink from '../../ui/links/DefaultLink'
 import MainContainer from '../../ui/MainContainer'
+import ProductLess from '../../ui/ProductLess/ProductLess'
 import { TrackNumber } from '../../ui/trackNumber/TrackNumber'
 
 import s from './OrderPageComponent.module.scss'
@@ -99,43 +99,15 @@ const OrderPageComponent = () => {
                         <div className='flex flex-col gap-2'>
                             {orderContents?.map(
                                 ({ product, id, productSize }) => (
-                                    <div
-                                        className='flex gap-4 bg-white p-3 rounded-xl relative'
+                                    <ProductLess
                                         key={id}
-                                    >
-                                        <Link
-                                            href={`catalog/${product.id}`}
-                                            className='absolute top-0 left-0 w-full h-full z-10'
-                                        />
-                                        {product.images &&
-                                            product.images[0] && (
-                                                <Image
-                                                    width={100}
-                                                    height={70}
-                                                    src={`${process.env.NEXT_PUBLIC_IMAGES_URL}${product.images[0].name}`}
-                                                    alt={product.name}
-                                                />
-                                            )}
-                                        <div className='flex flex-col justify-between'>
-                                            <div className='flex flex-col gap-1'>
-                                                <span className='text-xs text-black overflow-hidden line-clamp-2'>
-                                                    {product.name}
-                                                </span>
-                                                <span className='text-[#8E8E8E] text-xs'>
-                                                    размер:{' '}
-                                                    {productSize.size?.name}
-                                                </span>
-                                            </div>
-                                            <span className='text-sm font-semibold'>
-                                                {new Intl.NumberFormat(
-                                                    'ru-RU'
-                                                ).format(
-                                                    productSize.price
-                                                )}{' '}
-                                                ₽
-                                            </span>
-                                        </div>
-                                    </div>
+                                        id={id}
+                                        isOuter={product.isOuter}
+                                        images={product.images}
+                                        name={product.name}
+                                        price={productSize.price}
+                                        sizeName={productSize.size.name}
+                                    />
                                 )
                             )}
                         </div>

@@ -1,5 +1,7 @@
 import type { Delivery } from './delivery.types'
 
+import type { Product } from '../store/slices/getProducts/types'
+
 export interface Order {
     id: number
     totalPrice: number
@@ -25,16 +27,7 @@ export interface OrderContentsEntity {
     product: Product
     productSize: ProductSize
 }
-export interface Product {
-    id: number
-    name: string
-    discount: number
-    gender: string
-    poizonURL?: null
-    subCategory: SubCategory
-    brand: DeliveryTypeOrImagesEntityOrBrandOrOrderStatus
-    images?: DeliveryTypeOrImagesEntityOrBrandOrOrderStatus[] | null
-}
+
 export interface ProductSize {
     id: number
     price: number
@@ -43,14 +36,5 @@ export interface ProductSize {
 }
 export interface Size {
     id: number
-    name: number
-}
-export interface SubCategory {
-    id: number
-    name: string
-    categoryId: number
-    category: Category
-}
-export interface Category {
     name: string
 }

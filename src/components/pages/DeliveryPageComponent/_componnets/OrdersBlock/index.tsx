@@ -43,9 +43,10 @@ const OrdersBlock = () => {
                         month: 'long'
                     })
 
-                    const imagesFull = orderContents?.map(
-                        ({ product }) => product.images?.[0]
-                    )
+                    const imagesFull = orderContents?.map(({ product }) => ({
+                        ...product.images[0],
+                        isOuter: product.isOuter
+                    }))
 
                     return (
                         <InViewWrapper key={id} className={s.orderWrapper}>
@@ -94,7 +95,10 @@ const OrdersBlock = () => {
                                             {trackNumber}
                                         </Snippet>
                                     </div>
-                                    <ImagesBlock images={imagesFull} />
+
+                                    {imagesFull && (
+                                        <ImagesBlock images={imagesFull} />
+                                    )}
                                     <DefaultLink
                                         href={`/profile/delivery/${id}`}
                                         className={s.link}

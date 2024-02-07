@@ -44,9 +44,10 @@ const ProductsBlock = () => {
 
     return (
         <CatalogSpacer>
-            {products.map(({ id, name, images, price }, index) => (
+            {products.map(({ id, name, images, price, isOuter }, index) => (
                 <ProductCard
                     key={id}
+                    isOuter={isOuter}
                     price={price}
                     name={name}
                     imgUrl={images[0].name}

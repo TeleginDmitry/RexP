@@ -24,7 +24,8 @@ const initialState: OneProductsState = {
         },
         images: [],
         createdAt: '',
-        updatedAt: ''
+        updatedAt: '',
+        isOuter: false
     }
 }
 

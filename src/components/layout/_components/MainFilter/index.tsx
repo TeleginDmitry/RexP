@@ -25,6 +25,7 @@ interface Props {
     applyFilters: (filtersData: Partial<FilterType> | undefined) => void
     toggleOpen: () => void
     isVisibleCategories?: boolean
+    isVisibleSort?: boolean
     isOnlyCategories?: boolean
 }
 
@@ -33,6 +34,7 @@ const MainFilter = ({
     filters,
     applyFilters,
     toggleOpen,
+    isVisibleSort = true,
     isVisibleCategories = false,
     isOnlyCategories = false
 }: Props) => {
@@ -164,38 +166,40 @@ const MainFilter = ({
                     <div />
                 </div>
                 <div className={s.filters}>
-                    <RootButton
-                        className={s.item}
-                        onClick={() => changeSelectedFilter('sort')}
-                    >
-                        <div className={s.name}>Сортировка</div>
-                        <div className={s.sort}>
-                            {filters.orderBy === 'id' &&
-                            filters.sortBy === 'DESC'
-                                ? 'Сначала новые'
-                                : filters.orderBy === 'id' &&
-                                  filters.sortBy === 'ASC'
-                                ? 'Сначала старые'
-                                : filters.orderBy === 'price' &&
-                                  filters.sortBy === 'DESC'
-                                ? 'Сначала дорогие'
-                                : 'Сначала дешёвые'}
-                            <svg
-                                xmlns='http://www.w3.org/2000/svg'
-                                width='6'
-                                height='10'
-                                viewBox='0 0 6 10'
-                                fill='none'
-                            >
-                                <path
-                                    d='M0.5 0.5L5 5L0.5 9.5'
-                                    stroke='#8E8E8E'
-                                    stroke-linecap='round'
-                                    stroke-linejoin='round'
-                                />
-                            </svg>
-                        </div>
-                    </RootButton>
+                    {isVisibleSort && (
+                        <RootButton
+                            className={s.item}
+                            onClick={() => changeSelectedFilter('sort')}
+                        >
+                            <div className={s.name}>Сортировка</div>
+                            <div className={s.sort}>
+                                {filters.orderBy === 'id' &&
+                                filters.sortBy === 'DESC'
+                                    ? 'Сначала новые'
+                                    : filters.orderBy === 'id' &&
+                                      filters.sortBy === 'ASC'
+                                    ? 'Сначала старые'
+                                    : filters.orderBy === 'price' &&
+                                      filters.sortBy === 'DESC'
+                                    ? 'Сначала дорогие'
+                                    : 'Сначала дешёвые'}
+                                <svg
+                                    xmlns='http://www.w3.org/2000/svg'
+                                    width='6'
+                                    height='10'
+                                    viewBox='0 0 6 10'
+                                    fill='none'
+                                >
+                                    <path
+                                        d='M0.5 0.5L5 5L0.5 9.5'
+                                        stroke='#8E8E8E'
+                                        stroke-linecap='round'
+                                        stroke-linejoin='round'
+                                    />
+                                </svg>
+                            </div>
+                        </RootButton>
+                    )}
                     {isVisibleCategories && (
                         <RootButton
                             className={s.item}

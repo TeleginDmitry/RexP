@@ -10,7 +10,7 @@ import { useAppSelector } from '@/src/hooks/redux-hooks/redux-hooks'
 import s from './SliderBlock.module.scss'
 
 const SliderBlock = () => {
-    const images = useAppSelector((state) => state.product.data.images)
+    const { images, isOuter } = useAppSelector((state) => state.product.data)
 
     return (
         <Swiper
@@ -28,7 +28,11 @@ const SliderBlock = () => {
                 <SwiperSlide key={id}>
                     <div className={s.wrapper}>
                         <Image
-                            src={`${process.env.NEXT_PUBLIC_IMAGES_URL}${name}`}
+                            src={
+                                isOuter
+                                    ? name
+                                    : `${process.env.NEXT_PUBLIC_IMAGES_URL}${name}`
+                            }
                             alt=''
                             fill
                             sizes='(max-width: 768px) 100vw, 200vw'

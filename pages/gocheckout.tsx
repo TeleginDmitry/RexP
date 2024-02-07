@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 
 import RootIcon from '@/src/components/ui/icons/RootIcon'
 import MainContainer from '@/src/components/ui/MainContainer'
+import ProductLess from '@/src/components/ui/ProductLess/ProductLess'
 import RootButton from '@/src/components/ui/RootButton'
 import RootTabs from '@/src/components/ui/RootTabs'
 import { useAppSelector } from '@/src/hooks/redux-hooks/redux-hooks'
@@ -111,7 +112,7 @@ const GocheckoutPage = () => {
                                     }
                                 />
                             </div>
-                            <div className='p-6 rounded-2xl bg-[#EEE] flex flex-col gap-4'>
+                            <div className='p-5 rounded-2xl bg-[#EEE] flex flex-col gap-4'>
                                 <div className='border-b border-solid border-[rgba(142,142,142,0.4)] pb-3 flex items-center justify-between'>
                                     <h2 className='text-base font-medium'>
                                         Данные доставки
@@ -167,7 +168,7 @@ const GocheckoutPage = () => {
                             </div>
                         </>
                     )}
-                    <div className='p-6 rounded-2xl bg-[#EEE] flex flex-col gap-4'>
+                    <div className='p-5 rounded-2xl bg-[#EEE] flex flex-col gap-4'>
                         <h2 className='border-b border-solid border-[rgba(142,142,142,0.40)] pb-3 font-medium'>
                             Информация о заказе
                         </h2>
@@ -184,39 +185,15 @@ const GocheckoutPage = () => {
                         </p>
                         <div className='flex flex-col gap-2'>
                             {neededCarts.map(({ id, product, productSize }) => (
-                                <div
-                                    className='relative flex gap-4 bg-white p-3 rounded-xl'
+                                <ProductLess
                                     key={id}
-                                >
-                                    <Link
-                                        href={`catalog/${product.id}`}
-                                        className='absolute top-0 left-0 w-full h-full z-10'
-                                    />
-                                    {product.images && product.images[0] && (
-                                        <Image
-                                            width={100}
-                                            height={70}
-                                            src={`${process.env.NEXT_PUBLIC_IMAGES_URL}${product.images[0].name}`}
-                                            alt={product.name}
-                                        />
-                                    )}
-                                    <div className='flex flex-col'>
-                                        <span className='text-sm font-bold'>
-                                            {new Intl.NumberFormat(
-                                                'ru-RU'
-                                            ).format(productSize.price)}{' '}
-                                            ₽
-                                        </span>
-                                        <div className='flex flex-col gap-1'>
-                                            <span className='text-xs overflow-hidden line-clamp-3 text-black'>
-                                                {product.name}
-                                            </span>
-                                            <span className='text-[#8E8E8E] text-xs'>
-                                                размер: {productSize.size.name}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+                                    id={id}
+                                    isOuter={product.isOuter}
+                                    images={product.images}
+                                    name={product.name}
+                                    price={productSize.price}
+                                    sizeName={productSize.size.name}
+                                />
                             ))}
                         </div>
                     </div>
@@ -246,7 +223,7 @@ const GocheckoutPage = () => {
                             />
                         </svg>
                     </div>
-                    <div className='p-6 rounded-2xl bg-[#EEE] flex-col gap-3 flex'>
+                    <div className='p-5 rounded-2xl bg-[#EEE] flex-col gap-3 flex'>
                         <div className='border-b border-solid border-[rgba(142,142,142,0.40)] pb-3 flex justify-between items-center'>
                             <span className='font-semibold'>Ваш заказ</span>
                             <span className='text-[#535353]'>

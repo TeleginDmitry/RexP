@@ -62,7 +62,10 @@ const ReviewPage = () => {
                             )
 
                             const imagesFull = orderContents?.map(
-                                ({ product }) => product.images?.[0]
+                                ({ product }) => ({
+                                    ...product.images[0],
+                                    isOuter: product.isOuter
+                                })
                             )
 
                             return (
@@ -132,7 +135,9 @@ const ReviewPage = () => {
                                             ₽
                                         </p>
                                     </div>
-                                    <ImagesBlock images={imagesFull} />
+                                    {imagesFull && (
+                                        <ImagesBlock images={imagesFull} />
+                                    )}
                                     <button
                                         onClick={() => handleOpenModal(id)}
                                         className='p-3 bg-black rounded-xl text-white font-bold text-base relative z-20'

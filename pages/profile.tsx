@@ -4,7 +4,6 @@ import ProfilePageComponent from '@/src/components/pages/ProfilePageComponent'
 import { getFavoritesThunk } from '@/src/store/slices/getFavorite/getFavorite/getFavorite'
 import { getProductsThunk } from '@/src/store/slices/getProducts/getProducts/getProducts'
 import { getViewedThunk } from '@/src/store/slices/getViewed/getViewed/getViewed'
-import { getOrdersThunk } from '@/src/store/slices/orders/thunks'
 import { wrapper } from '@/src/store/store'
 
 const ProfilePage = () => (

@@ -1,3 +1,5 @@
+import type { Product } from '../getProducts/types'
+
 export interface Cart {
     id: number
     count: number
@@ -12,17 +14,7 @@ export interface Cart {
         size: CategoryOrSize
     }
 }
-export interface Product {
-    id: number
-    name: string
-    discount: number
-    gender: string
-    poizonURL?: null
-    subCategory: SubCategory
-    brand: ImagesEntityOrBrand
-    images?: ImagesEntityOrBrand[] | null
-    productSizes?: ProductSizesEntity[] | null
-}
+
 export interface SubCategory {
     id: number
     name: string
@@ -31,16 +23,6 @@ export interface SubCategory {
 }
 export interface CategoryOrSize {
     name: string
-}
-export interface ImagesEntityOrBrand {
-    id: number
-    name: string
-}
-export interface ProductSizesEntity {
-    id: number
-    price: number
-    amount: number
-    size: CategoryOrSize
 }
 
 export type CartsState = Readonly<{
