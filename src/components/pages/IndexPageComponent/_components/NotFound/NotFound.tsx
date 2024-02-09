@@ -8,7 +8,7 @@ export default function NotFound() {
     const name = useAppSelector((state) => state.filter.name)
 
     if (!name) {
-        return
+        return null
     }
 
     return (
