@@ -12,6 +12,8 @@ import { usePagination } from '@/src/hooks/usePagination'
 import { addPaginatedProducts } from '@/src/store/slices/getProducts'
 import { getProducts } from '@/src/utils/api/getProducts'
 
+import NotFound from '../NotFound/NotFound'
+
 const ProductsBlock = () => {
     const dispatch = useAppDispatch()
 
@@ -41,6 +43,10 @@ const ProductsBlock = () => {
         callback: fetchQuery,
         element: observerRef
     })
+
+    if (filters.name && products.length === 0) {
+        return <NotFound />
+    }
 
     return (
         <CatalogSpacer>

@@ -1,6 +1,7 @@
 import { useAppSelector } from '@/src/hooks/redux-hooks/redux-hooks'
 
 import { FilterBlock } from './_components/FilterBlock/FilterBlock'
+import NotFound from './_components/NotFound/NotFound'
 
 import CatalogSpacer from '../../ui/CatalogSpacer'
 import MainContainer from '../../ui/MainContainer'
@@ -14,29 +15,35 @@ const FavouritesPageComponent = () => {
 
     return (
         <MainContainer className={s.page}>
-            <FilterBlock />
-            <CatalogSpacer>
-                {favorites.map(({ productId }, index) => {
-                    const product = products.find(
-                        (productValue) => productValue.id === +productId
-                    )
+            {favorites.length ? (
+                <>
+                    <FilterBlock />
+                    <CatalogSpacer>
+                        {favorites.map(({ productId }, index) => {
+                            const product = products.find(
+                                (productValue) => productValue.id === +productId
+                            )
 
-                    return (
-                        product && (
-                            <ProductCard
-                                id={product.id}
-                                key={product.id}
-                                name={product.name}
-                                price={product.price}
-                                imgUrl={product.images[0].name}
-                                imagePriority={index < 3}
-                                outOfStock={false}
-                                isOuter={product.isOuter}
-                            />
-                        )
-                    )
-                })}
-            </CatalogSpacer>
+                            return (
+                                product && (
+                                    <ProductCard
+                                        id={product.id}
+                                        key={product.id}
+                                        name={product.name}
+                                        price={product.price}
+                                        imgUrl={product.images[0].name}
+                                        imagePriority={index < 3}
+                                        outOfStock={false}
+                                        isOuter={product.isOuter}
+                                    />
+                                )
+                            )
+                        })}
+                    </CatalogSpacer>
+                </>
+            ) : (
+                <NotFound />
+            )}
         </MainContainer>
     )
 }
