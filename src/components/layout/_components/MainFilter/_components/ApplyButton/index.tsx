@@ -42,7 +42,7 @@ export const ApplyButton = ({
 
     return (
         <Button onClick={onClick} className={s.button} disabled={isDisables}>
-            Применить
+            {selectedFilter ? 'Выбрать' : 'Применить'}
         </Button>
     )
 }

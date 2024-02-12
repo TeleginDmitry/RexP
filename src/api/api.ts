@@ -3,6 +3,8 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
+import { IS_DEV } from '../constants'
+
 const $api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL
 })
@@ -12,7 +14,7 @@ $api.interceptors.request.use((config) => {
 
     if (config && config.headers) {
         config.headers.Authorization = `Bearer ${
-            token || process.env.NEXT_PUBLIC_API_TOKEN
+            token || IS_DEV ? process.env.NEXT_PUBLIC_API_TOKEN : ''
         }`
     }
 

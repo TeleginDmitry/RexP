@@ -2,6 +2,7 @@
 import { useEffect } from 'react'
 
 import { Analytics } from '@vercel/analytics/react'
+import { isAxiosError } from 'axios'
 import Cookies from 'js-cookie'
 import type { AppContext, AppInitialProps, AppProps } from 'next/app'
 import App from 'next/app'
@@ -26,37 +27,33 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
     const { pageProps } = props
     const router = useRouter()
 
-    useEffect(() => {
-        async function saveToken() {
-            try {
-                const { initData } = window.Telegram.WebApp
+    async function saveToken() {
+        const { initData } = window.Telegram.WebApp
 
-                const token = Cookies.get('token')
+        const token = Cookies.get('token')
 
-                if (token) {
-                    return
-                }
-
-                const resultLogin = await login({
-                    initData
-                })
-
-                if (resultLogin.data.token) {
-                    Cookies.set('token', resultLogin.data.token)
-                } else {
-                    const resultRegister = await register({
-                        initData
-                    })
-
-                    if (resultRegister.data.token) {
-                        Cookies.set('token', resultRegister.data.token)
-                    }
-                }
-            } catch (error) {
-                /* empty */
-            }
+        if (token) {
+            return
         }
 
+        const resultLogin = await login({
+            initData
+        })
+
+        if (!isAxiosError(resultLogin) && resultLogin) {
+            Cookies.set('token', resultLogin.data.token)
+        } else {
+            const resultRegister = await register({
+                initData
+            })
+
+            if (!isAxiosError(resultRegister) && resultRegister) {
+                Cookies.set('token', resultRegister.data.token)
+            }
+        }
+    }
+
+    useEffect(() => {
         saveToken()
     }, [])
 

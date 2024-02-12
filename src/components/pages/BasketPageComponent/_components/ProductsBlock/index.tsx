@@ -143,7 +143,7 @@ const ProductsBlock = () => {
                                                 </div>
                                                 {productSize.amount < 5 && (
                                                     <div className='text-[#D50000] text-xs mt-1'>
-                                                        Осталось менее 5 пар
+                                                        Осталось менее 5 штук
                                                     </div>
                                                 )}
                                             </div>

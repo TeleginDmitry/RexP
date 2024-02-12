@@ -98,12 +98,18 @@ const MainFilter = ({
     const neededBrands = brands
         .filter((brand) => filters.brands.includes(String(brand.id)))
         .map((brand) => brand.name)
+
     const neededSizes = sizes
         .filter((size) => filters.sizes.includes(String(size.id)))
         .map((size) => size.name)
+
     const neededCategories = categories
         .filter((category) => filters.categoryId === category.id)
         .map((category) => category.name)
+
+    const brandsSliced = neededBrands.slice(0, 2)
+    const sizesSliced = neededSizes.slice(0, 2)
+    const categoriesSliced = neededCategories.slice(0, 2)
 
     const isVisibleReset =
         filters.brands.length !== 0 ||
@@ -207,7 +213,14 @@ const MainFilter = ({
                         >
                             <div className={s.name}>Категории</div>
                             <div className={s.sort}>
-                                {neededCategories.join(', ') || 'Все'}{' '}
+                                {categoriesSliced.length
+                                    ? `${categoriesSliced.join(', ')}${
+                                          categoriesSliced.length <
+                                          neededCategories.length
+                                              ? '...'
+                                              : ''
+                                      }`
+                                    : 'Все'}
                                 <svg
                                     xmlns='http://www.w3.org/2000/svg'
                                     width='6'
@@ -232,7 +245,13 @@ const MainFilter = ({
                     >
                         <div className={s.name}>Размер</div>
                         <div className={s.sort}>
-                            {neededSizes.join(', ') || 'Все'}{' '}
+                            {sizesSliced.length
+                                ? `${sizesSliced.join(', ')}${
+                                      sizesSliced.length < neededSizes.length
+                                          ? '...'
+                                          : ''
+                                  }`
+                                : 'Все'}
                             <svg
                                 xmlns='http://www.w3.org/2000/svg'
                                 width='6'
@@ -255,7 +274,13 @@ const MainFilter = ({
                     >
                         <div className={s.name}>Бренд</div>
                         <div className={s.sort}>
-                            {neededBrands.join(', ') || 'Все'}{' '}
+                            {brandsSliced.length
+                                ? `${brandsSliced.join(', ')}${
+                                      brandsSliced.length < neededBrands.length
+                                          ? '...'
+                                          : ''
+                                  }`
+                                : 'Все'}
                             <svg
                                 xmlns='http://www.w3.org/2000/svg'
                                 width='6'
