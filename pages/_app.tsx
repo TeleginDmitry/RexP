@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable import/no-extraneous-dependencies */
 import { useEffect } from 'react'
 
@@ -36,19 +37,21 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
             return
         }
 
-        const resultLogin = await login({
-            initData
-        })
-
-        if (!isAxiosError(resultLogin) && resultLogin) {
-            Cookies.set('token', resultLogin.data.token)
-        } else {
-            const resultRegister = await register({
+        try {
+            const resultLogin = await login({
                 initData
             })
 
-            if (!isAxiosError(resultRegister) && resultRegister) {
+            Cookies.set('token', resultLogin.data.token)
+        } catch (error) {
+            try {
+                const resultRegister = await register({
+                    initData
+                })
+
                 Cookies.set('token', resultRegister.data.token)
+            } catch (error) {
+                /* empty */
             }
         }
     }

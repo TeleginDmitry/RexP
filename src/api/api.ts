@@ -10,11 +10,11 @@ const $api = axios.create({
 })
 
 $api.interceptors.request.use((config) => {
-    const token = Cookies.get('token')
+    const token = Cookies.get('token') ?? ''
 
     if (config && config.headers) {
         config.headers.Authorization = `Bearer ${
-            token || IS_DEV ? process.env.NEXT_PUBLIC_API_TOKEN : ''
+            IS_DEV ? process.env.NEXT_PUBLIC_API_TOKEN : token
         }`
     }
 
@@ -22,10 +22,10 @@ $api.interceptors.request.use((config) => {
 })
 
 $api.interceptors.response.use(
-    (config) => config,
+    (response) => response,
     async (error) => {
         if (
-            error.response.status === 401 &&
+            error.response.status === 403 &&
             error.config &&
             !error.config._isRetry
         ) {
@@ -33,6 +33,8 @@ $api.interceptors.response.use(
 
             Cookies.remove('token')
         }
+
+        return Promise.reject(error)
     }
 )
 
