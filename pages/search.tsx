@@ -32,16 +32,15 @@ const SearchPage = () => {
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target
+        let url = extractUrl(value)
 
-        setValue(value)
+        setValue(url)
         setIsError(false)
     }
 
     const onPaste = async () => {
         const text = await navigator.clipboard.readText()
-
         const value = extractUrl(text)
-
         if (value) {
             setValue(value)
         }
