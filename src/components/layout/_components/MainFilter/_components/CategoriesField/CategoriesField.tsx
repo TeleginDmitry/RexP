@@ -5,7 +5,11 @@ import React, { useState } from 'react'
 import { CheckboxGroup } from '@nextui-org/react'
 
 import RootCheckbox from '@/src/components/ui/RootCheckbox'
-import { useAppSelector } from '@/src/hooks/redux-hooks/redux-hooks'
+import {
+    useAppDispatch,
+    useAppSelector
+} from '@/src/hooks/redux-hooks/redux-hooks'
+import { getSizesThunk } from '@/src/store/slices/getSizes/getSizes/getSizes'
 import type { FilterType } from '@/src/types/Filter/filter.types'
 
 import s from './CategoriesField.module.scss'
@@ -16,6 +20,7 @@ interface Props {
 }
 
 const CategoriesField = ({ changeFilters, filters }: Props) => {
+    const dispatch = useAppDispatch()
     const categories = useAppSelector((state) => state.category.data)
 
     const [isActiveCategory, setIsActiveCategory] = useState<number | null>(
@@ -23,6 +28,7 @@ const CategoriesField = ({ changeFilters, filters }: Props) => {
     )
 
     const handleCheckboxChange = (category: number) => {
+        dispatch(getSizesThunk(category))
         if (category === 0) {
             changeFilters({ categoryId: undefined })
         }

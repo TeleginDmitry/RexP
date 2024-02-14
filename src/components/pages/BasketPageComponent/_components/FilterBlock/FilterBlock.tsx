@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* eslint-disable react/jsx-no-bind */
@@ -67,6 +68,20 @@ export const FilterBlock = () => {
 
     const valuesWithoutSelected = delivery.filter(({ isMain }) => !isMain)
 
+    const countActiveFilters = [
+        filters.brands.length === 0,
+        filters.sizes.length === 0,
+        filters.minPrice === 99 && filters.maxPrice === 3599999,
+        filters.orderBy === 'id' && filters.sortBy === 'DESC',
+        filters.categoryId === 0 && filters.subCategories.length === 0
+    ].reduce((acc, condition) => {
+        if (!condition) {
+            acc++
+        }
+
+        return acc
+    }, 0)
+
     return (
         <div className='flex items-center justify-between mb-3 relative'>
             {mainDelivery || delivery.length ? (
@@ -88,13 +103,18 @@ export const FilterBlock = () => {
                 <div />
             )}
 
-            <button onClick={toggleOpen}>
+            <button className='flex items-center gap-1' onClick={toggleOpen}>
                 <Image
                     src='/images/icons/filters.svg'
                     width={25}
                     height={25}
                     alt='filters icon'
                 />
+                {!!countActiveFilters && (
+                    <span className='w-5 h-5 flex justify-center items-center text-sm text-white rounded-full bg-black'>
+                        {countActiveFilters}
+                    </span>
+                )}
             </button>
 
             {isOpen && (

@@ -82,7 +82,7 @@ const SearchPage = () => {
         const { initData } = window.Telegram.WebApp
 
         Promise.all([login({ initData }), register({ initData })])
-    })
+    }, [])
 
     return (
         <>

@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { useAppSelector } from '@/src/hooks/redux-hooks/redux-hooks'
 
 import { FilterBlock } from './_components/FilterBlock/FilterBlock'
@@ -9,11 +10,26 @@ import MainContainer from '../../ui/MainContainer'
 import s from './BasketPageComponent.module.scss'
 
 const BasketPageComponent = () => {
+    const filters = useAppSelector((state) => state.filter)
     const carts = useAppSelector((state) => state.carts.data)
+
+    const countActiveFilters = [
+        filters.brands.length === 0,
+        filters.sizes.length === 0,
+        filters.minPrice === 99 && filters.maxPrice === 3599999,
+        filters.orderBy === 'id' && filters.sortBy === 'DESC',
+        filters.categoryId === 0 && filters.subCategories.length === 0
+    ].reduce((acc, condition) => {
+        if (!condition) {
+            acc++
+        }
+
+        return acc
+    }, 0)
 
     return (
         <MainContainer className={s.wrapper}>
-            {carts.length ? (
+            {!!carts.length || !!countActiveFilters ? (
                 <>
                     <FilterBlock />
                     <ProductsBlock />

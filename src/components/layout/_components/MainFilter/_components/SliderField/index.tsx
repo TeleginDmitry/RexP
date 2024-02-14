@@ -119,7 +119,13 @@ const SliderField = ({ changeFilters, filters, applyFilters }: Props) => {
                             <input
                                 onChange={onChangeInputValueLeft}
                                 className='w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
-                                value={value[0] === MIN_PRICE ? '' : value[0]}
+                                value={
+                                    value[0] > MAX_PRICE
+                                        ? MAX_PRICE
+                                        : value[0] <= 0
+                                        ? ''
+                                        : value[0]
+                                }
                                 max={MAX_PRICE}
                                 min={MIN_PRICE}
                                 inputMode='numeric'
@@ -148,7 +154,13 @@ const SliderField = ({ changeFilters, filters, applyFilters }: Props) => {
                                 max={MAX_PRICE}
                                 min={MIN_PRICE}
                                 inputMode='numeric'
-                                value={value[1] === MAX_PRICE ? '' : value[1]}
+                                value={
+                                    value[1] > MAX_PRICE
+                                        ? MAX_PRICE
+                                        : value[1] <= 0
+                                        ? ''
+                                        : value[1]
+                                }
                                 placeholder={
                                     value[1] === 0
                                         ? ''

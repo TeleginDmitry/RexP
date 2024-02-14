@@ -12,6 +12,7 @@ interface Props {
     toggleOpen: () => void
     changeSelectedFilter: (filter: string) => void
     selectedFilter: string
+    isOnlyCategories: boolean
 }
 
 export const ApplyButton = ({
@@ -19,7 +20,8 @@ export const ApplyButton = ({
     filters,
     toggleOpen,
     changeSelectedFilter,
-    selectedFilter
+    selectedFilter,
+    isOnlyCategories
 }: Props) => {
     const isDisables =
         filters.brands.length === 0 &&
@@ -32,7 +34,7 @@ export const ApplyButton = ({
         filters.subCategories.length === 0
 
     function onClick() {
-        if (selectedFilter === '' || selectedFilter === 'categories') {
+        if (selectedFilter === '' || isOnlyCategories) {
             applyFilters(undefined)
             toggleOpen()
         } else {

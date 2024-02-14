@@ -59,7 +59,7 @@ const GocheckoutPage = () => {
             dispatch(getCartsThunk({})),
             dispatch(getDeliveryThunk())
         ])
-    })
+    }, [])
 
     if (!selectedCartsInfo) {
         return null

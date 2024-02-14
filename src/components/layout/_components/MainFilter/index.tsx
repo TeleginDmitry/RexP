@@ -54,6 +54,55 @@ const MainFilter = ({
 
         if (selectedFilter) {
             setSelectedFilter('')
+
+            if (selectedFilter === 'categories') {
+                applyFilters({
+                    ...filters,
+                    categoryId: 0,
+                    subCategories: []
+                })
+                changeFilters({
+                    ...filters,
+                    categoryId: 0,
+                    subCategories: []
+                })
+            }
+
+            if (selectedFilter === 'sort') {
+                applyFilters({
+                    ...filters,
+                    orderBy: 'id',
+                    sortBy: 'DESC'
+                })
+                changeFilters({
+                    ...filters,
+                    orderBy: 'id',
+                    sortBy: 'DESC'
+                })
+            }
+
+            if (selectedFilter === 'size') {
+                applyFilters({
+                    ...filters,
+                    sizes: []
+                })
+                changeFilters({
+                    ...filters,
+                    sizes: []
+                })
+            }
+
+            if (selectedFilter === 'brand') {
+                applyFilters({
+                    ...filters,
+                    brands: []
+                })
+                changeFilters({
+                    ...filters,
+                    brands: []
+                })
+            }
+
             return
         }
         toggleOpen()
@@ -64,6 +113,57 @@ const MainFilter = ({
     }
 
     function resetFIlters() {
+        if (selectedFilter) {
+            if (selectedFilter === 'categories') {
+                applyFilters({
+                    ...filters,
+                    categoryId: 0,
+                    subCategories: []
+                })
+                changeFilters({
+                    ...filters,
+                    categoryId: 0,
+                    subCategories: []
+                })
+            }
+
+            if (selectedFilter === 'sort') {
+                applyFilters({
+                    ...filters,
+                    orderBy: 'id',
+                    sortBy: 'DESC'
+                })
+                changeFilters({
+                    ...filters,
+                    orderBy: 'id',
+                    sortBy: 'DESC'
+                })
+            }
+
+            if (selectedFilter === 'size') {
+                applyFilters({
+                    ...filters,
+                    sizes: []
+                })
+                changeFilters({
+                    ...filters,
+                    sizes: []
+                })
+            }
+
+            if (selectedFilter === 'brand') {
+                applyFilters({
+                    ...filters,
+                    brands: []
+                })
+                changeFilters({
+                    ...filters,
+                    brands: []
+                })
+            }
+            return
+        }
+
         applyFilters({
             brands: [],
             sizes: [],
@@ -71,7 +171,6 @@ const MainFilter = ({
             orderBy: 'id',
             sortBy: 'DESC',
             colors: [],
-
             subCategories: []
         })
         changeFilters({
@@ -82,7 +181,6 @@ const MainFilter = ({
             orderBy: 'id',
             sortBy: 'DESC',
             colors: [],
-
             subCategories: []
         })
     }
@@ -112,10 +210,21 @@ const MainFilter = ({
     const categoriesSliced = neededCategories.slice(0, 2)
 
     const isVisibleReset =
-        filters.brands.length !== 0 ||
-        filters.sizes.length !== 0 ||
-        filters.orderBy !== 'id' ||
-        filters.sortBy !== 'DESC'
+        selectedFilter === 'sort'
+            ? filters.orderBy !== 'id' || filters.sortBy !== 'DESC'
+            : selectedFilter === 'brand'
+            ? filters.brands.length !== 0
+            : selectedFilter === 'size'
+            ? filters.sizes.length !== 0
+            : selectedFilter === 'categories'
+            ? filters.categoryId !== 0 && filters.subCategories.length !== 0
+            : filters.brands.length !== 0 ||
+              filters.sizes.length !== 0 ||
+              filters.orderBy !== 'id' ||
+              filters.sortBy !== 'DESC' ||
+              (isVisibleCategories &&
+                  filters.categoryId !== 0 &&
+                  filters.subCategories.length !== 0)
 
     return (
         <Portal>
@@ -340,6 +449,7 @@ const MainFilter = ({
                     toggleOpen={toggleOpen}
                     filters={filters}
                     applyFilters={applyFilters}
+                    isOnlyCategories={isOnlyCategories}
                 />
             </MainContainer>
         </Portal>
