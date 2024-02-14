@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const login = async (valuesData: Props) => {
-    const token = Cookies.get('token')
+    const token = localStorage.getItem('token')
 
     if (token) {
         return
@@ -20,7 +20,7 @@ export const login = async (valuesData: Props) => {
 
     try {
         const result = await $api.post<Token>('/user/login', valuesData)
-        Cookies.set('token', result.data.token)
+        localStorage.setItem('token', result.data.token)
 
         return result
     } catch (error) {
@@ -29,7 +29,7 @@ export const login = async (valuesData: Props) => {
 }
 
 export const register = async (valuesData: Props) => {
-    const token = Cookies.get('token')
+    const token = localStorage.getItem('token')
 
     if (token) {
         return
@@ -37,7 +37,7 @@ export const register = async (valuesData: Props) => {
 
     try {
         const result = await $api.post('/user/registration', valuesData)
-        Cookies.set('token', result.data.token)
+        localStorage.setItem('token', result.data.token)
 
         return result
     } catch (error) {
