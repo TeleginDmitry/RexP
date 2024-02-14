@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-bind */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Modal } from '@nextui-org/react'
 import Head from 'next/head'
@@ -8,9 +8,13 @@ import Link from 'next/link'
 import { HeaderTitle } from '@/src/components/ui/HeaderTitle/HeaderTitle'
 import { ImagesBlock } from '@/src/components/ui/ImagesBlock/ImagesBlock'
 import MainContainer from '@/src/components/ui/MainContainer'
-import { useAppSelector } from '@/src/hooks/redux-hooks/redux-hooks'
+import {
+    useAppDispatch,
+    useAppSelector
+} from '@/src/hooks/redux-hooks/redux-hooks'
 import { getOrdersThunk } from '@/src/store/slices/orders/thunks'
 import { wrapper } from '@/src/store/store'
+import { login, register } from '@/src/utils/api/getToken'
 
 const ReviewPage = () => {
     const orders = useAppSelector((state) => state.orders.data)
@@ -26,6 +30,18 @@ const ReviewPage = () => {
         setActiveId(number)
         setIsVisibleModal(true)
     }
+
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        const { initData } = window.Telegram.WebApp
+
+        Promise.all([
+            login({ initData }),
+            register({ initData }),
+            dispatch(getOrdersThunk({ isReviwed: false }))
+        ])
+    })
 
     return (
         <>
@@ -183,16 +199,5 @@ const ReviewPage = () => {
         </>
     )
 }
-
-export const getServerSideProps = wrapper.getServerSideProps(
-    ({ dispatch, getState }) =>
-        async (context) => {
-            await Promise.all([dispatch(getOrdersThunk({ isReviwed: false }))])
-
-            return {
-                props: {}
-            }
-        }
-)
 
 export default ReviewPage

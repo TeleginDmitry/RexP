@@ -13,10 +13,14 @@ import MainContainer from '@/src/components/ui/MainContainer'
 import ProductLess from '@/src/components/ui/ProductLess/ProductLess'
 import RootButton from '@/src/components/ui/RootButton'
 import RootTabs from '@/src/components/ui/RootTabs'
-import { useAppSelector } from '@/src/hooks/redux-hooks/redux-hooks'
+import {
+    useAppDispatch,
+    useAppSelector
+} from '@/src/hooks/redux-hooks/redux-hooks'
 import { getCartsThunk } from '@/src/store/slices/getCarts/getCarts/getCarts'
 import { getDeliveryThunk } from '@/src/store/slices/getDelivery/getDelivery/getDelivery'
 import { wrapper } from '@/src/store/store'
+import { login, register } from '@/src/utils/api/getToken'
 
 const GocheckoutPage = () => {
     const carts = useAppSelector((state) => state.carts.data)
@@ -43,6 +47,19 @@ const GocheckoutPage = () => {
 
         setSelectedCartsInfo(data)
     }, [])
+
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        const { initData } = window.Telegram.WebApp
+
+        Promise.all([
+            login({ initData }),
+            register({ initData }),
+            dispatch(getCartsThunk({})),
+            dispatch(getDeliveryThunk())
+        ])
+    })
 
     if (!selectedCartsInfo) {
         return null
@@ -290,19 +307,5 @@ const GocheckoutPage = () => {
         </>
     )
 }
-
-export const getServerSideProps = wrapper.getServerSideProps(
-    ({ dispatch, getState }) =>
-        async () => {
-            await Promise.all([
-                dispatch(getCartsThunk({})),
-                dispatch(getDeliveryThunk())
-            ])
-
-            return {
-                props: {}
-            }
-        }
-)
 
 export default GocheckoutPage

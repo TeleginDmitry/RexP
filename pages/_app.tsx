@@ -3,8 +3,6 @@
 import { useEffect } from 'react'
 
 import { Analytics } from '@vercel/analytics/react'
-import { isAxiosError } from 'axios'
-import Cookies from 'js-cookie'
 import type { AppContext, AppInitialProps, AppProps } from 'next/app'
 import App from 'next/app'
 import { useRouter } from 'next/router'
@@ -21,44 +19,11 @@ import { wrapper } from '@/src/store/store'
 import '@/styles/color/_color.scss'
 import '@/styles/index.scss'
 import '@/styles/nullable.css'
-import { login, register } from '@/src/utils/api/getToken'
 
 const RexPApp = ({ Component, ...rest }: AppProps) => {
     const { store, props } = wrapper.useWrappedStore(rest)
     const { pageProps } = props
     const router = useRouter()
-
-    async function saveToken() {
-        const { initData } = window.Telegram.WebApp
-
-        const token = Cookies.get('token')
-
-        if (token) {
-            return
-        }
-
-        try {
-            const resultLogin = await login({
-                initData
-            })
-
-            Cookies.set('token', resultLogin.data.token)
-        } catch (error) {
-            try {
-                const resultRegister = await register({
-                    initData
-                })
-
-                Cookies.set('token', resultRegister.data.token)
-            } catch (error) {
-                /* empty */
-            }
-        }
-    }
-
-    useEffect(() => {
-        saveToken()
-    }, [])
 
     useEffect(() => {
         window.Telegram.WebApp.expand()

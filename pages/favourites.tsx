@@ -1,34 +1,39 @@
+import { useEffect } from 'react'
+
 import Head from 'next/head'
 
 import FavouritesPageComponent from '@/src/components/pages/FavouritesPageComponent'
+import { useAppDispatch } from '@/src/hooks/redux-hooks/redux-hooks'
 import { getCategoriesThunk } from '@/src/store/slices/getCategory/getCategory/getCategory'
 import { getFavoritesThunk } from '@/src/store/slices/getFavorite/getFavorite/getFavorite'
 import { getProductsThunk } from '@/src/store/slices/getProducts/getProducts/getProducts'
 import { wrapper } from '@/src/store/store'
+import { login, register } from '@/src/utils/api/getToken'
 
-const FavouritesPage = () => (
-    <>
-        <Head>
-            <title>title</title>
-            <meta name='description' content='description' />
-        </Head>
-        <FavouritesPageComponent />
-    </>
-)
+const FavouritesPage = () => {
+    const dispatch = useAppDispatch()
 
-export const getServerSideProps = wrapper.getServerSideProps(
-    ({ dispatch, getState }) =>
-        async () => {
-            await Promise.all([
-                dispatch(getProductsThunk({})),
-                dispatch(getFavoritesThunk({})),
-                dispatch(getCategoriesThunk())
-            ])
+    useEffect(() => {
+        const { initData } = window.Telegram.WebApp
 
-            return {
-                props: {}
-            }
-        }
-)
+        Promise.all([
+            login({ initData }),
+            register({ initData }),
+            dispatch(getProductsThunk({})),
+            dispatch(getFavoritesThunk({})),
+            dispatch(getCategoriesThunk())
+        ])
+    })
+
+    return (
+        <>
+            <Head>
+                <title>title</title>
+                <meta name='description' content='description' />
+            </Head>
+            <FavouritesPageComponent />
+        </>
+    )
+}
 
 export default FavouritesPage
