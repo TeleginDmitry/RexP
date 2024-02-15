@@ -1,0 +1,81 @@
+.slider{
+  margin-bottom: 12px;
+  width: 100%;
+}
+.swiper-slide{
+  width: fit-content;
+  border:1px solid red !important;
+}
+
+.wrapper{
+  width: 100%;
+  aspect-ratio: 1/1;
+  max-height: 200px;
+  max-width: 200px;
+  border-radius: 20px;
+  padding: 10px;
+  &-text{
+    font-family: Manrope;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 14px;
+    text-align: left;
+  }
+}
+.modal{
+  z-index: 10000;
+  .modal-head{
+    background-color: red !important;
+    border: 2px solid red;
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    padding: 0 20px;
+  }
+  .modal-body{
+    padding-top: 90px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+  }
+  .modal-title{
+    font-family: Manrope;
+    width: 100%;
+    user-select: none;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 42px;
+    letter-spacing: -0.4000000059604645px;
+    text-align: left;
+  }
+  .modal-text{
+    user-select: none;
+    font-family: Manrope;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.4000000059604645px;
+    text-align: left;
+
+  }
+}
+.close-button{
+  border-radius: 100%;
+  position: absolute;
+  right: 20px;
+  z-index: 5;
+  width: 32px !important;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 32px !important;
+  background-color: rgba(75, 75, 75, 0.35);
+}
+
+.pro-track{
+  background-color: #0000004D !important;
+  border-radius: 20px;
+  overflow: hidden;
+
+}
