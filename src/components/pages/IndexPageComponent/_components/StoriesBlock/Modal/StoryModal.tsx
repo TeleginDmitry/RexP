@@ -2,7 +2,7 @@ import {Swiper, SwiperSlide} from 'swiper/react'
 import 'swiper/css/bundle'
 import 'swiper/css/pagination'
 
-import s from "./../styles.module.scss";
+import s from "../styles.module.scss";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -11,10 +11,10 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
+  Progress,
   ModalFooter, Button
 } from "@nextui-org/react";
 import React, {createRef, useEffect, useRef, useState} from "react";
-import {Progress} from "@nextui-org/progress";
 import RootIcon from "@/src/components/ui/icons/RootIcon";
 
 
@@ -22,16 +22,16 @@ export const StoryModal = ({onBack, activeStory, isOpen = false}) => {
   const [timer, setTimer] = useState(0)
   const listenerContextMenu = event => event.preventDefault();
   const [touch, setTouch] = useState(false)
-  const [swiper, setSwiper] = useState(null);
-  const swiperRef = useRef()
+  const [swiper, setSwiper] = useState<any>(null);
+  const swiperRef = useRef<any>()
   swiperRef.current = swiper;
-  const timerRef = useRef()
-  const touchRef = useRef()
+  const timerRef = useRef<any>()
+  const touchRef = useRef<any>()
   touchRef.current = touch;
   timerRef.current = timer;
   const [activePage, setActivePage] = useState(0)
-  const activePageRef = useRef()
-  const activeStoryRef = useRef()
+  const activePageRef = useRef<any>()
+  const activeStoryRef = useRef<any>()
   activePageRef.current = activePage
   activeStoryRef.current = activeStory
   useEffect(() => {
@@ -42,7 +42,7 @@ export const StoryModal = ({onBack, activeStory, isOpen = false}) => {
   }, [activeStory])
 
   const slideTo = (index) => {
-    if(swiperRef && swiperRef.current)
+    if (swiperRef && swiperRef.current)
       swiperRef.current.slideTo(index)
   };
 
@@ -51,13 +51,10 @@ export const StoryModal = ({onBack, activeStory, isOpen = false}) => {
       if (timerRef.current < 8) {
         if (!touchRef.current)
           setTimer((v) => v + .1);
-      } else {
-        if (activeStoryRef && activeStoryRef.current)
-          if (activePageRef.current < activeStoryRef.current.story.pages.length - 1) {
-            setTimer(0)
-            slideTo(activePageRef.current+1)
-            setActivePage(v => v + 1)
-          }
+      } else if (activeStoryRef && activeStoryRef.current && activePageRef.current < activeStoryRef.current.story.pages.length - 1) {
+          setTimer(0)
+          slideTo(activePageRef.current + 1)
+          setActivePage(v => v + 1)
       }
     }, 50);
 
@@ -67,18 +64,18 @@ export const StoryModal = ({onBack, activeStory, isOpen = false}) => {
 
 
   const onTouch = (e) => {
-    var x = e.clientX;
-    if(e.target.localName === "img") {
+    const x = e.clientX;
+    if (e.target.localName === "img") {
       setTouch(false)
       return;
     }
     if (x < 80) {
-      let p = activePageRef.current;
+      const p = activePageRef.current;
       setActivePage(p === 0 ? 0 : p - 1)
       slideTo(p === 0 ? 0 : p - 1)
       setTimer(0)
     } else if (x > 380) {
-      let p = activePageRef.current;
+      const p = activePageRef.current;
       setActivePage(p < (activeStory.story.pages.length - 1) ? p + 1 : p);
       slideTo(p < (activeStory.story.pages.length - 1) ? p + 1 : p);
       setTimer(0)
@@ -94,7 +91,7 @@ export const StoryModal = ({onBack, activeStory, isOpen = false}) => {
         <>
           <ModalHeader className={"flex flex-row gap-2"}>
             {activeStory.story.pages.map((x, k) => (
-              <Progress disableAnimation={true} classNames={{base: s["pro-track"]}} key={k}
+              <Progress disableAnimation={true} classNames={{base: s["pro-track"]}} key={x.id}
                         color={activeStory.story.progressColor} size="sm"
                         maxValue={8} minValue={0} value={activePage === k ? timer : activePage > k ? 8 : 0}/>
             ))}
@@ -110,7 +107,7 @@ export const StoryModal = ({onBack, activeStory, isOpen = false}) => {
               />
             </button>
             <Swiper
-              onSwiper={(swp)=>{
+              onSwiper={(swp) => {
                 setSwiper(swp)
               }}
               spaceBetween={0}
@@ -119,7 +116,7 @@ export const StoryModal = ({onBack, activeStory, isOpen = false}) => {
               className={s.slider}
             >
               {activeStory.story.pages.map(((x, k) => (
-                <SwiperSlide style={{color:activeStory.story.textColor}} className={s["modal-body"]} key={k}>
+                <SwiperSlide style={{color: activeStory.story.textColor}} className={s["modal-body"]} key={x.id}>
                   <div
                     className={s['modal-title']}
                   >
@@ -144,6 +141,6 @@ export const StoryModal = ({onBack, activeStory, isOpen = false}) => {
         </>
       </ModalContent>
     </Modal>
-  ) : "";
+  ) : <div></div>;
 
 }
