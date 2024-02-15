@@ -7,6 +7,7 @@ const InfoTabs = () => {
     const orders = useAppSelector((state) => state.orders.data)
 
     const deliveryCount = orders.filter(({ isReviwed }) => !isReviwed)
+    const orderCounts = orders.filter(({ orderStatus }) => orderStatus.id === 1)
 
     return (
         <div className={s.wrapper}>
@@ -18,7 +19,7 @@ const InfoTabs = () => {
                 </span>
             </RootLink>
             <RootLink className={s.link} href='/profile/delivery'>
-                <span className={s.count}>{orders.length}</span>
+                <span className={s.count}>{orderCounts.length}</span>
                 <span className={s.text}>Мои заказы</span>
             </RootLink>
             <RootLink className={s.link} href='/profile/review'>

@@ -47,7 +47,7 @@ const DeliveryBlock = () => {
 
     return (
         <div className={s.wrapper}>
-            {deliveryCarts.length &&
+            {!!deliveryCarts.length &&
                 deliveryCarts.map(
                     (
                         {

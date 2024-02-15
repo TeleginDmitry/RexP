@@ -8,7 +8,7 @@ import { useAppSelector } from '@/src/hooks/redux-hooks/redux-hooks'
 import s from './InfoBlock.module.scss'
 
 const InfoBlock = () => {
-    const { id, productSizes, discount, name } = useAppSelector(
+    const { id, productSizes, discount, name, price } = useAppSelector(
         (state) => state.product.data
     )
     const activeSize = useAppSelector(
@@ -19,34 +19,45 @@ const InfoBlock = () => {
         return null
     }
 
-    const { price } = productSizes.find(({ size }) => size.name === activeSize)!
-    const newPrice = +(price - (price * discount) / 100).toFixed(0)
+    const productSize = productSizes.find(
+        ({ size }) => size.name === activeSize
+    )
+    const newPrice = productSize?.price
+        ? +(productSize.price - (productSize.price * discount) / 100).toFixed(0)
+        : price
+
+    console.log(newPrice)
 
     return (
         <div className={s.wrapper}>
             <div className={s.header}>
-                <div
-                    className={clsx(
-                        s['price-block'],
-                        newPrice.toString().length > 5 && 'flex-col'
-                    )}
-                >
-                    <div className={s.price}>
-                        {' '}
-                        {Number.isNaN(newPrice)
-                            ? newPrice
-                            : new Intl.NumberFormat('ru-RU').format(
-                                  newPrice
-                              )}{' '}
-                        ₽
+                {productSize && (
+                    <div
+                        className={clsx(
+                            s['price-block'],
+                            newPrice.toString().length > 5 && 'flex-col'
+                        )}
+                    >
+                        <div className={s.price}>
+                            {' '}
+                            {Number.isNaN(newPrice)
+                                ? newPrice
+                                : new Intl.NumberFormat('ru-RU').format(
+                                      newPrice
+                                  )}{' '}
+                            ₽
+                        </div>
+                        <div className={s['old-price']}>
+                            {Number.isNaN(productSize.price)
+                                ? price
+                                : new Intl.NumberFormat('ru-RU').format(
+                                      productSize.price
+                                  )}{' '}
+                            ₽
+                        </div>
                     </div>
-                    <div className={s['old-price']}>
-                        {Number.isNaN(price)
-                            ? price
-                            : new Intl.NumberFormat('ru-RU').format(price)}{' '}
-                        ₽
-                    </div>
-                </div>
+                )}
+
                 <div className={s['actions-block']}>
                     <HeartIcon productId={id} />
                     <DefaultLink

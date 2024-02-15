@@ -84,9 +84,10 @@ const CategoriesField = ({ changeFilters, filters }: Props) => {
                                     <RootCheckbox
                                         key={subId}
                                         value={`${subId}`}
-                                        className='pl-4'
                                     >
-                                        <div className={s.subCategory}>
+                                        <div
+                                            className={`${s.subCategory} pl-4`}
+                                        >
                                             <div className={s.name}>
                                                 {subName}
                                             </div>

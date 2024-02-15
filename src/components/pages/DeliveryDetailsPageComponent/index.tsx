@@ -18,7 +18,6 @@ const DeliveryDetailsPageComponent = () => {
     const { deliveryType, ...initialAddres } = useAppSelector(
         (state) => state.deliveryOne
     )
-
     const [currentAddress, setCurrentAddress] = useState<DeliveryCreate>({
         ...initialAddres,
         deliveryTypeId: deliveryType.id

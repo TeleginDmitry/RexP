@@ -39,7 +39,7 @@ const MainFilter = ({
     isOnlyCategories = false
 }: Props) => {
     const brands = useAppSelector((state) => state.brands.data)
-    const sizes = useAppSelector((state) => state.colors.data)
+    const sizes = useAppSelector((state) => state.sizes.data)
     const categories = useAppSelector((state) => state.category.data)
 
     const [selectedFilter, setSelectedFilter] = useState(

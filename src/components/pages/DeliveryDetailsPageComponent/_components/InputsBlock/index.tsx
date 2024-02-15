@@ -31,7 +31,7 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
     const cities = useAppSelector((state) => state.city)
     const deliveryPoints = useAppSelector((state) => state.deliveryPoints)
 
-    const idParam = router.pathname.includes('id')
+    const idParam = router.query.id
 
     const defaultPvzAdress = idParam
         ? deliveryPoints.find(({ city }) =>

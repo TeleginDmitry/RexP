@@ -85,7 +85,7 @@ export const SearhBlock = () => {
                 placeholder='Хей, поищем что-нибудь?'
                 className={styles.input}
             />
-            <button className='flex items-center gap-1' onClick={toggleOpen}>
+            <button className='flex items-center' onClick={toggleOpen}>
                 <Image
                     src='/images/icons/filters.svg'
                     width={25}
