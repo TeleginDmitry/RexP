@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/jsx-no-undef */
 import { useEffect, useState } from 'react'
@@ -20,6 +21,7 @@ import {
 import { getCartsThunk } from '@/src/store/slices/getCarts/getCarts/getCarts'
 import { getDeliveryThunk } from '@/src/store/slices/getDelivery/getDelivery/getDelivery'
 import { wrapper } from '@/src/store/store'
+import { createOrder } from '@/src/utils/api/createOrder'
 import { login, register } from '@/src/utils/api/getToken'
 
 const GocheckoutPage = () => {
@@ -73,6 +75,24 @@ const GocheckoutPage = () => {
         totalPriceWithDiscount: number
     }
 
+    const findMainDelivery = deliveryCarts.find(({ isMain }) => isMain)
+
+    if (!findMainDelivery) {
+        return null
+    }
+
+    function onBuy() {
+        try {
+            const products = selectedCarts.map((value) => +value)
+            createOrder({
+                products,
+                deliveryId: findMainDelivery!.deliveryType!.id!
+            })
+        } catch (error) {
+            /* empty */
+        }
+    }
+
     const neededCarts = carts.filter(({ id }) =>
         selectedCarts.includes(String(id))
     )
@@ -83,8 +103,6 @@ const GocheckoutPage = () => {
         day: 'numeric',
         month: 'long'
     })
-
-    const findMainDelivery = deliveryCarts.find(({ isMain }) => isMain)
 
     return (
         <>
@@ -288,7 +306,10 @@ const GocheckoutPage = () => {
                                 ₽
                             </span>
                         </div>
-                        <Button className='w-full p-4 bg-black rounded-xl text-white text-base font-bold'>
+                        <Button
+                            onClick={onBuy}
+                            className='w-full p-4 bg-black rounded-xl text-white text-base font-bold'
+                        >
                             Оплатить онлайн
                         </Button>
                         <p className='text-xs text-[rgba(83, 83, 83, 0.60)]'>

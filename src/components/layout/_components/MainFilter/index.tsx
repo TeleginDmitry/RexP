@@ -206,7 +206,7 @@ const MainFilter = ({
         .map((category) => category.name)
 
     const brandsSliced = neededBrands.slice(0, 2)
-    const sizesSliced = neededSizes.slice(0, 2)
+    const sizesSliced = neededSizes.slice(0, 3)
     const categoriesSliced = neededCategories.slice(0, 2)
 
     const isVisibleReset =
