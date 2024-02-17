@@ -113,6 +113,8 @@ export const StoryModal = ({onBack, nextStory, prevStory, activeStory, isOpen = 
       } else if(nextStory()){
           setActivePage(0)
           slideTo(0)
+      }else{
+        onBack();
       }
 
       setTimer(0)

@@ -1,6 +1,15 @@
 .slider{
   margin-bottom: 12px;
   width: 100%;
+
+}
+.swpsl{
+  width: auto;
+  flex-shrink: 0;
+  display: block;
+  height: 100%;
+  max-height: 100%;
+  transition: all 1s ease;
 }
 .swiper-slide{
   width: fit-content;
@@ -16,12 +25,13 @@
   aspect-ratio: 1/1;
   max-height: 200px;
   max-width: 200px;
+  min-height: 0;
+  min-width: 0;
   border-radius: 20px;
   padding: 10px;
   .wrapper-text{
     align-self:start;
     width:100%;
-    font-family: Manrope;
     font-size: 14px;
     font-weight: 400;
     line-height: 14px;
@@ -57,7 +67,6 @@
     justify-content: center;
   }
   .modal-title{
-    font-family: Manrope;
     z-index: 2;
     width: 100%;
     user-select: none;
@@ -70,7 +79,6 @@
   .modal-text{
     z-index: 2;
     user-select: none;
-    font-family: Manrope;
     font-size: 20px;
     font-weight: 400;
     line-height: 24px;
@@ -122,7 +130,6 @@
   .list-row{
     display: flex;
     flex-direction: row;
-    font-family: Manrope;
     font-size: 20px;
     align-items: center;
     font-weight: 400;

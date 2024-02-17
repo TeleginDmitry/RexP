@@ -171,13 +171,15 @@ export const StoriesBlock = () => {
     }
   }
   const nextStory = () => {
-    if (selKeyRef && selKeyRef.current && selKeyRef.current < stories.length - 1) {
+    // @ts-ignore
+    if (selKeyRef && selKeyRef.current >= 0 && selKeyRef.current < stories.length - 1) {
+      // @ts-ignore
       setActiveStory(stories[selKeyRef.current + 1])
+      // @ts-ignore
       setSelectedStoryKey(selKeyRef.current + 1)
       return true;
     }
     return false;
-
   }
   return (
     <Swiper
@@ -188,7 +190,7 @@ export const StoriesBlock = () => {
       className={s.slider}
     >
       {stories.map((item, key) => (
-        <SwiperSlide onClick={() => openModal(key)} key={item.id}>
+        <SwiperSlide className={s.swpsl} onClick={() => openModal(key)} key={item.id}>
           <div style={{backgroundColor: item.backgroundColor}} className={s.wrapper}>
             <span style={{color: item.textColor}} className={s["wrapper-text"]}>{item.text}</span>
             <Image
