@@ -7,130 +7,177 @@ import {Pagination, Autoplay} from 'swiper/modules'
 import {Swiper, SwiperSlide} from 'swiper/react'
 import 'swiper/css/bundle'
 import 'swiper/css/pagination'
-
 import s from "./styles.module.scss";
-
 import {StoryModal} from "@/src/components/pages/IndexPageComponent/_components/StoriesBlock/Modal/StoryModal";
-import {useState} from "react";
+import {useRef, useState} from "react";
+import Image from "next/image";
 
+
+const whoRex = "/images/stories/who_rex.svg"
+const rexFind = "/images/stories/rex_find.svg"
+const faq = "/images/stories/faq.svg"
+const delivery = "/images/stories/delivery.svg"
+const garant = "/images/stories/garant.svg"
+const sizes = "/images/stories/sizes.svg"
 
 export const StoriesBlock = () => {
   const dispatch = useAppDispatch()
   const [modalOpen, setModalOpen] = useState(false)
-  const [activeStory,setActiveStory] = useState<any>(null)
+  const [activeStory, setActiveStory] = useState<any>(null)
+  const [selectedStoryKey, setSelectedStoryKey] = useState<number>(0)
+  const selKeyRef = useRef<number>();
+  selKeyRef.current = selectedStoryKey;
   const stories = [
     {
-      id:1,
-      text: "Что умеет Rex?",
+      id: 1,
+      text: "Кто такой Rex?",
+      textColor: "#000",
       backgroundColor: "#94FE00",
-      story:{
-        backgroundColor:"#94FE00",
-        progressColor:"#000000",
-        textColor:"#000000",
-        pages: [
-          {
-            id:1,
-            title:"Кто такой Rex?",
-            text:"Rex – твой персональный помощник в мире моды и крутых образов. Он предлагает более 15 000 товаров. Но и это ещё не всё!<br/><br/>" +
-              "Rex может доставить тебе любой товар из каталога Poizon (к слову, там более 4 000 000 позиций). Просто воспользуйся функцией «Rex найдёт»"
-          },
-          {
-            id:2,
-            title:"«А это точно оригинал?»",
-            text:"Конечно! За оригинальность товаров переживать не стоит, все строго проверяется<br/><br/>"+
-              "Гарантия качества и оригинальности — ключевая политика Poizon"
-          }
-        ]
+      image: {
+        url: whoRex,
+        style: {
+          right: 0,
+          bottom: 0,
+          transform: "translate(20px,20%)",
+          width: "100%",
+          maxWidth: 200
+        }
+      },
+      story: {
+        backgroundColor: "#94FE00",
+        progressColor: 0,
+        textColor: "#000000",
+        pages: [{}, {}]
       }
 
     },
     {
-      id:2,
-      text: "Rex-доставка",
+      id: 2,
+      text: "Rex-найдет",
+      textColor: "#fff",
       backgroundColor: "#F633F6",
-      story:{
-        backgroundColor:"#F633F6",
-        progressColor:"#FFFFFF",
-        textColor:"#ffffff",
-        pages: [
-          {
-            id:1,
-            title:"Как Rex доставит твой товар?",
-            text:"Надёжно и быстро. Мы гарантируем, что твой заказ доедет в целости и сохранности <span style='color:#4923BE'>примерно за 3 недели</span> благодаря работе опытных специалистов транспортной компании"
-          },
-          {
-            id:2,
-            title:"Выбери свой вариант",
-            text:"Конечно! За оригинальность товаров переживать не стоит, все строго проверяется<br/><br/>"+
-              "Гарантия качества и оригинальности — ключевая политика Poizon"
-          },
-          {
-            id:3,
-            title:"",
-            text:"Не стесняйся обращаться к нам с любыми вопросами — мы всегда готовы помочь тебе с доставкой"
-          }
-        ]
+      image: {
+        url: rexFind,
+        style: {
+          right: 0,
+          bottom: 0,
+          width: "65%",
+          maxWidth: 200
+        }
+      },
+      story: {
+        backgroundColor: "#F633F6",
+        progressColor: 1,
+        textColor: "#ffffff",
+        pages: [{}, {}]
       }
     },
     {
-      id:3,
-      text: "FAQ",
+      id: 3,
+      text: "Помощник",
+      textColor: "#fff",
       backgroundColor: "#4923BE",
-      story:{
-        backgroundColor:"#4923BE",
-        progressColor:"#FFFFFF",
-        textColor:"#ffffff",
-        pages: [
-          {
-            id:1,
-            title:"Не нашёл товар в каталоге?",
-            text:"Rex поможет тебе найти нужную вещь. Просто следуй небольшой инструкции:<br/> ...."
-          },
-          {
-            id:2,
-            title:"Вуаля! Ты превосходен!",
-            text:"Осталось только заказать товар и дождаться доставки. Обещаем, постараемся довезти твою попкупочку как можно быстрее"
-          }
-        ]
+      image: {
+        url: faq,
+        style: {
+          bottom: 0,
+          width: "80%",
+          maxWidth: 200
+        }
+      },
+      story: {
+        backgroundColor: "#4923BE",
+        progressColor: 1,
+        textColor: "#ffffff",
+        pages: [{}, {}]
       }
     },
     {
-      id:4,
-      text: "Размеры",
+      id: 4,
+      text: "Rex-доставка",
+      textColor: "#000",
       backgroundColor: "#94FE00",
-      story:{
-        backgroundColor:"#94FE00",
-        progressColor:"#000000",
-        textColor:"#000000",
-        pages: [
-          {
-            id:1,
-            title:"Какие гарантии, что мне приедет оригинальный товар без брака?",
-            text:"Все товары проходят проверку ещё в Китае, поэтому такая ситуация исключена. Если товар не прошёл проверку, покупка будет отменена и Poizon вернёт деньги"
-          },
-          {
-            id:2,
-            title:"А вдруг что‑то пойдёт не так?‥",
-            text:"Не волнуйся, если вдруг возникла проблема с заказанными товарами, то мы полностью на твоей стороне!<br/><br/>" +
-              "Мы предоставляем гарантию, которая обеспечивает компенсацию в случае дефектов или проблем с товаром<br/><br/>" +
-              "Мы возместим вам от 30% до 100% стоимости товара в зависимости от характера проблемы"
-          },
-          {
-            id:3,
-            title:"",
-            text:"Не бойся  рассказать о возникшей проблеме. Rex рассмотрит твой случай индивидуально и предложит наилучший выход из ситуации"
-          }
-        ]
+      image: {
+        url: delivery,
+        style: {
+          right: 0,
+          bottom: 0,
+          width: "75%",
+          maxWidth: 200
+        }
+      },
+      story: {
+        backgroundColor: "#94FE00",
+        progressColor: 0,
+        textColor: "#000000",
+        pages: [{}, {}, {}]
+      }
+    },
+    {
+      id: 5,
+      text: "Гарантия",
+      textColor: "#fff",
+      backgroundColor: "#F633F6",
+      image: {
+        url: garant,
+        style: {
+          bottom: 0,
+          width: "80%",
+          maxWidth: 200
+        }
+      },
+      story: {
+        backgroundColor: "#F633F6",
+        progressColor: 1,
+        textColor: "#fff",
+        pages: [{}, {}, {}]
+      }
+    },
+    {
+      id: 6,
+      text: "Размеры",
+      textColor: "#fff",
+      backgroundColor: "#4923BE",
+      image: {
+        url: sizes,
+        style: {
+          bottom: 0,
+          width: "80%",
+          maxWidth: 200
+        }
+      },
+      story: {
+        backgroundColor: "#4923BE",
+        progressColor: 1,
+        textColor: "#fff",
+        pages: [{}, {}]
       }
     }
   ];
-  const openModal = key =>{
+  const openModal = key => {
+    setSelectedStoryKey(key)
     setActiveStory(stories[key])
     setModalOpen(true)
   }
-  const back = e =>{
+  const back = () => {
     setModalOpen(false)
     setActiveStory(null)
+    setSelectedStoryKey(0)
+  }
+  const prevStory = () => {
+    if (selectedStoryKey !== 0) {
+      setActiveStory(stories[selectedStoryKey - 1])
+      setSelectedStoryKey(p => p - 1)
+    }
+  }
+  const nextStory = () => {
+    if (selKeyRef && selKeyRef.current && selKeyRef.current < stories.length - 1) {
+      setActiveStory(stories[selKeyRef.current + 1])
+      setSelectedStoryKey(selKeyRef.current + 1)
+      return true;
+    }
+    return false;
+
   }
   return (
     <Swiper
@@ -141,13 +188,22 @@ export const StoriesBlock = () => {
       className={s.slider}
     >
       {stories.map((item, key) => (
-        <SwiperSlide onClick={()=>openModal(key)} key={item.id}>
+        <SwiperSlide onClick={() => openModal(key)} key={item.id}>
           <div style={{backgroundColor: item.backgroundColor}} className={s.wrapper}>
-            <span className={s.wrapperText}>{item.text}</span>
+            <span style={{color: item.textColor}} className={s["wrapper-text"]}>{item.text}</span>
+            <Image
+              style={item.image.style}
+              src={item.image.url}
+              className={s["story-block-img"]}
+              alt='rexIcon'
+              width={100}
+              height={100}
+            />
           </div>
         </SwiperSlide>
       ))}
-      <StoryModal activeStory={activeStory} isOpen={modalOpen} onBack={back}/>
+      <StoryModal nextStory={nextStory} prevStory={prevStory} activeStory={activeStory} isOpen={modalOpen}
+                  onBack={back}/>
     </Swiper>
   )
 }

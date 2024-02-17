@@ -8,19 +8,28 @@
 }
 
 .wrapper{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   aspect-ratio: 1/1;
   max-height: 200px;
   max-width: 200px;
   border-radius: 20px;
   padding: 10px;
-  &-text{
+  .wrapper-text{
+    align-self:start;
+    width:100%;
     font-family: Manrope;
     font-size: 14px;
     font-weight: 400;
     line-height: 14px;
     text-align: left;
   }
+}
+.body{
+  padding: 0;
 }
 .modal{
   z-index: 10000;
@@ -33,13 +42,23 @@
     padding: 0 20px;
   }
   .modal-body{
-    padding-top: 90px;
+    padding: 90px 25px;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     row-gap: 24px;
   }
+  .modal-center{
+    align-self: center;
+    height: 90%;
+    display: flex;
+    text-align: center !important;
+    align-items: center;
+    justify-content: center;
+  }
   .modal-title{
     font-family: Manrope;
+    z-index: 2;
     width: 100%;
     user-select: none;
     font-size: 40px;
@@ -49,6 +68,7 @@
     text-align: left;
   }
   .modal-text{
+    z-index: 2;
     user-select: none;
     font-family: Manrope;
     font-size: 20px;
@@ -72,10 +92,68 @@
   height: 32px !important;
   background-color: rgba(75, 75, 75, 0.35);
 }
-
-.pro-track{
-  background-color: #0000004D !important;
-  border-radius: 20px;
-  overflow: hidden;
-
+.story-block-img{
+  position: absolute;
+}
+.track-black{
+  background-color: rgba(0, 0, 0, 0.47) !important;
+}
+.track-value-black{
+  background-color: black !important;
+}
+.track-white{
+  background-color: rgba(255, 255, 255, 0.47) !important;
+}
+.track-value-white{
+  background-color: #ffffff !important;
+}
+.story-back-image{
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+}
+.list{
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  .list-row:nth-child(1) { --n: '1'; }
+  .list-row:nth-child(2) { --n: '2'; }
+  .list-row:nth-child(3) { --n: '3'; }
+  .list-row{
+    display: flex;
+    flex-direction: row;
+    font-family: Manrope;
+    font-size: 20px;
+    align-items: center;
+    font-weight: 400;
+    line-height: 33px;
+    column-gap: 15px;
+    &:before{
+      background-color: #FFFFFF33;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      content: var(--n);
+      aspect-ratio: 1/1;
+      border-radius: 100%;
+      padding: 10px;
+      width: 40px;
+      height: 40px;
+    }
+    &__black{
+      &:before{
+        background-color: #00000033 !important;
+      }
+    }
+  }
+}
+.row-gap{
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+.text-block{
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
 }

@@ -16,9 +16,15 @@ import {
 } from "@nextui-org/react";
 import React, {createRef, useEffect, useRef, useState} from "react";
 import RootIcon from "@/src/components/ui/icons/RootIcon";
+import {WhoRex} from "./Blocks/WhoRex";
+import {RexFind} from "./Blocks/RexFind";
+import {Faq} from "./Blocks/Faq";
+import {Delivery} from "./Blocks/Delivery";
+import {Garant} from "./Blocks/Garant";
+import {Sizes} from "./Blocks/Sizes";
 
 
-export const StoryModal = ({onBack, activeStory, isOpen = false}) => {
+export const StoryModal = ({onBack, nextStory, prevStory, activeStory, isOpen = false}) => {
   const [timer, setTimer] = useState(0)
   const listenerContextMenu = event => event.preventDefault();
   const [touch, setTouch] = useState(false)
@@ -34,6 +40,16 @@ export const StoryModal = ({onBack, activeStory, isOpen = false}) => {
   const activeStoryRef = useRef<any>()
   activePageRef.current = activePage
   activeStoryRef.current = activeStory
+
+  const storiesBlocks = [
+    <WhoRex key={1} Story={activeStory} setSwiper={setSwiper}/>,
+    <RexFind key={2} Story={activeStory} setSwiper={setSwiper}/>,
+    <Faq key={3} Story={activeStory} setSwiper={setSwiper}/>,
+    <Delivery key={4} Story={activeStory} setSwiper={setSwiper}/>,
+    <Garant key={5} Story={activeStory} setSwiper={setSwiper}/>,
+    <Sizes key={6} Story={activeStory} setSwiper={setSwiper}/>,
+  ];
+
   useEffect(() => {
     if (activeStory) {
       setActivePage(0)
@@ -42,27 +58,35 @@ export const StoryModal = ({onBack, activeStory, isOpen = false}) => {
   }, [activeStory])
 
   const slideTo = (index) => {
-    if (swiperRef && swiperRef.current)
-      swiperRef.current.slideTo(index)
+    if (swiperRef && swiperRef.current) {
+      try {
+        swiperRef.current.slideTo(index)
+      }catch (e){
+        console.log(e)
+      }
+    }
   };
-
   React.useEffect(() => {
     const interval = setInterval(() => {
       if (timerRef.current < 8) {
         if (!touchRef.current)
           setTimer((v) => v + .1);
       } else if (activeStoryRef && activeStoryRef.current && activePageRef.current < activeStoryRef.current.story.pages.length - 1) {
-          setTimer(0)
-          slideTo(activePageRef.current + 1)
-          setActivePage(v => v + 1)
+        setTimer(0)
+        slideTo(activePageRef.current + 1)
+        setActivePage(v => v + 1)
+      }else if(nextStory()){
+        setTimer(0)
+        slideTo(0)
+        setActivePage(0)
+      }else{
+        onBack();
       }
     }, 50);
 
     return () => clearInterval(interval);
 
   }, []);
-
-
   const onTouch = (e) => {
     const x = e.clientX;
     if (e.target.localName === "img") {
@@ -71,13 +95,26 @@ export const StoryModal = ({onBack, activeStory, isOpen = false}) => {
     }
     if (x < 80) {
       const p = activePageRef.current;
-      setActivePage(p === 0 ? 0 : p - 1)
-      slideTo(p === 0 ? 0 : p - 1)
+      if (p === 0) {
+        setActivePage(0)
+        slideTo(0)
+        prevStory();
+      } else {
+        setActivePage(p - 1)
+        slideTo(p - 1)
+      }
+
       setTimer(0)
-    } else if (x > 380) {
+    } else if (x > (window.screen.width - 80)) {
       const p = activePageRef.current;
-      setActivePage(p < (activeStory.story.pages.length - 1) ? p + 1 : p);
-      slideTo(p < (activeStory.story.pages.length - 1) ? p + 1 : p);
+      if (p < (activeStory.story.pages.length - 1)) {
+        setActivePage(p + 1);
+        slideTo(p + 1);
+      } else if(nextStory()){
+          setActivePage(0)
+          slideTo(0)
+      }
+
       setTimer(0)
     }
     setTouch(false)
@@ -86,12 +123,18 @@ export const StoryModal = ({onBack, activeStory, isOpen = false}) => {
   return activeStory ? (
     <Modal onPointerUp={onTouch} onPointerDown={() => setTouch(true)} className={s.modal} hideCloseButton={true}
            style={{backgroundColor: activeStory ? activeStory.story.backgroundColor : ""}}
-           classNames={{header: s.modalHead, wrapper: s.modal}} size={"full"} isOpen={isOpen} onClose={onBack}>
+           classNames={{header: s.modalHead, body: s.body, wrapper: s.modal}} size={"full"} isOpen={isOpen}
+           onClose={onBack}>
       <ModalContent>
         <>
           <ModalHeader className={"flex flex-row gap-2"}>
             {activeStory.story.pages.map((x, k) => (
-              <Progress disableAnimation={true} classNames={{base: s["pro-track"]}} key={x.id}
+              <Progress disableAnimation={true} classNames={
+                {
+                  base: activeStory.story.progressColor === 0 ? s["track-black"] : s["track-white"],
+                  indicator: activeStory.story.progressColor === 0 ? s["track-value-black"] : s["track-value-white"],
+                }
+              } key={x.id}
                         color={activeStory.story.progressColor} size="sm"
                         maxValue={8} minValue={0} value={activePage === k ? timer : activePage > k ? 8 : 0}/>
             ))}
@@ -106,35 +149,9 @@ export const StoryModal = ({onBack, activeStory, isOpen = false}) => {
                 alt='search icon'
               />
             </button>
-            <Swiper
-              onSwiper={(swp) => {
-                setSwiper(swp)
-              }}
-              spaceBetween={0}
-              slidesPerView={1}
-              allowTouchMove={false}
-              className={s.slider}
-            >
-              {activeStory.story.pages.map(((x, k) => (
-                <SwiperSlide style={{color: activeStory.story.textColor}} className={s["modal-body"]} key={x.id}>
-                  <div
-                    className={s['modal-title']}
-                  >
-                    {activeStory.story.pages[k].title}
-                  </div>
 
-                  <div
-                    className={s['modal-text']}
-                    dangerouslySetInnerHTML={{__html: activeStory.story.pages[k].text}}
-                  >
+            {activeStory && storiesBlocks[activeStory.id-1]}
 
-                  </div>
-                </SwiperSlide>
-              )))
-
-              }
-
-            </Swiper>
 
           </ModalBody>
 
