@@ -48,15 +48,4 @@ const IndexPage = () => {
     )
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(
-    ({ dispatch, getState }) =>
-        async () => {
-            await Promise.all([])
-
-            return {
-                props: {}
-            }
-        }
-)
-
 export default IndexPage
