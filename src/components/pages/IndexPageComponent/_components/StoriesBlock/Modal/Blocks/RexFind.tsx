@@ -52,7 +52,7 @@ export const RexFind = ({setSwiper, Story}) =>
       </SwiperSlide>
       <SwiperSlide style={{color: Story.story.textColor}} className={s["modal-body"]}>
         <Image
-          style={{bottom:"12%",width:"60%"}}
+          style={{bottom:"12%",width:"95%"}}
           src={"/images/stories/story-back/rexFind/2.png"}
           className={s["story-back-image"]}
           alt='rexIcon'
@@ -60,7 +60,7 @@ export const RexFind = ({setSwiper, Story}) =>
           height={100}
         />
         <Image
-          style={{width:"100%",bottom:0,right:0}}
+          style={{width:"70%",top:0,right:0}}
           src={"/images/stories/story-back/rexFind/3.png"}
           className={s["story-back-image"]}
           alt='rexIcon'
