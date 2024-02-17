@@ -3,19 +3,18 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
-import { IS_DEV } from '../constants'
-
 const $api = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
+    withCredentials: true
 })
 
-$api.interceptors.request.use((config) => {
-    const token = localStorage.getItem('token') ?? ''
+$api.interceptors.request.use(async (config) => {
+    const token = Cookies.get('token')
 
-    if (config && config.headers) {
-        config.headers.Authorization = `Bearer ${
-            IS_DEV ? process.env.NEXT_PUBLIC_API_TOKEN : token
-        }`
+    if (config.headers) {
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`
+        }
     }
 
     return config
@@ -33,7 +32,6 @@ $api.interceptors.response.use(
 
             Cookies.remove('token')
         }
-
         return Promise.reject(error)
     }
 )

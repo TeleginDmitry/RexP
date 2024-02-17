@@ -29,14 +29,16 @@ const BasketPageComponent = () => {
 
     return (
         <MainContainer className={s.wrapper}>
-            {!!carts.length || !!countActiveFilters ? (
-                <>
-                    <FilterBlock />
-                    <ProductsBlock />
-                </>
-            ) : (
-                <NotFound />
-            )}
+            <div className='pb-[65px]'>
+                {!!carts.length || !!countActiveFilters ? (
+                    <>
+                        <FilterBlock />
+                        <ProductsBlock />
+                    </>
+                ) : (
+                    <NotFound />
+                )}
+            </div>
         </MainContainer>
     )
 }

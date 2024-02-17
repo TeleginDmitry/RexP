@@ -17,7 +17,7 @@ export const HeaderTitle = ({ title, children }: Props) => {
     }
 
     return (
-        <div className='fixed top-0 left-0 w-full bg-white px-4 pt-2 pb-2 z-20 flex items-center justify-center'>
+        <div className='fixed top-0 left-0 w-full bg-white px-4 pt-2 pb-2 z-[10000] flex items-center justify-center'>
             <button
                 className='absolute top-1/2 left-4 -translate-y-1/2'
                 onClick={onClickLink}

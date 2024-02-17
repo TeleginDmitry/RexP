@@ -1,4 +1,5 @@
 /* eslint-disable consistent-return */
+
 import Cookies from 'js-cookie'
 
 import $api from '@/src/api/api'
@@ -12,7 +13,7 @@ interface Props {
 }
 
 export const login = async (valuesData: Props) => {
-    const token = localStorage.getItem('token')
+    const token = Cookies.get('token')
 
     if (token) {
         return
@@ -20,16 +21,14 @@ export const login = async (valuesData: Props) => {
 
     try {
         const result = await $api.post<Token>('/user/login', valuesData)
-        localStorage.setItem('token', result.data.token)
-
-        return result
+        Cookies.set('token', result.data.token)
     } catch (error) {
         /* empty */
     }
 }
 
 export const register = async (valuesData: Props) => {
-    const token = localStorage.getItem('token')
+    const token = Cookies.get('token')
 
     if (token) {
         return
@@ -37,9 +36,8 @@ export const register = async (valuesData: Props) => {
 
     try {
         const result = await $api.post('/user/registration', valuesData)
-        localStorage.setItem('token', result.data.token)
-
-        return result
+        Cookies.set('token', result.data.token)
+        window.location.reload()
     } catch (error) {
         /* empty */
     }

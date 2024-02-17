@@ -7,9 +7,10 @@ import s from './TabsBlock.module.scss'
 interface Props {
     onHandleChange: (value: number | string, name: keyof DeliveryCreate) => void
     activeTab: 'Курьером' | 'Пункт выдачи заказа'
+    deliveryTypeId: number
 }
 
-const TabsBlock = ({ onHandleChange, activeTab }: Props) => {
+const TabsBlock = ({ onHandleChange, activeTab, deliveryTypeId }: Props) => {
     const handleChange = (value: string) =>
         onHandleChange(value === DELIVERY_TYPES.PICK ? 1 : 2, 'deliveryTypeId')
 
@@ -21,9 +22,6 @@ const TabsBlock = ({ onHandleChange, activeTab }: Props) => {
                 selectedKey={activeTab}
                 tabsList={[DELIVERY_TYPES.PICK, DELIVERY_TYPES.COURIER]}
                 onSelectionChange={handleChange}
-                classNames={{
-                    tab: '!z-10'
-                }}
             />
         </div>
     )

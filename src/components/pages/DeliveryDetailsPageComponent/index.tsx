@@ -15,11 +15,12 @@ import MainContainer from '../../ui/MainContainer'
 import s from './DeliveryDetailsPageComponent.module.scss'
 
 const DeliveryDetailsPageComponent = () => {
-    const { deliveryType, ...initialAddres } = useAppSelector(
-        (state) => state.deliveryOne
-    )
+    const { deliveryType, id, createdAt, updatedAt, userId, ...initialAddres } =
+        useAppSelector((state) => state.deliveryOne)
+    const delivery = useAppSelector((state) => state.delivery.data)
     const [currentAddress, setCurrentAddress] = useState<DeliveryCreate>({
         ...initialAddres,
+        isMain: !delivery.length,
         deliveryTypeId: deliveryType.id
     })
 
@@ -34,12 +35,16 @@ const DeliveryDetailsPageComponent = () => {
     }
 
     const activeTab =
-        currentAddress.deliveryTypeId === 2 ? 'Курьером' : 'Пункт выдачи заказа'
+        currentAddress.deliveryTypeId === 1 ? 'Пункт выдачи заказа' : 'Курьером'
 
     return (
         <MainContainer className={s.wrapper}>
             <HeaderTitle title='Данные доставки' />
-            <TabsBlock onHandleChange={onHandleChange} activeTab={activeTab} />
+            <TabsBlock
+                deliveryTypeId={deliveryType.id}
+                onHandleChange={onHandleChange}
+                activeTab={activeTab}
+            />
             <InputsBlock
                 currentAddress={currentAddress}
                 onHandleChange={onHandleChange}

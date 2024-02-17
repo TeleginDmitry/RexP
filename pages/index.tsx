@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 
+import Cookies from 'js-cookie'
 import Head from 'next/head'
 
 import IndexPageComponent from '@/src/components/pages/IndexPageComponent'
@@ -12,7 +13,6 @@ import { getColorsThunk } from '@/src/store/slices/getColors/getColors/getColors
 import { getFavoritesThunk } from '@/src/store/slices/getFavorite/getFavorite/getFavorite'
 import { getProductsThunk } from '@/src/store/slices/getProducts/getProducts/getProducts'
 import { getSizesThunk } from '@/src/store/slices/getSizes/getSizes/getSizes'
-import { getOrdersThunk } from '@/src/store/slices/orders/thunks'
 import { wrapper } from '@/src/store/store'
 import { login, register } from '@/src/utils/api/getToken'
 
@@ -33,8 +33,7 @@ const IndexPage = () => {
             dispatch(getCartsThunk({})),
             dispatch(getColorsThunk()),
             dispatch(getSizesThunk()),
-            dispatch(getBrandsThunk()),
-            dispatch(getOrdersThunk({}))
+            dispatch(getBrandsThunk())
         ])
     }, [])
 
@@ -48,5 +47,16 @@ const IndexPage = () => {
         </>
     )
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(
+    ({ dispatch, getState }) =>
+        async () => {
+            await Promise.all([])
+
+            return {
+                props: {}
+            }
+        }
+)
 
 export default IndexPage

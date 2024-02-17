@@ -145,8 +145,9 @@ const ReviewPage = () => {
                                             </p>
                                             <span className='font-normal'>
                                                 {delivery.city},{' '}
-                                                {delivery.street},{' '}
-                                                {delivery.house}
+                                                {delivery.street}
+                                                {delivery.deliveryType.id ===
+                                                    2 && `, ${delivery.house}`}
                                             </span>
                                         </div>
 

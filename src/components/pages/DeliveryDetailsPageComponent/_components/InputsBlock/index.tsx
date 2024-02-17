@@ -5,8 +5,6 @@ import PhoneInput from 'react-phone-input-2'
 
 import 'react-phone-input-2/lib/material.css'
 
-import { useRouter } from 'next/router'
-
 import {
     useAppDispatch,
     useAppSelector
@@ -26,21 +24,12 @@ interface Props {
 const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
     const dispatch = useAppDispatch()
 
-    const router = useRouter()
-
     const cities = useAppSelector((state) => state.city)
     const deliveryPoints = useAppSelector((state) => state.deliveryPoints)
 
-    const idParam = router.query.id
-
-    const defaultPvzAdress = idParam
-        ? deliveryPoints.find(({ city }) =>
-              city
-                  .toLowerCase()
-                  .includes(currentAddress.city.toLowerCase() ?? '')
-          )
-        : undefined
-
+    const defaultPvzAdress = deliveryPoints.find(({ address_full }) =>
+        address_full.includes(currentAddress.deliveryPointAddress)
+    )
     return (
         <div className={s.wrapper}>
             <div className={s.title}>Адрес</div>

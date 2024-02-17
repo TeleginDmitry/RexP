@@ -9,11 +9,16 @@ import { useRouter } from 'next/router'
 
 import PageLayout from '@/src/components/layout/PageLayout'
 import AppContextProvider from '@/src/context/AppContextProvider'
+import { getBrandsThunk } from '@/src/store/slices/getBrands/getBrands/getBrands'
+import { getCartsThunk } from '@/src/store/slices/getCarts/getCarts/getCarts'
+import { getColorsThunk } from '@/src/store/slices/getColors/getColors/getColors'
+import { getSizesThunk } from '@/src/store/slices/getSizes/getSizes/getSizes'
 import { wrapper } from '@/src/store/store'
 
 import '@/styles/color/_color.scss'
 import '@/styles/index.scss'
 import '@/styles/nullable.css'
+import { getOrdersThunk } from '@/src/store/slices/orders/thunks'
 
 const RexPApp = ({ Component, ...rest }: AppProps) => {
     const { store, props } = wrapper.useWrappedStore(rest)
@@ -45,9 +50,19 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
 }
 
 RexPApp.getInitialProps = wrapper.getInitialAppProps(
-    () =>
+    ({ dispatch }) =>
         async (context: AppContext): Promise<AppInitialProps> => {
             const ctx = await App.getInitialProps(context)
+
+            if (typeof window === 'undefined') {
+                await Promise.all([
+                    dispatch(getCartsThunk({})),
+                    dispatch(getColorsThunk()),
+                    dispatch(getSizesThunk()),
+                    dispatch(getBrandsThunk()),
+                    dispatch(getOrdersThunk({}))
+                ])
+            }
 
             return { ...ctx }
         }

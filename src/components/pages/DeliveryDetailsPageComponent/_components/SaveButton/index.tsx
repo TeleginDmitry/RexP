@@ -40,8 +40,25 @@ const SaveButton = ({ currentAddress }: Props) => {
         }
     }
 
+    const isDisabled =
+        !currentAddress.patronymic ||
+        !currentAddress.number ||
+        !currentAddress.lastName ||
+        !currentAddress.firstName ||
+        !currentAddress.deliveryTypeId ||
+        !currentAddress.city ||
+        currentAddress.deliveryTypeId === 1
+            ? !currentAddress.deliveryPointAddress
+            : !currentAddress.flat ||
+              !currentAddress.house ||
+              !currentAddress.street
+
     return (
-        <Button className={s.button} onClick={onHandleClick}>
+        <Button
+            isDisabled={isDisabled}
+            className={s.button}
+            onClick={onHandleClick}
+        >
             Сохранить данные доставки
         </Button>
     )

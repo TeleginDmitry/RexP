@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* eslint-disable @typescript-eslint/no-shadow */
-import Image from 'next/image'
-import Link from 'next/link'
 
 import { useAppSelector } from '@/src/hooks/redux-hooks/redux-hooks'
 
@@ -77,9 +75,15 @@ const OrderPageComponent = () => {
                         </div>
                     </div>
                     <div className='flex flex-col gap-2'>
-                        <p className='font-semibold'>Доставка в пункт выдачи</p>
+                        <p className='font-semibold'>
+                            {delivery.deliveryType.id === 1
+                                ? 'Доставка в пункт выдачи'
+                                : 'Доставка на адрес'}
+                        </p>
                         <span className='font-normal'>
-                            {delivery.city}, {delivery.street}, {delivery.house}
+                            {delivery.city}, {delivery.street}
+                            {delivery.deliveryType.id === 2 &&
+                                `, ${delivery.house}`}
                         </span>
                     </div>
                     <p>

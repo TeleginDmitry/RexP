@@ -105,8 +105,11 @@ const DeliveryBlock = () => {
                                     )}
                                 </div>
                                 <div className={s.title}>Адрес доставки</div>
+
                                 <div className={s.addressValue}>
-                                    {city}, {street}, {house}
+                                    {deliveryType.id === 1 && 'Пункт СДЭК, '}
+                                    {city}, {street}
+                                    {deliveryType.id === 2 && `, ${house}`}
                                 </div>
                             </div>
                             {!isMain && (
