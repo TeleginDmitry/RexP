@@ -1,17 +1,23 @@
 /* eslint-disable react/jsx-no-bind */
+import { Pagination, Autoplay } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
+
 import {
     useAppDispatch,
     useAppSelector
 } from '@/src/hooks/redux-hooks/redux-hooks'
-import { Pagination, Autoplay } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
+
 import 'swiper/css/bundle'
 import 'swiper/css/pagination'
-import s from './styles.module.scss'
 import { StoryModal } from './Modal/StoryModal'
+
 import { useRef, useState } from 'react'
+
 import Image from 'next/image'
+
 import { StoryBlock } from './storyBlock'
+
+import s from './styles.module.scss'
 
 const whoRex = '/images/stories/who_rex.svg'
 const rexFind = '/images/stories/rex_find.svg'
@@ -170,15 +176,12 @@ export const StoriesBlock = () => {
         }
     }
     const nextStory = () => {
-        // @ts-ignore
         if (
-            selKeyRef &&
+            selKeyRef.current &&
             selKeyRef.current >= 0 &&
             selKeyRef.current < stories.length - 1
         ) {
-            // @ts-ignore
             setActiveStory(stories[selKeyRef.current + 1])
-            // @ts-ignore
             setSelectedStoryKey(selKeyRef.current + 1)
             return true
         }
