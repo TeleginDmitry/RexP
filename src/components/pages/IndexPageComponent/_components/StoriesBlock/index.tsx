@@ -8,9 +8,10 @@ import {Swiper, SwiperSlide} from 'swiper/react'
 import 'swiper/css/bundle'
 import 'swiper/css/pagination'
 import s from "./styles.module.scss";
-import {StoryModal} from "@/src/components/pages/IndexPageComponent/_components/StoriesBlock/Modal/StoryModal";
+import {StoryModal} from "./Modal/StoryModal";
 import {useRef, useState} from "react";
 import Image from "next/image";
+import {StoryBlock} from "./storyBlock";
 
 
 const whoRex = "/images/stories/who_rex.svg"
@@ -191,17 +192,7 @@ export const StoriesBlock = () => {
     >
       {stories.map((item, key) => (
         <SwiperSlide className={s.swpsl} onClick={() => openModal(key)} key={item.id}>
-          <div style={{backgroundColor: item.backgroundColor}} className={s.wrapper}>
-            <span style={{color: item.textColor}} className={s["wrapper-text"]}>{item.text}</span>
-            <Image
-              style={item.image.style}
-              src={item.image.url}
-              className={s["story-block-img"]}
-              alt='rexIcon'
-              width={100}
-              height={100}
-            />
-          </div>
+          <StoryBlock item={item}/>
         </SwiperSlide>
       ))}
       <StoryModal nextStory={nextStory} prevStory={prevStory} activeStory={activeStory} isOpen={modalOpen}
