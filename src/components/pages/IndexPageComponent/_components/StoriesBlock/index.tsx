@@ -14,12 +14,12 @@ import Image from "next/image";
 import {StoryBlock} from "./storyBlock";
 
 
-const whoRex = "/images/stories/who_rex.svg"
-const rexFind = "/images/stories/rex_find.svg"
-const faq = "/images/stories/faq.svg"
-const delivery = "/images/stories/delivery.svg"
-const garant = "/images/stories/garant.svg"
-const sizes = "/images/stories/sizes.svg"
+const whoRex = "/images/stories/who_rex.png"
+const rexFind = "/images/stories/rex_find.png"
+const faq = "/images/stories/faq.png"
+const delivery = "/images/stories/delivery.png"
+const garant = "/images/stories/garant.png"
+const sizes = "/images/stories/sizes.png"
 
 export const StoriesBlock = () => {
   const dispatch = useAppDispatch()
