@@ -19,7 +19,7 @@ export const WhoRex = ({setSwiper, Story}) =>
     >
       <SwiperSlide style={{color: Story.story.textColor}} className={s["modal-body"]}>
         <Image
-          style={{bottom:"30%",width:"40%"}}
+          style={{right:0,bottom:"2%",width:"100%"}}
           src={"/images/stories/story-back/whoRex/1.png"}
           className={s["story-back-image"]}
           alt='rexIcon'
@@ -27,7 +27,7 @@ export const WhoRex = ({setSwiper, Story}) =>
           height={100}
         />
         <Image
-          style={{width:"100%",bottom:0,right:0}}
+          style={{bottom:"25%",width:"50%"}}
           src={"/images/stories/story-back/whoRex/2.png"}
           className={s["story-back-image"]}
           alt='rexIcon'

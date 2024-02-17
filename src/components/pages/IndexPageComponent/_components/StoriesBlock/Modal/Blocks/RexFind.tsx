@@ -52,7 +52,7 @@ export const RexFind = ({setSwiper, Story}) =>
       </SwiperSlide>
       <SwiperSlide style={{color: Story.story.textColor}} className={s["modal-body"]}>
         <Image
-          style={{bottom:"12%",width:"95%"}}
+          style={{bottom:"7%",width:"95%"}}
           src={"/images/stories/story-back/rexFind/2.png"}
           className={s["story-back-image"]}
           alt='rexIcon'
