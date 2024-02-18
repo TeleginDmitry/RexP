@@ -222,7 +222,7 @@ const GocheckoutPage = () => {
                             {neededCarts.map(({ id, product, productSize }) => (
                                 <ProductLess
                                     key={id}
-                                    id={id}
+                                    id={product.id}
                                     isOuter={product.isOuter}
                                     images={product.images}
                                     name={product.name}

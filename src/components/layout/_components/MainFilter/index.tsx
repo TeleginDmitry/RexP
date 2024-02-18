@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-bind */
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import clsx from 'clsx'
 
@@ -38,6 +38,8 @@ const MainFilter = ({
     isVisibleCategories = false,
     isOnlyCategories = false
 }: Props) => {
+    const previousFilters = useRef(filters)
+
     const brands = useAppSelector((state) => state.brands.data)
     const sizes = useAppSelector((state) => state.sizes.data)
     const categories = useAppSelector((state) => state.category.data)
@@ -47,61 +49,86 @@ const MainFilter = ({
     )
 
     const onHandleClick = () => {
+        const previousFiltersCurrent = previousFilters.current
+
         if (isOnlyCategories) {
             toggleOpen()
+
+            const value = {
+                categoryId: previousFiltersCurrent.categoryId,
+                subCategories: previousFiltersCurrent.subCategories
+            }
+            applyFilters({
+                ...filters,
+                ...value
+            })
+            changeFilters({
+                ...filters,
+                ...value
+            })
             return
         }
 
         if (selectedFilter) {
-            setSelectedFilter('')
-
             if (selectedFilter === 'categories') {
+                const value = {
+                    categoryId: previousFiltersCurrent.categoryId,
+                    subCategories: previousFiltersCurrent.subCategories
+                }
                 applyFilters({
                     ...filters,
-                    categoryId: 0,
-                    subCategories: []
+                    ...value
                 })
                 changeFilters({
                     ...filters,
-                    categoryId: 0,
-                    subCategories: []
+                    ...value
                 })
             }
 
             if (selectedFilter === 'sort') {
+                const value = {
+                    orderBy: previousFiltersCurrent.orderBy,
+                    sortBy: previousFiltersCurrent.sortBy
+                }
                 applyFilters({
                     ...filters,
-                    orderBy: 'id',
-                    sortBy: 'DESC'
+                    ...value
                 })
                 changeFilters({
                     ...filters,
-                    orderBy: 'id',
-                    sortBy: 'DESC'
+                    ...value
                 })
             }
 
             if (selectedFilter === 'size') {
+                const value = {
+                    sizes: previousFiltersCurrent.sizes
+                }
                 applyFilters({
                     ...filters,
-                    sizes: []
+                    ...value
                 })
                 changeFilters({
                     ...filters,
-                    sizes: []
+                    ...value
                 })
             }
 
             if (selectedFilter === 'brand') {
+                const value = {
+                    brands: previousFiltersCurrent.brands
+                }
                 applyFilters({
                     ...filters,
-                    brands: []
+                    ...value
                 })
                 changeFilters({
                     ...filters,
-                    brands: []
+                    ...value
                 })
             }
+
+            setSelectedFilter('')
 
             return
         }
@@ -109,6 +136,7 @@ const MainFilter = ({
     }
 
     function changeSelectedFilter(filter: string) {
+        previousFilters.current = filters
         setSelectedFilter(filter)
     }
 
@@ -347,36 +375,39 @@ const MainFilter = ({
                             </div>
                         </RootButton>
                     )}
+                    {!!filters.categoryId && (
+                        <RootButton
+                            className={s.item}
+                            onClick={() => changeSelectedFilter('size')}
+                        >
+                            <div className={s.name}>Размер</div>
+                            <div className={s.sort}>
+                                {sizesSliced.length
+                                    ? `${sizesSliced.join(', ')}${
+                                          sizesSliced.length <
+                                          neededSizes.length
+                                              ? '...'
+                                              : ''
+                                      }`
+                                    : 'Все'}
+                                <svg
+                                    xmlns='http://www.w3.org/2000/svg'
+                                    width='6'
+                                    height='10'
+                                    viewBox='0 0 6 10'
+                                    fill='none'
+                                >
+                                    <path
+                                        d='M0.5 0.5L5 5L0.5 9.5'
+                                        stroke='#8E8E8E'
+                                        stroke-linecap='round'
+                                        stroke-linejoin='round'
+                                    />
+                                </svg>
+                            </div>
+                        </RootButton>
+                    )}
 
-                    <RootButton
-                        className={s.item}
-                        onClick={() => changeSelectedFilter('size')}
-                    >
-                        <div className={s.name}>Размер</div>
-                        <div className={s.sort}>
-                            {sizesSliced.length
-                                ? `${sizesSliced.join(', ')}${
-                                      sizesSliced.length < neededSizes.length
-                                          ? '...'
-                                          : ''
-                                  }`
-                                : 'Все'}
-                            <svg
-                                xmlns='http://www.w3.org/2000/svg'
-                                width='6'
-                                height='10'
-                                viewBox='0 0 6 10'
-                                fill='none'
-                            >
-                                <path
-                                    d='M0.5 0.5L5 5L0.5 9.5'
-                                    stroke='#8E8E8E'
-                                    stroke-linecap='round'
-                                    stroke-linejoin='round'
-                                />
-                            </svg>
-                        </div>
-                    </RootButton>
                     <RootButton
                         className={s.item}
                         onClick={() => changeSelectedFilter('brand')}
@@ -430,7 +461,8 @@ const MainFilter = ({
                                 filters={filters}
                             />
                         )}
-                        {selectedFilter === 'sort' && (
+
+                        {selectedFilter === 'sort' && !!filters.categoryId && (
                             <SortField
                                 changeFilters={changeFilters}
                                 filters={filters}

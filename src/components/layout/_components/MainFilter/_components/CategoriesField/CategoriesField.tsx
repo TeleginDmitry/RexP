@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react/jsx-no-bind */
-import React, { useState } from 'react'
+import React from 'react'
 
 import { CheckboxGroup } from '@nextui-org/react'
 
@@ -23,17 +23,10 @@ const CategoriesField = ({ changeFilters, filters }: Props) => {
     const dispatch = useAppDispatch()
     const categories = useAppSelector((state) => state.category.data)
 
-    const [isActiveCategory, setIsActiveCategory] = useState<number | null>(
-        null
-    )
-
     const handleCheckboxChange = (category: number) => {
-        dispatch(getSizesThunk(category))
-        if (category === 0) {
-            changeFilters({ categoryId: undefined })
+        if (category !== 0) {
+            dispatch(getSizesThunk(category))
         }
-
-        setIsActiveCategory(category)
 
         changeFilters({ categoryId: category })
     }
@@ -46,7 +39,10 @@ const CategoriesField = ({ changeFilters, filters }: Props) => {
         <div className={s.wrapper}>
             <RootCheckbox
                 isSelected={filters.categoryId === 0}
-                onChange={() => handleCheckboxChange(0)}
+                onChange={() => {
+                    changeFilters({ sizes: [] })
+                    handleCheckboxChange(0)
+                }}
             >
                 <div className={s.categoryWrapper}>
                     <div className={s.name}>Все категории</div>
@@ -74,7 +70,7 @@ const CategoriesField = ({ changeFilters, filters }: Props) => {
                             <div className={s.name}>{name}</div>
                         </div>
                     </RootCheckbox>
-                    {isActiveCategory === id && !!subCategories.length && (
+                    {id === filters.categoryId && !!subCategories.length && (
                         <CheckboxGroup
                             value={filters.subCategories}
                             onValueChange={onValueChangeGroup}

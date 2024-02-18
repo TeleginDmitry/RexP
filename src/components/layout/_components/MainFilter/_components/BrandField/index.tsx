@@ -18,25 +18,17 @@ interface Props {
 const BrandField = ({ changeFilters, filters }: Props) => {
     const brands = useAppSelector((state) => state.brands.data)
 
-    const [mainChecked, setMainChecked] = useState(filters.brands.length === 0)
     const [searchValue, setSearchValue] = useState('')
     const [debouncedSearchValue] = useDebouncedValue(searchValue, 240)
 
     function onValueChangeGroup(values: string[]) {
         changeFilters({ brands: values })
-
-        if (values.length === 0) {
-            setMainChecked(true)
-        } else {
-            setMainChecked(false)
-        }
     }
 
     function onValueChangeMain(isSelected: boolean) {
         if (isSelected) {
-            setMainChecked(true)
+            changeFilters({ brands: [] })
         }
-        changeFilters({ brands: [] })
     }
 
     return (
@@ -68,7 +60,7 @@ const BrandField = ({ changeFilters, filters }: Props) => {
 
             <RootCheckbox
                 onValueChange={onValueChangeMain}
-                isSelected={mainChecked}
+                isSelected={filters.brands.length === 0}
             >
                 <div className={s.name}>Все бренды</div>
             </RootCheckbox>

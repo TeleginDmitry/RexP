@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-no-bind */
-import { useState } from 'react'
 
 import { CheckboxGroup } from '@nextui-org/react'
 
@@ -17,30 +16,21 @@ interface Props {
 const SizeField = ({ changeFilters, filters }: Props) => {
     const sizes = useAppSelector((state) => state.sizes.data)
 
-    const [mainChecked, setMainChecked] = useState(filters.sizes.length === 0)
-
     function onValueChangeGroup(values: string[]) {
         changeFilters({ sizes: values })
-
-        if (values.length === 0) {
-            setMainChecked(true)
-        } else {
-            setMainChecked(false)
-        }
     }
 
     function onValueChangeMain(isSelected: boolean) {
         if (isSelected) {
-            setMainChecked(true)
+            changeFilters({ sizes: [] })
         }
-        changeFilters({ sizes: [] })
     }
 
     return (
         <div className={s.wrapper}>
             <RootCheckbox
                 onValueChange={onValueChangeMain}
-                isSelected={mainChecked}
+                isSelected={filters.sizes.length === 0}
             >
                 <div className={s.name}>Все размеры</div>
             </RootCheckbox>

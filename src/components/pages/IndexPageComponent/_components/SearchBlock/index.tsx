@@ -59,8 +59,7 @@ export const SearhBlock = () => {
         filters.brands.length === 0,
         filters.sizes.length === 0,
         filters.minPrice === 99 && filters.maxPrice === 3599999,
-        filters.orderBy === 'id' && filters.sortBy === 'DESC',
-        filters.categoryId === 0 && filters.subCategories.length === 0
+        filters.orderBy === 'id' && filters.sortBy === 'DESC'
     ].reduce((acc, condition) => {
         if (!condition) {
             acc++

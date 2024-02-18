@@ -11,7 +11,9 @@ import {
 } from '@/src/hooks/redux-hooks/redux-hooks'
 import { useFilter } from '@/src/hooks/useFilter'
 import { addFilters } from '@/src/store/slices/filter'
+import type { FilterState } from '@/src/store/slices/filter/types'
 import { getProductsThunk } from '@/src/store/slices/getProducts/getProducts/getProducts'
+import { getSizesThunk } from '@/src/store/slices/getSizes/getSizes/getSizes'
 import { resetPagination } from '@/src/store/slices/pagination'
 import type { FilterType } from '@/src/types/Filter/filter.types'
 
@@ -33,15 +35,36 @@ const TabsBlock = () => {
     const onHandleChange = (categoryId: string) => {
         const categoryIdNum = +categoryId
 
-        if (+categoryIdNum === filters.categoryId) {
+        if (categoryIdNum === filters.categoryId) {
             return
         }
 
-        changeFilters({ categoryId: categoryIdNum })
+        const foundCategory = categories.find(({ id }) => id === categoryIdNum)
+
+        if (categoryIdNum !== 0) {
+            dispatch(getSizesThunk(categoryIdNum))
+        }
+
+        const needValues: Partial<FilterState> = {
+            categoryId: categoryIdNum,
+            subCategories: foundCategory
+                ? foundCategory.subCategories.map(({ id }) => `${id}`)
+                : []
+        }
+
+        if (categoryIdNum === 0) {
+            needValues.sizes = []
+        }
+
+        changeFilters(needValues)
 
         dispatch(
             getProductsThunk({
-                filters: { ...filters, categoryId: categoryIdNum }
+                filters: {
+                    ...filters,
+
+                    ...needValues
+                }
             })
         )
     }

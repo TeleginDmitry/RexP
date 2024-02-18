@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable consistent-return */
 
 import Cookies from 'js-cookie'
@@ -21,9 +22,11 @@ export const login = async (valuesData: Props) => {
 
     try {
         const result = await $api.post<Token>('/user/login', valuesData)
-        Cookies.set('token', result.data.token)
+        Cookies.set('token', result.data.token, { expires: 7 })
+
+        return result
     } catch (error) {
-        /* empty */
+        Cookies.remove('token')
     }
 }
 
@@ -36,9 +39,9 @@ export const register = async (valuesData: Props) => {
 
     try {
         const result = await $api.post('/user/registration', valuesData)
-        Cookies.set('token', result.data.token)
-        window.location.reload()
+        Cookies.set('token', result.data.token, { expires: 7 })
+        return result
     } catch (error) {
-        /* empty */
+        Cookies.remove('token')
     }
 }
