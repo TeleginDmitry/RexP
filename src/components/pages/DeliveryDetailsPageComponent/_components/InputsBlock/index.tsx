@@ -15,6 +15,8 @@ import type { DeliveryCreate } from '@/src/utils/api/DeliveryCartMethods'
 
 import s from './InputsBlock.module.scss'
 
+import { useRouter } from 'next/router'
+
 interface Props {
     currentAddress: DeliveryCreate
     onHandleChange: (value: string, name: keyof DeliveryCreate) => void
@@ -23,6 +25,10 @@ interface Props {
 
 const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
     const dispatch = useAppDispatch()
+
+    const router = useRouter()
+
+    const id = router.query.id as string
 
     const cities = useAppSelector((state) => state.city)
     const deliveryPoints = useAppSelector((state) => state.deliveryPoints)
@@ -47,7 +53,7 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
                         dispatch(getCityThunk(value))
                     }}
                     defaultItems={cities}
-                    defaultSelectedKey={currentAddress.city || undefined}
+                    defaultSelectedKey={id ? currentAddress.city : undefined}
                 >
                     {({ city, code }) => (
                         <AutocompleteItem
@@ -73,7 +79,9 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
                             listbox: s.listbox
                         }}
                         defaultItems={deliveryPoints}
-                        defaultSelectedKey={defaultPvzAdress?.address}
+                        defaultSelectedKey={
+                            id ? defaultPvzAdress?.address : undefined
+                        }
                     >
                         {({ address, address_full }) => (
                             <AutocompleteItem
@@ -96,7 +104,7 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
                         <Input
                             type='text'
                             label='Улица'
-                            value={currentAddress.street ?? ''}
+                            value={id ? currentAddress.street : ''}
                             className={s.inputUi}
                             classNames={{
                                 inputWrapper: 'shadow-none'
@@ -120,7 +128,11 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
                             <Input
                                 type='text'
                                 label='Квартира'
-                                value={currentAddress.flat ?? ''}
+                                value={
+                                    id && currentAddress.flat
+                                        ? currentAddress.flat
+                                        : ''
+                                }
                                 className={s.inputUi}
                                 classNames={{
                                     inputWrapper: 'shadow-none'
@@ -138,7 +150,7 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
                 <Input
                     type='text'
                     label='Фамилия'
-                    value={currentAddress.lastName ?? ''}
+                    value={id ? currentAddress.lastName : ''}
                     className={s.inputUi}
                     classNames={{
                         inputWrapper: 'shadow-none'
@@ -148,7 +160,7 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
                 <Input
                     type='text'
                     label='Имя'
-                    value={currentAddress.firstName ?? ''}
+                    value={id ? currentAddress.firstName : ''}
                     className={s.inputUi}
                     classNames={{
                         inputWrapper: 'shadow-none'
@@ -160,7 +172,7 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
                 <Input
                     type='text'
                     label='Отчество'
-                    value={currentAddress.patronymic ?? ''}
+                    value={id ? currentAddress.patronymic : ''}
                     className={s.inputUi}
                     classNames={{
                         inputWrapper: 'shadow-none'
@@ -173,7 +185,7 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
                     country='ru'
                     placeholder='+7 (999) 999-99-99'
                     disableCountryGuess
-                    value={currentAddress.number ?? ''}
+                    value={id ? currentAddress.number : ''}
                     onChange={(e) => onHandleChange(e, 'number')}
                     inputClass={s.phoneInput__input}
                     containerClass={s.phoneInput__container}

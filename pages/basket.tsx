@@ -12,18 +12,12 @@ import { getDeliveryThunk } from '@/src/store/slices/getDelivery/getDelivery/get
 import { getFavoritesThunk } from '@/src/store/slices/getFavorite/getFavorite/getFavorite'
 import { getSizesThunk } from '@/src/store/slices/getSizes/getSizes/getSizes'
 import { getOrdersThunk } from '@/src/store/slices/orders/thunks'
-import { wrapper } from '@/src/store/store'
-import { login, register } from '@/src/utils/api/getToken'
 
 const BasketPage = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        const { initData } = window.Telegram.WebApp
-
         Promise.all([
-            login({ initData }),
-            register({ initData }),
             dispatch(getCartsThunk({})),
             dispatch(getCategoriesThunk()),
             dispatch(getDeliveryThunk()),

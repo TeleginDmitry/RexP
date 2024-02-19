@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 
 import PageLayout from '@/src/components/layout/PageLayout'
 import AppContextProvider from '@/src/context/AppContextProvider'
+import AuthProvider from '@/src/providers/Auth.provider'
 import { getBrandsThunk } from '@/src/store/slices/getBrands/getBrands/getBrands'
 import { getCartsThunk } from '@/src/store/slices/getCarts/getCarts/getCarts'
 import { getColorsThunk } from '@/src/store/slices/getColors/getColors/getColors'
@@ -41,10 +42,12 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
 
     return (
         <AppContextProvider store={store}>
-            <PageLayout>
-                <Component {...pageProps} />
-                {/* {process.env.NEXT_PUBLIC_BUILD_PROFILE !== "test" && <Analytics />} */}
-            </PageLayout>
+            <AuthProvider>
+                <PageLayout>
+                    <Component {...pageProps} />
+                    {/* {process.env.NEXT_PUBLIC_BUILD_PROFILE !== "test" && <Analytics />} */}
+                </PageLayout>
+            </AuthProvider>
         </AppContextProvider>
     )
 }

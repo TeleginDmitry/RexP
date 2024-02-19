@@ -23,7 +23,6 @@ const DeliveryDetailsPageComponent = () => {
         isMain: !delivery.length,
         deliveryTypeId: deliveryType.id
     })
-
     const onHandleChange = (
         value: number | string,
         name: keyof DeliveryCreate

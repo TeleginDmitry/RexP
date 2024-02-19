@@ -13,18 +13,12 @@ import { getColorsThunk } from '@/src/store/slices/getColors/getColors/getColors
 import { getFavoritesThunk } from '@/src/store/slices/getFavorite/getFavorite/getFavorite'
 import { getProductsThunk } from '@/src/store/slices/getProducts/getProducts/getProducts'
 import { getSizesThunk } from '@/src/store/slices/getSizes/getSizes/getSizes'
-import { wrapper } from '@/src/store/store'
-import { login, register } from '@/src/utils/api/getToken'
 
 const IndexPage = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        const { initData } = window.Telegram.WebApp
-
         Promise.all([
-            login({ initData }),
-            register({ initData }),
             dispatch(
                 getProductsThunk({ filters: { limit: LIMIT, page: PAGE } })
             ),

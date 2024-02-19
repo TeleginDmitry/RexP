@@ -12,13 +12,7 @@ import {
     useAppDispatch,
     useAppSelector
 } from '@/src/hooks/redux-hooks/redux-hooks'
-import { getBrandsThunk } from '@/src/store/slices/getBrands/getBrands/getBrands'
-import { getCartsThunk } from '@/src/store/slices/getCarts/getCarts/getCarts'
-import { getColorsThunk } from '@/src/store/slices/getColors/getColors/getColors'
-import { getSizesThunk } from '@/src/store/slices/getSizes/getSizes/getSizes'
 import { getOrdersThunk } from '@/src/store/slices/orders/thunks'
-import { wrapper } from '@/src/store/store'
-import { login, register } from '@/src/utils/api/getToken'
 
 const ReviewPage = () => {
     const orders = useAppSelector((state) => state.orders.data)
@@ -38,18 +32,7 @@ const ReviewPage = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        const { initData } = window.Telegram.WebApp
-
-        Promise.all([
-            login({ initData }),
-            register({ initData }),
-            dispatch(getOrdersThunk({ isReviwed: false })),
-            dispatch(getCartsThunk({})),
-            dispatch(getColorsThunk()),
-            dispatch(getSizesThunk()),
-            dispatch(getBrandsThunk()),
-            dispatch(getOrdersThunk({}))
-        ])
+        Promise.all([dispatch(getOrdersThunk({ isReviwed: false }))])
     }, [])
 
     return (

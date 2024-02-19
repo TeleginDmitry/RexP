@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable consistent-return */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { Button } from '@nextui-org/react'
 import clsx from 'clsx'
@@ -13,9 +13,7 @@ import { useRouter } from 'next/router'
 import RootIcon from '@/src/components/ui/icons/RootIcon'
 import MainContainer from '@/src/components/ui/MainContainer'
 import RootButton from '@/src/components/ui/RootButton'
-import { wrapper } from '@/src/store/store'
 import { getProductName } from '@/src/utils/api/getProductName'
-import { login, register } from '@/src/utils/api/getToken'
 
 const SearchPage = () => {
     const router = useRouter()
@@ -77,12 +75,6 @@ const SearchPage = () => {
 
         onSubmit()
     }
-
-    useEffect(() => {
-        const { initData } = window.Telegram.WebApp
-
-        Promise.all([login({ initData }), register({ initData })])
-    }, [])
 
     return (
         <>

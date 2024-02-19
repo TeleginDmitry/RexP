@@ -11,37 +11,27 @@ interface Token {
 
 interface Props {
     initData: string
+    isRequired?: boolean
 }
 
-export const login = async (valuesData: Props) => {
+export const login = async ({ initData, isRequired = false }: Props) => {
     const token = Cookies.get('token')
 
-    if (token) {
+    if (token && !isRequired) {
         return
     }
 
-    try {
-        const result = await $api.post<Token>('/user/login', valuesData)
-        Cookies.set('token', result.data.token, { expires: 7 })
-
-        return result
-    } catch (error) {
-        Cookies.remove('token')
-    }
+    const result = await $api.post<Token>('/user/login', { initData })
+    Cookies.set('token', result.data.token, { expires: 7 })
 }
 
-export const register = async (valuesData: Props) => {
+export const register = async ({ initData, isRequired = false }: Props) => {
     const token = Cookies.get('token')
 
-    if (token) {
+    if (token && !isRequired) {
         return
     }
 
-    try {
-        const result = await $api.post('/user/registration', valuesData)
-        Cookies.set('token', result.data.token, { expires: 7 })
-        return result
-    } catch (error) {
-        Cookies.remove('token')
-    }
+    const result = await $api.post('/user/registration', { initData })
+    Cookies.set('token', result.data.token, { expires: 7 })
 }

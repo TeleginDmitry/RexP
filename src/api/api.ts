@@ -33,19 +33,13 @@ $api.interceptors.response.use(
             error.config._isRetry = true
 
             const { initData } = window.Telegram.WebApp
-
             try {
-                const response = await Promise.all([
-                    login({ initData }),
-                    register({ initData })
+                await Promise.allSettled([
+                    login({ initData, isRequired: true }),
+                    register({ initData, isRequired: true })
                 ])
 
-                if (
-                    response[0]?.status === 200 ||
-                    response[1]?.status === 200
-                ) {
-                    return await $api.request(error.config)
-                }
+                return await $api.request(error.config)
             } catch (error) {
                 if (isAxiosError(error) && error.status === 403) {
                     Cookies.remove('token')

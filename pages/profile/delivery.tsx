@@ -10,18 +10,12 @@ import { getColorsThunk } from '@/src/store/slices/getColors/getColors/getColors
 import { getSizesThunk } from '@/src/store/slices/getSizes/getSizes/getSizes'
 import { getOrdersThunk } from '@/src/store/slices/orders/thunks'
 import { getStatusThunk } from '@/src/store/slices/status/getStatus/getStatus'
-import { wrapper } from '@/src/store/store'
-import { login, register } from '@/src/utils/api/getToken'
 
 const DeliveryPage = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        const { initData } = window.Telegram.WebApp
-
         Promise.all([
-            login({ initData }),
-            register({ initData }),
             dispatch(getOrdersThunk({})),
             dispatch(getStatusThunk()),
             dispatch(getCartsThunk({})),

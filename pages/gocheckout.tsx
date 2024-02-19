@@ -20,9 +20,7 @@ import {
 } from '@/src/hooks/redux-hooks/redux-hooks'
 import { getCartsThunk } from '@/src/store/slices/getCarts/getCarts/getCarts'
 import { getDeliveryThunk } from '@/src/store/slices/getDelivery/getDelivery/getDelivery'
-import { wrapper } from '@/src/store/store'
 import { createOrder } from '@/src/utils/api/createOrder'
-import { login, register } from '@/src/utils/api/getToken'
 
 const GocheckoutPage = () => {
     const carts = useAppSelector((state) => state.carts.data)
@@ -53,14 +51,7 @@ const GocheckoutPage = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        const { initData } = window.Telegram.WebApp
-
-        Promise.all([
-            login({ initData }),
-            register({ initData }),
-            dispatch(getCartsThunk({})),
-            dispatch(getDeliveryThunk())
-        ])
+        Promise.all([dispatch(getCartsThunk({})), dispatch(getDeliveryThunk())])
     }, [])
 
     if (!selectedCartsInfo) {
