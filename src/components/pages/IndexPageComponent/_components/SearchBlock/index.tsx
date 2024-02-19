@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/jsx-no-bind */
-import { useRef } from 'react'
+import { RefObject, useEffect, useRef, useState } from 'react'
 
 import Image from 'next/image'
 
@@ -18,11 +18,17 @@ import type { FilterType } from '@/src/types/Filter/filter.types'
 import styles from './styles.module.scss'
 
 export const SearhBlock = () => {
+    const [oldPos, setOldPos] = useState<null | number>(null)
+    const [sticky, setSticky] = useState(false)
+    const searchRef = useRef<any | null | undefined>()
+
     const dispatch = useAppDispatch()
 
     const { isOpen, toggleOpen } = useFilter()
 
     const filters = useAppSelector((state) => state.filter)
+    const filtersRef = useRef<FilterType | null | undefined>()
+    filtersRef.current = filters
 
     const timeout = useRef<NodeJS.Timeout | null>(null)
 
@@ -68,43 +74,65 @@ export const SearhBlock = () => {
         return acc
     }, 0)
 
+    useEffect(() => {
+        if (searchRef.current) {
+            if (!oldPos) {
+                setOldPos(searchRef.current.offsetTop - 10)
+            }
+            const stickySearch = () => {
+                if (
+                    searchRef.current &&
+                    oldPos &&
+                    filtersRef.current &&
+                    window.scrollY > oldPos &&
+                    filtersRef.current.name
+                ) {
+                    setSticky(true)
+                } else setSticky(false)
+            }
+            window.onscroll = stickySearch
+        }
+    }, [searchRef])
+
     return (
-        <div className={styles.wrapper}>
-            <button>
-                <Image
-                    src='/images/icons/search.svg'
-                    width={21}
-                    height={21}
-                    alt='search icon'
+        <div ref={searchRef} className={`${sticky ? styles.sticky : ''}`}>
+            <div className={`${styles.wrapper}`}>
+                <button>
+                    <Image
+                        src='/images/icons/search.svg'
+                        width={21}
+                        height={21}
+                        alt='search icon'
+                    />
+                </button>
+                <input
+                    onChange={handleInput}
+                    type='text'
+                    placeholder='Хей, поищем что-нибудь?'
+                    className={styles.input}
                 />
-            </button>
-            <input
-                onChange={handleInput}
-                type='text'
-                placeholder='Хей, поищем что-нибудь?'
-                className={styles.input}
-            />
-            <button className='flex items-center' onClick={toggleOpen}>
-                <Image
-                    src='/images/icons/filters.svg'
-                    width={25}
-                    height={25}
-                    alt='filters icon'
-                />
-                {!!countActiveFilters && (
-                    <span className='w-5 h-5 flex justify-center items-center text-sm text-white rounded-full bg-black'>
-                        {countActiveFilters}
-                    </span>
+                <button className='flex items-center' onClick={toggleOpen}>
+                    <Image
+                        src='/images/icons/filters.svg'
+                        width={25}
+                        height={25}
+                        alt='filters icon'
+                    />
+                    {!!countActiveFilters && (
+                        <span className='w-5 h-5 flex justify-center items-center text-sm text-white rounded-full bg-black'>
+                            {countActiveFilters}
+                        </span>
+                    )}
+                </button>
+                {isOpen && (
+                    <MainFilter
+                        applyFilters={applyFilters}
+                        filters={filters}
+                        changeFilters={changeFilters}
+                        toggleOpen={toggleOpen}
+                    />
                 )}
-            </button>
-            {isOpen && (
-                <MainFilter
-                    applyFilters={applyFilters}
-                    filters={filters}
-                    changeFilters={changeFilters}
-                    toggleOpen={toggleOpen}
-                />
-            )}
+            </div>
         </div>
     )
 }
