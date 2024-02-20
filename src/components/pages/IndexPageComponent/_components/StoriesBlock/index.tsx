@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-bind */
-import { Pagination, Autoplay } from 'swiper/modules'
+import { Pagination, FreeMode, Autoplay } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import {
@@ -177,7 +177,7 @@ export const StoriesBlock = () => {
     }
     const nextStory = () => {
         if (
-            selKeyRef.current &&
+            selKeyRef.current !== undefined &&
             selKeyRef.current >= 0 &&
             selKeyRef.current < stories.length - 1
         ) {
@@ -188,9 +188,20 @@ export const StoriesBlock = () => {
         return false
     }
     return (
-        <Swiper spaceBetween={10} slidesPerView={3} className={s.slider}>
+        <Swiper
+            freeMode={{
+                enabled: true
+            }}
+            onTouchEnd={() => {}}
+            modules={[FreeMode]}
+            onTouchStart={() => {}}
+            spaceBetween={10}
+            slidesPerView={3}
+            className={s.slider}
+        >
             {stories.map((item, key) => (
                 <SwiperSlide
+                    onTouchEnd={() => {}}
                     className={s.swpsl}
                     onClick={() => openModal(key)}
                     key={item.id}
