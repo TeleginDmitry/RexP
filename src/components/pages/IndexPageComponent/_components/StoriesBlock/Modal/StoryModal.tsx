@@ -32,6 +32,7 @@ export const StoryModal = ({
     isOpen = false
 }) => {
     const [timer, setTimer] = useState(0)
+    const [interval, setIntervalTimer] = useState<null | NodeJS.Timer>(null)
     const listenerContextMenu = (event) => event.preventDefault()
     const [touch, setTouch] = useState(false)
     const [swiper, setSwiper] = useState<any>(null)
@@ -72,30 +73,35 @@ export const StoryModal = ({
             }
         }
     }
-    React.useEffect(() => {
-        const interval = setInterval(() => {
-            if (timerRef.current < 8) {
-                if (!touchRef.current) setTimer((v) => v + 0.1)
-            } else if (
-                activeStoryRef &&
-                activeStoryRef.current &&
-                activePageRef.current <
-                    activeStoryRef.current.story.pages.length - 1
-            ) {
-                setTimer(0)
-                slideTo(activePageRef.current + 1)
-                setActivePage((v) => v + 1)
-            } else if (nextStory()) {
-                setTimer(0)
-                slideTo(0)
-                setActivePage(0)
-            } else {
-                onBack()
-            }
-        }, 50)
 
-        return () => clearInterval(interval)
-    }, [])
+    useEffect(() => {
+        if (!isOpen && interval) {
+            clearInterval(interval)
+            setIntervalTimer(null)
+        } else if (isOpen && !interval) {
+            const intervalTimer = setInterval(() => {
+                if (timerRef.current < 8) {
+                    if (!touchRef.current) setTimer((v) => v + 0.1)
+                } else if (
+                    activeStoryRef &&
+                    activeStoryRef.current &&
+                    activePageRef.current <
+                        activeStoryRef.current.story.pages.length - 1
+                ) {
+                    setTimer(0)
+                    slideTo(activePageRef.current + 1)
+                    setActivePage((v) => v + 1)
+                } else if (nextStory()) {
+                    setTimer(0)
+                    slideTo(0)
+                    setActivePage(0)
+                } else {
+                    onBack()
+                }
+                setIntervalTimer(intervalTimer)
+            }, 50)
+        }
+    }, [isOpen])
     const onTouch = (e) => {
         const x = e.clientX
         if (e.target.localName === 'img') {

@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/jsx-no-bind */
-import { RefObject, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import Image from 'next/image'
 
@@ -21,7 +21,8 @@ export const SearhBlock = () => {
     const [oldPos, setOldPos] = useState<null | number>(null)
     const [sticky, setSticky] = useState(false)
     const searchRef = useRef<any | null | undefined>()
-
+    const oldPosRef = useRef<any | null | undefined>()
+    oldPosRef.current = oldPos
     const dispatch = useAppDispatch()
 
     const { isOpen, toggleOpen } = useFilter()
@@ -76,21 +77,20 @@ export const SearhBlock = () => {
 
     useEffect(() => {
         if (searchRef.current) {
-            if (!oldPos) {
+            if (!oldPosRef.current) {
                 setOldPos(searchRef.current.offsetTop - 10)
             }
-            const stickySearch = () => {
+            window.onscroll = () => {
                 if (
                     searchRef.current &&
-                    oldPos &&
+                    oldPosRef.current &&
                     filtersRef.current &&
-                    window.scrollY > oldPos &&
+                    window.scrollY > oldPosRef.current &&
                     filtersRef.current.name
                 ) {
                     setSticky(true)
                 } else setSticky(false)
             }
-            window.onscroll = stickySearch
         }
     }, [searchRef])
 
