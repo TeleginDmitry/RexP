@@ -8,9 +8,7 @@ export const StoryBlock = ({ item }) => {
     return (
         <div
             style={{
-                backgroundColor: item.backgroundColor,
-                opacity: photoReady ? 1 : 0,
-                transition: 'opacity .5s ease'
+                backgroundColor: item.backgroundColor
             }}
             className={s.wrapper}
         >
@@ -21,7 +19,11 @@ export const StoryBlock = ({ item }) => {
                 {item.text}
             </span>
             <Image
-                style={{ ...item.image.style }}
+                priority
+                style={{
+                    ...item.image.style,
+                    visibility: photoReady ? 'visible' : 'hidden'
+                }}
                 src={item.image.url}
                 onLoadingComplete={() => setPhotoReady(true)}
                 className={s['story-block-img']}
