@@ -27,6 +27,7 @@ const DeliveryDetailsPageComponent = () => {
         value: number | string,
         name: keyof DeliveryCreate
     ) => {
+        console.log(value)
         setCurrentAddress((state) => ({
             ...state,
             [name]: value

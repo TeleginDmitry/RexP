@@ -11,9 +11,9 @@ export default function AuthProvider({ children }) {
         const { initData } = window.Telegram.WebApp
 
         try {
-            await Promise.allSettled([
+            await Promise.all([
                 login({ initData }),
-                register({ initData })
+                register({ initData, isRequired: false })
             ])
         } catch (error) {
             /* empty */
