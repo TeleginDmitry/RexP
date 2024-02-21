@@ -1,11 +1,13 @@
 import { useAppSelector } from '@/src/hooks/redux-hooks/redux-hooks'
 
+import image from 'public/images/global/image3.png'
+
 import { FilterBlock } from './_components/FilterBlock/FilterBlock'
-import NotFound from './_components/NotFound/NotFound'
 
 import CatalogSpacer from '../../ui/CatalogSpacer'
 import MainContainer from '../../ui/MainContainer'
 import ProductCard from '../../ui/ProductCard'
+import SpecificBlock from '../../ui/SpecificBlock/SpecificBlock'
 
 import s from './FavouritesPageComponent.module.scss'
 
@@ -33,7 +35,11 @@ const FavouritesPageComponent = () => {
                     </CatalogSpacer>
                 </>
             ) : (
-                <NotFound />
+                <SpecificBlock
+                    imageUrl={image.src}
+                    text='Воспользуйся каталогом или поиском для выбора товаров'
+                    title='У тебя нет избранных товаров'
+                />
             )}
         </MainContainer>
     )

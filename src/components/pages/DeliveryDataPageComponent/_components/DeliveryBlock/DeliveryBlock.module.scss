@@ -59,7 +59,7 @@
     }
 }
 .button {
-    border-radius: 10px;
+    border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -73,4 +73,5 @@
     letter-spacing: -0.4px;
     color: var(--main-color-white);
     background: var(--main-color-black);
+    border: 2px solid black;
 }
