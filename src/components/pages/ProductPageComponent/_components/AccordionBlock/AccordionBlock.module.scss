@@ -38,3 +38,14 @@
         }
     }
 }
+.indicator {
+    width: 20px;
+    transition: all 0.2s ease;
+    height: 20px;
+}
+.indicator-open {
+    transform: rotateZ(270deg) !important;
+}
+.indicator-close {
+    transform: rotateZ(180deg) !important;
+}
