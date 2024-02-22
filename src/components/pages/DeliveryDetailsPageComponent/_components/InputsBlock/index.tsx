@@ -10,14 +10,14 @@ import {
     useAppSelector
 } from '@/src/hooks/redux-hooks/redux-hooks'
 import { getCityThunk } from '@/src/store/slices/city/thunks/getDelivery'
+import type { DeliveryState } from '@/src/store/slices/delivery/types'
 import { getDeliveryPointsThunk } from '@/src/store/slices/deliveryPoints/thunks/getDelivery'
-import type { DeliveryCreate } from '@/src/utils/api/DeliveryCartMethods'
 
 import s from './InputsBlock.module.scss'
 
 interface Props {
-    currentAddress: DeliveryCreate
-    onHandleChange: (value: Partial<DeliveryCreate>) => void
+    currentAddress: DeliveryState
+    onHandleChange: (value: Partial<DeliveryState>) => void
     activeTab: 'Курьером' | 'Пункт выдачи заказа'
 }
 
@@ -27,9 +27,6 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
     const cities = useAppSelector((state) => state.city)
     const deliveryPoints = useAppSelector((state) => state.deliveryPoints)
 
-    const defaultPvzAdress = deliveryPoints.find(({ address_full }) =>
-        address_full.includes(currentAddress.deliveryPointAddress)
-    )
     return (
         <div className={s.wrapper}>
             <div className={s.title}>Адрес</div>
@@ -56,7 +53,7 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
                                 onHandleChange({ city })
                                 dispatch(getDeliveryPointsThunk(code))
                             }}
-                            key={code}
+                            key={city}
                             className={s.item}
                         >
                             {city}
@@ -75,16 +72,16 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
                         }}
                         className={s.autocomplete}
                         defaultItems={deliveryPoints}
-                        defaultSelectedKey={defaultPvzAdress?.address}
+                        defaultSelectedKey={currentAddress.city}
                     >
-                        {({ address, address_full }) => (
+                        {({ address, address_full, city }) => (
                             <AutocompleteItem
                                 onClick={() => {
                                     onHandleChange({
                                         deliveryPointAddress: address_full
                                     })
                                 }}
-                                key={address}
+                                key={city}
                                 className={s.item}
                             >
                                 {address}

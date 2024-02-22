@@ -1,10 +1,12 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* eslint-disable @typescript-eslint/no-shadow */
+
+import { useRouter } from 'next/router'
 
 import { useAppSelector } from '@/src/hooks/redux-hooks/redux-hooks'
 
 import RootIcon from '../../ui/icons/RootIcon'
-import DefaultLink from '../../ui/links/DefaultLink'
 import MainContainer from '../../ui/MainContainer'
 import ProductLess from '../../ui/ProductLess/ProductLess'
 import { TrackNumber } from '../../ui/trackNumber/TrackNumber'
@@ -22,6 +24,8 @@ const OrderPageComponent = () => {
         trackNumber
     } = useAppSelector((state) => state.order)
 
+    const router = useRouter()
+
     const createdDate = new Date(createdAt)
 
     const currentDate = new Date(createdAt)
@@ -34,13 +38,15 @@ const OrderPageComponent = () => {
     return (
         <MainContainer className={s.wrapper}>
             <div className={s.header}>
-                <DefaultLink
-                    href='/profile/delivery'
+                <div
+                    onClick={() => {
+                        router.back()
+                    }}
                     className={s.link}
                     aria-label='Назад'
                 >
                     <RootIcon name='arrowLeft' />
-                </DefaultLink>
+                </div>
                 <h1 className={s.title}>
                     Заказ от{' '}
                     {createdDate.toLocaleDateString('ru-RU', {
