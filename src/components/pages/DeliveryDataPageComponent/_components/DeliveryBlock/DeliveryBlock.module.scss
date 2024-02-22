@@ -17,7 +17,11 @@
             --color: white !important;
             --color-second: #8e8e8e !important;
         }
-
+        .buttons {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
         .title {
             font-size: 14px;
             font-style: normal;

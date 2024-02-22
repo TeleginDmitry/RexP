@@ -7,7 +7,8 @@ import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-    cn
+    cn,
+    Modal
 } from '@nextui-org/react'
 import clsx from 'clsx'
 
@@ -30,7 +31,7 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ selected, setSelected }) => {
     const [isOpen, setIsOpen] = useState(false)
     const carts = useAppSelector((state) => state.carts.data)
     const dispatch = useAppDispatch()
-
+    const [modalOpen, setModalOpen] = useState(false)
     const onHandleClick = () => {
         selected.forEach((id) => {
             deleteCart(id).then(() => {
@@ -78,6 +79,64 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ selected, setSelected }) => {
                 <div className={s.header}>Выбрать&nbsp;все</div>
             </Checkbox>
             {!!selected.length && (
+                <Button
+                    onClick={() => setModalOpen(true)}
+                    className={s.button}
+                    disabled={selected.length === 0}
+                >
+                    Удалить выбранные
+                </Button>
+            )}
+
+            <Modal
+                isOpen={modalOpen}
+                onClose={() => {
+                    setModalOpen(false)
+                }}
+            >
+                <div className='fixed top-0 left-0 z-[1000000] p-4 flex justify-center items-center w-full h-full bg-black bg-opacity-40'>
+                    <div className='rounded-xl max-w-80 bg-white flex flex-col gap-2'>
+                        <div className='px-4 pt-4 flex flex-col gap-1 items-center'>
+                            <h2 className='text-base font-bold'>
+                                Вы уверенны, что хотите удалить{' '}
+                                {selected.length > 1
+                                    ? 'выбранные товары'
+                                    : 'выбранный товар'}{' '}
+                                ?
+                            </h2>
+                            <p className='text-sm'>
+                                {selected.length > 1
+                                    ? 'Эти товары будут удалены'
+                                    : 'Этот товар будет удален'}{' '}
+                                из корзины безвозвратно
+                            </p>
+                        </div>
+                        <div className={'p-5'}>
+                            <button
+                                onClick={() => {
+                                    onHandleClick()
+                                    setModalOpen(false)
+                                }}
+                                style={{ borderRadius: 10 }}
+                                className='w-full text-base font-semibold py-2 px-1 text-white text-center bg-black'
+                            >
+                                Да, удалить{' '}
+                                {selected.length > 1 ? 'товары' : 'товар'}
+                            </button>
+                            <button
+                                onClick={() => {
+                                    setModalOpen(false)
+                                }}
+                                className='w-full text-base font-semibold text-black py-2 px-1 text-center'
+                            >
+                                Отмена
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </Modal>
+
+            {/* {!!selected.length && (
                 <Popover
                     isOpen={isOpen}
                     onOpenChange={(open) =>
@@ -85,12 +144,12 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ selected, setSelected }) => {
                     }
                 >
                     <PopoverTrigger>
-                        <Button
-                            className={s.button}
-                            disabled={selected.length === 0}
-                        >
-                            Удалить выбранные
-                        </Button>
+                      <Button
+                        className={s.button}
+                        disabled={selected.length === 0}
+                      >
+                        Удалить выбранные
+                      </Button>
                     </PopoverTrigger>
                     <PopoverContent className={s.popover}>
                         <div className={clsx('px-1 py-2', s.content)}>
@@ -123,7 +182,7 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ selected, setSelected }) => {
                         </div>
                     </PopoverContent>
                 </Popover>
-            )}
+            )} */}
         </div>
     )
 }

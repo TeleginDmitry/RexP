@@ -16,6 +16,7 @@ interface Props {
     changeFilters: (values: Partial<FilterType>) => void
     applyFilters: (filtersData: Partial<FilterType> | undefined) => void
 }
+
 const SliderField = ({ changeFilters, filters, applyFilters }: Props) => {
     const timeout = useRef<NodeJS.Timeout | null>(null)
 
@@ -57,18 +58,19 @@ const SliderField = ({ changeFilters, filters, applyFilters }: Props) => {
         const { value: newValue } = event.target
 
         setValue((state) => [+newValue, state[1]])
-
-        changeFilters({ minPrice: +newValue, maxPrice: value[1] })
+        if (Number(newValue) < value[1]) {
+            changeFilters({ minPrice: +newValue, maxPrice: value[1] })
+        }
     }
 
     function onChangeInputValueRight(
         event: React.ChangeEvent<HTMLInputElement>
     ) {
         const { value: newValue } = event.target
-
         setValue((state) => [state[0], +newValue])
-
-        changeFilters({ minPrice: value[0], maxPrice: +newValue })
+        if (Number(newValue) > value[0]) {
+            changeFilters({ minPrice: value[0], maxPrice: +newValue })
+        }
     }
 
     const isVisibleReset = value[0] !== MIN_PRICE || value[1] !== MAX_PRICE
