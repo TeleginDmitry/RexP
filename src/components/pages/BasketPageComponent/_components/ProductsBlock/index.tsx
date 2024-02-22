@@ -135,7 +135,7 @@ const ProductsBlock = () => {
                                                     ₽
                                                 </div>
                                                 <div className={s.info__name}>
-                                                    {product.name}
+                                                    {product.name.slice(0, 80)}
                                                 </div>
                                                 <div className={s.info__size}>
                                                     размер:{' '}

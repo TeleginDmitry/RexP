@@ -81,21 +81,37 @@ export const FilterBlock = () => {
 
         return acc
     }, 0)
-
     return (
         <div className='flex items-center justify-between mb-3 relative'>
             {mainDelivery || delivery.length ? (
                 <Selector
                     values={valuesWithoutSelected.map(
-                        ({ id, city, street, house }) => ({
-                            id: id!,
-                            value: `${city}, ${street}, ${house}`
+                        ({ id, city, street, house, deliveryType }) => ({
+                            id,
+                            value: `${deliveryType.id === 1 && 'Пункт СДЭК, '}
+                            ${city}
+                            ${deliveryType.id === 2 ? `, ${street}` : ''}
+                            ${deliveryType.id === 2 ? `, ${house}` : ''}`
                         })
                     )}
                     onChange={changeMainDelivery}
                     defaultValue={
                         mainDelivery
-                            ? `${mainDelivery.city}, ${mainDelivery.street}, ${mainDelivery.house}`
+                            ? `${
+                                  mainDelivery.deliveryType.id === 1 &&
+                                  'Пункт СДЭК, '
+                              }
+                            ${mainDelivery.city}
+                            ${
+                                mainDelivery.deliveryType.id === 2
+                                    ? `, ${mainDelivery.street}`
+                                    : ''
+                            }
+                            ${
+                                mainDelivery.deliveryType.id === 2
+                                    ? `, ${mainDelivery.house}`
+                                    : ''
+                            }`
                             : ''
                     }
                 />

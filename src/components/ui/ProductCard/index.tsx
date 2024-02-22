@@ -50,7 +50,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
                         : new Intl.NumberFormat('ru-RU').format(+price)}{' '}
                     ₽
                 </span>
-                <p className={s.name}>{name} </p>
+                <p className={`${s.name} overflow-ellipsis line-clamp-2`}>
+                    {name.slice(0, 80)}
+                </p>
             </div>
             <HeartIcon productId={id} className={s.heart} variant={variant} />
         </div>

@@ -50,17 +50,19 @@ const ProductsBlock = () => {
 
     return (
         <CatalogSpacer>
-            {products.map(({ id, name, images, price, isOuter }, index) => (
-                <ProductCard
-                    key={id}
-                    isOuter={isOuter}
-                    price={price}
-                    name={name}
-                    imgUrl={images[0].name}
-                    imagePriority={index < 4}
-                    id={id}
-                />
-            ))}
+            {products.map(
+                ({ id, name, images, price, isOuter, discount }, index) => (
+                    <ProductCard
+                        key={id}
+                        isOuter={isOuter}
+                        price={price * ((100 - discount) / 100)}
+                        name={name}
+                        imgUrl={images[0].name}
+                        imagePriority={index < 4}
+                        id={id}
+                    />
+                )
+            )}
             <div ref={observerRef} />
         </CatalogSpacer>
     )

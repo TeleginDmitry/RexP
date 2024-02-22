@@ -39,7 +39,8 @@ const { actions, reducer } = createSlice({
         ) => ({
             ...state,
             ...{ [name]: value }
-        })
+        }),
+        clear: () => initialState
     },
     extraReducers: (builder) => {
         builder.addCase(
@@ -49,6 +50,6 @@ const { actions, reducer } = createSlice({
     }
 })
 
-export const { setDeliveryData } = actions
+export const { setDeliveryData, clear } = actions
 
 export default reducer

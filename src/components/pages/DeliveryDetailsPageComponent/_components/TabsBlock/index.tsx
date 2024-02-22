@@ -5,14 +5,15 @@ import type { DeliveryCreate } from '@/src/utils/api/DeliveryCartMethods'
 import s from './TabsBlock.module.scss'
 
 interface Props {
-    onHandleChange: (value: number | string, name: keyof DeliveryCreate) => void
+    onHandleChange: (value: Partial<DeliveryCreate>) => void
     activeTab: 'Курьером' | 'Пункт выдачи заказа'
-    deliveryTypeId: number
 }
 
-const TabsBlock = ({ onHandleChange, activeTab, deliveryTypeId }: Props) => {
+const TabsBlock = ({ onHandleChange, activeTab }: Props) => {
     const handleChange = (value: string) =>
-        onHandleChange(value === DELIVERY_TYPES.PICK ? 1 : 2, 'deliveryTypeId')
+        onHandleChange({
+            deliveryTypeId: value === DELIVERY_TYPES.PICK ? 1 : 2
+        })
 
     return (
         <div className={`${s.wrapper} mt-10`}>

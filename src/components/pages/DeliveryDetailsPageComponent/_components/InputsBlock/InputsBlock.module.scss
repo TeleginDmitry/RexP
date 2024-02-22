@@ -51,7 +51,7 @@
     font-style: normal !important;
     font-weight: 400 !important;
     line-height: normal !important;
-    color: var(--Main-Grey, #8e8e8e);
+    color: black;
     box-shadow: unset !important;
     height: 46px;
 }
@@ -84,7 +84,7 @@
         font-style: normal !important;
         font-weight: 400 !important;
         line-height: normal !important;
-        color: #8e8e8e !important;
+        color: black !important;
     }
 }
 
@@ -93,4 +93,10 @@
     justify-content: center;
     align-items: center;
     gap: 16px;
+}
+
+.autocomplete {
+    label {
+        color: #8e8e8e !important;
+    }
 }

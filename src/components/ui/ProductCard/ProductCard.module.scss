@@ -72,6 +72,8 @@
         align-items: center;
 
         .info {
+            position: relative;
+            width: 100%;
             &.small {
                 .price {
                     font-size: 10.65px;
@@ -91,16 +93,9 @@
             }
 
             .name {
-                display: -webkit-box;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 2;
-                align-self: stretch;
                 font-size: 14px;
                 font-style: normal;
                 font-weight: 400;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                max-width: 100%;
             }
         }
 

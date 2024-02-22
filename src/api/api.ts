@@ -36,19 +36,26 @@ $api.interceptors.response.use(
             const { initData } = window.Telegram.WebApp
 
             try {
-                await Promise.all([
-                    login({ initData, isRequired: true }),
-                    register({ initData, isRequired: false })
-                ])
-
-                const token = Cookies.get('token')
-
+                const loginResult = await login({ initData, isRequired: true })
+                const token = loginResult?.token || Cookies.get('token')
                 error.config.headers.Authorization = `Bearer ${token}`
-
                 return await $api.request(error.config)
-            } catch (error) {
-                if (isAxiosError(error) && error.status === 403) {
-                    Cookies.remove('token')
+            } catch (loginError) {
+                try {
+                    const registerResult = await register({
+                        initData,
+                        isRequired: true
+                    })
+                    const token = registerResult?.token || Cookies.get('token')
+                    error.config.headers.Authorization = `Bearer ${token}`
+                    return await $api.request(error.config)
+                } catch (registerError) {
+                    if (
+                        isAxiosError(registerError) &&
+                        registerError.status === 403
+                    ) {
+                        Cookies.remove('token')
+                    }
                 }
             }
         }

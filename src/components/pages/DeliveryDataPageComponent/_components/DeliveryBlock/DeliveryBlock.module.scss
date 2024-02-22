@@ -18,14 +18,18 @@
             --color-second: #8e8e8e !important;
         }
 
-        .title {
+        .title,
+        .subTitle {
             font-size: 14px;
             font-style: normal;
-            font-weight: 600;
+            font-weight: 400;
             line-height: 22px;
             letter-spacing: -0.4px;
             transition: color 0.3s ease 0s;
             color: var(--color);
+        }
+        .subTitle {
+            font-weight: 600;
         }
 
         .name,
