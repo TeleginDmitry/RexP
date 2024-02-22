@@ -25,7 +25,7 @@ import { getDeliveryThunk } from '@/src/store/slices/getDelivery/getDelivery/get
 import { createOrder } from '@/src/utils/api/createOrder'
 import { getPromo } from '@/src/utils/api/getPromo'
 
-import CheckSvg from 'public/images/icons/Check.svg'
+import CheckSvg from 'public/images/icons/check.svg'
 import XRedSvg from 'public/images/icons/xRed.svg'
 
 const GocheckoutPage = () => {
