@@ -9,7 +9,8 @@ import type { Product, ProductsState } from './types'
 
 const initialState: ProductsState = {
     success: false,
-    data: []
+    data: [],
+    isLoading: false
 }
 
 const { reducer, actions } = createSlice({
@@ -21,29 +22,47 @@ const { reducer, actions } = createSlice({
             { payload }: PayloadAction<Product[]>
         ) => {
             state.data = state.data.concat(payload)
-        }
+        },
+        resetProducts: () => initialState
     },
     extraReducers: (builder) => {
         builder.addCase(getProductsThunk.fulfilled, (store, { payload }) => ({
             ...store,
             data: payload.results,
-            success: true
+            success: true,
+            isLoading: false
         }))
+
         builder.addCase(getProductsThunk.rejected, (store) => ({
             ...store,
-            success: false
+            success: false,
+            isLoading: false
+        }))
+        builder.addCase(getProductsThunk.pending, (store) => ({
+            ...store,
+            isLoading: true
         }))
         builder.addCase(
             getPaginatedProductsThunk.fulfilled,
             (store, { payload }) => ({
                 ...store,
                 data: store.data.concat(payload.results),
-                success: true
+                success: true,
+                isLoading: false
             })
         )
+        builder.addCase(getPaginatedProductsThunk.rejected, (store) => ({
+            ...store,
+            success: false,
+            isLoading: false
+        }))
+        builder.addCase(getPaginatedProductsThunk.pending, (store) => ({
+            ...store,
+            isLoading: true
+        }))
     }
 })
 
 export default reducer
 
-export const { addPaginatedProducts } = actions
+export const { addPaginatedProducts, resetProducts } = actions

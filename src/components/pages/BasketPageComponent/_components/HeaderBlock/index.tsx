@@ -123,7 +123,7 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({
                                 из корзины безвозвратно
                             </p>
                         </div>
-                        <div>
+                        <div className='flex flex-col gap-1'>
                             <button
                                 onClick={() => {
                                     onHandleClick()

@@ -13,9 +13,10 @@ import {
 import { useFilter } from '@/src/hooks/useFilter'
 import { addFilters } from '@/src/store/slices/filter'
 import type { FilterState } from '@/src/store/slices/filter/types'
+import { resetProducts } from '@/src/store/slices/getProducts'
 import { getProductsThunk } from '@/src/store/slices/getProducts/getProducts/getProducts'
 import { getSizesThunk } from '@/src/store/slices/getSizes/getSizes/getSizes'
-import { resetPagination } from '@/src/store/slices/pagination'
+import { resetPagination, setPagination } from '@/src/store/slices/pagination'
 import type { FilterType } from '@/src/types/Filter/filter.types'
 
 import s from './TabsBlock.module.scss'
@@ -33,7 +34,7 @@ const TabsBlock = () => {
         dispatch(addFilters(newFilters))
     }
 
-    const onHandleChange = (categoryId: string) => {
+    const onHandleChange = async (categoryId: string) => {
         const categoryIdNum = +categoryId
 
         if (categoryIdNum === filters.categoryId) {
@@ -58,20 +59,29 @@ const TabsBlock = () => {
             needValues.sizes = []
         }
 
-        dispatch(
+        const result = await dispatch(
             getProductsThunk({
                 filters: { ...filters, ...needValues, limit: LIMIT, page: PAGE }
+            })
+        ).unwrap()
+
+        dispatch(
+            setPagination({
+                nextPage: result.nextPage,
+                totalItems: result.totalItems,
+                totalPages: result.totalPages,
+                page: PAGE
             })
         )
 
         changeFilters(needValues)
     }
 
-    function applyFilters(filtersData: Partial<FilterType> | undefined) {
+    async function applyFilters(filtersData: Partial<FilterType> | undefined) {
         dispatch(resetPagination())
 
         if (filtersData) {
-            dispatch(
+            const result = await dispatch(
                 getProductsThunk({
                     filters: {
                         ...filters,
@@ -80,11 +90,29 @@ const TabsBlock = () => {
                         page: PAGE
                     }
                 })
+            ).unwrap()
+
+            dispatch(
+                setPagination({
+                    nextPage: result.nextPage,
+                    totalItems: result.totalItems,
+                    totalPages: result.totalPages,
+                    page: PAGE
+                })
             )
         } else {
-            dispatch(
+            const result = await dispatch(
                 getProductsThunk({
                     filters: { ...filters, limit: LIMIT, page: PAGE }
+                })
+            ).unwrap()
+
+            dispatch(
+                setPagination({
+                    nextPage: result.nextPage,
+                    totalItems: result.totalItems,
+                    totalPages: result.totalPages,
+                    page: PAGE
                 })
             )
         }

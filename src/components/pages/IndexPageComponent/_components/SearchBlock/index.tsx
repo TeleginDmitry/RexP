@@ -13,7 +13,7 @@ import {
 import { useFilter } from '@/src/hooks/useFilter'
 import { addFilters } from '@/src/store/slices/filter'
 import { getProductsThunk } from '@/src/store/slices/getProducts/getProducts/getProducts'
-import { resetPagination } from '@/src/store/slices/pagination'
+import { resetPagination, setPagination } from '@/src/store/slices/pagination'
 import type { FilterType } from '@/src/types/Filter/filter.types'
 
 import styles from './styles.module.scss'
@@ -51,11 +51,11 @@ export const SearhBlock = () => {
         }, 300)
     }
 
-    function applyFilters(filtersData: Partial<FilterType> | undefined) {
+    async function applyFilters(filtersData: Partial<FilterType> | undefined) {
         dispatch(resetPagination())
 
         if (filtersData) {
-            dispatch(
+            const result = await dispatch(
                 getProductsThunk({
                     filters: {
                         ...filters,
@@ -64,11 +64,29 @@ export const SearhBlock = () => {
                         page: PAGE
                     }
                 })
+            ).unwrap()
+
+            dispatch(
+                setPagination({
+                    nextPage: result.nextPage,
+                    totalItems: result.totalItems,
+                    totalPages: result.totalPages,
+                    page: PAGE
+                })
             )
         } else {
-            dispatch(
+            const result = await dispatch(
                 getProductsThunk({
                     filters: { ...filters, limit: LIMIT, page: PAGE }
+                })
+            ).unwrap()
+
+            dispatch(
+                setPagination({
+                    nextPage: result.nextPage,
+                    totalItems: result.totalItems,
+                    totalPages: result.totalPages,
+                    page: PAGE
                 })
             )
         }

@@ -175,7 +175,7 @@ const ReviewPage = () => {
 
             <Modal isOpen={isVisibleModal} onClose={handleVisibleModal}>
                 <div className='fixed top-0 left-0 z-[1000000] p-4 flex justify-center items-center w-full h-full bg-black bg-opacity-40'>
-                    <div className='p-5 rounded-xl max-w-90 bg-white flex flex-col gap-2'>
+                    <div className='p-5 rounded-[20px] max-w-80 bg-white flex flex-col gap-2'>
                         <div className=' flex flex-col gap-1'>
                             <h2 className='text-base font-semibold'>
                                 Хотите оставить отзыв на заказ?
@@ -185,7 +185,7 @@ const ReviewPage = () => {
                                 заказ, необходимо перейти в бот для отзывов
                             </p>
                         </div>
-                        <div>
+                        <div className='flex flex-col gap-1'>
                             <button
                                 style={{ borderRadius: 10 }}
                                 className='w-full text-base font-semibold py-2 px-1 text-white text-center bg-black'

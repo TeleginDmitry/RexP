@@ -195,7 +195,7 @@ const DeliveryBlock = () => {
                                 Ваши данные будут удалены безвозвратно
                             </p>
                         </div>
-                        <div>
+                        <div className='flex flex-col gap-1'>
                             <button
                                 onClick={onDeleteDelivery}
                                 style={{ borderRadius: 10 }}

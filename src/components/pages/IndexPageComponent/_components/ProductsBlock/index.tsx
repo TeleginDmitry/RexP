@@ -43,7 +43,7 @@ const ProductsBlock = () => {
         return result
     }, [dispatch, filters, limit, page])
 
-    const { isLoading, fetchQuery } = usePagination({
+    const { fetchQuery } = usePagination({
         callback: callbackFn,
         limit,
         page,
@@ -53,7 +53,8 @@ const ProductsBlock = () => {
     useObserver({
         callback: fetchQuery,
         element: observerRef,
-        isLoading
+        isLoading: products.isLoading,
+        condition: !!nextPage
     })
 
     if (filters.name && products.data.length === 0) {
@@ -75,7 +76,7 @@ const ProductsBlock = () => {
                     />
                 )
             )}
-            <div ref={observerRef} />
+            <div className='absolute bottom-0' ref={observerRef} />
         </CatalogSpacer>
     )
 }

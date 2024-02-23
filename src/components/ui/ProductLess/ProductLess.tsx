@@ -39,6 +39,7 @@ export default function ProductLess({
                             : `${process.env.NEXT_PUBLIC_IMAGES_URL}${images[0].name}`
                     }
                     alt={name}
+                    className='object-cover'
                 />
             )}
             <div className='flex flex-col'>

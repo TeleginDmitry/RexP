@@ -37,6 +37,7 @@ export type Product = {
 export type ProductsState = Readonly<{
     success: boolean
     data: Product[]
+    isLoading: boolean
 }>
 
 export type Filters = {
