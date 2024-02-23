@@ -32,7 +32,6 @@ const initialState: OrdersState = {
         userId: 0,
         createdAt: '',
         updatedAt: '',
-        pvzAddress: '',
         deliveryPointAddress: ''
     },
     orderContents: [],

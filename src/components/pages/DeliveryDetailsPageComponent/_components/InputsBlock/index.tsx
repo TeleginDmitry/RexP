@@ -10,32 +10,23 @@ import {
     useAppSelector
 } from '@/src/hooks/redux-hooks/redux-hooks'
 import { getCityThunk } from '@/src/store/slices/city/thunks/getDelivery'
+import type { DeliveryState } from '@/src/store/slices/delivery/types'
 import { getDeliveryPointsThunk } from '@/src/store/slices/deliveryPoints/thunks/getDelivery'
-import type { DeliveryCreate } from '@/src/utils/api/DeliveryCartMethods'
 
 import s from './InputsBlock.module.scss'
 
-import { useRouter } from 'next/router'
-
 interface Props {
-    currentAddress: DeliveryCreate
-    onHandleChange: (value: string, name: keyof DeliveryCreate) => void
+    currentAddress: DeliveryState
+    onHandleChange: (value: Partial<DeliveryState>) => void
     activeTab: 'Курьером' | 'Пункт выдачи заказа'
 }
 
 const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
     const dispatch = useAppDispatch()
 
-    const router = useRouter()
-
-    const id = router.query.id as string
-
     const cities = useAppSelector((state) => state.city)
     const deliveryPoints = useAppSelector((state) => state.deliveryPoints)
 
-    const defaultPvzAdress = deliveryPoints.find(({ address_full }) =>
-        address_full.includes(currentAddress.deliveryPointAddress)
-    )
     return (
         <div className={s.wrapper}>
             <div className={s.title}>Адрес</div>
@@ -49,19 +40,20 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
                         popoverContent: s.popoverContent,
                         listbox: s.listbox
                     }}
+                    className={s.autocomplete}
                     onValueChange={(value) => {
                         dispatch(getCityThunk(value))
                     }}
                     defaultItems={cities}
-                    defaultSelectedKey={id ? currentAddress.city : undefined}
+                    defaultSelectedKey={currentAddress.city}
                 >
                     {({ city, code }) => (
                         <AutocompleteItem
                             onClick={() => {
-                                onHandleChange(city, 'city')
+                                onHandleChange({ city })
                                 dispatch(getDeliveryPointsThunk(code))
                             }}
-                            key={code}
+                            key={city}
                             className={s.item}
                         >
                             {city}
@@ -78,20 +70,18 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
                             popoverContent: s.popoverContent,
                             listbox: s.listbox
                         }}
+                        className={s.autocomplete}
                         defaultItems={deliveryPoints}
-                        defaultSelectedKey={
-                            id ? defaultPvzAdress?.address : undefined
-                        }
+                        defaultSelectedKey={currentAddress.city}
                     >
-                        {({ address, address_full }) => (
+                        {({ address, address_full, city }) => (
                             <AutocompleteItem
                                 onClick={() => {
-                                    onHandleChange(
-                                        address_full,
-                                        'deliveryPointAddress'
-                                    )
+                                    onHandleChange({
+                                        deliveryPointAddress: address_full
+                                    })
                                 }}
-                                key={address}
+                                key={city}
                                 className={s.item}
                             >
                                 {address}
@@ -104,13 +94,13 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
                         <Input
                             type='text'
                             label='Улица'
-                            value={id ? currentAddress.street : ''}
+                            value={currentAddress.street}
                             className={s.inputUi}
                             classNames={{
                                 inputWrapper: 'shadow-none'
                             }}
                             onChange={(e) =>
-                                onHandleChange(e.target.value, 'street')
+                                onHandleChange({ street: e.target.value })
                             }
                         />
                         <div className={s.inputs_row}>
@@ -122,23 +112,19 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
                                     inputWrapper: 'shadow-none'
                                 }}
                                 onChange={(e) =>
-                                    onHandleChange(e.target.value, 'house')
+                                    onHandleChange({ house: e.target.value })
                                 }
                             />
                             <Input
                                 type='text'
                                 label='Квартира'
-                                value={
-                                    id && currentAddress.flat
-                                        ? currentAddress.flat
-                                        : ''
-                                }
+                                value={currentAddress.flat ?? ''}
                                 className={s.inputUi}
                                 classNames={{
                                     inputWrapper: 'shadow-none'
                                 }}
                                 onChange={(e) =>
-                                    onHandleChange(e.target.value, 'flat')
+                                    onHandleChange({ flat: e.target.value })
                                 }
                             />
                         </div>
@@ -150,43 +136,45 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
                 <Input
                     type='text'
                     label='Фамилия'
-                    value={id ? currentAddress.lastName : ''}
-                    className={s.inputUi}
-                    classNames={{
-                        inputWrapper: 'shadow-none'
-                    }}
-                    onChange={(e) => onHandleChange(e.target.value, 'lastName')}
-                />
-                <Input
-                    type='text'
-                    label='Имя'
-                    value={id ? currentAddress.firstName : ''}
+                    value={currentAddress.lastName}
                     className={s.inputUi}
                     classNames={{
                         inputWrapper: 'shadow-none'
                     }}
                     onChange={(e) =>
-                        onHandleChange(e.target.value, 'firstName')
+                        onHandleChange({ lastName: e.target.value })
+                    }
+                />
+                <Input
+                    type='text'
+                    label='Имя'
+                    value={currentAddress.firstName}
+                    className={s.inputUi}
+                    classNames={{
+                        inputWrapper: 'shadow-none'
+                    }}
+                    onChange={(e) =>
+                        onHandleChange({ firstName: e.target.value })
                     }
                 />
                 <Input
                     type='text'
                     label='Отчество'
-                    value={id ? currentAddress.patronymic : ''}
+                    value={currentAddress.patronymic}
                     className={s.inputUi}
                     classNames={{
                         inputWrapper: 'shadow-none'
                     }}
                     onChange={(e) =>
-                        onHandleChange(e.target.value, 'patronymic')
+                        onHandleChange({ patronymic: e.target.value })
                     }
                 />
                 <PhoneInput
                     country='ru'
                     placeholder='+7 (999) 999-99-99'
                     disableCountryGuess
-                    value={id ? currentAddress.number : ''}
-                    onChange={(e) => onHandleChange(e, 'number')}
+                    value={currentAddress.number}
+                    onChange={(e) => onHandleChange({ number: e })}
                     inputClass={s.phoneInput__input}
                     containerClass={s.phoneInput__container}
                 />

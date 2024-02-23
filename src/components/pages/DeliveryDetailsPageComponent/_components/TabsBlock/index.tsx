@@ -1,18 +1,23 @@
 import RootTabs from '@/src/components/ui/RootTabs'
 import { DELIVERY_TYPES } from '@/src/constants'
-import type { DeliveryCreate } from '@/src/utils/api/DeliveryCartMethods'
+import type { DeliveryState } from '@/src/store/slices/delivery/types'
 
 import s from './TabsBlock.module.scss'
 
 interface Props {
-    onHandleChange: (value: number | string, name: keyof DeliveryCreate) => void
+    onHandleChange: (value: Partial<DeliveryState>) => void
     activeTab: 'Курьером' | 'Пункт выдачи заказа'
-    deliveryTypeId: number
+    currentAddress: DeliveryState
 }
 
-const TabsBlock = ({ onHandleChange, activeTab, deliveryTypeId }: Props) => {
+const TabsBlock = ({ onHandleChange, activeTab, currentAddress }: Props) => {
     const handleChange = (value: string) =>
-        onHandleChange(value === DELIVERY_TYPES.PICK ? 1 : 2, 'deliveryTypeId')
+        onHandleChange({
+            deliveryType: {
+                ...currentAddress.deliveryType,
+                id: value === DELIVERY_TYPES.PICK ? 1 : 2
+            }
+        })
 
     return (
         <div className={`${s.wrapper} mt-10`}>

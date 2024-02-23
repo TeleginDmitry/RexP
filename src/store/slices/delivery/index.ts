@@ -1,6 +1,8 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 
+import type { DeliveryCreate } from '@/src/utils/api/DeliveryCartMethods'
+
 import { getDeliveryThunk } from './thunks/getDelivery'
 import type { DeliveryState } from './types'
 
@@ -9,21 +11,16 @@ const initialState: DeliveryState = {
     house: '',
     flat: '',
     patronymic: '',
-    id: 0,
     firstName: '',
     lastName: '',
     number: '',
     address: '',
     isMain: false,
     deliveryType: {
-        id: 0,
+        id: 1,
         name: ''
     },
-    userId: 0,
-    createdAt: '',
-    updatedAt: '',
     street: '',
-    pvzAddress: '',
     deliveryPointAddress: ''
 }
 
@@ -34,12 +31,13 @@ const { actions, reducer } = createSlice({
         setDeliveryData: (
             state,
             {
-                payload: { value, name }
-            }: PayloadAction<{ value: string; name: keyof DeliveryState }>
+                payload: { value }
+            }: PayloadAction<{ value: Partial<DeliveryCreate> }>
         ) => ({
             ...state,
-            ...{ [name]: value }
-        })
+            ...value
+        }),
+        clear: () => initialState
     },
     extraReducers: (builder) => {
         builder.addCase(
@@ -49,6 +47,6 @@ const { actions, reducer } = createSlice({
     }
 })
 
-export const { setDeliveryData } = actions
+export const { setDeliveryData, clear } = actions
 
 export default reducer

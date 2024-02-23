@@ -47,10 +47,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 <span className={s.price}>
                     {Number.isNaN(price)
                         ? price
-                        : new Intl.NumberFormat('ru-RU').format(+price)}{' '}
+                        : new Intl.NumberFormat('ru-RU').format(
+                              Math.round(+price)
+                          )}{' '}
                     ₽
                 </span>
-                <p className={s.name}>{name} </p>
+                <p className={`${s.name} overflow-ellipsis line-clamp-2`}>
+                    {name.slice(0, 80)}
+                </p>
             </div>
             <HeartIcon productId={id} className={s.heart} variant={variant} />
         </div>

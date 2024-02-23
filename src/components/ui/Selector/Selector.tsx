@@ -22,7 +22,11 @@ export const Selector = ({ values, defaultValue, onChange }: Props) => {
         >
             <span
                 className='flex items-center gap-2'
-                onClick={() => setIsVisibleSelect((state) => !state)}
+                onClick={() => {
+                    if (values.length > 1) {
+                        setIsVisibleSelect((state) => !state)
+                    }
+                }}
             >
                 {defaultValue ?? 'Выбрать'}{' '}
                 {isVisibleSelect ? (

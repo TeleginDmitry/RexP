@@ -1,9 +1,11 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/jsx-no-undef */
 import { useEffect, useState } from 'react'
 
 import { Button } from '@nextui-org/react'
+import clsx from 'clsx'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -21,6 +23,10 @@ import {
 import { getCartsThunk } from '@/src/store/slices/getCarts/getCarts/getCarts'
 import { getDeliveryThunk } from '@/src/store/slices/getDelivery/getDelivery/getDelivery'
 import { createOrder } from '@/src/utils/api/createOrder'
+import { getPromo } from '@/src/utils/api/getPromo'
+
+import CheckSvg from 'public/images/icons/check.svg'
+import XRedSvg from 'public/images/icons/xRed.svg'
 
 const GocheckoutPage = () => {
     const carts = useAppSelector((state) => state.carts.data)
@@ -29,17 +35,26 @@ const GocheckoutPage = () => {
 
     const router = useRouter()
 
-    const [selectedCartsInfo, setSelectedCartsInfo] = useState<
-        string | undefined
-    >(undefined)
-    const [isActivePromo, setIsActivePromo] = useState<boolean>(false)
+    const [selectedCartsInfo, setSelectedCartsInfo] = useState<{
+        selectedCarts: string[]
+        totalPrice: number
+        totalPriceWithDiscount: number
+    } | null>(null)
 
-    function changeIsActivePromo() {
-        setIsActivePromo(true)
-    }
+    const [promoValue, setPromoValue] = useState('')
+    const [promoStatus, setPromoStatus] = useState<
+        'invalid' | 'success' | null
+    >(null)
 
     useEffect(() => {
-        const data = localStorage.getItem('selectedCartsInfo')
+        const value = localStorage.getItem('selectedCartsInfo')
+        const data =
+            !!value &&
+            (JSON.parse(value) as {
+                selectedCarts: string[]
+                totalPrice: number
+                totalPriceWithDiscount: number
+            })
 
         if (!data) {
             return
@@ -58,18 +73,13 @@ const GocheckoutPage = () => {
         return null
     }
 
-    const { selectedCarts, totalPrice, totalPriceWithDiscount } = JSON.parse(
+    const { selectedCarts, totalPrice, totalPriceWithDiscount } =
         selectedCartsInfo
-    ) as {
-        selectedCarts: string[]
-        totalPrice: number
-        totalPriceWithDiscount: number
-    }
 
     const findMainDelivery = deliveryCarts.find(({ isMain }) => isMain)
 
     if (!findMainDelivery) {
-        return null
+        return <h1>Нужно добавить данные доставки</h1>
     }
 
     function onBuy() {
@@ -81,6 +91,31 @@ const GocheckoutPage = () => {
             })
         } catch (error) {
             /* empty */
+        }
+    }
+
+    function promoChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const { value } = e.target
+        setPromoValue(value)
+
+        if (promoStatus) {
+            setPromoStatus(null)
+        }
+    }
+
+    async function checkPromo() {
+        if (promoValue.length) {
+            try {
+                const result = await getPromo({ name: promoValue })
+
+                if (result.data !== null) {
+                    setPromoStatus('success')
+                } else {
+                    setPromoStatus('invalid')
+                }
+            } catch (error) {
+                /* empty */
+            }
         }
     }
 
@@ -161,9 +196,22 @@ const GocheckoutPage = () => {
                                                 Адрес доставки
                                             </p>
                                             <span className='text-[#535353]'>
-                                                {findMainDelivery.city},{' '}
-                                                {findMainDelivery.street},{' '}
-                                                {findMainDelivery.house}
+                                                {`${
+                                                    findMainDelivery
+                                                        .deliveryType.id ===
+                                                        1 && 'Пункт СДЭК, '
+                                                }
+                            ${findMainDelivery.city}
+                            ${
+                                findMainDelivery.deliveryType.id === 2
+                                    ? `, ${findMainDelivery.street}`
+                                    : ''
+                            }
+                            ${
+                                findMainDelivery.deliveryType.id === 2
+                                    ? `, ${findMainDelivery.house}`
+                                    : ''
+                            }`}
                                             </span>
                                             <span className='text-sm text-[#535353]'>
                                                 Срок хранения товара - 7 дней
@@ -223,41 +271,52 @@ const GocheckoutPage = () => {
                             ))}
                         </div>
                     </div>
-                    <div
-                        onClick={changeIsActivePromo}
-                        className='p-4 rounded-2xl bg-[#EEE] flex justify-between items-center cursor-pointer'
-                    >
-                        {isActivePromo ? (
-                            <input className='w-full' placeholder='Промокод' />
-                        ) : (
-                            <p>Промокод</p>
-                        )}
-
-                        <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            width='7'
-                            height='12'
-                            viewBox='0 0 7 12'
-                            fill='none'
-                        >
-                            <path
-                                d='M1.5 1.5L6 6L1.5 10.5'
-                                stroke='#8E8E8E'
-                                stroke-width='1.5'
-                                stroke-linecap='round'
-                                stroke-linejoin='round'
+                    <div className='flex flex-col gap-1'>
+                        <div className='p-4 rounded-2xl bg-[#EEE] flex justify-between items-center'>
+                            <input
+                                value={promoValue}
+                                onChange={promoChange}
+                                className='w-full'
+                                placeholder='Введите промокод'
                             />
-                        </svg>
+                            {promoStatus === 'success' ? (
+                                <CheckSvg />
+                            ) : promoStatus === 'invalid' ? (
+                                <XRedSvg />
+                            ) : (
+                                <button
+                                    onClick={checkPromo}
+                                    className='text-base'
+                                >
+                                    Применить
+                                </button>
+                            )}
+                        </div>
+
+                        {promoStatus && (
+                            <span
+                                className={clsx('text-xs font-normal', {
+                                    'text-[rgba(3,164,0,1)]':
+                                        promoStatus === 'success',
+                                    'text-[rgba(213,0,0,1)]':
+                                        promoStatus === 'invalid'
+                                })}
+                            >
+                                {promoStatus === 'success'
+                                    ? 'Промокод успешно применен'
+                                    : 'Промокод не действителен'}
+                            </span>
+                        )}
                     </div>
                     <div className='p-5 rounded-2xl bg-[#EEE] flex-col gap-3 flex'>
-                        <div className='border-b border-solid border-[rgba(142,142,142,0.40)] pb-3 flex justify-between items-center'>
+                        <div className='border-b border-solid border-[rgba(142,142,142,0.40)] pb-4 flex justify-between items-center'>
                             <span className='font-semibold'>Ваш заказ</span>
                             <span className='text-[#535353]'>
                                 {selectedCarts.length}{' '}
                                 {selectedCarts.length > 1 ? 'товара' : 'товар'}
                             </span>
                         </div>
-                        <div className='pb-3 flex justify-between items-center'>
+                        <div className=' flex justify-between items-center'>
                             <span className='font-semibold'>Товары</span>
                             <span className='text-[#535353]'>
                                 {new Intl.NumberFormat('ru-RU').format(
@@ -269,9 +328,6 @@ const GocheckoutPage = () => {
                         <div className='flex justify-between items-center'>
                             <div className='flex flex-col gap-2'>
                                 <span className='font-semibold'>Скидка</span>
-                                <span className='text-[#007AFF]'>
-                                    Подробнее
-                                </span>
                             </div>
                             <span className='text-[#D50000]'>
                                 -
@@ -281,12 +337,15 @@ const GocheckoutPage = () => {
                                 ₽
                             </span>
                         </div>
-                        <div className='flex justify-between items-center pb-3 border-b border-solid border-[rgba(142,142,142,0.40)]'>
-                            <span className='font-semibold'>
-                                Стоимость доставки
-                            </span>
+                        <div className='flex justify-between items-center'>
+                            <span className='font-semibold'>Доставка</span>
                             <span className='text-[#03A400]'>Бесплатно</span>
                         </div>
+
+                        <span className='text-xs text-[rgba(142,142,142,1)] pb-3 border-b border-solid border-[rgba(142,142,142,0.40)]'>
+                            Стоимость доставки указана примерно и оплачивается
+                            компании СДЕК отдельно при получении
+                        </span>
 
                         <div className='flex justify-between items-center'>
                             <span className='text-lg  font-semibold'>

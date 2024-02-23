@@ -62,6 +62,7 @@
     font-family: var(--font-manrope);
     background: #eee;
     border-radius: 20px;
+    color: rgba(142, 142, 142, 1);
 
     &[data-selected='true'] {
         z-index: 999;

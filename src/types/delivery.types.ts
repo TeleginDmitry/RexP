@@ -14,7 +14,6 @@ export interface Delivery {
     updatedAt: string
     house: string | null
     flat: string | null
-    pvzAddress: string
     deliveryPointAddress: string
 }
 export interface DeliveryType {

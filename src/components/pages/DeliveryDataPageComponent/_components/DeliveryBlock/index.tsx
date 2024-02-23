@@ -4,12 +4,15 @@ import clsx from 'clsx'
 import { useRouter } from 'next/router'
 
 import RootButton from '@/src/components/ui/RootButton'
+import SpecificBlock from '@/src/components/ui/SpecificBlock/SpecificBlock'
 import {
     useAppDispatch,
     useAppSelector
 } from '@/src/hooks/redux-hooks/redux-hooks'
 import { changeIsMain } from '@/src/store/slices/getDelivery'
 import { editDeliveryCart } from '@/src/utils/api/DeliveryCartMethods'
+
+import image from 'public/images/global/image1.png'
 
 import s from './DeliveryBlock.module.scss'
 import RootIcon from '@/src/components/ui/icons/RootIcon'
@@ -47,6 +50,17 @@ const DeliveryBlock = () => {
         } catch (error) {
             /* empty */
         }
+    }
+
+    if (!deliveryCarts.length) {
+        return (
+            <SpecificBlock
+                imageUrl={image.src}
+                linkText=''
+                text='Внеси информацию, и мы с радостью доставим твои покупки!'
+                title='У тебя пока что не заполнены данные для доставки'
+            />
+        )
     }
 
     return (
@@ -114,7 +128,7 @@ const DeliveryBlock = () => {
                                     </div>
                                 </div>
                                 <div className={s.content}>
-                                    <div className={s.title}>Получатель</div>
+                                    <div className={s.subTitle}>Получатель</div>
                                     <div className={s.name}>
                                         {lastName} {firstName} {patronymic}
                                     </div>
@@ -124,14 +138,15 @@ const DeliveryBlock = () => {
                                             '+$1 $2 $3 $4 $5'
                                         )}
                                     </div>
-                                    <div className={s.title}>
+                                    <div className={s.subTitle}>
                                         Адрес доставки
                                     </div>
 
                                     <div className={s.addressValue}>
                                         {deliveryType.id === 1 &&
                                             'Пункт СДЭК, '}
-                                        {city}, {street}
+                                        {city}
+                                        {deliveryType.id === 2 && `, ${street}`}
                                         {deliveryType.id === 2 && `, ${house}`}
                                     </div>
                                 </div>

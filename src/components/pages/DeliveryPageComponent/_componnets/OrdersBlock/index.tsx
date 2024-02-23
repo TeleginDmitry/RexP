@@ -4,7 +4,10 @@ import { motion } from 'framer-motion'
 import { ImagesBlock } from '@/src/components/ui/ImagesBlock/ImagesBlock'
 import InViewWrapper from '@/src/components/ui/InViewWrapper'
 import DefaultLink from '@/src/components/ui/links/DefaultLink'
+import SpecificBlock from '@/src/components/ui/SpecificBlock/SpecificBlock'
 import { useAppSelector } from '@/src/hooks/redux-hooks/redux-hooks'
+
+import image from 'public/images/global/image2.png'
 
 import s from './OrdersBlock.module.scss'
 
@@ -23,6 +26,28 @@ const OrdersBlock = () => {
                 orderStatus.id >= 2 &&
                 orderStatus.id <= 7)
     )
+
+    if (!neededOrders.length) {
+        return (
+            <SpecificBlock
+                imageUrl={image.src}
+                text={
+                    activeFilter === 'В доставке'
+                        ? 'Но ты можешь это исправить ;) Воспользуйся каталогом или поиском для выбора товаров'
+                        : activeFilter === 'Ждут оплаты'
+                        ? 'Но ты можешь приобрести что-нибудь ;) Воспользуйся каталогом или поиском для выбора товаров'
+                        : 'Но ты можешь это исправить ;) Воспользуйся каталогом или поиском для выбора товаров'
+                }
+                title={
+                    activeFilter === 'В доставке'
+                        ? 'У тебя нет товаров в доставке'
+                        : activeFilter === 'Ждут оплаты'
+                        ? 'Все твои заказы оплачены'
+                        : 'У тебя ещё не было заказов'
+                }
+            />
+        )
+    }
 
     return (
         <div className={s.wrapper}>
