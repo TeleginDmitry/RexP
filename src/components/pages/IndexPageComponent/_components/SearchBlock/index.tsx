@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 
 import MainFilter from '@/src/components/layout/_components/MainFilter'
+import { LIMIT, PAGE } from '@/src/constants'
 import {
     useAppDispatch,
     useAppSelector
@@ -18,7 +19,7 @@ import type { FilterType } from '@/src/types/Filter/filter.types'
 import styles from './styles.module.scss'
 
 export const SearhBlock = () => {
-    const [oldPos, setOldPos] = useState<null | number>(null)
+    const [oldPos, setOldPos] = useState<number | null>(null)
     const [sticky, setSticky] = useState(false)
     const searchRef = useRef<any | null | undefined>()
     const oldPosRef = useRef<any | null | undefined>()
@@ -55,10 +56,21 @@ export const SearhBlock = () => {
 
         if (filtersData) {
             dispatch(
-                getProductsThunk({ filters: { ...filters, ...filtersData } })
+                getProductsThunk({
+                    filters: {
+                        ...filters,
+                        ...filtersData,
+                        limit: LIMIT,
+                        page: PAGE
+                    }
+                })
             )
         } else {
-            dispatch(getProductsThunk({ filters }))
+            dispatch(
+                getProductsThunk({
+                    filters: { ...filters, limit: LIMIT, page: PAGE }
+                })
+            )
         }
     }
 
@@ -89,7 +101,9 @@ export const SearhBlock = () => {
                     filtersRef.current.name
                 ) {
                     setSticky(true)
-                } else setSticky(false)
+                } else {
+                    setSticky(false)
+                }
             }
         }
     }, [searchRef])

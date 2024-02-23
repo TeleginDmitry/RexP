@@ -36,5 +36,5 @@ export const useObserver = ({
         if (element.current) {
             observer.current.observe(element.current)
         }
-    }, [isLoading])
+    }, [callback, condition, element, isLoading, observerParams])
 }

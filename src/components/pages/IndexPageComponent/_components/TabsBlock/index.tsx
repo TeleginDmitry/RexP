@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import MainFilter from '@/src/components/layout/_components/MainFilter'
 import RootIcon from '@/src/components/ui/icons/RootIcon'
 import RootButton from '@/src/components/ui/RootButton'
+import { LIMIT, PAGE } from '@/src/constants'
 import {
     useAppDispatch,
     useAppSelector
@@ -38,6 +39,7 @@ const TabsBlock = () => {
         if (categoryIdNum === filters.categoryId) {
             return
         }
+        dispatch(resetPagination())
 
         const foundCategory = categories.find(({ id }) => id === categoryIdNum)
 
@@ -56,17 +58,13 @@ const TabsBlock = () => {
             needValues.sizes = []
         }
 
-        changeFilters(needValues)
-
         dispatch(
             getProductsThunk({
-                filters: {
-                    ...filters,
-
-                    ...needValues
-                }
+                filters: { ...filters, ...needValues, limit: LIMIT, page: PAGE }
             })
         )
+
+        changeFilters(needValues)
     }
 
     function applyFilters(filtersData: Partial<FilterType> | undefined) {
@@ -74,10 +72,21 @@ const TabsBlock = () => {
 
         if (filtersData) {
             dispatch(
-                getProductsThunk({ filters: { ...filters, ...filtersData } })
+                getProductsThunk({
+                    filters: {
+                        ...filters,
+                        ...filtersData,
+                        limit: LIMIT,
+                        page: PAGE
+                    }
+                })
             )
         } else {
-            dispatch(getProductsThunk({ filters }))
+            dispatch(
+                getProductsThunk({
+                    filters: { ...filters, limit: LIMIT, page: PAGE }
+                })
+            )
         }
     }
 

@@ -1,3 +1,5 @@
+import type { AxiosResponse } from 'axios'
+
 import $api from '@/src/api/api'
 
 export type CreateOrderType = {
@@ -5,5 +7,11 @@ export type CreateOrderType = {
     products: number[]
 }
 
-export const createOrder = async (payload: CreateOrderType) =>
+export interface CreateOrderResponse {
+    confirmationURL: string
+}
+
+export const createOrder = async (
+    payload: CreateOrderType
+): Promise<AxiosResponse<CreateOrderResponse>> =>
     $api.post('/user/order/create', payload)

@@ -25,6 +25,7 @@ const ProductsBlock = () => {
     const carts = useAppSelector((state) => state.carts.data)
 
     const [selected, setSelected] = useState<string[]>([])
+    const [isDelete, setIsDelete] = useState(false)
 
     const totalPrice = carts
         .filter((cart) => selected.includes(cart.id.toString()))
@@ -63,7 +64,12 @@ const ProductsBlock = () => {
 
     return (
         <>
-            <HeaderBlock selected={selected} setSelected={setSelected} />
+            <HeaderBlock
+                isDelete={isDelete}
+                selected={selected}
+                setSelected={setSelected}
+                setIsDelete={setIsDelete}
+            />
             <CheckboxGroup
                 className={s.wrapper}
                 onValueChange={addSelections}
@@ -153,9 +159,10 @@ const ProductsBlock = () => {
                                 <div className={s.footer}>
                                     <HeartIcon productId={product.id} />
                                     <DeleteButton
-                                        id={id}
-                                        selected={selected}
-                                        setSelected={setSelected}
+                                        onClick={() => {
+                                            setIsDelete(true)
+                                            setSelected([`${id}`])
+                                        }}
                                     />
                                     <CountButton id={id} quantity={count} />
                                 </div>

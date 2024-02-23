@@ -1,12 +1,8 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useState } from 'react'
 
-import type { AxiosResponse } from 'axios'
-
-import { useAppDispatch, useAppSelector } from './redux-hooks/redux-hooks'
-
-import { setPagination } from '../store/slices/pagination'
+import { LIMIT, PAGE } from '../constants'
+import type { ResponsePaginatedData } from '../types/pagination.types'
 
 type UsePaginationProps = {
     callback: ({
@@ -15,20 +11,25 @@ type UsePaginationProps = {
     }: {
         limit: number
         page: number
-    }) => Promise<AxiosResponse>
-    limit: number
-    page: number
+    }) => Promise<ResponsePaginatedData>
+    limit?: number
+    page?: number
     isDisabled?: boolean
-    options?: IntersectionObserverInit
 }
 
-export const usePagination = ({ callback, isDisabled }: UsePaginationProps) => {
-    const dispatch = useAppDispatch()
-
-    const [error, isError] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
-
-    const { limit, page } = useAppSelector((state) => state.pagination)
+export const usePagination = ({
+    callback,
+    limit: currentLimit = LIMIT,
+    page: currentPage = PAGE,
+    isDisabled
+}: UsePaginationProps) => {
+    const [isError, setIsError] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [nextPage, setNextPage] = useState<number | null>(currentPage + 1)
+    const [totalPages, setTotalPages] = useState<number | null>(null)
+    const [totalItems, setTotalItems] = useState<number | null>(null)
+    const [page, setPage] = useState<number>(currentPage)
+    const [limit] = useState<number>(currentLimit)
 
     async function fetchQuery() {
         if (isDisabled) {
@@ -37,28 +38,30 @@ export const usePagination = ({ callback, isDisabled }: UsePaginationProps) => {
 
         try {
             setIsLoading(true)
-            const { headers } = await callback({ limit, page })
-            console.log(headers)
-            dispatch(
-                setPagination({
-                    page: page + 1,
-                    totalItems: headers.totalItems,
-                    totalPages: headers.totalPages
-                })
-            )
+            const { nextPage, totalItems, totalPages } = await callback({
+                limit,
+                page
+            })
+            setNextPage(nextPage)
+            setTotalPages(totalPages)
+            setTotalItems(totalItems)
+            setPage((state) => state + 1)
         } catch (error) {
             setIsLoading(false)
-            isError(true)
+            setIsError(true)
         } finally {
             setIsLoading(false)
         }
     }
 
     return {
-        error,
+        isError,
         isLoading,
         limit,
         page,
+        nextPage,
+        totalItems,
+        totalPages,
         fetchQuery
     }
 }

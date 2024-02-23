@@ -1,4 +1,15 @@
 import $api from '@/src/api/api'
 
-export const getPromo = ({ name }: { name: string }) =>
-    $api.get(`/promocode/one`, { params: { name } })
+export interface PromoType {
+    id: number
+    value: string
+    isUsed: boolean
+    name: string
+}
+
+export const getPromo = async ({
+    name
+}: {
+    name: string
+}): Promise<PromoType | null> =>
+    (await $api.get(`/promocode/one`, { params: { name } })).data

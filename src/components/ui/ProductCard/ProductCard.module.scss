@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    gap: 5px;
 
     &.outOfStock {
         .image {
@@ -45,7 +46,7 @@
     }
 
     &.small {
-        padding: 0px 7.1px 7.1px 7.1px;
+        padding: 7.1px;
 
         .image {
             margin: 0 auto 5px auto;
@@ -62,7 +63,9 @@
     .image {
         max-width: 300px;
         width: 100%;
-        margin: 0 auto 4px auto;
+        margin: auto;
+        height: 100px;
+        object-fit: cover;
     }
 
     .content {

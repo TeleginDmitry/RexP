@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import { useRef } from 'react'
+import { useCallback, useRef } from 'react'
 
 import CatalogSpacer from '@/src/components/ui/CatalogSpacer'
 import ProductCard from '@/src/components/ui/ProductCard'
@@ -9,8 +9,8 @@ import {
 } from '@/src/hooks/redux-hooks/redux-hooks'
 import { useObserver } from '@/src/hooks/useObserver'
 import { usePagination } from '@/src/hooks/usePagination'
-import { addPaginatedProducts } from '@/src/store/slices/getProducts'
-import { getProducts } from '@/src/utils/api/getProducts'
+import { getPaginatedProductsThunk } from '@/src/store/slices/getProducts/getProducts/getProducts'
+import { setPagination } from '@/src/store/slices/pagination'
 
 import NotFound from '../NotFound/NotFound'
 
@@ -18,39 +18,51 @@ const ProductsBlock = () => {
     const dispatch = useAppDispatch()
 
     const observerRef = useRef<HTMLDivElement | null>(null)
-    const products = useAppSelector((state) => state.products.data)
+    const products = useAppSelector((state) => state.products)
     const filters = useAppSelector((state) => state.filter)
-    const { limit, page, totalItems } = useAppSelector(
+    const { limit, page, nextPage } = useAppSelector(
         (state) => state.pagination
     )
 
-    const { fetchQuery } = usePagination({
-        callback: async () => {
-            const response = await getProducts({
-                filters: { page, limit, ...filters }
+    const callbackFn = useCallback(async () => {
+        const result = await dispatch(
+            getPaginatedProductsThunk({
+                filters: { ...filters, limit, page }
             })
-            if (response.data) {
-                dispatch(addPaginatedProducts(response.data))
-            }
-            return response
-        },
+        ).unwrap()
+
+        dispatch(
+            setPagination({
+                nextPage: result.nextPage,
+                totalItems: result.totalItems,
+                totalPages: result.totalPages,
+                page: page + 1
+            })
+        )
+
+        return result
+    }, [dispatch, filters, limit, page])
+
+    const { isLoading, fetchQuery } = usePagination({
+        callback: callbackFn,
         limit,
-        page: page + 1,
-        isDisabled: totalItems === null || limit * page >= totalItems
+        page,
+        isDisabled: !nextPage
     })
 
     useObserver({
         callback: fetchQuery,
-        element: observerRef
+        element: observerRef,
+        isLoading
     })
 
-    if (filters.name && products.length === 0) {
+    if (filters.name && products.data.length === 0) {
         return <NotFound />
     }
 
     return (
         <CatalogSpacer>
-            {products.map(
+            {products.data.map(
                 ({ id, name, images, price, isOuter, discount }, index) => (
                     <ProductCard
                         key={id}

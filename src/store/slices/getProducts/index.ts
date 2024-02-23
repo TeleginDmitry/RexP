@@ -26,7 +26,7 @@ const { reducer, actions } = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getProductsThunk.fulfilled, (store, { payload }) => ({
             ...store,
-            data: payload,
+            data: payload.results,
             success: true
         }))
         builder.addCase(getProductsThunk.rejected, (store) => ({
@@ -37,7 +37,7 @@ const { reducer, actions } = createSlice({
             getPaginatedProductsThunk.fulfilled,
             (store, { payload }) => ({
                 ...store,
-                data: store.data.concat(payload),
+                data: store.data.concat(payload.results),
                 success: true
             })
         )

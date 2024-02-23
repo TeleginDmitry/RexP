@@ -175,17 +175,17 @@ const ReviewPage = () => {
 
             <Modal isOpen={isVisibleModal} onClose={handleVisibleModal}>
                 <div className='fixed top-0 left-0 z-[1000000] p-4 flex justify-center items-center w-full h-full bg-black bg-opacity-40'>
-                    <div className='rounded-xl max-w-90 bg-white flex flex-col gap-2'>
-                        <div className='px-4 pt-4 flex flex-col gap-1 items-center'>
-                            <h2 className='text-base font-bold'>
+                    <div className='p-5 rounded-xl max-w-90 bg-white flex flex-col gap-2'>
+                        <div className=' flex flex-col gap-1'>
+                            <h2 className='text-base font-semibold'>
                                 Хотите оставить отзыв на заказ?
                             </h2>
                             <p className='text-sm'>
                                 Для того, чтобы оставить отзыв на полученный
-                                заказ, необходимо перейти в бот для отзывов.
+                                заказ, необходимо перейти в бот для отзывов
                             </p>
                         </div>
-                        <div className={'p-5'}>
+                        <div>
                             <button
                                 style={{ borderRadius: 10 }}
                                 className='w-full text-base font-semibold py-2 px-1 text-white text-center bg-black'
@@ -193,7 +193,7 @@ const ReviewPage = () => {
                                 <Link
                                     href={`https://t.me/poizonrex_reviews_bot?start=order${activeId}`}
                                 >
-                                    Перейти в бот для отзывов
+                                    Да, перейти в бот для отзывов
                                 </Link>
                             </button>
                             <button

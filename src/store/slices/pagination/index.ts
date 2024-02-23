@@ -3,17 +3,17 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 
 import { LIMIT, PAGE } from '@/src/constants'
+import type { ResponsePaginatedData } from '@/src/types/pagination.types'
 
-interface PaginationState {
+interface PaginationState extends ResponsePaginatedData {
     limit: number
     page: number
-    totalItems: number | null
-    totalPages: number | null
 }
 
 const initialState: PaginationState = {
     limit: LIMIT,
     page: PAGE,
+    nextPage: PAGE + 1,
     totalItems: null,
     totalPages: null
 }
@@ -30,6 +30,7 @@ const { reducer, actions } = createSlice({
             state.page = PAGE
             state.totalItems = null
             state.totalPages = null
+            state.nextPage = PAGE + 1
         }
     }
 })

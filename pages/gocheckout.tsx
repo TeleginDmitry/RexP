@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -23,8 +25,10 @@ import {
 import { getCartsThunk } from '@/src/store/slices/getCarts/getCarts/getCarts'
 import { getDeliveryThunk } from '@/src/store/slices/getDelivery/getDelivery/getDelivery'
 import { createOrder } from '@/src/utils/api/createOrder'
+import type { PromoType } from '@/src/utils/api/getPromo'
 import { getPromo } from '@/src/utils/api/getPromo'
 
+import ArrowSvg from 'public/images/icons/arrowUp.svg'
 import CheckSvg from 'public/images/icons/check.svg'
 import XRedSvg from 'public/images/icons/xRed.svg'
 
@@ -45,6 +49,9 @@ const GocheckoutPage = () => {
     const [promoStatus, setPromoStatus] = useState<
         'invalid' | 'success' | null
     >(null)
+    const [promo, setPromo] = useState<PromoType | null>(null)
+
+    const [isActive, setIsActive] = useState(false)
 
     useEffect(() => {
         const value = localStorage.getItem('selectedCartsInfo')
@@ -76,19 +83,27 @@ const GocheckoutPage = () => {
     const { selectedCarts, totalPrice, totalPriceWithDiscount } =
         selectedCartsInfo
 
+    const priceWithPromo = promo
+        ? Math.floor(
+              (totalPrice * parseFloat(promo.value.replace('%', ''))) / 100
+          )
+        : 0
+
     const findMainDelivery = deliveryCarts.find(({ isMain }) => isMain)
 
     if (!findMainDelivery) {
         return <h1>Нужно добавить данные доставки</h1>
     }
 
-    function onBuy() {
+    async function onBuy() {
         try {
             const products = selectedCarts.map((value) => +value)
-            createOrder({
+            const { data } = await createOrder({
                 products,
                 deliveryId: findMainDelivery!.deliveryType!.id!
             })
+
+            router.push(data.confirmationURL)
         } catch (error) {
             /* empty */
         }
@@ -106,9 +121,10 @@ const GocheckoutPage = () => {
     async function checkPromo() {
         if (promoValue.length) {
             try {
-                const result = await getPromo({ name: promoValue })
+                const promo = await getPromo({ name: promoValue })
 
-                if (result.data !== null) {
+                if (promo !== null) {
+                    setPromo(promo)
                     setPromoStatus('success')
                 } else {
                     setPromoStatus('invalid')
@@ -122,6 +138,10 @@ const GocheckoutPage = () => {
     const neededCarts = carts.filter(({ id }) =>
         selectedCarts.includes(String(id))
     )
+
+    if (!neededCarts.length) {
+        router.push('/')
+    }
 
     const currentDate = new Date()
     currentDate.setDate(currentDate.getDate() + 21)
@@ -325,17 +345,71 @@ const GocheckoutPage = () => {
                                 ₽
                             </span>
                         </div>
-                        <div className='flex justify-between items-center'>
-                            <div className='flex flex-col gap-2'>
-                                <span className='font-semibold'>Скидка</span>
+                        <div className='flex flex-col gap-2'>
+                            <div
+                                onClick={() => {
+                                    setIsActive((state) => !state)
+                                }}
+                                className='flex justify-between items-center cursor-pointer'
+                            >
+                                <div className='flex gap-2 items-center'>
+                                    <span className='font-semibold'>
+                                        Скидка
+                                    </span>
+                                    <ArrowSvg
+                                        style={{
+                                            transform: isActive
+                                                ? 'rotate(180deg)'
+                                                : 'rotate(0deg)',
+                                            transitionDuration: '200ms'
+                                        }}
+                                    />
+                                </div>
+                                <span className='text-[#D50000]'>
+                                    -
+                                    {new Intl.NumberFormat('ru-RU').format(
+                                        totalPrice -
+                                            totalPriceWithDiscount -
+                                            priceWithPromo
+                                    )}{' '}
+                                    ₽
+                                </span>
                             </div>
-                            <span className='text-[#D50000]'>
-                                -
-                                {new Intl.NumberFormat('ru-RU').format(
-                                    totalPrice - totalPriceWithDiscount
-                                )}{' '}
-                                ₽
-                            </span>
+                            {isActive && (
+                                <>
+                                    <div className='flex justify-between items-center'>
+                                        <div className='flex flex-col gap-2'>
+                                            <span className='text-xs font-normal text-[rgba(142,142,142,1)]'>
+                                                Скидка по акции
+                                            </span>
+                                        </div>
+                                        <span className='text-xs font-normal text-[rgba(142,142,142,1)]'>
+                                            -
+                                            {new Intl.NumberFormat(
+                                                'ru-RU'
+                                            ).format(
+                                                totalPrice -
+                                                    totalPriceWithDiscount
+                                            )}{' '}
+                                            ₽
+                                        </span>
+                                    </div>
+                                    <div className='flex justify-between items-center'>
+                                        <div className='flex flex-col gap-2'>
+                                            <span className='text-xs font-normal text-[rgba(142,142,142,1)]'>
+                                                Скидка по промокоду
+                                            </span>
+                                        </div>
+                                        <span className='text-xs font-normal text-[rgba(142,142,142,1)]'>
+                                            -
+                                            {new Intl.NumberFormat(
+                                                'ru-RU'
+                                            ).format(priceWithPromo)}{' '}
+                                            ₽
+                                        </span>
+                                    </div>
+                                </>
+                            )}
                         </div>
                         <div className='flex justify-between items-center'>
                             <span className='font-semibold'>Доставка</span>
@@ -353,7 +427,7 @@ const GocheckoutPage = () => {
                             </span>
                             <span className='text-black font-[900] text-lg'>
                                 {new Intl.NumberFormat('ru-RU').format(
-                                    totalPriceWithDiscount
+                                    totalPriceWithDiscount - priceWithPromo
                                 )}{' '}
                                 ₽
                             </span>

@@ -24,11 +24,17 @@ import s from './HeaderBlock.module.scss'
 interface HeaderBlockProps {
     setSelected: Dispatch<SetStateAction<string[]>>
     selected: string[]
+    isDelete: boolean
+    setIsDelete: Dispatch<SetStateAction<boolean>>
 }
 
-const HeaderBlock: React.FC<HeaderBlockProps> = ({ selected, setSelected }) => {
+const HeaderBlock: React.FC<HeaderBlockProps> = ({
+    selected,
+    setSelected,
+    isDelete,
+    setIsDelete
+}) => {
     const [isSelected, setIsSelected] = useState(false)
-    const [isOpen, setIsOpen] = useState(false)
     const carts = useAppSelector((state) => state.carts.data)
     const dispatch = useAppDispatch()
     const [modalOpen, setModalOpen] = useState(false)
@@ -48,6 +54,12 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ selected, setSelected }) => {
         }
         setIsSelected(carts.length === selected.length)
     }, [carts.length, selected.length])
+
+    useEffect(() => {
+        if (selected.length === 1 && isDelete) {
+            setModalOpen(true)
+        }
+    }, [selected, isDelete])
 
     const onHandleAllClick = async () => {
         setIsSelected(!isSelected)
@@ -95,13 +107,13 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ selected, setSelected }) => {
                 }}
             >
                 <div className='fixed top-0 left-0 z-[1000000] p-4 flex justify-center items-center w-full h-full bg-black bg-opacity-40'>
-                    <div className='rounded-xl max-w-80 bg-white flex flex-col gap-2'>
-                        <div className='px-4 pt-4 flex flex-col gap-1 items-center'>
-                            <h2 className='text-base font-bold'>
+                    <div className='p-5 rounded-[20px] max-w-80 bg-white flex flex-col gap-2'>
+                        <div className='flex flex-col gap-1 items-center'>
+                            <h2 className='text-base font-semibold'>
                                 Вы уверенны, что хотите удалить{' '}
                                 {selected.length > 1
                                     ? 'выбранные товары'
-                                    : 'выбранный товар'}{' '}
+                                    : 'выбранный товар'}
                                 ?
                             </h2>
                             <p className='text-sm'>
@@ -111,11 +123,12 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ selected, setSelected }) => {
                                 из корзины безвозвратно
                             </p>
                         </div>
-                        <div className={'p-5'}>
+                        <div>
                             <button
                                 onClick={() => {
                                     onHandleClick()
                                     setModalOpen(false)
+                                    setIsDelete(false)
                                 }}
                                 style={{ borderRadius: 10 }}
                                 className='w-full text-base font-semibold py-2 px-1 text-white text-center bg-black'
@@ -126,6 +139,7 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({ selected, setSelected }) => {
                             <button
                                 onClick={() => {
                                     setModalOpen(false)
+                                    setIsDelete(false)
                                 }}
                                 className='w-full text-base font-semibold text-black py-2 px-1 text-center'
                             >

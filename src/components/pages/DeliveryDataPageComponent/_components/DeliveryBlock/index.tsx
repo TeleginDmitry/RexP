@@ -1,8 +1,11 @@
 /* eslint-disable react/no-array-index-key */
+import { useState } from 'react'
+
 import { Button, Modal } from '@nextui-org/react'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 
+import RootIcon from '@/src/components/ui/icons/RootIcon'
 import RootButton from '@/src/components/ui/RootButton'
 import SpecificBlock from '@/src/components/ui/SpecificBlock/SpecificBlock'
 import {
@@ -10,17 +13,16 @@ import {
     useAppSelector
 } from '@/src/hooks/redux-hooks/redux-hooks'
 import { changeIsMain } from '@/src/store/slices/getDelivery'
+import { getDeliveryThunk } from '@/src/store/slices/getDelivery/getDelivery/getDelivery'
+import { deleteDelivery } from '@/src/utils/api/deleteDelivery'
 import { editDeliveryCart } from '@/src/utils/api/DeliveryCartMethods'
 
 import image from 'public/images/global/image1.png'
 
 import s from './DeliveryBlock.module.scss'
-import RootIcon from '@/src/components/ui/icons/RootIcon'
-import Link from 'next/link'
-import { useState } from 'react'
 
 const DeliveryBlock = () => {
-    const [modalOpen, setModalOpen] = useState(false)
+    const [idDelivery, setIdDelivery] = useState<number | null>(null)
     const dispatch = useAppDispatch()
     const deliveryCarts = useAppSelector((state) => state.delivery.data)
     const router = useRouter()
@@ -50,6 +52,21 @@ const DeliveryBlock = () => {
         } catch (error) {
             /* empty */
         }
+    }
+
+    const onDeleteDelivery = async () => {
+        if (typeof idDelivery !== 'number') {
+            return
+        }
+
+        try {
+            await deleteDelivery({ deliveryId: idDelivery })
+            dispatch(getDeliveryThunk())
+        } catch (error) {
+            /* empty */
+        }
+
+        setIdDelivery(null)
     }
 
     if (!deliveryCarts.length) {
@@ -119,12 +136,13 @@ const DeliveryBlock = () => {
                                                 />
                                             </svg>
                                         </RootButton>
-                                        <RootIcon
+                                        <RootButton
                                             onClick={() => {
-                                                setModalOpen(true)
+                                                setIdDelivery(id)
                                             }}
-                                            name='delete'
-                                        />
+                                        >
+                                            <RootIcon name='delete' />
+                                        </RootButton>
                                     </div>
                                 </div>
                                 <div className={s.content}>
@@ -162,26 +180,24 @@ const DeliveryBlock = () => {
                         )
                     )}
             <Modal
-                isOpen={modalOpen}
+                isOpen={typeof idDelivery === 'number'}
                 onClose={() => {
-                    setModalOpen(false)
+                    setIdDelivery(null)
                 }}
             >
-                <div className='fixed top-0 left-0 z-[1000000] p-4 flex justify-center items-center w-full h-full bg-black bg-opacity-40'>
-                    <div className='rounded-xl max-w-80 bg-white flex flex-col gap-2'>
-                        <div className='px-4 pt-4 flex flex-col gap-1 items-center'>
-                            <h2 className='text-base font-bold'>
+                <div className='fixed top-0 left-0 z-[1000000] p-4 flex justify-center items-center w-full h-full bg-black bg-opacity-40 '>
+                    <div className='rounded-[20px] max-w-80 bg-white flex flex-col gap-2 p-5'>
+                        <div className='flex flex-col gap-1'>
+                            <h2 className='text-base font-semibold'>
                                 Вы уверенны, что хотите удалить данные доставки?
                             </h2>
                             <p className='text-sm'>
                                 Ваши данные будут удалены безвозвратно
                             </p>
                         </div>
-                        <div className={'p-5'}>
+                        <div>
                             <button
-                                onClick={() => {
-                                    setModalOpen(false)
-                                }}
+                                onClick={onDeleteDelivery}
                                 style={{ borderRadius: 10 }}
                                 className='w-full text-base font-semibold py-2 px-1 text-white text-center bg-black'
                             >
@@ -189,7 +205,7 @@ const DeliveryBlock = () => {
                             </button>
                             <button
                                 onClick={() => {
-                                    setModalOpen(false)
+                                    setIdDelivery(null)
                                 }}
                                 className='w-full text-base font-semibold text-black py-2 px-1 text-center'
                             >
