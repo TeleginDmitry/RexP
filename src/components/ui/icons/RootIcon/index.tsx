@@ -8,9 +8,12 @@ const RootIcon: React.FC<RootIconProps> = ({
     name,
     className,
     disableHover,
-    rounded
+    rounded,
+    onClick = () => {}
 }) => (
     <div
+        role='presentation'
+        onClick={onClick}
         className={clsx(
             s.icon,
             s[name],

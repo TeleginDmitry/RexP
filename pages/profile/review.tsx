@@ -174,19 +174,22 @@ const ReviewPage = () => {
             </MainContainer>
 
             <Modal isOpen={isVisibleModal} onClose={handleVisibleModal}>
-                <div className='fixed top-0 left-0 z-[10000] p-4 flex justify-center items-center w-full h-full bg-black bg-opacity-40'>
-                    <div className='rounded-xl max-w-72 bg-[#b9b9b9] flex flex-col gap-2'>
+                <div className='fixed top-0 left-0 z-[1000000] p-4 flex justify-center items-center w-full h-full bg-black bg-opacity-40'>
+                    <div className='rounded-xl max-w-90 bg-white flex flex-col gap-2'>
                         <div className='px-4 pt-4 flex flex-col gap-1 items-center'>
-                            <h2 className='text-base font-semibold text-center'>
+                            <h2 className='text-base font-bold'>
                                 Хотите оставить отзыв на заказ?
                             </h2>
-                            <p className='text-center text-sm'>
+                            <p className='text-sm'>
                                 Для того, чтобы оставить отзыв на полученный
                                 заказ, необходимо перейти в бот для отзывов.
                             </p>
                         </div>
-                        <div>
-                            <button className='w-full text-base font-semibold text-[#007AFF] py-2 px-1 text-center border-t border-b border-l-0 border-r-0 border-solid border-[rgba(60,60,67,0.36)]'>
+                        <div className={'p-5'}>
+                            <button
+                                style={{ borderRadius: 10 }}
+                                className='w-full text-base font-semibold py-2 px-1 text-white text-center bg-black'
+                            >
                                 <Link
                                     href={`https://t.me/poizonrex_reviews_bot?start=order${activeId}`}
                                 >
@@ -194,7 +197,7 @@ const ReviewPage = () => {
                                 </Link>
                             </button>
                             <button
-                                className='w-full text-base font-semibold text-[#007AFF] py-2 px-1 text-center'
+                                className='w-full text-base font-semibold text-black py-2 px-1 text-center'
                                 onClick={handleVisibleModal}
                             >
                                 Отмена

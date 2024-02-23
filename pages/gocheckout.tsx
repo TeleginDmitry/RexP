@@ -348,8 +348,10 @@ const GocheckoutPage = () => {
                         </span>
 
                         <div className='flex justify-between items-center'>
-                            <span className='text-lg font-semibold'>Итого</span>
-                            <span className='text-[#535353] text-lg'>
+                            <span className='text-lg  font-semibold'>
+                                Итого
+                            </span>
+                            <span className='text-black font-[900] text-lg'>
                                 {new Intl.NumberFormat('ru-RU').format(
                                     totalPriceWithDiscount
                                 )}{' '}
