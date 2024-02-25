@@ -368,9 +368,11 @@ const GocheckoutPage = () => {
                                 <span className='text-[#D50000]'>
                                     -
                                     {new Intl.NumberFormat('ru-RU').format(
-                                        totalPrice -
-                                            totalPriceWithDiscount -
-                                            priceWithPromo
+                                        Math.abs(
+                                            totalPrice -
+                                                totalPriceWithDiscount -
+                                                priceWithPromo
+                                        )
                                     )}{' '}
                                     ₽
                                 </span>

@@ -64,7 +64,6 @@ const SaveButton = ({ currentAddress }: Props) => {
               !currentAddress.flat ||
               !currentAddress.house ||
               !currentAddress.street
-    console.log(isDisabled)
     return (
         <Button
             isDisabled={isDisabled}

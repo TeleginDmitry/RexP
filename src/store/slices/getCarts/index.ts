@@ -20,10 +20,7 @@ const { reducer, actions } = createSlice({
             ...state,
             data: state.data.filter((item) => item.id !== id)
         }),
-        increaseCarts: (state) => ({
-            ...state,
-            data: [...state.data, state.data[0]]
-        }),
+
         increaseCartProductCount: (
             state,
             { payload: { id } }: PayloadAction<{ id: number }>
@@ -58,7 +55,6 @@ const { reducer, actions } = createSlice({
 
 export const {
     deleteCartFromStore,
-    increaseCarts,
     increaseCartProductCount,
     decreaseCartProductCount
 } = actions

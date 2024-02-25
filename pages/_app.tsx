@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import PageLayout from '@/src/components/layout/PageLayout'
 import AppContextProvider from '@/src/context/AppContextProvider'
 import AuthProvider from '@/src/providers/Auth.provider'
+import DataProvider from '@/src/providers/Data.provider'
 import { wrapper } from '@/src/store/store'
 
 import '@/styles/color/_color.scss'
@@ -38,10 +39,12 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
     return (
         <AppContextProvider store={store}>
             <AuthProvider>
-                <PageLayout>
-                    <Component {...pageProps} />
-                    {/* {process.env.NEXT_PUBLIC_BUILD_PROFILE !== "test" && <Analytics />} */}
-                </PageLayout>
+                <DataProvider>
+                    <PageLayout>
+                        <Component {...pageProps} />
+                        {/* {process.env.NEXT_PUBLIC_BUILD_PROFILE !== "test" && <Analytics />} */}
+                    </PageLayout>
+                </DataProvider>
             </AuthProvider>
         </AppContextProvider>
     )

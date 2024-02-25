@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Pagination, Autoplay } from 'swiper/modules'
+import { Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import 'swiper/css/bundle'
@@ -20,9 +20,9 @@ const SliderBlock = () => {
                 bulletClass: `${s['slider-bullet']}`,
                 el: `.${s['pagination-container']}`
             }}
-            autoplay={{ delay: 8500, disableOnInteraction: false }}
-            modules={[Pagination, Autoplay]}
+            modules={[Pagination]}
             className={s.slider}
+            wrapperClass={s.sliderWrapper}
         >
             {images.map(({ name, id }) => (
                 <SwiperSlide key={id}>
@@ -33,9 +33,10 @@ const SliderBlock = () => {
                                     ? name
                                     : `${process.env.NEXT_PUBLIC_IMAGES_URL}${name}`
                             }
-                            alt=''
-                            fill
-                            sizes='(max-width: 768px) 100vw, 200vw'
+                            alt='Product image'
+                            width={300}
+                            height={250}
+                            className={s.image}
                         />
                     </div>
                 </SwiperSlide>

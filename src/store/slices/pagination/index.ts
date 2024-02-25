@@ -25,12 +25,8 @@ const { reducer, actions } = createSlice({
         setPagination(state, action: PayloadAction<Partial<PaginationState>>) {
             return { ...state, ...action.payload }
         },
-        resetPagination(state) {
-            state.limit = LIMIT
-            state.page = PAGE
-            state.totalItems = null
-            state.totalPages = null
-            state.nextPage = PAGE + 1
+        resetPagination() {
+            return initialState
         }
     }
 })

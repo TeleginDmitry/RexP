@@ -12,45 +12,45 @@ import { getCityThunk } from '@/src/store/slices/city/thunks/getDelivery'
 import { clear } from '@/src/store/slices/delivery'
 import { getDeliveryThunk } from '@/src/store/slices/delivery/thunks/getDelivery'
 import { getDeliveryPointsThunk } from '@/src/store/slices/deliveryPoints/thunks/getDelivery'
-import { getDeliveryThunk as getDeliveryAllThunk } from '@/src/store/slices/getDelivery/getDelivery/getDelivery'
 
 const DeliveryDetailsPage = () => {
     const dispatch = useAppDispatch()
     const router = useRouter()
 
+    const queryId = router.query.id as string
+
     const currentAddress = useAppSelector((state) => state.deliveryOne)
-    const cities = useAppSelector((state) => state.city)
 
     const [isAccess, setAccess] = useState(false)
 
-    const codeCity = cities.find(
-        ({ city }) => city === currentAddress.city
-    )?.code
-
     useEffect(() => {
-        if (codeCity) {
-            dispatch(getDeliveryPointsThunk(codeCity))
+        async function queries() {
+            if (!queryId) {
+                dispatch(clear())
+            }
+
+            if (queryId) {
+                const deliveryOne = await dispatch(
+                    getDeliveryThunk(+queryId)
+                ).unwrap()
+                const citiesAll = await dispatch(
+                    getCityThunk(deliveryOne.city)
+                ).unwrap()
+
+                const codeCity = citiesAll.find(
+                    ({ city }) => city === currentAddress.city
+                )?.code
+
+                if (codeCity) {
+                    await dispatch(getDeliveryPointsThunk(codeCity))
+                }
+            }
+
+            setAccess(true)
         }
-        setAccess(true)
-    }, [codeCity, dispatch])
 
-    async function queries() {
-        const id = router.query.id as string
-
-        if (!id) {
-            dispatch(clear())
-        }
-
-        await Promise.all([
-            dispatch(getCityThunk()),
-            dispatch(getDeliveryAllThunk()),
-            !!id && dispatch(getDeliveryThunk(+id))
-        ])
-    }
-
-    useEffect(() => {
         queries()
-    }, [])
+    }, [currentAddress.city, dispatch, queryId])
 
     if (!isAccess) {
         return null

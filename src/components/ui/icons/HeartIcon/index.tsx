@@ -2,9 +2,7 @@ import { useId, useState } from 'react'
 
 import { Button } from '@nextui-org/react'
 import clsx from 'clsx'
-import { toast } from 'sonner'
 
-import { MAX_FAVOURITES_PRODUCTS } from '@/src/constants'
 import {
     useAppDispatch,
     useAppSelector
@@ -27,30 +25,22 @@ const HeartIcon: React.FC<HeartIconProps> = ({
     variant = 'default'
 }) => {
     const favorites = useAppSelector((state) => state.favorites.data)
-    const [isLiked, setIsLiked] = useState(
-        !!favorites.find((item) => item.productId === +productId)
-    )
+    const isLiked = !!favorites.find((item) => item.productId === +productId)
+
     const linearGradientId = useId()
     const dispatch = useAppDispatch()
 
-    const onHandleClick = () => {
-        if (isLiked) {
-            setIsLiked(false)
-            deleteFavorite(+productId).then(() => {
+    const onHandleClick = async () => {
+        try {
+            if (isLiked) {
+                await deleteFavorite(+productId)
                 dispatch(getFavoritesThunk({}))
-            })
-            return
-        }
-
-        const count = favorites.length
-
-        if (count < MAX_FAVOURITES_PRODUCTS) {
-            setIsLiked(true)
-            createFavorite({ productId: +productId })
-        } else {
-            toast.error(
-                `Максимальное количество избранных продуктов: ${MAX_FAVOURITES_PRODUCTS}`
-            )
+            } else {
+                await createFavorite({ productId: +productId })
+                dispatch(getFavoritesThunk({}))
+            }
+        } catch (error) {
+            /* empty */
         }
     }
 

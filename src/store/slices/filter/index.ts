@@ -30,10 +30,13 @@ const { reducer, actions } = createSlice({
                 limit: LIMIT,
                 page: PAGE
             }
+        },
+        resetFilters() {
+            return initialState
         }
     }
 })
 
 export default reducer
 
-export const { addFilters } = actions
+export const { addFilters, resetFilters } = actions

@@ -5,7 +5,6 @@ import Head from 'next/head'
 import IndexPageComponent from '@/src/components/pages/IndexPageComponent'
 import { useAppDispatch } from '@/src/hooks/redux-hooks/redux-hooks'
 import { getBrandsThunk } from '@/src/store/slices/getBrands/getBrands/getBrands'
-import { getCartsThunk } from '@/src/store/slices/getCarts/getCarts/getCarts'
 import { getCategoriesThunk } from '@/src/store/slices/getCategory/getCategory/getCategory'
 import { getColorsThunk } from '@/src/store/slices/getColors/getColors/getColors'
 import { getFavoritesThunk } from '@/src/store/slices/getFavorite/getFavorite/getFavorite'
@@ -18,7 +17,6 @@ const IndexPage = () => {
         Promise.all([
             dispatch(getCategoriesThunk()),
             dispatch(getFavoritesThunk({})),
-            dispatch(getCartsThunk({})),
             dispatch(getColorsThunk()),
             dispatch(getSizesThunk()),
             dispatch(getBrandsThunk())
