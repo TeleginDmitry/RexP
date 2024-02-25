@@ -33,10 +33,7 @@ $api.interceptors.response.use(
         if (error.response?.status === 401 && error.config && !error._isRetry) {
             error._isRetry = true
 
-            // const { initData } = window.Telegram.WebApp
-
-            const initData =
-                'query_id=AAHu-3RHAAAAAO77dEdgIqFN&user=%7B%22id%22%3A1198849006%2C%22first_name%22%3A%22%D0%94%D0%BC%D0%B8%D1%82%D1%80%D0%B8%D0%B9%22%2C%22last_name%22%3A%22%D0%A2%D0%B5%D0%BB%D0%B5%D0%B3%D0%B8%D0%BD%22%2C%22username%22%3A%22d1mas1k2%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1708670131&hash=bcab6be7c1d518e491479f8b860b34a9ceb3b55566f08274c51c3d98f4ecc48f'
+            const { initData } = window.Telegram.WebApp
 
             try {
                 const loginResult = await login({ initData, isRequired: true })

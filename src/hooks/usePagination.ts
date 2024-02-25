@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import { useState } from 'react'
 
 import { LIMIT, PAGE } from '../constants'
@@ -6,11 +7,9 @@ import type { ResponsePaginatedData } from '../types/pagination.types'
 
 type UsePaginationProps = {
     callback: ({
-        limit,
-        page
+        nextPage
     }: {
-        limit: number
-        page: number
+        nextPage: number | null
     }) => Promise<ResponsePaginatedData>
     limit?: number
     page?: number
@@ -32,17 +31,20 @@ export const usePagination = ({
     const [limit] = useState<number>(currentLimit)
 
     async function fetchQuery() {
-        if (isDisabled) {
+        if (isDisabled && nextPage === null) {
             return
         }
 
         try {
             setIsLoading(true)
-            const { nextPage, totalItems, totalPages } = await callback({
-                limit,
-                page
+            const {
+                nextPage: responseNextPage,
+                totalItems,
+                totalPages
+            } = await callback({
+                nextPage
             })
-            setNextPage(nextPage)
+            setNextPage(responseNextPage)
             setTotalPages(totalPages)
             setTotalItems(totalItems)
             setPage((state) => state + 1)

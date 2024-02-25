@@ -23,7 +23,7 @@ const ProductsBlock = () => {
     const { limit, page, nextPage } = useAppSelector(
         (state) => state.pagination
     )
-
+    console.log(page)
     const callbackFn = useCallback(async () => {
         const result = await dispatch(
             getPaginatedProductsThunk({
@@ -76,7 +76,7 @@ const ProductsBlock = () => {
                     />
                 )
             )}
-            <div className='absolute bottom-0' ref={observerRef} />
+            <div className='absolute bottom-16' ref={observerRef} />
         </CatalogSpacer>
     )
 }

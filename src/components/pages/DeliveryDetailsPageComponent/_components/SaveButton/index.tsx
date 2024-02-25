@@ -46,7 +46,7 @@ const SaveButton = ({ currentAddress }: Props) => {
             /* empty */
         }
     }
-
+    console.log(currentAddress)
     const isDisabled =
         currentAddress.deliveryType.id === 1
             ? !currentAddress.patronymic ||

@@ -70,7 +70,7 @@ const TabsBlock = () => {
                 nextPage: result.nextPage,
                 totalItems: result.totalItems,
                 totalPages: result.totalPages,
-                page: PAGE
+                page: PAGE + 1
             })
         )
 
@@ -97,7 +97,7 @@ const TabsBlock = () => {
                     nextPage: result.nextPage,
                     totalItems: result.totalItems,
                     totalPages: result.totalPages,
-                    page: PAGE
+                    page: PAGE + 1
                 })
             )
         } else {
@@ -112,7 +112,7 @@ const TabsBlock = () => {
                     nextPage: result.nextPage,
                     totalItems: result.totalItems,
                     totalPages: result.totalPages,
-                    page: PAGE
+                    page: PAGE + 1
                 })
             )
         }

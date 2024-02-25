@@ -25,10 +25,6 @@ const DeliveryDetailsPage = () => {
 
     useEffect(() => {
         async function queries() {
-            if (!queryId) {
-                dispatch(clear())
-            }
-
             if (queryId) {
                 const deliveryOne = await dispatch(
                     getDeliveryThunk(+queryId)
@@ -51,6 +47,12 @@ const DeliveryDetailsPage = () => {
 
         queries()
     }, [currentAddress.city, dispatch, queryId])
+
+    useEffect(() => {
+        if (!queryId) {
+            dispatch(clear())
+        }
+    }, [queryId])
 
     if (!isAccess) {
         return null

@@ -52,7 +52,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
                           )}{' '}
                     ₽
                 </span>
-                <p className={`${s.name} overflow-ellipsis line-clamp-2`}>
+                <p
+                    className={`${s.name} overflow-ellipsis line-clamp-2 m-0 p-0`}
+                >
                     {name.slice(0, 80)}
                 </p>
             </div>

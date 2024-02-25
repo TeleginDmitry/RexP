@@ -71,7 +71,7 @@ export const SearhBlock = () => {
                     nextPage: result.nextPage,
                     totalItems: result.totalItems,
                     totalPages: result.totalPages,
-                    page: PAGE
+                    page: PAGE + 1
                 })
             )
         } else {
@@ -86,7 +86,7 @@ export const SearhBlock = () => {
                     nextPage: result.nextPage,
                     totalItems: result.totalItems,
                     totalPages: result.totalPages,
-                    page: PAGE
+                    page: PAGE + 1
                 })
             )
         }

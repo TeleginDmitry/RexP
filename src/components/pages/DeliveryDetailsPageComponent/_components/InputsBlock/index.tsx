@@ -72,16 +72,16 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
                         }}
                         className={s.autocomplete}
                         defaultItems={deliveryPoints}
-                        defaultSelectedKey={currentAddress.city}
+                        defaultSelectedKey={currentAddress.deliveryPointAddress}
                     >
-                        {({ address, address_full, city }) => (
+                        {({ address, address_full }) => (
                             <AutocompleteItem
                                 onClick={() => {
                                     onHandleChange({
                                         deliveryPointAddress: address_full
                                     })
                                 }}
-                                key={city}
+                                key={address_full}
                                 className={s.item}
                             >
                                 {address}
