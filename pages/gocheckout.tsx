@@ -103,7 +103,9 @@ const GocheckoutPage = () => {
                 deliveryId: findMainDelivery!.deliveryType!.id!
             })
 
-            router.push(data.confirmationURL)
+            if (data.confirmationURL) {
+                router.push(data.confirmationURL)
+            }
         } catch (error) {
             /* empty */
         }
