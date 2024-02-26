@@ -75,101 +75,120 @@ const ProductsBlock = () => {
                 onValueChange={addSelections}
                 value={selected}
             >
-                {carts.map(({ id, count, productSize, product }, index) => (
-                    <InViewWrapper
-                        key={`${id}${productSize.size.name}`}
-                        className={s.product}
-                    >
-                        {({ isInView }) => (
-                            <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{
-                                    opacity: isInView ? 1 : 0,
-                                    y: isInView ? 0 : 30
-                                }}
-                                exit={{ opacity: 0 }}
-                                transition={{
-                                    duration: 0.3,
-                                    delay: index < 2 ? 0.1 * index : 0.15
-                                }}
-                                className={s['checkbox-wrapper']}
-                            >
-                                <Checkbox
-                                    aria-label={product.name}
-                                    radius='full'
-                                    size='lg'
-                                    classNames={{
-                                        base: clsx(
-                                            cn(
-                                                'inline-flex max-w-md w-full m-0',
-                                                'hover:bg-content2 items-center justify-start',
-                                                'cursor-pointer rounded-[0px] p-[0px]  border-transparent',
-                                                'data-[selected=true]:border-primary'
-                                            ),
-                                            s.checkbox
-                                        ),
-                                        label: 'w-[calc(100%_-_35px)]'
+                {carts.map(({ id, count, productSize, product }, index) => {
+                    const slicedName = product.name.slice(0, 80)
+
+                    return (
+                        <InViewWrapper
+                            key={`${id}${productSize.size.name}`}
+                            className={s.product}
+                        >
+                            {({ isInView }) => (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{
+                                        opacity: isInView ? 1 : 0,
+                                        y: isInView ? 0 : 30
                                     }}
-                                    value={`${id}`}
+                                    exit={{ opacity: 0 }}
+                                    transition={{
+                                        duration: 0.3,
+                                        delay: index < 2 ? 0.1 * index : 0.15
+                                    }}
+                                    className={s['checkbox-wrapper']}
                                 >
-                                    <Link href={`/catalog/${product.id}`}>
-                                        <div className={s.header}>
-                                            <div className={s.image}>
-                                                {product.images &&
-                                                    product.images[0] && (
-                                                        <Image
-                                                            width={170}
-                                                            height={100}
-                                                            src={
-                                                                product.isOuter
-                                                                    ? product
-                                                                          .images[0]
-                                                                          .name
-                                                                    : `${process.env.NEXT_PUBLIC_IMAGES_URL}${product.images[0].name}`
-                                                            }
-                                                            alt={product.name}
-                                                        />
-                                                    )}
-                                            </div>
-                                            <div className={s.info}>
-                                                <div className={s.info__price}>
-                                                    {new Intl.NumberFormat(
-                                                        'ru-RU'
-                                                    ).format(
-                                                        productSize.price
-                                                    )}{' '}
-                                                    ₽
-                                                </div>
-                                                <div className={s.info__name}>
-                                                    {product.name.slice(0, 80)}
-                                                </div>
-                                                <div className={s.info__size}>
-                                                    размер:{' '}
-                                                    {productSize.size.name}
-                                                </div>
-                                                {productSize.amount < 5 && (
-                                                    <div className='text-[#D50000] text-xs mt-1'>
-                                                        Осталось менее 5 штук
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </Link>
-                                </Checkbox>
-                                <div className={s.footer}>
-                                    <HeartIcon productId={product.id} />
-                                    <DeleteButton
-                                        onClick={() => {
-                                            setIsDelete(true)
-                                            setSelected([`${id}`])
+                                    <Checkbox
+                                        aria-label={product.name}
+                                        radius='full'
+                                        size='lg'
+                                        classNames={{
+                                            base: clsx(
+                                                cn(
+                                                    'inline-flex max-w-md w-full m-0',
+                                                    'hover:bg-content2 items-center justify-start',
+                                                    'cursor-pointer rounded-[0px] p-[0px]  border-transparent',
+                                                    'data-[selected=true]:border-primary'
+                                                ),
+                                                s.checkbox
+                                            ),
+                                            label: 'w-[calc(100%_-_35px)]'
                                         }}
-                                    />
-                                    <CountButton id={id} quantity={count} />
-                                </div>
-                            </motion.div>
-                        )}
-                    </InViewWrapper>
-                ))}
+                                        value={`${id}`}
+                                    >
+                                        <Link href={`/catalog/${product.id}`}>
+                                            <div className={s.header}>
+                                                <div className={s.image}>
+                                                    {product.images &&
+                                                        product.images[0] && (
+                                                            <Image
+                                                                width={170}
+                                                                height={100}
+                                                                src={
+                                                                    product.isOuter
+                                                                        ? product
+                                                                              .images[0]
+                                                                              .name
+                                                                        : `${process.env.NEXT_PUBLIC_IMAGES_URL}${product.images[0].name}`
+                                                                }
+                                                                alt={
+                                                                    product.name
+                                                                }
+                                                            />
+                                                        )}
+                                                </div>
+                                                <div className={s.info}>
+                                                    <div
+                                                        className={
+                                                            s.info__price
+                                                        }
+                                                    >
+                                                        {new Intl.NumberFormat(
+                                                            'ru-RU'
+                                                        ).format(
+                                                            productSize.price
+                                                        )}{' '}
+                                                        ₽
+                                                    </div>
+                                                    <div
+                                                        className={s.info__name}
+                                                    >
+                                                        {slicedName}
+                                                        {slicedName.length <
+                                                        product.name.length
+                                                            ? '...'
+                                                            : ''}
+                                                    </div>
+                                                    <div
+                                                        className={s.info__size}
+                                                    >
+                                                        размер:{' '}
+                                                        {productSize.size.name}
+                                                    </div>
+                                                    {productSize.amount < 5 && (
+                                                        <div className='text-[#D50000] text-xs mt-1'>
+                                                            Осталось менее 5
+                                                            штук
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    </Checkbox>
+                                    <div className={s.footer}>
+                                        <HeartIcon productId={product.id} />
+                                        <DeleteButton
+                                            onClick={() => {
+                                                setIsDelete(true)
+                                                setSelected([`${id}`])
+                                            }}
+                                        />
+                                        <CountButton id={id} quantity={count} />
+                                    </div>
+                                </motion.div>
+                            )}
+                        </InViewWrapper>
+                    )
+                })}
             </CheckboxGroup>
             <div
                 className={clsx(s.totalFooter, !!selected.length && s.visible)}

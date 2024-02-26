@@ -18,49 +18,58 @@ const ProductCard: React.FC<ProductCardProps> = ({
     price,
     outOfStock,
     variant = 'default'
-}) => (
-    <div
-        className={clsx(
-            s.wrapper,
-            className,
-            s[variant],
-            outOfStock && s.outOfStock
-        )}
-    >
-        <Image
-            src={
-                isOuter
-                    ? imgUrl
-                    : `${process.env.NEXT_PUBLIC_IMAGES_URL}${imgUrl}`
-            }
-            alt={name}
-            width={variant === 'default' ? 145 : 101}
-            height={variant === 'default' ? 107 : 59}
-            priority={imagePriority}
-            className={s.image}
-            quality={100}
-        />
-        <DefaultLink href={`/catalog/${id}`} className={s.link} />
-        <div className={s.content}>
-            {outOfStock && <div className={s.outOfStock}>Нет в наличии</div>}
-            <div className={clsx(s.info, s[variant])}>
-                <span className={s.price}>
-                    {Number.isNaN(price)
-                        ? price
-                        : new Intl.NumberFormat('ru-RU').format(
-                              Math.round(+price)
-                          )}{' '}
-                    ₽
-                </span>
-                <p
-                    className={`${s.name} overflow-ellipsis line-clamp-2 m-0 p-0`}
-                >
-                    {name.slice(0, 80)}
-                </p>
+}) => {
+    const slicedName = name.slice(0, 40)
+
+    return (
+        <div
+            className={clsx(
+                s.wrapper,
+                className,
+                s[variant],
+                outOfStock && s.outOfStock
+            )}
+        >
+            <Image
+                src={
+                    isOuter
+                        ? imgUrl
+                        : `${process.env.NEXT_PUBLIC_IMAGES_URL}${imgUrl}`
+                }
+                alt={name}
+                width={variant === 'default' ? 145 : 101}
+                height={variant === 'default' ? 107 : 59}
+                priority={imagePriority}
+                className={s.image}
+                quality={100}
+            />
+            <DefaultLink href={`/catalog/${id}`} className={s.link} />
+            <div className={s.content}>
+                {outOfStock && (
+                    <div className={s.outOfStock}>Нет в наличии</div>
+                )}
+                <div className={clsx(s.info, s[variant])}>
+                    <span className={s.price}>
+                        {Number.isNaN(price)
+                            ? price
+                            : new Intl.NumberFormat('ru-RU').format(
+                                  Math.round(+price)
+                              )}{' '}
+                        ₽
+                    </span>
+                    <p className={`${s.name} break-all text-sm`}>
+                        {slicedName}
+                        {slicedName.length < name.length ? '...' : ''}
+                    </p>
+                </div>
+                <HeartIcon
+                    productId={id}
+                    className={s.heart}
+                    variant={variant}
+                />
             </div>
-            <HeartIcon productId={id} className={s.heart} variant={variant} />
         </div>
-    </div>
-)
+    )
+}
 
 export default ProductCard

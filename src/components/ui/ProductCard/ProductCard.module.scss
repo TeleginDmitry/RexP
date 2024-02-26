@@ -69,7 +69,6 @@
     }
 
     .content {
-        margin-top: auto;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -84,6 +83,7 @@
 
                 .name {
                     font-size: 8.283px;
+                    line-height: 15px;
                 }
             }
 
@@ -93,10 +93,13 @@
                 font-style: normal;
                 font-weight: 600;
                 line-height: normal;
+
+                @media (max-width: 375px) {
+                    font-size: 16px;
+                }
             }
 
             .name {
-                font-size: 14px;
                 font-style: normal;
                 font-weight: 400;
             }
