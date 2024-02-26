@@ -19,7 +19,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
     outOfStock,
     variant = 'default'
 }) => {
-    const slicedName = name.slice(0, 40)
+    const screenWidth = window.innerWidth
+
+    const slicedName =
+        screenWidth < 375
+            ? name.slice(0, 30)
+            : screenWidth >= 420
+            ? name.slice(0, 60)
+            : name.slice(0, 70)
 
     return (
         <div
@@ -57,9 +64,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
                               )}{' '}
                         ₽
                     </span>
-                    <p className={`${s.name} break-all text-sm`}>
+                    <p className={`${s.name} break-all text-sm line-clamp-2`}>
                         {slicedName}
-                        {slicedName.length < name.length ? '...' : ''}
                     </p>
                 </div>
                 <HeartIcon
