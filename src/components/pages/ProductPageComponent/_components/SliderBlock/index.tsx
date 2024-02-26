@@ -34,8 +34,9 @@ const SliderBlock = () => {
                                     : `${process.env.NEXT_PUBLIC_IMAGES_URL}${name}`
                             }
                             alt='Product image'
-                            width={300}
+                            width={2500}
                             height={250}
+                            quality={100}
                             className={s.image}
                         />
                     </div>
