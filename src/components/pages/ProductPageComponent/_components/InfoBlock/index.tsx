@@ -47,14 +47,16 @@ const InfoBlock = () => {
                                   )}{' '}
                             ₽
                         </div>
-                        <div className={s['old-price']}>
-                            {Number.isNaN(productSize.price)
-                                ? price
-                                : new Intl.NumberFormat('ru-RU').format(
-                                      productSize.price
-                                  )}{' '}
-                            ₽
-                        </div>
+                        {discount !== 0 && (
+                            <div className={s['old-price']}>
+                                {Number.isNaN(productSize.price)
+                                    ? price
+                                    : new Intl.NumberFormat('ru-RU').format(
+                                          productSize.price
+                                      )}{' '}
+                                ₽
+                            </div>
+                        )}
                     </div>
                 )}
 
