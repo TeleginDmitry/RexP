@@ -8,27 +8,42 @@ interface Props {
     title: string
     text: string
     linkText?: string
+    positionImage?: 'bottom' | 'top'
 }
 export default function SpecificBlock({
     imageUrl,
     text,
     title,
-    linkText = 'Перейти в каталог'
+    linkText = 'Перейти в каталог',
+    positionImage = 'top'
 }: Props) {
     return (
         <div className='flex flex-col items-center gap-2 pt-4'>
-            <Image
-                src={imageUrl}
-                alt='Картинка не найдено'
-                width={300}
-                height={300}
-                className='w-full'
-            />
+            {positionImage === 'top' && (
+                <Image
+                    src={imageUrl}
+                    alt='Картинка не найдено'
+                    width={300}
+                    height={300}
+                    className='w-full'
+                />
+            )}
+
             <p className='font-semibold text-xl text-center'>{title}</p>
 
             <span className='text-base text-[rgba(60,60,67,0.6)] text-center'>
                 {text}
             </span>
+
+            {positionImage === 'bottom' && (
+                <Image
+                    src={imageUrl}
+                    alt='Картинка не найдено'
+                    width={300}
+                    height={300}
+                    className='w-full'
+                />
+            )}
 
             {linkText && (
                 <Link
