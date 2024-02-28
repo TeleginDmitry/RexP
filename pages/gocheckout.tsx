@@ -97,7 +97,7 @@ const GocheckoutPage = () => {
         }
 
         getTariffFn()
-    }, [])
+    }, [selectedCartsInfo])
 
     if (!selectedCartsInfo || tariff === null) {
         return null
