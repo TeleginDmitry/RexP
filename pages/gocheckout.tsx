@@ -443,8 +443,7 @@ const GocheckoutPage = () => {
                             <span className={`${clsx({'text-black': tariff !== 0, 'text-[#03A400]': tariff === 0})}`}>
                                 {tariff !== 0 ? (
                                     <>
-≈{' '}
-                                        {new Intl.NumberFormat('ru-RU').format(
+≈{' '}{new Intl.NumberFormat('ru-RU').format(
                                             tariff
                                         )}{' '}
                                         ₽
