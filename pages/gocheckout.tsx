@@ -440,9 +440,10 @@ const GocheckoutPage = () => {
                         </div>
                         <div className='flex justify-between items-center'>
                             <span className='font-semibold'>Доставка</span>
-                            <span className='text-[#03A400]'>
+                            <span className={`${clsx({'text-black': tariff !== 0, 'text-[#03A400]': tariff === 0})}`}>
                                 {tariff !== 0 ? (
                                     <>
+≈{' '}
                                         {new Intl.NumberFormat('ru-RU').format(
                                             tariff
                                         )}{' '}
