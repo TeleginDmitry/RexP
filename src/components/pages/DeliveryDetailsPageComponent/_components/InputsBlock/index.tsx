@@ -108,6 +108,7 @@ const InputsBlock = ({ currentAddress, onHandleChange, activeTab }: Props) => {
                                 type='text'
                                 label='Дом'
                                 className={s.inputUi}
+                                value={currentAddress.house ?? ''}
                                 classNames={{
                                     inputWrapper: 'shadow-none'
                                 }}

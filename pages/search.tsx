@@ -35,20 +35,19 @@ const SearchPage = () => {
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { value } = event.target
+        const { value: inputValue } = event.target
 
-        setValue(value)
-        setIsError(false)
-    }
+        if (value.length + 1 < inputValue.length) {
+            const newValue = extractUrl(inputValue)
 
-    const onPaste = async () => {
-        const text = await navigator.clipboard.readText()
-
-        const value = extractUrl(text)
-
-        if (value) {
-            setValue(value)
+            if (newValue) {
+                setValue(newValue)
+            }
+        } else {
+            setValue(inputValue)
         }
+
+        setIsError(false)
     }
 
     async function onSubmit() {
@@ -112,7 +111,6 @@ const SearchPage = () => {
                         </div>
                         <input
                             onChange={handleChange}
-                            onPaste={onPaste}
                             className={`w-full bg-[#EEEEEE] p-3  rounded-2xl ${clsx(
                                 {
                                     'placeholder:text-[#D50000]': isError

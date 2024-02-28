@@ -27,8 +27,6 @@ const DeliveryBlock = () => {
     const deliveryCarts = useAppSelector((state) => state.delivery.data)
     const router = useRouter()
 
-    const currentIsMain = deliveryCarts.find((item) => item.isMain)
-
     const onHandleClick = (id: number, typeId: number) => {
         router.push(
             { pathname: '/profile/deliveryDetails', query: { id, typeId } },
@@ -42,12 +40,6 @@ const DeliveryBlock = () => {
             const response = await editDeliveryCart(id, { isMain: true })
             if (response.data) {
                 dispatch(changeIsMain({ id, value: true }))
-
-                if (!currentIsMain?.id) {
-                    return
-                }
-
-                await editDeliveryCart(currentIsMain.id, { isMain: false })
             }
         } catch (error) {
             /* empty */

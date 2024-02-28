@@ -23,7 +23,7 @@ export default function SpecificBlock({
                 <Image
                     src={imageUrl}
                     alt='Картинка не найдено'
-                    width={300}
+                    width={1000}
                     height={300}
                     className='w-full'
                 />
@@ -39,7 +39,7 @@ export default function SpecificBlock({
                 <Image
                     src={imageUrl}
                     alt='Картинка не найдено'
-                    width={300}
+                    width={1000}
                     height={300}
                     className='w-full'
                 />

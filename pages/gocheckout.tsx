@@ -27,6 +27,7 @@ import { getDeliveryThunk } from '@/src/store/slices/getDelivery/getDelivery/get
 import { createOrder } from '@/src/utils/api/createOrder'
 import type { PromoType } from '@/src/utils/api/getPromo'
 import { getPromo } from '@/src/utils/api/getPromo'
+import { getTariff } from '@/src/utils/api/getTariff'
 
 import ArrowSvg from 'public/images/icons/arrowUp.svg'
 import CheckSvg from 'public/images/icons/check.svg'
@@ -50,8 +51,8 @@ const GocheckoutPage = () => {
         'invalid' | 'success' | null
     >(null)
     const [promo, setPromo] = useState<PromoType | null>(null)
-
     const [isActive, setIsActive] = useState(false)
+    const [tariff, setTariff] = useState<number | null>(null)
 
     useEffect(() => {
         const value = localStorage.getItem('selectedCartsInfo')
@@ -76,7 +77,29 @@ const GocheckoutPage = () => {
         Promise.all([dispatch(getCartsThunk({})), dispatch(getDeliveryThunk())])
     }, [])
 
-    if (!selectedCartsInfo) {
+    useEffect(() => {
+        async function getTariffFn() {
+            if (!selectedCartsInfo) {
+                return
+            }
+
+            try {
+                const { selectedCarts } = selectedCartsInfo
+
+                const { totalSum } = await getTariff({
+                    products: selectedCarts
+                })
+
+                setTariff(totalSum)
+            } catch (error) {
+                /* empty */
+            }
+        }
+
+        getTariffFn()
+    }, [])
+
+    if (!selectedCartsInfo || tariff === null) {
         return null
     }
 
@@ -417,7 +440,18 @@ const GocheckoutPage = () => {
                         </div>
                         <div className='flex justify-between items-center'>
                             <span className='font-semibold'>Доставка</span>
-                            <span className='text-[#03A400]'>Бесплатно</span>
+                            <span className='text-[#03A400]'>
+                                {tariff !== 0 ? (
+                                    <>
+                                        {new Intl.NumberFormat('ru-RU').format(
+                                            tariff
+                                        )}{' '}
+                                        ₽
+                                    </>
+                                ) : (
+                                    'Бесплатно'
+                                )}
+                            </span>
                         </div>
 
                         <span className='text-xs text-[rgba(142,142,142,1)] pb-3 border-b border-solid border-[rgba(142,142,142,0.40)]'>
@@ -431,7 +465,9 @@ const GocheckoutPage = () => {
                             </span>
                             <span className='text-black font-[900] text-lg'>
                                 {new Intl.NumberFormat('ru-RU').format(
-                                    totalPriceWithDiscount - priceWithPromo
+                                    totalPriceWithDiscount -
+                                        priceWithPromo +
+                                        tariff
                                 )}{' '}
                                 ₽
                             </span>

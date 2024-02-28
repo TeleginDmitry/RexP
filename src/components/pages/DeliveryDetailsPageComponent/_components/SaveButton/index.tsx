@@ -22,7 +22,10 @@ const SaveButton = ({ currentAddress }: Props) => {
     const id = router.query.id as string
     const onHandleClick = async () => {
         if (id) {
-            const result = await editDeliveryCart(+id, currentAddress)
+            const result = await editDeliveryCart(+id, {
+                ...currentAddress,
+                deliveryTypeId: currentAddress.deliveryType.id
+            })
 
             if (result.data) {
                 router.back()
