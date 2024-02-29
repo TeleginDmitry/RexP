@@ -31,6 +31,7 @@ const DeliveryDetailsPageComponent = () => {
             ? 'Пункт выдачи заказа'
             : 'Курьером'
 
+    console.log(currentAddress)
     return (
         <MainContainer className={s.wrapper}>
             <HeaderTitle title='Данные доставки' />

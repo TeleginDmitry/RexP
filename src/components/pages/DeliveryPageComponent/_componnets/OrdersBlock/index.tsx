@@ -7,7 +7,9 @@ import DefaultLink from '@/src/components/ui/links/DefaultLink'
 import SpecificBlock from '@/src/components/ui/SpecificBlock/SpecificBlock'
 import { useAppSelector } from '@/src/hooks/redux-hooks/redux-hooks'
 
-import image from 'public/images/global/image2.png'
+import image1 from 'public/images/global/image4.png'
+import image2 from 'public/images/global/image5.png'
+import image3 from 'public/images/global/image7.png'
 
 import s from './OrdersBlock.module.scss'
 
@@ -30,7 +32,15 @@ const OrdersBlock = () => {
     if (!neededOrders.length) {
         return (
             <SpecificBlock
-                imageUrl={image.src}
+                imageUrl={
+                    activeFilter === 'Ждут оплаты'
+                        ? image2.src
+                        : activeFilter === 'Завершенные'
+                        ? image3.src
+                        : activeFilter === 'В доставке'
+                        ? image1.src
+                        : ''
+                }
                 text={
                     activeFilter === 'В доставке'
                         ? 'Но ты можешь это исправить ;) Воспользуйся каталогом или поиском для выбора товаров'

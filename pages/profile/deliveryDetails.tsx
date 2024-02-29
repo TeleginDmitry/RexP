@@ -4,10 +4,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 
 import DeliveryDetailsPageComponent from '@/src/components/pages/DeliveryDetailsPageComponent'
-import {
-    useAppDispatch,
-    useAppSelector
-} from '@/src/hooks/redux-hooks/redux-hooks'
+import { useAppDispatch } from '@/src/hooks/redux-hooks/redux-hooks'
 import { getCityThunk } from '@/src/store/slices/city/thunks/getDelivery'
 import { clear } from '@/src/store/slices/delivery'
 import { getDeliveryThunk } from '@/src/store/slices/delivery/thunks/getDelivery'
@@ -18,8 +15,6 @@ const DeliveryDetailsPage = () => {
     const router = useRouter()
 
     const queryId = router.query.id as string
-
-    const currentAddress = useAppSelector((state) => state.deliveryOne)
 
     const [isAccess, setAccess] = useState(false)
 
@@ -34,7 +29,7 @@ const DeliveryDetailsPage = () => {
                 ).unwrap()
 
                 const codeCity = citiesAll.find(
-                    ({ city }) => city === currentAddress.city
+                    ({ city }) => city === deliveryOne.city
                 )?.code
 
                 if (codeCity) {
@@ -46,7 +41,7 @@ const DeliveryDetailsPage = () => {
         }
 
         queries()
-    }, [currentAddress.city, dispatch, queryId])
+    }, [queryId])
 
     useEffect(() => {
         if (!queryId) {

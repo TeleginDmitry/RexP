@@ -15,7 +15,7 @@ import {
 } from '@/src/hooks/redux-hooks/redux-hooks'
 import { getOrdersThunk } from '@/src/store/slices/orders/thunks'
 
-import image from 'public/images/global/image2.png'
+import image from 'public/images/global/image6.png'
 
 const ReviewPage = () => {
     const orders = useAppSelector((state) => state.orders.data)
