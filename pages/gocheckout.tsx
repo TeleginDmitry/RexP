@@ -440,10 +440,16 @@ const GocheckoutPage = () => {
                         </div>
                         <div className='flex justify-between items-center'>
                             <span className='font-semibold'>Доставка</span>
-                            <span className={`${clsx({'text-[rgba(142,142,142,1)]': tariff !== 0, 'text-[#03A400]': tariff === 0})}`}>
+                            <span
+                                className={`${clsx({
+                                    'text-[#535353]': tariff !== 0,
+                                    'text-[#03A400]': tariff === 0
+                                })}`}
+                            >
                                 {tariff !== 0 ? (
                                     <>
-≈{' '}{new Intl.NumberFormat('ru-RU').format(
+                                        ≈{' '}
+                                        {new Intl.NumberFormat('ru-RU').format(
                                             tariff
                                         )}{' '}
                                         ₽
@@ -465,9 +471,7 @@ const GocheckoutPage = () => {
                             </span>
                             <span className='text-black font-[900] text-lg'>
                                 {new Intl.NumberFormat('ru-RU').format(
-                                    totalPriceWithDiscount -
-                                        priceWithPromo
-                                       
+                                    totalPriceWithDiscount - priceWithPromo
                                 )}{' '}
                                 ₽
                             </span>
