@@ -462,7 +462,7 @@ const MainFilter = ({
                             />
                         )}
 
-                        {selectedFilter === 'sort' && !!filters.categoryId && (
+                        {selectedFilter === 'sort' && (
                             <SortField
                                 changeFilters={changeFilters}
                                 filters={filters}

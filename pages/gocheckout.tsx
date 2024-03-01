@@ -243,8 +243,9 @@ const GocheckoutPage = () => {
                                             <span className='text-[#535353]'>
                                                 {`${
                                                     findMainDelivery
-                                                        .deliveryType.id ===
-                                                        1 && 'Пункт СДЭК, '
+                                                        .deliveryType.id === 1
+                                                        ? 'Пункт СДЭК, '
+                                                        : ''
                                                 }
                             ${findMainDelivery.city}
                             ${
@@ -271,8 +272,8 @@ const GocheckoutPage = () => {
                                                 Получатель
                                             </p>
                                             <span className='text-[#535353]'>
-                                                {findMainDelivery.firstName}{' '}
                                                 {findMainDelivery.lastName}{' '}
+                                                {findMainDelivery.firstName}{' '}
                                                 {findMainDelivery.patronymic}
                                             </span>
                                             <span className='text-[#535353]'>

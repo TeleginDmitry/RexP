@@ -98,8 +98,9 @@ export const FilterBlock = () => {
                     defaultValue={
                         mainDelivery
                             ? `${
-                                  mainDelivery.deliveryType.id === 1 &&
-                                  'Пункт СДЭК, '
+                                  mainDelivery.deliveryType.id === 1
+                                      ? 'Пункт СДЭК, '
+                                      : ''
                               }
                             ${mainDelivery.city}
                             ${
