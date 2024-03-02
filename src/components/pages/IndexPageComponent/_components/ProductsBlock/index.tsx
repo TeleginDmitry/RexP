@@ -76,7 +76,7 @@ const ProductsBlock = () => {
                     />
                 )
             )}
-            <div className='absolute bottom-16' ref={observerRef} />
+            <div ref={observerRef} />
         </CatalogSpacer>
     )
 }

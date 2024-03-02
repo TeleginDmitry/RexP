@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/jsx-no-bind */
 import { useEffect, useRef, useState } from 'react'
@@ -21,6 +22,7 @@ import styles from './styles.module.scss'
 export const SearhBlock = () => {
     const [oldPos, setOldPos] = useState<number | null>(null)
     const [sticky, setSticky] = useState(false)
+
     const searchRef = useRef<any | null | undefined>()
     const oldPosRef = useRef<any | null | undefined>()
     oldPosRef.current = oldPos
@@ -29,8 +31,9 @@ export const SearhBlock = () => {
     const { isOpen, toggleOpen } = useFilter()
 
     const filters = useAppSelector((state) => state.filter)
-    const filtersRef = useRef<FilterType | null | undefined>()
-    filtersRef.current = filters
+    const filtersRef = useRef<FilterType>(filters)
+
+    const [value, setValue] = useState(filters.name)
 
     const timeout = useRef<NodeJS.Timeout | null>(null)
 
@@ -39,13 +42,15 @@ export const SearhBlock = () => {
     }
 
     function handleInput(event: React.ChangeEvent) {
+        const { value } = event.target as HTMLInputElement
+
+        setValue(value)
+
         if (timeout.current) {
             clearTimeout(timeout.current)
         }
 
         timeout.current = setTimeout(() => {
-            const { value } = event.target as HTMLInputElement
-
             changeFilters({ name: value })
             dispatch(getProductsThunk({ filters: { ...filters, name: value } }))
         }, 300)
@@ -142,6 +147,7 @@ export const SearhBlock = () => {
                     type='text'
                     placeholder='Хей, поищем что-нибудь?'
                     className={styles.input}
+                    value={value}
                 />
                 <button className='flex items-center' onClick={toggleOpen}>
                     <Image
