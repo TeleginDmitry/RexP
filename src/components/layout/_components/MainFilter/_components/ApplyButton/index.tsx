@@ -31,7 +31,7 @@ export const ApplyButton = ({
         !filters.orderBy &&
         !filters.sortBy &&
         filters.categoryId === 0 &&
-        filters.subCategories.length === 0
+        filters.subcategories.length === 0
 
     function onClick() {
         if (selectedFilter === '' || isOnlyCategories) {

@@ -56,7 +56,7 @@ const MainFilter = ({
 
             const value = {
                 categoryId: previousFiltersCurrent.categoryId,
-                subCategories: previousFiltersCurrent.subCategories
+                subcategories: previousFiltersCurrent.subcategories
             }
             applyFilters({
                 ...filters,
@@ -73,7 +73,7 @@ const MainFilter = ({
             if (selectedFilter === 'categories') {
                 const value = {
                     categoryId: previousFiltersCurrent.categoryId,
-                    subCategories: previousFiltersCurrent.subCategories
+                    subcategories: previousFiltersCurrent.subcategories
                 }
                 applyFilters({
                     ...filters,
@@ -146,12 +146,12 @@ const MainFilter = ({
                 applyFilters({
                     ...filters,
                     categoryId: 0,
-                    subCategories: []
+                    subcategories: []
                 })
                 changeFilters({
                     ...filters,
                     categoryId: 0,
-                    subCategories: []
+                    subcategories: []
                 })
             }
 
@@ -199,7 +199,7 @@ const MainFilter = ({
             orderBy: 'id',
             sortBy: 'DESC',
             colors: [],
-            subCategories: []
+            subcategories: []
         })
         changeFilters({
             ...filters,
@@ -209,7 +209,7 @@ const MainFilter = ({
             orderBy: 'id',
             sortBy: 'DESC',
             colors: [],
-            subCategories: []
+            subcategories: []
         })
     }
 
@@ -245,14 +245,14 @@ const MainFilter = ({
             : selectedFilter === 'size'
             ? filters.sizes.length !== 0
             : selectedFilter === 'categories'
-            ? filters.categoryId !== 0 && filters.subCategories.length !== 0
+            ? filters.categoryId !== 0 && filters.subcategories.length !== 0
             : filters.brands.length !== 0 ||
               filters.sizes.length !== 0 ||
               filters.orderBy !== 'id' ||
               filters.sortBy !== 'DESC' ||
               (isVisibleCategories &&
                   filters.categoryId !== 0 &&
-                  filters.subCategories.length !== 0)
+                  filters.subcategories.length !== 0)
 
     return (
         <Portal>

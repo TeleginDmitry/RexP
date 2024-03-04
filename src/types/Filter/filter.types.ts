@@ -6,7 +6,7 @@ export interface FilterType {
     sizes: string[]
     brands: string[]
     categoryId?: number
-    subCategories: string[]
+    subcategories: string[]
     orderBy?: 'id' | 'price'
     sortBy?: 'ASC' | 'DESC'
 }

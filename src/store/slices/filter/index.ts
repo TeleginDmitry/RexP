@@ -15,7 +15,7 @@ const initialState: FilterState = {
     minPrice: MIN_PRICE,
     orderBy: 'id',
     sortBy: 'DESC',
-    subCategories: [],
+    subcategories: [],
     categoryId: 0
 }
 

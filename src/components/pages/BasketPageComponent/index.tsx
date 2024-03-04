@@ -20,7 +20,7 @@ const BasketPageComponent = () => {
         filters.sizes.length === 0,
         filters.minPrice === 99 && filters.maxPrice === 3599999,
         filters.orderBy === 'id' && filters.sortBy === 'DESC',
-        filters.categoryId === 0 && filters.subCategories.length === 0
+        filters.categoryId === 0 && filters.subcategories.length === 0
     ].reduce((acc, condition) => {
         if (!condition) {
             acc++

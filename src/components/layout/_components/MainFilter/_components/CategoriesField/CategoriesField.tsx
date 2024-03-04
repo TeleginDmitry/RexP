@@ -32,7 +32,7 @@ const CategoriesField = ({ changeFilters, filters }: Props) => {
     }
 
     function onValueChangeGroup(values: string[]) {
-        changeFilters({ subCategories: values })
+        changeFilters({ subcategories: values })
     }
 
     return (
@@ -48,18 +48,18 @@ const CategoriesField = ({ changeFilters, filters }: Props) => {
                     <div className={s.name}>Все категории</div>
                 </div>
             </RootCheckbox>
-            {categories.map(({ id, name, subCategories }) => (
+            {categories.map(({ id, name, subcategories }) => (
                 <>
                     <RootCheckbox
                         key={id}
                         isSelected={
                             filters.categoryId === id &&
-                            filters.subCategories.length ===
-                                subCategories.length
+                            filters.subcategories.length ===
+                                subcategories.length
                         }
                         onChange={() => {
                             changeFilters({
-                                subCategories: subCategories.map(({ id }) =>
+                                subcategories: subcategories.map(({ id }) =>
                                     id.toString()
                                 )
                             })
@@ -70,12 +70,12 @@ const CategoriesField = ({ changeFilters, filters }: Props) => {
                             <div className={s.name}>{name}</div>
                         </div>
                     </RootCheckbox>
-                    {id === filters.categoryId && !!subCategories.length && (
+                    {id === filters.categoryId && !!subcategories.length && (
                         <CheckboxGroup
-                            value={filters.subCategories}
+                            value={filters.subcategories}
                             onValueChange={onValueChangeGroup}
                         >
-                            {subCategories.map(
+                            {subcategories.map(
                                 ({ id: subId, name: subName }) => (
                                     <RootCheckbox
                                         key={subId}

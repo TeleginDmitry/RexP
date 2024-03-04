@@ -10,7 +10,7 @@ export function useFilter() {
         maxPrice: 3599999,
         minPrice: 99,
         name: '',
-        subCategories: []
+        subcategories: []
     })
     const [isOpen, setIsOpen] = useState(false)
 

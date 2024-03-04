@@ -50,8 +50,8 @@ const TabsBlock = () => {
 
         const needValues: Partial<FilterState> = {
             categoryId: categoryIdNum,
-            subCategories: foundCategory
-                ? foundCategory.subCategories.map(({ id }) => `${id}`)
+            subcategories: foundCategory
+                ? foundCategory.subcategories.map(({ id }) => `${id}`)
                 : []
         }
 

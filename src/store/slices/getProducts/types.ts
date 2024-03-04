@@ -46,7 +46,7 @@ export type Filters = {
     maxPrice: number
     minPrice: number
     sizes: string[]
-    subcategories?: number[]
+    subcategories?: number[] | string[]
     brands: string[]
     colors: string[]
     orderBy?: string
