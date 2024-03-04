@@ -21,10 +21,16 @@ const AddButton = () => {
             ({ size }) => size.name === activeFilter
         )?.id
 
-        if (productSizeId) {
+        if (!productSizeId) {
+            return
+        }
+
+        try {
             await createCart({ productId: product.id, productSizeId }).then(
                 () => dispatch(getCartsThunk({}))
             )
+        } catch (error) {
+            /* empty */
         }
     }
 

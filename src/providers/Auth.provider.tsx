@@ -11,7 +11,10 @@ export default function AuthProvider({ children }) {
     const [isAccess, setIsAccess] = useState(false)
 
     async function auth() {
-        const { initData } = window.Telegram.WebApp
+        // const { initData } = window.Telegram.WebApp
+
+        const initData =
+            'query_id=AAHu-3RHAAAAAO77dEcEcvs5&user=%7B%22id%22%3A1198849006%2C%22first_name%22%3A%22%D0%94%D0%BC%D0%B8%D1%82%D1%80%D0%B8%D0%B9%22%2C%22last_name%22%3A%22%D0%A2%D0%B5%D0%BB%D0%B5%D0%B3%D0%B8%D0%BD%22%2C%22username%22%3A%22d1mas1k2%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1709541605&hash=a7a23a99051ce14d120c305727754af401c828138ab38b7c91d75ead0aef59ad'
 
         try {
             await login({ initData })

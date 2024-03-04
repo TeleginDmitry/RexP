@@ -88,7 +88,9 @@ export const FilterBlock = () => {
                     values={valuesWithoutSelected.map(
                         ({ id, city, street, house, deliveryType }) => ({
                             id,
-                            value: `${deliveryType.id === 1 && 'Пункт СДЭК, '}
+                            value: `${
+                                deliveryType.id === 1 ? 'Пункт СДЭК, ' : ''
+                            }
                             ${city}
                             ${deliveryType.id === 2 ? `, ${street}` : ''}
                             ${deliveryType.id === 2 ? `, ${house}` : ''}`

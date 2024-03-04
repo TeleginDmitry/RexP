@@ -150,13 +150,9 @@ const ProductsBlock = () => {
                                                         ₽
                                                     </div>
                                                     <div
-                                                        className={s.info__name}
+                                                        className={`${s.info__name} text-sm line-clamp-2`}
                                                     >
                                                         {slicedName}
-                                                        {slicedName.length <
-                                                        product.name.length
-                                                            ? '...'
-                                                            : ''}
                                                     </div>
                                                     <div
                                                         className={s.info__size}
