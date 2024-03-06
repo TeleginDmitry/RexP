@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 import InfoBlock from './_components/InfoBlock'
 import ProductsBlock from './_components/ProductsBlock'
 import RexBlock from './_components/RexBlock'

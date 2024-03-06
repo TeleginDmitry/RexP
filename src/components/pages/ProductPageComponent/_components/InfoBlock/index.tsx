@@ -26,8 +26,6 @@ const InfoBlock = () => {
         ? +(productSize.price - (productSize.price * discount) / 100).toFixed(0)
         : price
 
-    console.log(newPrice)
-
     return (
         <div className={s.wrapper}>
             <div className={s.header}>

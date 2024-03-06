@@ -2,9 +2,14 @@
 /* eslint-disable react/function-component-definition */
 import Image from 'next/image'
 
-import { useAppSelector } from '@/src/hooks/redux-hooks/redux-hooks'
+import {
+    useAppDispatch,
+    useAppSelector
+} from '@/src/hooks/redux-hooks/redux-hooks'
+import { addFilters } from '@/src/store/slices/filter'
 
 export default function NotFound() {
+    const dispatch = useAppDispatch()
     const name = useAppSelector((state) => state.filter.name)
 
     if (!name) {
@@ -31,6 +36,19 @@ export default function NotFound() {
                 height={300}
                 className='w-full'
             />
+
+            <button
+                onClick={() => {
+                    dispatch(
+                        addFilters({
+                            name: ''
+                        })
+                    )
+                }}
+                className='font-bold text-base text-white py-3 px-8 rounded-xl bg-black mt-3'
+            >
+                На главную
+            </button>
         </div>
     )
 }

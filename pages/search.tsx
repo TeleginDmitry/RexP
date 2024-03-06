@@ -257,20 +257,23 @@ const SearchPage = () => {
                                     imageUrl={image.src}
                                     text='Скопируйте снова ссылку из Poizon, следуя инструкции и повторите ваш запрос'
                                     title='По вашей ссылке ничего не найдено'
-                                    linkText=''
-                                    positionImage='bottom'
+                                    linkText='Попробовать ещё раз'
+                                    positionImage='top'
+                                    onClickButton={handleClick}
                                 />
                             )
                         )}
                     </div>
-                    <div className='w-full px-3 pt-3 bg-white fixed bottom-[73px] left-0 right-0'>
-                        <Button
-                            onClick={handleClick}
-                            className='w-full py-3 bg-black rounded-xl text-white text-base'
-                        >
-                            Найти товар
-                        </Button>
-                    </div>
+                    {isStatus !== 'error' && (
+                        <div className='w-full px-3 pt-3 bg-white fixed bottom-[73px] left-0 right-0'>
+                            <Button
+                                onClick={handleClick}
+                                className='w-full py-3 bg-black rounded-xl text-white text-base'
+                            >
+                                Найти товар
+                            </Button>
+                        </div>
+                    )}
                 </div>
             </MainContainer>
         </>

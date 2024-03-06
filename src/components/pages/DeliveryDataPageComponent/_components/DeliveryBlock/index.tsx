@@ -88,6 +88,7 @@ const DeliveryBlock = () => {
                                 patronymic,
                                 number,
                                 deliveryType,
+                                deliveryPointAddress,
                                 isMain,
                                 city,
                                 street,
@@ -153,11 +154,20 @@ const DeliveryBlock = () => {
                                     </div>
 
                                     <div className={s.addressValue}>
-                                        {deliveryType.id === 1 &&
-                                            'Пункт СДЭК, '}
+                                        {deliveryType.id === 1
+                                            ? 'Пункт СДЭК, '
+                                            : ''}
                                         {city}
                                         {deliveryType.id === 2 && `, ${street}`}
                                         {deliveryType.id === 2 && `, ${house}`}
+                                    </div>
+                                    <div className={s.addressValue}>
+                                        {deliveryType.id === 1
+                                            ? deliveryPointAddress
+                                                  .split(',')
+                                                  .slice(3)
+                                                  .join(', ')
+                                            : ''}
                                     </div>
                                 </div>
                                 {!isMain && (

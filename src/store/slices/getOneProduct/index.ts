@@ -26,7 +26,8 @@ const initialState: OneProductsState = {
         createdAt: '',
         updatedAt: '',
         isOuter: false
-    }
+    },
+    isLoading: false
 }
 
 const { reducer } = createSlice({
@@ -37,11 +38,17 @@ const { reducer } = createSlice({
         builder.addCase(getOneProductThunk.fulfilled, (store, { payload }) => ({
             ...store,
             data: payload,
-            success: true
+            success: true,
+            isLoading: false
+        }))
+        builder.addCase(getOneProductThunk.pending, (store, { payload }) => ({
+            ...store,
+            isLoading: true
         }))
         builder.addCase(getOneProductThunk.rejected, (store) => ({
             ...store,
-            success: false
+            success: false,
+            isLoading: false
         }))
     }
 })

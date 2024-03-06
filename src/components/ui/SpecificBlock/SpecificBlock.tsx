@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable react/function-component-definition */
 import Image from 'next/image'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 interface Props {
     imageUrl: string
@@ -9,14 +9,30 @@ interface Props {
     text: string
     linkText?: string
     positionImage?: 'bottom' | 'top'
+    onClickButton?: (event: React.MouseEvent<HTMLButtonElement>) => void
+    link?: string
 }
 export default function SpecificBlock({
     imageUrl,
     text,
     title,
     linkText = 'Перейти в каталог',
-    positionImage = 'top'
+    positionImage = 'top',
+    link = '/',
+    onClickButton
 }: Props) {
+    const router = useRouter()
+
+    function handleClick(event) {
+        if (onClickButton) {
+            onClickButton(event)
+
+            return
+        }
+
+        router.push(link)
+    }
+
     return (
         <div className='flex flex-col items-center gap-2 pt-4'>
             {positionImage === 'top' && (
@@ -46,12 +62,12 @@ export default function SpecificBlock({
             )}
 
             {linkText && (
-                <Link
-                    href='/'
+                <button
+                    onClick={handleClick}
                     className='font-bold text-base text-white py-3 px-8 rounded-xl bg-black mt-3'
                 >
                     {linkText}
-                </Link>
+                </button>
             )}
         </div>
     )

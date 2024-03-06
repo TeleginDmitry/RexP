@@ -23,7 +23,7 @@ const ProductsBlock = () => {
     const { limit, page, nextPage } = useAppSelector(
         (state) => state.pagination
     )
-    console.log(page)
+
     const callbackFn = useCallback(async () => {
         const result = await dispatch(
             getPaginatedProductsThunk({
