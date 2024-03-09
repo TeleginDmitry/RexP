@@ -1,8 +1,11 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
+
 import 'swiper/css/bundle'
 import 'swiper/css/pagination'
 import React from 'react'
+
 import s from '../../styles.module.scss'
+
 import Image from 'next/image'
 
 export const Garant = ({ setSwiper, Story }) => (
@@ -21,7 +24,7 @@ export const Garant = ({ setSwiper, Story }) => (
         >
             <Image
                 style={{ width: '100%', bottom: 0, right: 0 }}
-                src={'/images/stories/story-back/garant/1.png'}
+                src='/images/stories/story-back/garant/1.png'
                 className={s['story-back-image']}
                 alt='rexIcon'
                 width={100}
@@ -42,16 +45,16 @@ export const Garant = ({ setSwiper, Story }) => (
             className={s['modal-body']}
         >
             <Image
-                style={{ bottom: '7%', left: 0, width: '70%' }}
-                src={'/images/stories/story-back/garant/3.png'}
+                style={{ width: '80%', bottom: '2%', right: 0 }}
+                src='/images/stories/story-back/garant/2.png'
                 className={s['story-back-image']}
                 alt='rexIcon'
                 width={100}
                 height={100}
             />
             <Image
-                style={{ width: '80%', bottom: '2%', right: 0 }}
-                src={'/images/stories/story-back/garant/2.png'}
+                style={{ bottom: '7%', left: 0, width: '70%' }}
+                src='/images/stories/story-back/garant/3.png'
                 className={s['story-back-image']}
                 alt='rexIcon'
                 width={100}
@@ -79,16 +82,17 @@ export const Garant = ({ setSwiper, Story }) => (
             className={s['modal-body']}
         >
             <Image
-                style={{ bottom: '12%', right: 0, width: '60%' }}
-                src={'/images/stories/story-back/garant/5.png'}
+                style={{ width: '100%', bottom: 0, right: 0 }}
+                src='/images/stories/story-back/garant/4.png'
                 className={s['story-back-image']}
                 alt='rexIcon'
                 width={100}
                 height={100}
             />
+
             <Image
-                style={{ width: '100%', bottom: 0, right: 0 }}
-                src={'/images/stories/story-back/garant/4.png'}
+                style={{ bottom: '12%', right: 0, width: '60%' }}
+                src='/images/stories/story-back/garant/5.png'
                 className={s['story-back-image']}
                 alt='rexIcon'
                 width={100}

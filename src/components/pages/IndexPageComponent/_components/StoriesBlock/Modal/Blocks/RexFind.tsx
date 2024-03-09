@@ -1,8 +1,11 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
+
 import 'swiper/css/bundle'
 import 'swiper/css/pagination'
 import React from 'react'
+
 import s from '../../styles.module.scss'
+
 import Image from 'next/image'
 
 export const RexFind = ({ setSwiper, Story }) => (
@@ -21,7 +24,7 @@ export const RexFind = ({ setSwiper, Story }) => (
         >
             <Image
                 style={{ bottom: 0, width: '100%' }}
-                src={'/images/stories/story-back/rexFind/1.png'}
+                src='/images/stories/story-back/rexFind/1.png'
                 className={s['story-back-image']}
                 alt='rexIcon'
                 width={100}
@@ -54,7 +57,7 @@ export const RexFind = ({ setSwiper, Story }) => (
         >
             <Image
                 style={{ bottom: '7%', width: '95%' }}
-                src={'/images/stories/story-back/rexFind/2.png'}
+                src='/images/stories/story-back/rexFind/2.png'
                 className={s['story-back-image']}
                 alt='rexIcon'
                 width={100}
@@ -62,7 +65,7 @@ export const RexFind = ({ setSwiper, Story }) => (
             />
             <Image
                 style={{ width: '70%', top: 0, right: 0 }}
-                src={'/images/stories/story-back/rexFind/3.png'}
+                src='/images/stories/story-back/rexFind/3.png'
                 className={s['story-back-image']}
                 alt='rexIcon'
                 width={100}

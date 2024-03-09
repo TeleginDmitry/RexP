@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable import/no-cycle */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable no-underscore-dangle */
@@ -13,8 +14,7 @@ interface ResponseError extends AxiosError {
 }
 
 const $api = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL,
-    withCredentials: true
+    baseURL: process.env.NEXT_PUBLIC_API_URL
 })
 
 $api.interceptors.request.use((config) => {
@@ -33,7 +33,7 @@ $api.interceptors.response.use(
         if (error.response?.status === 401 && error.config && !error._isRetry) {
             error._isRetry = true
 
-            const { initData } = window.Telegram.WebApp
+            const { initData } = window.Telegram.WebApp ?? process.env.INITDATA
 
             try {
                 const loginResult = await login({ initData, isRequired: true })

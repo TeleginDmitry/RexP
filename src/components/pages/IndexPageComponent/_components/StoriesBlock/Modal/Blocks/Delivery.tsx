@@ -1,8 +1,11 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
+
 import 'swiper/css/bundle'
 import 'swiper/css/pagination'
 import React from 'react'
+
 import s from '../../styles.module.scss'
+
 import Image from 'next/image'
 
 export const Delivery = ({ setSwiper, Story }) => (
@@ -20,16 +23,16 @@ export const Delivery = ({ setSwiper, Story }) => (
             className={s['modal-body']}
         >
             <Image
-                style={{ bottom: '20%', left: 0, width: '50%' }}
-                src={'/images/stories/story-back/delivery/2.png'}
+                style={{ width: '100%', bottom: 0, right: 0 }}
+                src='/images/stories/story-back/delivery/1.png'
                 className={s['story-back-image']}
                 alt='rexIcon'
                 width={100}
                 height={100}
             />
             <Image
-                style={{ width: '100%', bottom: 0, right: 0 }}
-                src={'/images/stories/story-back/delivery/1.png'}
+                style={{ bottom: '20%', left: 0, width: '50%' }}
+                src='/images/stories/story-back/delivery/2.png'
                 className={s['story-back-image']}
                 alt='rexIcon'
                 width={100}
@@ -51,16 +54,16 @@ export const Delivery = ({ setSwiper, Story }) => (
             className={s['modal-body']}
         >
             <Image
-                style={{ bottom: '25%', left: 0, width: '50%' }}
-                src={'/images/stories/story-back/delivery/4.png'}
+                style={{ width: '100%', bottom: 0, right: 0 }}
+                src='/images/stories/story-back/delivery/3.png'
                 className={s['story-back-image']}
                 alt='rexIcon'
                 width={100}
                 height={100}
             />
             <Image
-                style={{ width: '100%', bottom: 0, right: 0 }}
-                src={'/images/stories/story-back/delivery/3.png'}
+                style={{ bottom: '25%', left: 0, width: '50%' }}
+                src='/images/stories/story-back/delivery/4.png'
                 className={s['story-back-image']}
                 alt='rexIcon'
                 width={100}
@@ -87,16 +90,16 @@ export const Delivery = ({ setSwiper, Story }) => (
             className={s['modal-body']}
         >
             <Image
-                style={{ bottom: '12%', right: 0, width: '60%' }}
-                src={'/images/stories/story-back/delivery/6.png'}
+                style={{ width: '100%', bottom: 0, right: 0 }}
+                src='/images/stories/story-back/delivery/5.png'
                 className={s['story-back-image']}
                 alt='rexIcon'
                 width={100}
                 height={100}
             />
             <Image
-                style={{ width: '100%', bottom: 0, right: 0 }}
-                src={'/images/stories/story-back/delivery/5.png'}
+                style={{ bottom: '12%', right: 0, width: '60%' }}
+                src='/images/stories/story-back/delivery/6.png'
                 className={s['story-back-image']}
                 alt='rexIcon'
                 width={100}

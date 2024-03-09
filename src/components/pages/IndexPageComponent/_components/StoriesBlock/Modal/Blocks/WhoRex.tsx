@@ -1,8 +1,11 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
+
 import 'swiper/css/bundle'
 import 'swiper/css/pagination'
 import React from 'react'
+
 import s from '../../styles.module.scss'
+
 import Image from 'next/image'
 
 export const WhoRex = ({ setSwiper, Story }) => (
@@ -21,7 +24,7 @@ export const WhoRex = ({ setSwiper, Story }) => (
         >
             <Image
                 style={{ right: 0, bottom: '2%', width: '100%' }}
-                src={'/images/stories/story-back/whoRex/1.png'}
+                src='/images/stories/story-back/whoRex/1.png'
                 className={s['story-back-image']}
                 alt='rexIcon'
                 width={100}
@@ -29,8 +32,8 @@ export const WhoRex = ({ setSwiper, Story }) => (
             />
             <Image
                 style={{ bottom: '25%', width: '50%' }}
-                src={'/images/stories/story-back/whoRex/2.png'}
-                className={s['story-back-image']}
+                src='/images/stories/story-back/whoRex/2.png'
+                className={`${s['story-back-image']}`}
                 alt='rexIcon'
                 width={100}
                 height={100}
@@ -52,21 +55,22 @@ export const WhoRex = ({ setSwiper, Story }) => (
             className={s['modal-body']}
         >
             <Image
-                style={{ bottom: '12%', width: '60%' }}
-                src={'/images/stories/story-back/whoRex/3.png'}
+                style={{ width: '100%', bottom: 0, right: 0 }}
+                src='/images/stories/story-back/whoRex/4.png'
                 className={s['story-back-image']}
                 alt='rexIcon'
                 width={100}
                 height={100}
             />
             <Image
-                style={{ width: '100%', bottom: 0, right: 0 }}
-                src={'/images/stories/story-back/whoRex/4.png'}
+                style={{ bottom: '12%', width: '60%' }}
+                src='/images/stories/story-back/whoRex/3.png'
                 className={s['story-back-image']}
                 alt='rexIcon'
                 width={100}
                 height={100}
             />
+
             <div className={s['modal-title']}>«А это точно оригинал?»</div>
 
             <div className={s['modal-text']}>

@@ -50,7 +50,7 @@
         padding: 0 20px;
     }
     .modal-body {
-        padding: 90px 25px;
+        padding: 38px 25px;
         height: 100vh;
         display: flex;
         flex-direction: column;
@@ -116,6 +116,12 @@
     user-select: none;
     pointer-events: none;
     position: absolute;
+
+    @media (max-height: 600px) {
+        &:nth-child(2) {
+            display: none;
+        }
+    }
 }
 .list {
     display: flex;
