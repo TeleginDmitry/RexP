@@ -1,6 +1,6 @@
 import { useAppSelector } from '@/src/hooks/redux-hooks/redux-hooks'
 
-import image from 'public/images/global/image3.png'
+import image from 'public/images/global/image3.avif'
 
 import { FilterBlock } from './_components/FilterBlock/FilterBlock'
 
