@@ -25,7 +25,9 @@ export interface CategoryOrSize {
     name: string
 }
 
-export type CartsState = Readonly<{
+export type CartsState = {
     success: boolean
+    isLoading: boolean
+    initLength: number | null
     data: Cart[]
-}>
+}

@@ -6,6 +6,8 @@ import type { CartsState } from './types'
 
 const initialState: CartsState = {
     success: false,
+    isLoading: false,
+    initLength: null,
     data: []
 }
 
@@ -41,14 +43,28 @@ const { reducer, actions } = createSlice({
         })
     },
     extraReducers: (builder) => {
-        builder.addCase(getCartsThunk.fulfilled, (store, { payload }) => ({
-            ...store,
-            data: payload,
-            success: true
-        }))
+        builder.addCase(getCartsThunk.fulfilled, (store, { payload }) => {
+            const result: CartsState = {
+                ...store,
+                data: payload,
+                isLoading: false,
+                success: true
+            }
+
+            if (store.initLength === null) {
+                result.initLength = payload.length
+            }
+
+            return result
+        })
         builder.addCase(getCartsThunk.rejected, (store) => ({
             ...store,
-            success: false
+            success: false,
+            isLoading: false
+        }))
+        builder.addCase(getCartsThunk.pending, (store) => ({
+            ...store,
+            isLoading: true
         }))
     }
 })

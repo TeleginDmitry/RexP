@@ -33,7 +33,7 @@ $api.interceptors.response.use(
         if (error.response?.status === 401 && error.config && !error._isRetry) {
             error._isRetry = true
 
-            const { initData } = window.Telegram.WebApp ?? process.env.INITDATA
+            const { initData } = window.Telegram.WebApp || process.env.INITDATA
 
             try {
                 const loginResult = await login({ initData, isRequired: true })

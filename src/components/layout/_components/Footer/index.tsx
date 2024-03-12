@@ -23,9 +23,10 @@ const MENU_ITEMS: MenuItemType[] = [
 ]
 
 const Footer = () => {
-    const carts = useAppSelector((state) => state.carts.data)
+    const cartsLength = useAppSelector((state) => state.carts.initLength)
     const orders = useAppSelector((state) => state.orders.data)
     const router = useRouter()
+
     const [pathname, setPathname] = useState(router.asPath)
 
     useEffect(() => {
@@ -48,8 +49,8 @@ const Footer = () => {
                         )}
                     >
                         <DefaultLink href={href} className={s.link}>
-                            {text === 'Корзина' && !!carts.length && (
-                                <span className={s.count}>{carts.length}</span>
+                            {text === 'Корзина' && !!cartsLength && (
+                                <span className={s.count}>{cartsLength}</span>
                             )}
                             {text === 'Профиль' && isExistOrders && (
                                 <span className={s.count} />

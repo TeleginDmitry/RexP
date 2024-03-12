@@ -13,7 +13,7 @@ import s from './BasketPageComponent.module.scss'
 
 const BasketPageComponent = () => {
     const filters = useAppSelector((state) => state.filter)
-    const carts = useAppSelector((state) => state.carts.data)
+    const { data, isLoading } = useAppSelector((state) => state.carts)
 
     const countActiveFilters = [
         filters.brands.length === 0,
@@ -32,7 +32,7 @@ const BasketPageComponent = () => {
     return (
         <MainContainer className={s.wrapper}>
             <div className='pb-[65px]'>
-                {!!carts.length || !!countActiveFilters ? (
+                {data.length || countActiveFilters || isLoading ? (
                     <>
                         <FilterBlock />
                         <ProductsBlock />

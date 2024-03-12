@@ -23,8 +23,13 @@ const SaveButton = ({ currentAddress }: Props) => {
     const onHandleClick = async () => {
         try {
             if (id) {
+                const { deliveryPointAddress, ...otherValues } = currentAddress
+                const values =
+                    currentAddress.deliveryType.id === 2
+                        ? otherValues
+                        : currentAddress
                 const result = await editDeliveryCart(+id, {
-                    ...currentAddress,
+                    ...values,
                     deliveryTypeId: currentAddress.deliveryType.id
                 })
 
@@ -49,7 +54,6 @@ const SaveButton = ({ currentAddress }: Props) => {
             /* empty */
         }
     }
-    console.log(currentAddress)
     const isDisabled =
         currentAddress.deliveryType.id === 1
             ? !currentAddress.patronymic ||

@@ -11,7 +11,7 @@ export default function AuthProvider({ children }) {
     const [isAccess, setIsAccess] = useState(false)
 
     async function auth() {
-        const { initData } = window.Telegram.WebApp
+        const { initData } = window.Telegram.WebApp || process.env.INITDATA
 
         try {
             await login({ initData })
