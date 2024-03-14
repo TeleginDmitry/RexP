@@ -23,7 +23,7 @@ const MENU_ITEMS: MenuItemType[] = [
 ]
 
 const Footer = () => {
-    const cartsLength = useAppSelector((state) => state.carts.initLength)
+    const totalItems = useAppSelector((state) => state.carts.totalItems)
     const orders = useAppSelector((state) => state.orders.data)
     const router = useRouter()
 
@@ -49,8 +49,8 @@ const Footer = () => {
                         )}
                     >
                         <DefaultLink href={href} className={s.link}>
-                            {text === 'Корзина' && !!cartsLength && (
-                                <span className={s.count}>{cartsLength}</span>
+                            {text === 'Корзина' && !!totalItems && (
+                                <span className={s.count}>{totalItems}</span>
                             )}
                             {text === 'Профиль' && isExistOrders && (
                                 <span className={s.count} />

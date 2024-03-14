@@ -28,6 +28,6 @@ export interface CategoryOrSize {
 export type CartsState = {
     success: boolean
     isLoading: boolean
-    initLength: number | null
+    totalItems: number | null
     data: Cart[]
 }

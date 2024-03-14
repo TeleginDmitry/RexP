@@ -1,3 +1,6 @@
 import type { Cart } from '../types'
 
-export type GetCartsResponseType = Cart[]
+export type GetCartsResponseType = {
+    results: Cart[]
+    totalItems: number
+}

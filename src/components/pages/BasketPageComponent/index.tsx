@@ -32,7 +32,7 @@ const BasketPageComponent = () => {
     return (
         <MainContainer className={s.wrapper}>
             <div className='pb-[65px]'>
-                {data.length || countActiveFilters || isLoading ? (
+                {!!data.length || !!countActiveFilters || isLoading ? (
                     <>
                         <FilterBlock />
                         <ProductsBlock />
