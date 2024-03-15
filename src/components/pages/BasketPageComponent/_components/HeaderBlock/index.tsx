@@ -1,15 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react'
 import { useEffect, useState } from 'react'
 
-import {
-    Button,
-    Checkbox,
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-    cn,
-    Modal
-} from '@nextui-org/react'
+import { Button, Checkbox, cn, Modal } from '@nextui-org/react'
 import clsx from 'clsx'
 
 import {
@@ -17,6 +9,7 @@ import {
     useAppSelector
 } from '@/src/hooks/redux-hooks/redux-hooks'
 import { deleteCartFromStore } from '@/src/store/slices/getCarts'
+import { getCartsThunk } from '@/src/store/slices/getCarts/getCarts/getCarts'
 import { deleteCart } from '@/src/utils/api/deleteCart'
 
 import s from './HeaderBlock.module.scss'
@@ -44,6 +37,8 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({
                 dispatch(deleteCartFromStore({ id: +id }))
             })
         })
+
+        dispatch(getCartsThunk({}))
         setSelected([])
     }
 
