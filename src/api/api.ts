@@ -5,7 +5,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import type { AxiosError } from 'axios'
 import axios, { isAxiosError } from 'axios'
-import Cookies from 'js-cookie'
 
 import { login, register } from '../utils/api/getToken'
 
@@ -18,7 +17,7 @@ const $api = axios.create({
 })
 
 $api.interceptors.request.use((config) => {
-    const token = Cookies.get('token')
+    const token = localStorage.getItem('token')
 
     if (config.headers && token) {
         config.headers.Authorization = `Bearer ${token}`
@@ -37,7 +36,8 @@ $api.interceptors.response.use(
 
             try {
                 const loginResult = await login({ initData, isRequired: true })
-                const token = loginResult?.token || Cookies.get('token')
+                const token =
+                    loginResult?.token || localStorage.getItem('token')
                 error.config.headers.Authorization = `Bearer ${token}`
                 return await $api.request(error.config)
             } catch (loginError) {
@@ -46,7 +46,8 @@ $api.interceptors.response.use(
                         initData,
                         isRequired: true
                     })
-                    const token = registerResult?.token || Cookies.get('token')
+                    const token =
+                        registerResult?.token || localStorage.getItem('token')
                     error.config.headers.Authorization = `Bearer ${token}`
                     return await $api.request(error.config)
                 } catch (registerError) {
@@ -54,7 +55,7 @@ $api.interceptors.response.use(
                         isAxiosError(registerError) &&
                         registerError.status === 403
                     ) {
-                        Cookies.remove('token')
+                        localStorage.removeItem('token')
                     }
                 }
             }

@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react'
 
 import { isAxiosError } from 'axios'
-import { Cookies } from 'js-cookie'
 
 import { login, register } from '../utils/api/getToken'
 
@@ -25,7 +24,7 @@ export default function AuthProvider({ children }) {
                     isAxiosError(registerError) &&
                     registerError.status === 403
                 ) {
-                    Cookies.remove('token')
+                    localStorage.removeItem('token')
                 }
             }
         }

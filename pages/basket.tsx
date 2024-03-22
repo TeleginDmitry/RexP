@@ -6,6 +6,7 @@ import BasketPageComponent from '@/src/components/pages/BasketPageComponent'
 import { useAppDispatch } from '@/src/hooks/redux-hooks/redux-hooks'
 import { resetFilters } from '@/src/store/slices/filter'
 import { getBrandsThunk } from '@/src/store/slices/getBrands/getBrands/getBrands'
+import { getCartsThunk } from '@/src/store/slices/getCarts/getCarts/getCarts'
 import { getCategoriesThunk } from '@/src/store/slices/getCategory/getCategory/getCategory'
 import { getColorsThunk } from '@/src/store/slices/getColors/getColors/getColors'
 import { getDeliveryThunk } from '@/src/store/slices/getDelivery/getDelivery/getDelivery'
@@ -25,7 +26,8 @@ const BasketPage = () => {
             dispatch(getSizesThunk()),
             dispatch(getBrandsThunk()),
             dispatch(resetFilters()),
-            dispatch(resetPagination())
+            dispatch(resetPagination()),
+            dispatch(getCartsThunk({}))
         ])
     }, [])
     return (

@@ -1,5 +1,9 @@
-import { Snippet } from '@nextui-org/react'
+/* eslint-disable react/jsx-no-bind */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable @typescript-eslint/no-shadow */
+import { Button, Snippet } from '@nextui-org/react'
 import { motion } from 'framer-motion'
+import { useRouter } from 'next/router'
 
 import { ImagesBlock } from '@/src/components/ui/ImagesBlock/ImagesBlock'
 import InViewWrapper from '@/src/components/ui/InViewWrapper'
@@ -14,6 +18,8 @@ import image3 from 'public/images/global/image7.png'
 import s from './OrdersBlock.module.scss'
 
 const OrdersBlock = () => {
+    const router = useRouter()
+
     const activeFilter = useAppSelector(
         (state) => state.filters.myOrdersPage.activeFilter
     )
@@ -57,6 +63,40 @@ const OrdersBlock = () => {
                 }
             />
         )
+    }
+
+    function onBuy() {
+        const selected = neededOrders.map(({ orderContents }) =>
+            orderContents?.map(({ id }) => id)
+        )
+        const totalPrice = neededOrders
+            .map(({ totalPrice }) => totalPrice)
+            .reduce((a, b) => a + b, 0)
+
+        const totalPriceWithDiscount = neededOrders.reduce(
+            (acc, { orderContents }) => {
+                orderContents?.forEach(({ product, count, productSize }) => {
+                    acc +
+                        productSize.price *
+                            count *
+                            ((100 - product.discount) / 100)
+                })
+
+                return acc
+            },
+            0
+        )
+
+        localStorage.setItem(
+            'selectedCartsInfo',
+            JSON.stringify({
+                selectedCarts: selected,
+                totalPrice,
+                totalPriceWithDiscount
+            })
+        )
+
+        router.push('/gocheckout')
     }
 
     return (
@@ -133,6 +173,14 @@ const OrdersBlock = () => {
 
                                     {imagesFull && (
                                         <ImagesBlock images={imagesFull} />
+                                    )}
+                                    {orderStatus.id === 1 && (
+                                        <Button
+                                            onClick={onBuy}
+                                            className='w-full p-4 bg-black rounded-xl text-white text-base font-bold'
+                                        >
+                                            Перейти к оплате
+                                        </Button>
                                     )}
                                     <DefaultLink
                                         href={`/profile/delivery/${id}`}
