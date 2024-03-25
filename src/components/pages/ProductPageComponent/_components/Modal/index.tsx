@@ -43,27 +43,25 @@ export const ProductModal = ({ isOpen, onClose, productId }: Props) => {
                     <ul className='flex gap-2 items-center justify-between'>
                         <a
                             target='_blank'
-                            href={`https://t.me/share/url?url=t.me/poizonrex_bot?start=product${productId}`}
+                            href={`https://t.me/share/url?url=https://t.me/poizonrex_bot?start=product${productId}`}
                         >
                             <Telegram />
                         </a>
                         <a
                             target='_blank'
-                            href={`https://wa.me/?text=t.me/poizonrex_bot?start=product${productId}`}
+                            href={`https://wa.me/?text=https://t.me/poizonrex_bot?start=product${productId}`}
                         >
                             <Whatsapp />
                         </a>
                         <a
                             target='_blank'
-                            href={`https://vk.com/share.php?title=t.me/poizonrex_bot?start=product${productId}`}
+                            href={`https://vk.com/share.php?title=https://t.me/poizonrex_bot?start=product${productId}`}
                         >
                             <Vkontakte />
                         </a>
                         <a
                             target='_blank'
-                            href={`viber://forward?text=${encodeURIComponent(
-                                `t.me/poizonrex_bot?start=product${productId}`
-                            )}`}
+                            href={`viber://forward?text=https://t.me/poizonrex_bot?start=product${productId}`}
                         >
                             <Viber />
                         </a>
