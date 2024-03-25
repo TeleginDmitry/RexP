@@ -25,7 +25,7 @@ export const ProductModal = ({ isOpen, onClose, productId }: Props) => {
 
     function copyUrl() {
         navigator.clipboard.writeText(
-            `https://poizonrex.ru/catalog/${productId}`
+            `https://t.me/poizonrex_bot?start=product${productId}`
         )
         changeIsCopied()
     }
