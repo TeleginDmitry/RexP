@@ -485,12 +485,8 @@ const GocheckoutPage = () => {
                         </Button>
                         <p className='text-xs text-[rgba(83, 83, 83, 0.60)]'>
                             Нажимая на кнопку, вы соглашаетесь с{' '}
-                            <Link href='/' className='text-[#007AFF]'>
-                                Условиями обработки персональных данных
-                            </Link>
-                            , а также с{' '}
-                            <Link href='/' className='text-[#007AFF]'>
-                                Условиями продажи
+                            <Link href='/offerTerms' className='text-[#007AFF]'>
+                                Условиями публичной оферты
                             </Link>
                         </p>
                     </div>

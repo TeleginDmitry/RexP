@@ -12,8 +12,8 @@ const ProfilePageComponent = () => (
         <UserInfo />
         <InfoTabs />
         <HistoryProducts />
-        <DefaultLink className={s.info} href='/'>
-            Юридическая информация
+        <DefaultLink className={s.info} href='/offerTerms'>
+            Условия публичной оферты
         </DefaultLink>
     </MainContainer>
 )
