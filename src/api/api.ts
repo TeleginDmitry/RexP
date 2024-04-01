@@ -4,7 +4,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable import/no-extraneous-dependencies */
 import type { AxiosError } from 'axios'
-import axios, { isAxiosError } from 'axios'
+import axios from 'axios'
 
 import { login, register } from '../utils/api/getToken'
 
@@ -32,12 +32,13 @@ $api.interceptors.response.use(
         if (error.response?.status === 401 && error.config && !error._isRetry) {
             error._isRetry = true
 
-            const { initData } = window.Telegram.WebApp || process.env.INITDATA
+            localStorage.removeItem('token')
+
+            const { initData } = window.Telegram.WebApp
 
             try {
                 const loginResult = await login({ initData, isRequired: true })
-                const token =
-                    loginResult?.token || localStorage.getItem('token')
+                const token = loginResult?.token
                 error.config.headers.Authorization = `Bearer ${token}`
                 return await $api.request(error.config)
             } catch (loginError) {
@@ -46,17 +47,11 @@ $api.interceptors.response.use(
                         initData,
                         isRequired: true
                     })
-                    const token =
-                        registerResult?.token || localStorage.getItem('token')
+                    const token = registerResult?.token
                     error.config.headers.Authorization = `Bearer ${token}`
                     return await $api.request(error.config)
                 } catch (registerError) {
-                    if (
-                        isAxiosError(registerError) &&
-                        registerError.status === 403
-                    ) {
-                        localStorage.removeItem('token')
-                    }
+                    /* empty */
                 }
             }
         }
