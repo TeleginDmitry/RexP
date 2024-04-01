@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -11,23 +11,15 @@ const ProductPage = () => {
     const dispatch = useAppDispatch()
     const router = useRouter()
 
-    const [isAccess, setIsAccess] = useState(false)
-
     useEffect(() => {
         async function getProduct() {
             const id = router.query.id as string
 
             await Promise.all([dispatch(getOneProductThunk(id))])
-
-            setIsAccess(true)
         }
 
         getProduct()
     }, [])
-
-    if (!isAccess) {
-        return null
-    }
 
     return (
         <>

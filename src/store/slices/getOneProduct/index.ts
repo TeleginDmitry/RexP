@@ -27,7 +27,7 @@ const initialState: OneProductsState = {
         updatedAt: '',
         isOuter: false
     },
-    isLoading: false
+    isLoading: true
 }
 
 const { reducer } = createSlice({
