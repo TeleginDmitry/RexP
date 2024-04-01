@@ -1,0 +1,60 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+    height: 100%;
+    .child {
+        background-color: rgba(215, 215, 215, 1);
+        border-radius: 20px;
+    }
+
+    .child:nth-child(1) {
+        height: 250px;
+    }
+
+    .child:nth-child(2) {
+        height: 70px;
+    }
+
+    .child:nth-child(3) {
+        height: 70px;
+    }
+    .child:nth-child(4) {
+        height: 50px;
+        border-radius: 12px;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        position: absolute;
+        bottom: 0px;
+        left: 0;
+        right: 0;
+        z-index: 1;
+        .child:nth-child(1) {
+            height: 1px;
+            padding: 0px 15px;
+        }
+
+        .child:nth-child(2) {
+            height: 45px;
+            border-radius: 10px;
+        }
+    }
+}
+
+.child {
+    animation: skeleton 1s ease-in-out infinite alternate;
+}
+
+@keyframes skeleton {
+    0% {
+        background-color: rgba(215, 215, 215, 1);
+    }
+    100% {
+        background-color: rgba(215, 215, 215, 0.7);
+    }
+}
