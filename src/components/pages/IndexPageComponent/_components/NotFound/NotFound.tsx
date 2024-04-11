@@ -10,7 +10,7 @@ import { addFilters } from '@/src/store/slices/filter'
 
 export default function NotFound() {
     const dispatch = useAppDispatch()
-    const name = useAppSelector((state) => state.filter.name)
+    const name = useAppSelector((state) => state.filter.main.name)
 
     if (!name) {
         return null
@@ -41,7 +41,10 @@ export default function NotFound() {
                 onClick={() => {
                     dispatch(
                         addFilters({
-                            name: ''
+                            page: 'main',
+                            value: {
+                                name: ''
+                            }
                         })
                     )
                 }}

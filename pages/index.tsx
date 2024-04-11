@@ -4,7 +4,6 @@ import Head from 'next/head'
 
 import IndexPageComponent from '@/src/components/pages/IndexPageComponent'
 import { useAppDispatch } from '@/src/hooks/redux-hooks/redux-hooks'
-import { resetFilters } from '@/src/store/slices/filter'
 import { getBrandsThunk } from '@/src/store/slices/getBrands/getBrands/getBrands'
 import { getCategoriesThunk } from '@/src/store/slices/getCategory/getCategory/getCategory'
 import { getColorsThunk } from '@/src/store/slices/getColors/getColors/getColors'
@@ -20,7 +19,6 @@ const IndexPage = () => {
             dispatch(getFavoritesThunk({})),
             dispatch(getColorsThunk()),
             dispatch(getSizesThunk()),
-            dispatch(resetFilters()),
             dispatch(getBrandsThunk())
         ])
     }, [])

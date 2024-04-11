@@ -30,7 +30,7 @@ export const SearhBlock = () => {
 
     const { isOpen, toggleOpen } = useFilter()
 
-    const filters = useAppSelector((state) => state.filter)
+    const filters = useAppSelector((state) => state.filter.main)
     const filtersRef = useRef<FilterType>(filters)
 
     const [value, setValue] = useState(filters.name)
@@ -38,7 +38,7 @@ export const SearhBlock = () => {
     const timeout = useRef<NodeJS.Timeout | null>(null)
 
     function changeFilters(newFilters: Partial<FilterType>) {
-        dispatch(addFilters(newFilters))
+        dispatch(addFilters({ page: 'main', value: newFilters }))
     }
 
     function handleInput(event: React.ChangeEvent) {

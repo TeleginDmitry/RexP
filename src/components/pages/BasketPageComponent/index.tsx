@@ -12,7 +12,7 @@ import SpecificBlock from '../../ui/SpecificBlock/SpecificBlock'
 import s from './BasketPageComponent.module.scss'
 
 const BasketPageComponent = () => {
-    const filters = useAppSelector((state) => state.filter)
+    const filters = useAppSelector((state) => state.filter.basket)
     const { data, isLoading } = useAppSelector((state) => state.carts)
 
     const countActiveFilters = [

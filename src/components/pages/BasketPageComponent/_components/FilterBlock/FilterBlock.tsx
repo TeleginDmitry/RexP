@@ -23,13 +23,13 @@ export const FilterBlock = () => {
 
     const { isOpen, toggleOpen } = useFilter()
 
-    const filters = useAppSelector((state) => state.filter)
+    const filters = useAppSelector((state) => state.filter.basket)
     const delivery = useAppSelector((state) => state.delivery.data)
 
     const mainDelivery = delivery.find(({ isMain }) => isMain)
 
     function changeFilters(newFilters: Partial<FilterType>) {
-        dispatch(addFilters(newFilters))
+        dispatch(addFilters({ page: 'basket', value: newFilters }))
     }
 
     function applyFilters(filtersData: Partial<FilterType> | undefined) {

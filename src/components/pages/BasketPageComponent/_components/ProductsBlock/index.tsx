@@ -23,6 +23,7 @@ const ProductsBlock = () => {
     const router = useRouter()
 
     const carts = useAppSelector((state) => state.carts.data)
+    const delivery = useAppSelector((state) => state.delivery.data)
 
     const [selected, setSelected] = useState<string[]>([])
     const [isDelete, setIsDelete] = useState(false)
@@ -50,6 +51,11 @@ const ProductsBlock = () => {
     }
 
     async function handleClickButton() {
+        if (delivery.length <= 0) {
+            router.push('/profile/deliveryData')
+            return
+        }
+
         localStorage.setItem(
             'selectedCartsInfo',
             JSON.stringify({

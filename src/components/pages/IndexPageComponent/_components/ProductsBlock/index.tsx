@@ -19,7 +19,7 @@ const ProductsBlock = () => {
 
     const observerRef = useRef<HTMLDivElement | null>(null)
     const products = useAppSelector((state) => state.products)
-    const filters = useAppSelector((state) => state.filter)
+    const filters = useAppSelector((state) => state.filter.main)
     const { limit, page, nextPage } = useAppSelector(
         (state) => state.pagination
     )
