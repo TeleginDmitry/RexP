@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 import clsx from 'clsx'
-import { useRouter } from 'next/router'
 
 import Basket from '@/public/images/icons/basket.svg'
 import Favourites from '@/public/images/icons/favourites.svg'
@@ -16,39 +15,40 @@ import type { MenuItemType } from './types'
 import s from './Footer.module.scss'
 
 const MENU_ITEMS: MenuItemType[] = [
-    { text: 'Главная', href: '/', icon: <Home /> },
-    { text: 'Корзина', href: '/basket', icon: <Basket /> },
-    { text: 'Избранное', href: '/favourites', icon: <Favourites /> },
-    { text: 'Профиль', href: '/profile', icon: <Profile /> }
+    { id: 1, text: 'Главная', icon: <Home />, href: '/' },
+    { id: 2, text: 'Корзина', icon: <Basket />, href: '/basket' },
+    { id: 3, text: 'Избранное', icon: <Favourites />, href: '/favourites' },
+    { id: 4, text: 'Профиль', icon: <Profile />, href: '/profile' }
 ]
 
 const Footer = () => {
     const totalItems = useAppSelector((state) => state.carts.totalItems)
     const orders = useAppSelector((state) => state.orders.data)
-    const router = useRouter()
 
-    const [pathname, setPathname] = useState(router.asPath)
-
-    useEffect(() => {
-        setPathname(router.asPath)
-    }, [router])
+    const [activePageId, setActivePageId] = useState(1)
 
     const isExistOrders = orders.some(({ orderStatus }) => orderStatus.id === 1)
+
+    function toggleActivePage(id: number) {
+        setActivePageId(id)
+    }
 
     return (
         <footer className={s.footer}>
             <ul className={s.menu}>
-                {MENU_ITEMS.map(({ text, href, icon }) => (
+                {MENU_ITEMS.map(({ id, text, icon, href }) => (
                     <li
-                        key={text}
+                        key={id}
                         className={clsx(
                             s.item,
-                            (href === '/'
-                                ? pathname === href
-                                : pathname.includes(href)) && s.active
+                            activePageId === id && s.active
                         )}
                     >
-                        <DefaultLink href={href} className={s.link}>
+                        <DefaultLink
+                            onClick={() => toggleActivePage(id)}
+                            href={href}
+                            className={s.link}
+                        >
                             {text === 'Корзина' && !!totalItems && (
                                 <span className={s.count}>{totalItems}</span>
                             )}

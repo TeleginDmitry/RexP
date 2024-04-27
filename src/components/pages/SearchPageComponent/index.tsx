@@ -76,14 +76,10 @@ const SearchPageComponent = () => {
     }
 
     const handleClick = () => {
-        if (value.length === 0) {
-            setIsError(true)
-            return
-        }
+        setIsStatus(null)
+        setValue('')
 
         setIsError(false)
-
-        onSubmit()
     }
 
     return (
@@ -274,7 +270,7 @@ const SearchPageComponent = () => {
                     {isStatus !== 'error' && (
                         <div className='w-full px-3 pt-3 bg-white fixed bottom-[73px] left-0 right-0'>
                             <Button
-                                onClick={handleClick}
+                                onClick={() => onSubmit()}
                                 className='w-full py-3 bg-black rounded-xl text-white text-base'
                             >
                                 Найти товар

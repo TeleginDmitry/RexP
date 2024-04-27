@@ -106,17 +106,15 @@ const GocheckoutPage = () => {
     const { selectedCarts, totalPrice, totalPriceWithDiscount } =
         selectedCartsInfo
 
-    const priceWithPromo = promo
+    const priceWithPromo = !promo
+        ? 0
+        : typeof promo.value === 'string'
         ? Math.floor(
               (totalPrice * parseFloat(promo.value.replace('%', ''))) / 100
           )
-        : 0
+        : promo.value
 
     const findMainDelivery = deliveryCarts.find(({ isMain }) => isMain)
-
-    if (!findMainDelivery) {
-        return <h1>Нужно добавить данные доставки</h1>
-    }
 
     async function onBuy() {
         try {

@@ -1,7 +1,8 @@
 import type { ReactElement } from 'react'
 
 export type MenuItemType = {
+    id: number
     text: string
-    href: string
     icon: ReactElement
+    href: string
 }
