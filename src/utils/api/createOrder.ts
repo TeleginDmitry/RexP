@@ -5,6 +5,7 @@ import $api from '@/src/api/api'
 export type CreateOrderType = {
     deliveryId: number
     products: number[]
+    promocode?: string
 }
 
 export interface CreateOrderResponse {

@@ -121,7 +121,8 @@ const GocheckoutPage = () => {
             const products = selectedCarts.map((value) => +value)
             const { data } = await createOrder({
                 products,
-                deliveryId: findMainDelivery!.deliveryType!.id!
+                deliveryId: findMainDelivery!.deliveryType!.id!,
+                promocode: promoStatus === 'success' ? promoValue : undefined
             })
 
             if (data.confirmationURL) {
