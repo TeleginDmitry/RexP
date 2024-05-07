@@ -1,12 +1,12 @@
 import { useState } from 'react'
 
 import clsx from 'clsx'
+import { useRouter } from 'next/router'
 
 import Basket from '@/public/images/icons/basket.svg'
 import Favourites from '@/public/images/icons/favourites.svg'
 import Home from '@/public/images/icons/home.svg'
 import Profile from '@/public/images/icons/profile.svg'
-import DefaultLink from '@/src/components/ui/links/DefaultLink'
 import RootText from '@/src/components/ui/RootText'
 import { useAppSelector } from '@/src/hooks/redux-hooks/redux-hooks'
 
@@ -25,11 +25,19 @@ const Footer = () => {
     const totalItems = useAppSelector((state) => state.carts.totalItems)
     const orders = useAppSelector((state) => state.orders.data)
 
+    const router = useRouter()
+
     const [activePageId, setActivePageId] = useState(1)
 
     const isExistOrders = orders.some(({ orderStatus }) => orderStatus.id === 1)
 
-    function toggleActivePage(id: number) {
+    function toggleActivePage(id: number, href: string) {
+        if (id === activePageId) {
+            window.scrollTo(0, 0)
+            return
+        }
+
+        router.push(href)
         setActivePageId(id)
     }
 
@@ -38,32 +46,28 @@ const Footer = () => {
             <ul className={s.menu}>
                 {MENU_ITEMS.map(({ id, text, icon, href }) => (
                     <li
+                        onClick={() => toggleActivePage(id, href)}
                         key={id}
                         className={clsx(
                             s.item,
+                            s.link,
                             activePageId === id && s.active
                         )}
                     >
-                        <DefaultLink
-                            onClick={() => toggleActivePage(id)}
-                            href={href}
-                            className={s.link}
+                        {text === 'Корзина' && !!totalItems && (
+                            <span className={s.count}>{totalItems}</span>
+                        )}
+                        {text === 'Профиль' && isExistOrders && (
+                            <span className={s.count} />
+                        )}
+                        {icon}
+                        <RootText
+                            variant='11px'
+                            color='grey'
+                            className={s.text}
                         >
-                            {text === 'Корзина' && !!totalItems && (
-                                <span className={s.count}>{totalItems}</span>
-                            )}
-                            {text === 'Профиль' && isExistOrders && (
-                                <span className={s.count} />
-                            )}
-                            {icon}
-                            <RootText
-                                variant='11px'
-                                color='grey'
-                                className={s.text}
-                            >
-                                {text}
-                            </RootText>
-                        </DefaultLink>
+                            {text}
+                        </RootText>
                     </li>
                 ))}
             </ul>

@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 
 import PageLayout from '@/src/components/layout/PageLayout'
 import AppContextProvider from '@/src/context/AppContextProvider'
+import { usePreserveScroll } from '@/src/hooks/usePreserveScroll'
 import AuthProvider from '@/src/providers/Auth.provider'
 import DataProvider from '@/src/providers/Data.provider'
 import { wrapper } from '@/src/store/store'
@@ -21,6 +22,8 @@ const RexPApp = ({ Component, ...rest }: AppProps) => {
     const { store, props } = wrapper.useWrappedStore(rest)
     const { pageProps } = props
     const router = useRouter()
+
+    usePreserveScroll()
 
     useEffect(() => {
         window.Telegram.WebApp.expand()

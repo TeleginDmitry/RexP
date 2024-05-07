@@ -30,6 +30,7 @@
     .item {
         flex: 0 0 65px;
         position: relative;
+        cursor: pointer;
 
         .text {
             text-align: center;
@@ -43,7 +44,7 @@
         &.active {
             .text {
                 color: var(--main-color-black);
-                font-weight: 600;
+                font-weight: 700;
             }
 
             svg {

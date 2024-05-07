@@ -108,11 +108,11 @@ const GocheckoutPage = () => {
 
     const priceWithPromo = !promo
         ? 0
-        : typeof promo.value === 'string'
+        : typeof promo.value.includes('%')
         ? Math.floor(
               (totalPrice * parseFloat(promo.value.replace('%', ''))) / 100
           )
-        : promo.value
+        : parseFloat(promo.value)
 
     const findMainDelivery = deliveryCarts.find(({ isMain }) => isMain)
 
