@@ -108,7 +108,7 @@ const GocheckoutPage = () => {
 
     const priceWithPromo = !promo
         ? 0
-        : typeof promo.value.includes('%')
+        : promo.value.includes('%')
         ? Math.floor(
               (totalPrice * parseFloat(promo.value.replace('%', ''))) / 100
           )
