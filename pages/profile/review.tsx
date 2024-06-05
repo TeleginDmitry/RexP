@@ -191,7 +191,7 @@ const ReviewPage = () => {
                                 className='w-full text-base font-semibold py-2 px-1 text-white text-center bg-black'
                             >
                                 <Link
-                                    href={`https://t.me/poizonrex_reviews_bot?start=order${activeId}`}
+                                    href={`https://t.me/poizonrex_bot?start=order${activeId}`}
                                 >
                                     Да, перейти в бот для отзывов
                                 </Link>
